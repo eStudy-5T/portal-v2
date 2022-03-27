@@ -1,0 +1,9 @@
+.DS_Store
+.vscode
+.idea
+.vscode
+dist
+node_modules
+build
+yarn-error.log
+.vercel
