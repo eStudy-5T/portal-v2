@@ -2,7 +2,10 @@ const styles = {
   globe: {
     display: 'flex',
     flexDirection: 'row',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '0 15px'
   }
 }
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import HeaderSticky from './HeaderSticky'
 import ResponsiveMenu from './ResponsiveMenu'
+import Globe from '../../components/globe/globe'
 
 function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
   const [offcanvasShow, setOffcanvasShow] = useState(false)
@@ -83,6 +84,7 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                     <i className="ri-user-line" />
                   </Link>
                 </div>
+                <Globe />
               </div>
               <div className="mobile-menu-bar ml--15 ml_sm--5 d-block d-xl-none">
                 <div className="hamberger">

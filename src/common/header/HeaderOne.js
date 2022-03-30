@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import HeaderSticky from './HeaderSticky'
 import ResponsiveMenu from './ResponsiveMenu'
+import Globe from '../../components/globe/globe'
 
 function HeaderOne({ styles, disableSticky }) {
   const [offcanvasShow, setOffcanvasShow] = useState(false)
@@ -75,6 +76,7 @@ function HeaderOne({ styles, disableSticky }) {
                       <i className="ri-menu-line" />
                     </button>
                   </div>
+                  <Globe />
                 </div>
               </div>
             </div>
