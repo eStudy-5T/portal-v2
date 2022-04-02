@@ -69,7 +69,7 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                     className={`edu-btn btn-medium left-icon header-button ${
                       buttonStyle || ''
                     }`}
-                    to={`${process.env.PUBLIC_URL}/login-register`}
+                    to={`${process.env.PUBLIC_URL}/login`}
                   >
                     <i className="ri-user-line" />
                     Login / Register
