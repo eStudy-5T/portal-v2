@@ -24,6 +24,9 @@ function RegisterForm() {
           </label>
         </div>
       </form>
+      <div className="input-box mt--30">
+          <a href="/login">Have an account?</a>
+        </div>
     </div>
   )
 }

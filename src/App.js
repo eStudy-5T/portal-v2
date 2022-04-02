@@ -50,7 +50,9 @@ import HomeFive from './pages/home-page/HomeFive'
 import InstructorPageOne from './pages/instructor-page/InstructorPageOne'
 import InstructorPageTwo from './pages/instructor-page/InstructorPageTwo'
 import InstructorPageThree from './pages/instructor-page/InstructorPageThree'
-import LoginRegister from './pages/login-page/LoginRegister'
+import Login from './pages/login-page/Login'
+import Register from './pages/register-page/Register'
+import ForgotPassword from './pages/forgot-password-page/ForgotPassword'
 import Pricing from './pages/pricing-page/Pricing'
 import PrivacyPolicy from './pages/privacy-policy/PrivacyPolicy'
 import PurchaseGuide from './pages/purchase-guide/PurchaseGuide'
@@ -304,8 +306,18 @@ function App() {
           />
           <Route
             exact
-            path={`${`${process.env.PUBLIC_URL}/login-register`}`}
-            element={<LoginRegister />}
+            path={`${`${process.env.PUBLIC_URL}/login`}`}
+            element={<Login />}
+          />
+          <Route
+            exact
+            path={`${`${process.env.PUBLIC_URL}/register`}`}
+            element={<Register />}
+          />
+          <Route
+            exact
+            path={`${`${process.env.PUBLIC_URL}/forgot-password`}`}
+            element={<ForgotPassword />}
           />
 
           <Route
