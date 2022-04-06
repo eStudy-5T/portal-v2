@@ -7,19 +7,22 @@ import AboutFour from '../../components/about/AboutFour'
 import HomeTwoCourses from '../../components/home-two/HomeTwoCourses'
 import HomeTwoEvents from '../../components/home-two/HomeTwoEvents'
 import HomeTwoTestimonial from '../../components/home-two/HomeTwoTestimonial'
+import HomeFiveCategories from '../../components/home-two/HomeFiveCategories'
 import AboutOne from '../../components/about/AboutOne'
 import CallToActionOne from '../../components/cta/CallToActionOne'
 import HomeTwoBlog from '../../components/home-two/HomeTwoBlog'
-import FooterOne from '../../common/footer/FooterOne'
+import Footer from '../../common/footer/Footer'
 
-function HomeTwo() {
+function HomePage() {
   return (
     <>
-      <SEO title="Home 2" />
+      <SEO title="Home" />
 
       <HeaderTwo styles="header-transparent header-style-2" />
 
       <BannerTwo />
+
+      <HomeFiveCategories />
 
       <HomeTwoService />
 
@@ -37,9 +40,9 @@ function HomeTwo() {
 
       <HomeTwoBlog />
 
-      <FooterOne />
+      <Footer />
     </>
   )
 }
 
-export default HomeTwo
+export default HomePage

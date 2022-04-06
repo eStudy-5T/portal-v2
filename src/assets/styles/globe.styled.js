@@ -5,7 +5,7 @@ const styles = {
     cursor: 'pointer',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '0 15px'
+    paddingLeft: '15px'
   }
 }
 

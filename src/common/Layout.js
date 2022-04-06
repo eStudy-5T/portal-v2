@@ -1,13 +1,13 @@
 import React from 'react'
 import HeaderOne from './header/HeaderOne'
-import FooterOne from './footer/FooterOne'
+import Footer from './footer/Footer'
 
 function Layout({ children }) {
   return (
     <main className="main-wrapper">
       <HeaderOne />
       {children}
-      <FooterOne />
+      <Footer />
     </main>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import ScrollTopButton from './ScrollTopButton'
 
-function FooterOne() {
+function Footer() {
   return (
     <>
       <footer className="letmeet-footer-one edu-footer footer-style-default">
@@ -20,12 +20,7 @@ function FooterOne() {
                       />
                     </Link>
                   </div>
-                  <p className="description">
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout. The point of using Lorem Ipsum.
-                  </p>
-                  <ul className="social-share">
+                  <ul className="social-share mt--30">
                     <li>
                       <a href="#">
                         <i className="icon-Fb" />
@@ -56,40 +51,13 @@ function FooterOne() {
                   <div className="inner">
                     <ul className="footer-link link-hover">
                       <li>
-                        <Link to="/about-us-1">
-                          <i className="icon-Double-arrow" />
-                          About Us
-                        </Link>
+                        <Link to="/about-us-1">About Us</Link>
                       </li>
                       <li>
-                        <Link to="/event-grid">
-                          <i className="icon-Double-arrow" />
-                          Upcoming Events
-                        </Link>
+                        <Link to="/faq">FAQ Question</Link>
                       </li>
                       <li>
-                        <Link to="/blog-standard">
-                          <i className="icon-Double-arrow" />
-                          Blog & News
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/faq">
-                          <i className="icon-Double-arrow" />
-                          FAQ Question
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/testimonial">
-                          <i className="icon-Double-arrow" />
-                          Testimonial
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/privacy-policy">
-                          <i className="icon-Double-arrow" />
-                          Privacy Policy
-                        </Link>
+                        <Link to="/privacy-policy">Privacy Policy</Link>
                       </li>
                     </ul>
                   </div>
@@ -102,40 +70,13 @@ function FooterOne() {
                   <div className="inner">
                     <ul className="footer-link link-hover">
                       <li>
-                        <Link to="/contact-us">
-                          <i className="icon-Double-arrow" />
-                          Contact Us
-                        </Link>
+                        <Link to="/contact-us">Contact Us</Link>
                       </li>
                       <li>
-                        <Link to="/pricing">
-                          <i className="icon-Double-arrow" />
-                          Pricing Plan
-                        </Link>
+                        <Link to="/pricing">Pricing Plan</Link>
                       </li>
                       <li>
-                        <Link to="/instructor-details/james-carlson">
-                          <i className="icon-Double-arrow" />
-                          Instructor Profile
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/purchase-guide">
-                          <i className="icon-Double-arrow" />
-                          Purchase Guide
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/course-1">
-                          <i className="icon-Double-arrow" />
-                          Popular Courses
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/event-details/1">
-                          <i className="icon-Double-arrow" />
-                          Event Details
-                        </Link>
+                        <Link to="/purchase-guide">Purchase Guide</Link>
                       </li>
                     </ul>
                   </div>
@@ -191,4 +132,4 @@ function FooterOne() {
   )
 }
 
-export default FooterOne
+export default Footer

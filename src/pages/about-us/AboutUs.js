@@ -15,13 +15,6 @@ function AboutUsTwo() {
     <>
       <SEO title="About Us 2" />
       <Layout>
-        <BreadcrumbOne
-          title="About Us-2"
-          rootUrl="/"
-          parentUrl="Home"
-          currentUrl="About Us"
-        />
-
         <AboutNine />
 
         <AboutUsTwoService />

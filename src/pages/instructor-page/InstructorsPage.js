@@ -3,8 +3,8 @@ import Slider from 'react-slick'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
 import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
+import InstructorOne from '../../components/instructor/InstructorOne'
 import SectionTitle from '../../components/section-title/SectionTitle'
-import InstructorTwo from '../../components/instructor/InstructorTwo'
 import InstructorData from '../../data/instructor/InstructorData.json'
 
 function PrevArrow(props) {
@@ -25,21 +25,27 @@ function NextArrow(props) {
   )
 }
 
-function InstructorPageTwo({ wrapperClass }) {
-  const TeamMembers = InstructorData.slice(0, 9)
+function InstructorsPage({ wrapperClass }) {
+  const TeamMembers = InstructorData.slice(0, 8)
   const sliderSettings = {
     dots: true,
     infinite: true,
     arrows: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 2,
     centerMode: false,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     responsive: [
       {
-        breakpoint: 992,
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 768,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -56,15 +62,16 @@ function InstructorPageTwo({ wrapperClass }) {
       }
     ]
   }
+
   return (
     <>
-      <SEO title="Instructor 2" />
+      <SEO title="Instructor 1" />
       <Layout>
         <BreadcrumbOne
-          title="Instructor 2"
+          title="Instructor 1"
           rootUrl="/"
           parentUrl="Home"
-          currentUrl="Instructor-2"
+          currentUrl="Instructor-1"
         />
         <div className="edu-elements-area edu-section-gap bg-color-white">
           <div className="container">
@@ -77,13 +84,9 @@ function InstructorPageTwo({ wrapperClass }) {
                 />
               </div>
             </div>
-            <div className="row g-5 mt--5">
+            <div className="row row--20">
               {TeamMembers.map((item) => (
-                <InstructorTwo
-                  classes="col-lg-4 col-md-6 col-sm-6 col-12 mt--45"
-                  key={item.id}
-                  data={item}
-                />
+                <InstructorOne key={item.id} data={item} />
               ))}
             </div>
           </div>
@@ -109,12 +112,12 @@ function InstructorPageTwo({ wrapperClass }) {
                 <Slider
                   className={
                     wrapperClass ||
-                    'team-activation-02 edu-slick-arrow-top edu-slick-button slick-gutter-15 mt--60 mb_dec--20 pb--40'
+                    'team-activation-01 edu-slick-arrow-top edu-slick-button slick-gutter-15 mt--60 mb_dec--20 pb--40'
                   }
                   {...sliderSettings}
                 >
                   {InstructorData.slice(0, 6).map((item) => (
-                    <InstructorTwo
+                    <InstructorOne
                       key={item.id}
                       data={item}
                       classes="instructor-one-each-slide"
@@ -130,4 +133,4 @@ function InstructorPageTwo({ wrapperClass }) {
   )
 }
 
-export default InstructorPageTwo
+export default InstructorsPage

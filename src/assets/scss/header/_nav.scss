@@ -1,5 +1,5 @@
 /*--------------------------
-    Navigation Styles 
+    Navigation Styles
 ----------------------------*/
 .mainmenu-nav {
   .mainmenu {
@@ -37,19 +37,6 @@
       &.has-droupdown {
         & > a {
           position: relative;
-          &::after {
-            position: absolute;
-            content: "\e969";
-            font-family: "icomoon";
-            right: 6px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-weight: 600;
-
-            @media #{$lg-layout} {
-              right: 0px;
-            }
-          }
         }
         .submenu {
           min-width: 210px;

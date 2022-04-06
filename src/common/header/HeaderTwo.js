@@ -72,7 +72,7 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                     to={`${process.env.PUBLIC_URL}/login`}
                   >
                     <i className="ri-user-line" />
-                    Login / Register
+                    Login
                   </Link>
                 </div>
                 <div className="quote-icon quote-user d-block d-md-none ml--15 ml_sm--5">
