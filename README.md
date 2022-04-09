@@ -5,7 +5,7 @@ A Web REST API service serves app functionalities
 # 1. Setup development
 
 - Install `nvm` to use and switch specific node version
-- Use `node` LTS (v16.13.0) for local development by command `nvm install --lts`
+- Use `node` LTS (v16.13.0) for local development by command `nvm install 16.13.0`
 - Install `yarn` v1.22.4 or newer
 
 # 2. Launch in local
