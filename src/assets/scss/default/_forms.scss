@@ -329,7 +329,7 @@ input[type='submit'] {
   .login-form-box {
     position: relative;
     border: 1px solid #eeeeee;
-    padding: 70px 40px 40px 40px;
+    padding: 40px;
     border-radius: 10px;
 
     .fs-35 {
@@ -339,14 +339,15 @@ input[type='submit'] {
     .text-center {
       text-align: center;
     }
+  }
 
-    .logo {
-      top: 30px;
-      position: absolute;
+  .logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
 
-      img {
-        width: 160px;
-      }
+    img {
+      width: 250px;
     }
   }
 }

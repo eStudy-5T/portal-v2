@@ -31,6 +31,7 @@ function ResponsiveMenu({ show, onClose, showSearch, onSearch }) {
 
   return (
     <>
+      <div className={show ? 'backdrop' : ''} onClick={onClose}></div>
       <div className={`popup-mobile-menu ${show ? 'active' : ''}`}>
         <div className="inner">
           <div className="header-top">

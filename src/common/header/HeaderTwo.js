@@ -96,6 +96,15 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                       {translation('auth.login')}
                     </Link>
                   )}
+                  <Link
+                    className={`edu-btn btn-medium left-icon header-button ${
+                      buttonStyle || ''
+                    }`}
+                    to={`${process.env.PUBLIC_URL}/login`}
+                  >
+                    <i className="ri-user-line" />
+                    Login / Register
+                  </Link>
                 </div>
                 <div className="quote-icon quote-user d-block d-md-none ml--15 ml_sm--5">
                   {isAuthenticated ? (
