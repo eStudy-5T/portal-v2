@@ -60,15 +60,6 @@ function RegisterForm() {
 
   return (
     <div className="login-form-box bg-color-white">
-      <div className="logo">
-        <Link to={`${process.env.PUBLIC_URL}/`}>
-          <img
-            className="logo-light"
-            src="/images/logo/logo.png"
-            alt="Main Logo"
-          />
-        </Link>
-      </div>
       <h3 className="mb-30 text-center fs-35">
         {translation('auth.register')}
       </h3>

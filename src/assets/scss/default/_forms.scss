@@ -317,19 +317,12 @@ input[type='submit'] {
 
 .login-register-page-wrapper {
   position: relative;
-  height: 100vh;
-
-  .center-form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+  min-height: 100vh;
 
   .login-form-box {
     position: relative;
     border: 1px solid #eeeeee;
-    padding: 70px 40px 40px 40px;
+    padding: 40px;
     border-radius: 10px;
 
     .fs-35 {
@@ -339,14 +332,15 @@ input[type='submit'] {
     .text-center {
       text-align: center;
     }
+  }
 
-    .logo {
-      top: 30px;
-      position: absolute;
+  .logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
 
-      img {
-        width: 160px;
-      }
+    img {
+      width: 250px;
     }
   }
 }

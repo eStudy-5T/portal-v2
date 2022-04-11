@@ -1,3 +1,4 @@
+/* eslint-disable no-sequences */
 import React from 'react'
 import Slider from 'react-slick'
 import CourseData from '../../data/course/CourseData.json'

@@ -103,8 +103,6 @@ function CourseDetails() {
     }
   }
 
-  const [toggler, setToggler] = useState(false)
-
   return (
     <>
       <SEO title={courseItem.title} />
