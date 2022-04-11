@@ -1,8 +1,57 @@
-import React from 'react'
-import { Box } from '@mui/material'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+
+// Mui Components
+import { Box } from '@mui/system'
+
+// i18n
+import { useTranslation } from 'react-i18next'
+
+// Reducers
+import { userActions } from '../../redux/store/user-info'
+
+// Services
+import authService from '../../services/auth-service'
+
+// Validators
+import { validateEmail } from '../../utils/validators/field-validators'
+import { getValidationHelperText } from '../../utils/helpers/validation-helper'
 
 function LoginForm() {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const { t: translation } = useTranslation()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    mode: 'onBlur',
+    defaultValues: {
+      email: '',
+      password: ''
+    }
+  })
+
+  const onSubmit = (data) => {
+    setIsLoading(true)
+    authService
+      .login(data)
+      .then(({ data: userInfo }) => {
+        localStorage.setItem('currentUser', userInfo.userId)
+        dispatch(userActions.setUserInfo(userInfo))
+        navigate('/')
+      })
+      .catch(() => {
+        setIsLoading(false)
+      })
+  }
+
   return (
     <div className="login-form-box bg-color-white">
       <div className="logo">
@@ -14,20 +63,42 @@ function LoginForm() {
           />
         </Link>
       </div>
-      <h3 className="mb-30 text-center fs-35">Login</h3>
-      <form className="login-form" action="#">
+      <h3 className="mb-30 text-center fs-35">{translation('auth.login')}</h3>
+      <form className="login-form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="input-box mb--30">
-          <input type="text" placeholder="Email" />
+          <input
+            className={errors.email && 'input-error'}
+            type="email"
+            placeholder="Email"
+            {...register('email', {
+              required: 'error.emptyField',
+              validate: { validateEmail }
+            })}
+            disabled={isLoading}
+          />
+          <small>{translation(getValidationHelperText(errors.email))}</small>
         </div>
         <div className="input-box mb--30">
-          <input type="password" placeholder="Password" />
+          <input
+            className={errors.password && 'input-error'}
+            type="password"
+            placeholder={translation('auth.password')}
+            {...register('password', {
+              required: 'error.emptyField'
+            })}
+            disabled={isLoading}
+          />
         </div>
         <div className="comment-form-consent input-box mb--30">
           <input id="checkbox-1" type="checkbox" />
           <label htmlFor="checkbox-1">Remember Me</label>
         </div>
-        <button className="rn-btn edu-btn w-100 mb--30" type="submit">
-          <span>Login</span>
+        <button
+          className="rn-btn edu-btn w-100 mb--30"
+          type="submit"
+          disabled={isLoading}
+        >
+          <span>{translation('auth.login')}</span>
         </button>
         <Box
           sx={{
@@ -37,10 +108,12 @@ function LoginForm() {
           }}
         >
           <div className="input-box mb--20">
-            <Link to="/forgot-password">Can not login?</Link>
+            <Link to="/forgot-password">
+              {translation('auth.forgotPassword')}
+            </Link>
           </div>
           <div className="input-box">
-            <Link to="/register">Don't have account?</Link>
+            <Link to="/register">{translation('auth.noAccountYet')}</Link>
           </div>
         </Box>
       </form>

@@ -3,35 +3,34 @@ import { compareAsc } from 'date-fns'
 export const validateEmail = (email) => {
   const regex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  return regex.test(String(email).toLowerCase())
+  return regex.test(String(email).toLowerCase()) ? true : 'error.invalidEmail'
 }
 
 export const validatePassword = (password) => {
-  let error
   if (password.length < 6) {
-    return (error = 'error.minPassword')
+    return 'error.minPassword'
   }
   if (password.length > 16) {
-    return (error = 'error.maxPassWord')
+    return 'error.maxPassWord'
   }
   if (!password.match(/[a-z]+/)) {
-    return (error = 'error.lowercaseMiss')
+    return 'error.lowercaseMiss'
   }
   if (!password.match(/[A-Z]+/)) {
-    return (error = 'error.uppercaseMiss')
+    return 'error.uppercaseMiss'
   }
   if (!password.match(/[0-9]+/)) {
-    return (error = 'error.numberMiss')
+    return 'error.numberMiss'
   }
   if (!password.match(/[$@#&!]+/)) {
-    return (error = 'error.specialKeyMiss')
+    return 'error.specialKeyMiss'
   }
-  return error
+  return true
 }
 
-export const validateName = (name) => {
-  const regex = /^[a-zA-Z]+$/
-  return regex.test(name)
+export const validateName = (name, type) => {
+  const regex = /^[a-zA-Z ]+$/
+  return regex.test(name) ? true : `error.invalid${type}Name`
 }
 
 export const validateDateInFuture = (date) => {
@@ -42,14 +41,14 @@ export const validateDateInFuture = (date) => {
     case 0:
     case -1:
     default:
-      return false
+      return 'error.dateInFuture'
   }
 }
 
 export const validateEndAfterStartDate = (startDate, endDate) => {
   switch (compareAsc(startDate, endDate)) {
     case 1:
-      return false
+      return 'error.dateAfterStart'
 
     case 0:
     case -1:

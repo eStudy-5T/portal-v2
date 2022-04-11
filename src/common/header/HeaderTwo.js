@@ -5,9 +5,19 @@ import HeaderSticky from './HeaderSticky'
 import ResponsiveMenu from './ResponsiveMenu'
 import Globe from '../../components/globe/globe'
 
+// i18n
+import { useTranslation } from 'react-i18next'
+
+import useAuthenticate from '../../hooks/use-authenticate'
+import { logOutUser } from '../../utils/helpers/user-helper'
+
 function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
   const [offcanvasShow, setOffcanvasShow] = useState(false)
   const [searchPopup, setSearchPopup] = useState(false)
+  const isAuthenticated = useAuthenticate()
+
+  const { t: translation } = useTranslation()
+
   const onCanvasHandler = () => {
     setOffcanvasShow((prevState) => !prevState)
   }
@@ -65,24 +75,45 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                   </div>
                 )}
                 <div className="quote-icon quote-user d-none d-md-block ml--15 ml_sm--5">
-                  <Link
-                    className={`edu-btn btn-medium left-icon header-button ${
-                      buttonStyle || ''
-                    }`}
-                    to={`${process.env.PUBLIC_URL}/login`}
-                  >
-                    <i className="ri-user-line" />
-                    Login
-                  </Link>
+                  {isAuthenticated ? (
+                    <button
+                      className={`edu-btn btn-secondary btn-medium left-icon header-button ${
+                        buttonStyle || ''
+                      }`}
+                      onClick={() => logOutUser()}
+                    >
+                      <i className="ri-logout-box-r-line" />
+                      {translation('auth.logOut')}
+                    </button>
+                  ) : (
+                    <Link
+                      className={`edu-btn btn-medium left-icon header-button ${
+                        buttonStyle || ''
+                      }`}
+                      to={`${process.env.PUBLIC_URL}/login`}
+                    >
+                      <i className="ri-user-line" />
+                      {translation('auth.login')}
+                    </Link>
+                  )}
                 </div>
                 <div className="quote-icon quote-user d-block d-md-none ml--15 ml_sm--5">
-                  <Link
-                    to={`${process.env.PUBLIC_URL}/login-register`}
-                    className="white-box-icon"
-                    href="#"
-                  >
-                    <i className="ri-user-line" />
-                  </Link>
+                  {isAuthenticated ? (
+                    <button
+                      className="white-box-icon"
+                      onClick={() => logOutUser()}
+                    >
+                      <i className="ri-logout-box-r-line" />
+                    </button>
+                  ) : (
+                    <Link
+                      to={`${process.env.PUBLIC_URL}/login`}
+                      className="white-box-icon"
+                      href="#"
+                    >
+                      <i className="ri-user-line" />
+                    </Link>
+                  )}
                 </div>
                 <Globe />
               </div>

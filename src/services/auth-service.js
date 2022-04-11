@@ -2,11 +2,19 @@ import request from '../utils/configs/http-config'
 
 const authService = {
   register: (data) => {
-    return request.post('/auth/signup', data)
+    return request
+      .get('/auth/get-csrf')
+      .then(() => request.post('/auth/signup', data))
   },
 
   login: (data) => {
-    return request.post('/auth/login', data)
+    return request
+      .get('/auth/get-csrf')
+      .then(() => request.post('/auth/login', data))
+  },
+
+  logout: () => {
+    return request.get('/auth/logout')
   }
 }
 

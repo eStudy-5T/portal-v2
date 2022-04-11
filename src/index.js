@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { ParallaxProvider } from 'react-scroll-parallax'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import './locales/i18n'
 
 ReactDOM.render(
   <React.StrictMode>
