@@ -317,14 +317,7 @@ input[type='submit'] {
 
 .login-register-page-wrapper {
   position: relative;
-  height: 100vh;
-
-  .center-form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+  min-height: 100vh;
 
   .login-form-box {
     position: relative;

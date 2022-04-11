@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import ScrollAnimation from 'react-animate-on-scroll'
 import { FaSpinner } from 'react-icons/fa'
 import SectionTitle from '../section-title/SectionTitle'
@@ -6,20 +6,24 @@ import CourseTypeOne from './CourseTypeOne'
 import CourseData from '../../data/course/CourseData.json'
 
 function CourseTypeFilter({ itemToShow, showLoadMore, incrementPerClick }) {
-  const FilterControls = [
-    ...new Set(CourseData.map((item) => item.filterParam))
-  ]
+  const FilterControls = useMemo(
+    () => [...new Set(CourseData.map((item) => item.filterParam))],
+    []
+  )
+
   FilterControls.unshift('All')
+
   const numberOfCourses = itemToShow || 6
   const dataIncrement = incrementPerClick || 3
   const [noMorePost, setNoMorePost] = useState(false)
   const [dataVisibleCount, setDataVisibleCount] = useState(numberOfCourses)
   const [activeFilter, setActiveFilter] = useState('')
   const [visibleItems, setVisibleItems] = useState([])
+
   useEffect(() => {
     setActiveFilter(FilterControls[0].toLowerCase())
     setVisibleItems(CourseData.filter((item) => item.id <= dataVisibleCount))
-  }, [])
+  }, [dataVisibleCount, FilterControls])
 
   const handleChange = (e) => {
     e.preventDefault()
