@@ -1,5 +1,5 @@
 /*--------------------------
-    Checkout Page Style  
+    Checkout Page Style
 ----------------------------*/
 
 .checkout-page-style {
@@ -49,6 +49,9 @@
     &:focus {
       border-color: var(--color-primary);
     }
+  }
+  small {
+    color: var(--color-danger);
   }
   .box-label {
     margin-bottom: 8px;

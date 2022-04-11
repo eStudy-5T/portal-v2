@@ -20,6 +20,9 @@ const userInfoSlice = createSlice({
   name: 'userInfo',
   initialState,
   reducers: {
+    setAuthentication(state, action) {
+      state.isAuthenticated = action.payload
+    },
     setUserInfo(state, action) {
       state.isAuthenticated = true
       state.email = action.payload.email
@@ -40,6 +43,7 @@ const userInfoSlice = createSlice({
     },
     logOutUser(state) {
       state.isAuthenticated = false
+      state = initialState
     }
   }
 })
