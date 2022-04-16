@@ -64,7 +64,7 @@ function HeaderOne({ styles, disableSticky }) {
                     </button>
                   </div>
                   <div className="quote-icon quote-user">
-                    <Link to={`${process.env.PUBLIC_URL}/login-register`}>
+                    <Link to={`${process.env.PUBLIC_URL}/register`}>
                       <i className="ri-user-line" />
                     </Link>
                   </div>
