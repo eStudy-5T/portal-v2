@@ -17,7 +17,7 @@ function CourseTypeOne({ data, classes }) {
           <Link to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}>
             <img
               className="w-100"
-              src={`${process.env.PUBLIC_URL}/images/course/course-01/${data.image}`}
+              src={`${data.image}`}
               alt="Course Thumb"
             />
           </Link>

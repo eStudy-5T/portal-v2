@@ -120,7 +120,7 @@ function CourseDetails() {
                 <div className="main-image thumbnail">
                   <img
                     className="radius-small"
-                    src={`${process.env.PUBLIC_URL}/images/course/course-details/${courseItem.image}`}
+                    src={`${courseItem.imageDetails}`}
                     alt="Course Thumb"
                   />
                 </div>
