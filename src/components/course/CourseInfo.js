@@ -12,7 +12,7 @@ function CourseInfo({ data }) {
             <div className="thumbnail video-popup-wrapper">
               <img
                 className="radius-small w-100"
-                src={`${process.env.PUBLIC_URL}/images/course/video-bg/${data.image}`}
+                src={`${data.image}`}
                 alt="Course Video Thumb"
               />
               <button

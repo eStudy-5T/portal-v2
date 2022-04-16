@@ -38,7 +38,7 @@ function BannerTwo() {
             <div className="banner-thumbnail">
               <img
                 className="girl-thumb"
-                src="/images/banner/banner-02/banner-01.png"
+                src="/images/banner/tablet-mobile-view.png"
                 alt="Girl Images"
               />
             </div>
