@@ -7,7 +7,7 @@
     "invalidEmail": "Email không hợp lệ",
     "invalidFirstName": "Tên không hợp lệ",
     "invalidLastName": "Họ không hợp lệ",
-    "invalidConfirmPassword": "Nhập lại mật khẩu không chính xác",
+    "invalidConfirmPassword": "Mật khẩu không trùng khớp với mật khẩu đã nhập",
     "invalidPolicy": "Xin vui lòng tham khảo chính sách của chúng tôi",
     "minPassword": "Mật khẩu cần tối thiểu 6 ký tự",
     "maxPassWord": "Mật khẩu chỉ tối đa 16 ký tự",
@@ -52,6 +52,14 @@
     "loginWith": "Đăng nhập với",
     "registerWith": "Đăng ký với",
     "noAccountYet": "Chưa có tài khoản?",
-    "alreadyMember": "Bạn đã có tài khoản?"
+    "alreadyMember": "Bạn đã có tài khoản?",
+    "verifyAccountAlert": "Xin vui lòng xác thực email của bạn để trải nghiệm đầy đủ ứng dụng",
+    "resendVerifyEmail": "Gửi lại email xác thực",
+    "resendVerifyEmailSuccess": "Gửi email thành công",
+    "resendVerifyEmailFail": "Gửi email thất bại",
+    "verifyAccount": "Xác thực tài khoản",
+    "verifyAccountSuccess": "Xác thực hoàn tất. Vui lòng quay lại trang chủ để sử dụng ứng dụng.",
+    "verifyAccountFail": "Xác thực thất bại. Link xác thực không hợp lệ hoặc đã hết hạn. Vui lòng nhấn vào nút bên dưới để nhận link xác thực mới.",
+    "alreadyVerified": "Bạn đã được xác thực. Vui lòng quay lại trang chủ để sử dụng ứng dụng."
   }
 }

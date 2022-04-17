@@ -13,7 +13,7 @@ const Loading = ({ isOverlay = false }) => {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: isOverlay ? alpha('#000', 0.5) : 'transparent',
-        zIndex: 1500
+        zIndex: 999999
       }}
     >
       <CircularProgress size={100} />

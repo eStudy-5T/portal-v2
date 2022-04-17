@@ -1,5 +1,6 @@
 import React from 'react'
 import SEO from '../../common/SEO'
+import VerifyAccountAlert from '../../common/global-alert/VerifyAccountAlert'
 import HeaderTwo from '../../common/header/HeaderTwo'
 import BannerTwo from '../../components/banner/BannerTwo'
 import HomeTwoService from '../../components/home-two/HomeTwoService'
@@ -19,6 +20,8 @@ function HomePage() {
       <SEO title="Home" />
 
       <HeaderTwo styles="header-transparent header-style-2" />
+
+      <VerifyAccountAlert />
 
       <BannerTwo />
 

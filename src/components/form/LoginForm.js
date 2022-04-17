@@ -80,10 +80,10 @@ function LoginForm() {
             disabled={isLoading}
           />
         </div>
-        <div className="comment-form-consent input-box mb--30">
+        {/* <div className="comment-form-consent input-box mb--30">
           <input id="checkbox-1" type="checkbox" />
           <label htmlFor="checkbox-1">Remember Me</label>
-        </div>
+        </div> */}
         <button
           className="rn-btn edu-btn w-100 mb--30"
           type="submit"

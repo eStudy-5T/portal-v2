@@ -6,6 +6,10 @@ import {
   Route,
   Outlet
 } from 'react-router-dom'
+import { toast } from 'react-toastify'
+
+import { useTranslation } from 'react-i18next'
+
 import Error from '../pages/page-not-found/Error'
 import Loading from '../common/loading/Loading'
 
@@ -20,29 +24,40 @@ import restrictedRoutes from './routes/restricted-routes'
 import userService from '../services/user-service'
 import { userActions } from '../redux/store/user-info'
 import useAuthenticate from '../hooks/use-authenticate'
+import useVerify from '../hooks/use-verify'
 
 const AppRouter = () => {
   const [isAppLoading, setIsAppLoading] = useState(false)
   const isAuthenticated = useAuthenticate()
+  const isVerified = useVerify()
   const dispatch = useDispatch()
+  const { t: translation } = useTranslation()
 
   useEffect(() => {
+    if (
+      isAuthenticated &&
+      !isVerified &&
+      !window.location.pathname.includes('verify')
+    ) {
+      toast.info(translation('auth.verifyAccountAlert'))
+    }
     async function fetchUserInfo() {
       const currentUser = localStorage.getItem('currentUser')
       if (currentUser) {
         setIsAppLoading(true)
         try {
-          const {data: userInfo} = await userService.fetchUserInfo(currentUser)
+          const { data: userInfo } = await userService.fetchUserInfo(
+            currentUser
+          )
           dispatch(userActions.setUserInfo(userInfo))
           setIsAppLoading(false)
-        }
-        catch (err) {
+        } catch (err) {
           setIsAppLoading(false)
         }
       }
     }
     fetchUserInfo()
-  }, [dispatch])
+  }, [dispatch, isAuthenticated, isVerified, translation])
 
   return (
     <Router>

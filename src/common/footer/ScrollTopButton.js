@@ -3,20 +3,23 @@ import { FiChevronUp } from 'react-icons/fi'
 
 function ScrollTopButton() {
   const [visible, setVisible] = useState(false)
-  const [isMounted, setIsMount] = useState(false)
-
-  useEffect(() => {
-    setIsMount(true)
-  }, [])
 
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop
     if (scrolled > 300) {
-      isMounted && setVisible(true)
+      setVisible(true)
     } else if (scrolled <= 300) {
-      isMounted && setVisible(false)
+      setVisible(false)
     }
   }
+
+  useEffect(() => {
+    window.addEventListener('scroll', toggleVisible)
+
+    return () => {
+      window.removeEventListener('scroll', toggleVisible)
+    }
+  }, [])
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -24,9 +27,6 @@ function ScrollTopButton() {
       behavior: 'smooth'
     })
   }
-
-  window.addEventListener('scroll', toggleVisible)
-
   return (
     <div
       className="rn-back-top"
