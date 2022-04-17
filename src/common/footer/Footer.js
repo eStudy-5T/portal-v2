@@ -52,7 +52,7 @@ function Footer() {
                   <div className="inner">
                     <ul className="footer-link link-hover">
                       <li>
-                        <Link to="/about-us-1">About Us</Link>
+                        <Link to="/about-us">About Us</Link>
                       </li>
                       <li>
                         <Link to="/faq">FAQ Question</Link>

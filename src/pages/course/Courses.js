@@ -1,31 +1,62 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import ScrollAnimation from 'react-animate-on-scroll'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
 import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
 import PaginationOne from '../../components/pagination/PaginationOne'
 import CourseTypeOne from '../../components/course/CourseTypeOne'
-import CourseData from '../../data/course/CourseData.json'
+// import CourseData from '../../data/course/CourseData.json'
+
+import courseService from '../../services/course-service'
 
 function CourseOne() {
-  const CourseItems = CourseData.slice(0, 9)
+  const [pageNumber, setPageNumber] = useState(1)
+
+  const [pageSize, setPageSize] = useState(9)
+
+  const [CourseData, setCourseData] = useState([])
+  const [CourseCount, setCourseCount] = useState(0)
+
+  const handleChangePageNumber = (number) => {
+    number <= CourseCount/CourseData.length && setPageNumber(number)
+  }
+
+  const handleChangePageSize = (size) => {
+    setPageSize(size)
+  }
+
+  useEffect(() => {
+    let isMounted = true;
+    const offset = (pageNumber - 1) * pageSize
+    async function fetchData(searchTerm, options) {
+      const {data: {courses, count}} = await courseService.getTeacherCourses(searchTerm, options);
+      if (isMounted) {
+        setCourseData(courses)
+        setCourseCount(count)
+      }
+    }
+    fetchData(null, {offset, limit: pageSize})
+    return () => { isMounted = false };
+  }, [pageNumber, pageSize]);
+
+  const CourseItems = CourseData.slice((pageNumber - 1) * pageSize, pageSize)
   return (
     <>
-      <SEO title="Course Style - 1" />
+      {/* <SEO title="Course Style - 1" /> */}
       <Layout>
-        <BreadcrumbOne
+        {/* <BreadcrumbOne
           title="Course Style - 1"
           rootUrl="/"
           parentUrl="Home"
           currentUrl="Course Style - 1"
-        />
+        /> */}
         <div className="edu-course-area edu-section-gap bg-color-white">
           <div className="container">
             <div className="row g-5 align-items-center">
               <div className="col-lg-6 col-md-6 col-12">
                 <div className="short-by">
                   <p>
-                    Showing <span>9</span> Of <span>42</span> Results
+                    Showing <span>{pageSize > CourseCount ? CourseCount : pageSize}</span> Of <span>{CourseCount}</span> Results
                   </p>
                 </div>
               </div>
