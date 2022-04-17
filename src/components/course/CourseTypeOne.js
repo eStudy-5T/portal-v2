@@ -2,13 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { slugify } from '../../utils'
 import InstructorData from '../../data/instructor/InstructorData.json'
+import CourseData from '../../data/course/CourseData.json'
 
 function CourseTypeOne({ data, classes }) {
-  const indexOfInstructor = InstructorData.findIndex(
-    (instructor) => slugify(instructor.name) === slugify(data.instructor)
-  )
-  const instructorThumb = InstructorData[indexOfInstructor].image
-  const excerpt = `${data.excerpt.substring(0, 142)}...`
+
+  const instructorThumb = InstructorData[1].image
+  const excerpt = `${data.description ? data.description.substring(0, 142) : CourseData[1].excerpt.substring(0, 142)}...`
 
   return (
     <div className={`edu-card card-type-3 radius-small ${classes || ''}`}>
@@ -17,7 +16,7 @@ function CourseTypeOne({ data, classes }) {
           <Link to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}>
             <img
               className="w-100"
-              src={`${data.image}`}
+              src={`${process.env.PUBLIC_URL}/images/course/course-01/course-01.jpg`}
               alt="Course Thumb"
             />
           </Link>
@@ -29,11 +28,9 @@ function CourseTypeOne({ data, classes }) {
           <div className="top-position status-group left-bottom">
             <Link
               className="letmeet-status status-03"
-              to={`${process.env.PUBLIC_URL}/course-category/${slugify(
-                data.categories.slice(0, 1)
-              )}`}
+              to={`${process.env.PUBLIC_URL}/course-category/1}`}
             >
-              {data.categories.slice(0, 1)}
+              {'Categories'}
             </Link>
           </div>
         </div>
@@ -43,21 +40,21 @@ function CourseTypeOne({ data, classes }) {
               <div className="author-thumb">
                 <Link
                   to={`${process.env.PUBLIC_URL}/instructor-details/${slugify(
-                    data.instructor
+                    'data.instructor'
                   )}`}
                 >
                   <img
                     src={`${process.env.PUBLIC_URL}/images/instructor/instructor-small/${instructorThumb}`}
                     alt="Author Thumb"
                   />
-                  <span className="author-title">{data.instructor}</span>
+                  <span className="author-title">{`${data.instructor ? data.instructor : data.owner.firstName + ' ' + data.owner.lastName}`}</span>
                 </Link>
               </div>
             </div>
             <ul className="edu-meta meta-02">
               <li>
                 <i className="icon-file-list-3-line" />
-                {data.lesson} Lessons
+                {data.lesson || 0} Lessons
               </li>
             </ul>
           </div>
@@ -98,10 +95,10 @@ function CourseTypeOne({ data, classes }) {
               <Link
                 className="letmeet-status status-03"
                 to={`${process.env.PUBLIC_URL}/course-category/${slugify(
-                  data.categories.slice(0, 1)
+                  'data.categories.slice(0, 1)'
                 )}`}
               >
-                {data.categories.slice(0, 1)}
+                {'Category Hover'}
               </Link>
             </div>
             <div className="top-wishlist-bar">
@@ -135,21 +132,21 @@ function CourseTypeOne({ data, classes }) {
               <div className="author-thumb">
                 <Link
                   to={`${process.env.PUBLIC_URL}/instructor-details/${slugify(
-                    data.instructor
+                    "data.instructor"
                   )}`}
                 >
                   <img
                     src={`${process.env.PUBLIC_URL}/images/instructor/instructor-small/${instructorThumb}`}
                     alt="Author Thumb"
                   />
-                  <span className="author-title">{data.instructor}</span>
+                  <span className="author-title">{`${data.instructor ? data.instructor : data.owner.firstName + ' ' + data.owner.lastName}`}</span>
                 </Link>
               </div>
             </div>
             <ul className="edu-meta meta-02">
               <li>
                 <i className="icon-file-list-3-line" />
-                {data.lesson} Lessons
+                {data.lesson || 0} Lessons
               </li>
             </ul>
           </div>

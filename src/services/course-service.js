@@ -16,7 +16,7 @@ const courseService = {
   createClass: (courseId, data) => {
     return request.post(`/courses/${courseId}/classes`, data)
   },
-  getTeacherCourses: (searchTerm, { offset, limit }) => {
+  getTeacherCourses: (searchTerm, { offset = 1, limit = 9 }) => {
     return request.get('/courses', {
       params: {
         q: searchTerm,

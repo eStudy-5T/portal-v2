@@ -27,19 +27,21 @@ const AppRouter = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const currentUser = localStorage.getItem('currentUser')
-    if (currentUser) {
-      setIsAppLoading(true)
-
-      userService
-        .fetchUserInfo(currentUser)
-        .then(({ data: userInfo }) => {
+    async function fetchUserInfo() {
+      const currentUser = localStorage.getItem('currentUser')
+      if (currentUser) {
+        setIsAppLoading(true)
+        try {
+          const {data: userInfo} = await userService.fetchUserInfo(currentUser)
           dispatch(userActions.setUserInfo(userInfo))
-        })
-        .finally(() => {
           setIsAppLoading(false)
-        })
+        }
+        catch (err) {
+          setIsAppLoading(false)
+        }
+      }
     }
+    fetchUserInfo()
   }, [dispatch])
 
   return (
