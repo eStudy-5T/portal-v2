@@ -15,6 +15,16 @@ const authService = {
 
   logout: () => {
     return request.get('/auth/logout')
+  },
+
+  resendVerifyEmail: () => {
+    return request.put('/auth/resend-verify-email')
+  },
+
+  verifyAccount: (verifyToken) => {
+    return request
+      .get('/auth/get-csrf')
+      .then(() => request.put('/auth/verify-account', { verifyToken }))
   }
 }
 

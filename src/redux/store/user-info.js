@@ -23,6 +23,9 @@ const userInfoSlice = createSlice({
     setAuthentication(state, action) {
       state.isAuthenticated = action.payload
     },
+    setVerification(state, action) {
+      state.isVerified = action.payload
+    },
     setUserInfo(state, action) {
       state.isAuthenticated = true
       state.email = action.payload.email

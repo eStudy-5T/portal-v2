@@ -7,7 +7,7 @@
     "invalidEmail": "Invalid Email",
     "invalidFirstName": "Invalid First Name",
     "invalidLastName": "Invalid Last Name",
-    "invalidConfirmPassword": "Incorrect Confirm Password",
+    "invalidConfirmPassword": "Password does not match",
     "invalidPolicy": "Please read and accept the policy",
     "minPassword": "Minimum length of password is 6",
     "maxPassWord": "Maximum length of password is 16",
@@ -52,6 +52,14 @@
     "loginWith": "Login with",
     "registerWith": "Register with",
     "noAccountYet": "Don't have Account?",
-    "alreadyMember": "Already a member?"
+    "alreadyMember": "Already a member?",
+    "verifyAccountAlert": "Please verify your email to have the full experience",
+    "resendVerifyEmail": "Resend verify email",
+    "resendVerifyEmailSuccess": "Send email success",
+    "resendVerifyEmailFail": "Send email fail",
+    "verifyAccount": "Verify Account",
+    "verifyAccountSuccess": "Verify account success. Please return to the homepage to use the app.",
+    "verifyAccountFail": "Verify account fail. The verify link appears to be invalid or expired. Please click the button below to receive a new link.",
+    "alreadyVerified": "You have been verified. Please return to the homepage to use the app."
   }
 }
