@@ -68,10 +68,13 @@
     "results": "results",
     "searchCourse": "Search course"
   },
-  "nav":{ 
+  "nav": {
     "home": "Home",
     "courses": "Courses",
     "aboutUs": "About Us",
     "contactUs": "Contact Us"
+  },
+  "dropdown": {
+    "teacherDashboard": "Teacher Dashboard"
   }
 }

@@ -2,10 +2,8 @@ import React, {useEffect, useState} from 'react'
 import ScrollAnimation from 'react-animate-on-scroll'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
-import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
 import PaginationOne from '../../components/pagination/PaginationOne'
 import CourseTypeOne from '../../components/course/CourseTypeOne'
-// import CourseData from '../../data/course/CourseData.json'
 
 import courseService from '../../services/course-service'
 
@@ -47,14 +45,8 @@ function CourseOne() {
   const CourseItems = CourseData.slice((pageNumber - 1) * pageSize, pageSize)
   return (
     <>
-      {/* <SEO title="Course Style - 1" /> */}
+      <SEO title="Courses" />
       <Layout>
-        {/* <BreadcrumbOne
-          title="Course Style - 1"
-          rootUrl="/"
-          parentUrl="Home"
-          currentUrl="Course Style - 1"
-        /> */}
         <div className="edu-course-area edu-section-gap bg-color-white">
           <div className="container">
             <div className="row g-5 align-items-center">

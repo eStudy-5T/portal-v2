@@ -1,12 +1,12 @@
 import React from 'react'
-import HeaderOne from './header/HeaderOne'
+import HeaderTwo from './header/HeaderTwo'
 import Footer from './footer/Footer'
 import VerifyAccountAlert from './global-alert/VerifyAccountAlert'
 
 function Layout({ children }) {
   return (
     <main className="main-wrapper">
-      <HeaderOne />
+      <HeaderTwo styles="header-style-2" />
       <VerifyAccountAlert />
       {children}
       <Footer />

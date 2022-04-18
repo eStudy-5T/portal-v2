@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import useVerify from '../../hooks/use-verify'
 
@@ -19,7 +19,6 @@ function VerifyAccount() {
   const { verifyToken } = useParams()
   const { t: translation } = useTranslation()
   const [isVerified, changeVerification] = useVerify(true)
-  const navigate = useNavigate()
 
   useEffect(() => {
     if (isVerified) {

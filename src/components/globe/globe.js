@@ -10,15 +10,15 @@ import styles from '../../assets/styles/globe.styled'
 
 import { languages } from '../../utils/constants/language'
 
-const Globe = () => {
+const Globe = ({ size }) => {
   const currentLanguageCode = localStorage.getItem('language') || 'vi-VN'
   const [currentLanguage, setCurrentLanguage] = useState(null)
   const [anchorEl, setAnchorEl] = useState(null)
 
   useLayoutEffect(() => {
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleCloseGlobe)
     return () => {
-      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('scroll', handleCloseGlobe)
     }
   })
 
@@ -32,7 +32,7 @@ const Globe = () => {
     setAnchorEl(event.currentTarget)
   }
 
-  const handleClose = () => {
+  const handleCloseGlobe = () => {
     setAnchorEl(null)
   }
 
@@ -42,17 +42,13 @@ const Globe = () => {
     setAnchorEl(null)
   }
 
-  const handleScroll = () => {
-    setAnchorEl(null)
-  }
-
   return (
     <Fragment>
       <Box aria-controls="fade-menu" sx={styles.globe} onClick={handleClick}>
         <ReactCountryFlag
           countryCode={currentLanguage}
           style={{
-            fontSize: '2.2em',
+            fontSize: size,
             marginLeft: 5
           }}
           aria-label={currentLanguage}
@@ -64,7 +60,7 @@ const Globe = () => {
         id="fade-menu"
         anchorEl={anchorEl}
         open={Boolean(open)}
-        onClose={handleClose}
+        onClose={handleCloseGlobe}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         disableScrollLock={true}
