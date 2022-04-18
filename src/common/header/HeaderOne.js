@@ -76,7 +76,7 @@ function HeaderOne({ styles, disableSticky }) {
                       <i className="ri-menu-line" />
                     </button>
                   </div>
-                  <Globe />
+                  <Globe size="1.8em" />
                 </div>
               </div>
             </div>

@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import HeaderSticky from './HeaderSticky'
 import ResponsiveMenu from './ResponsiveMenu'
 import Globe from '../../components/globe/globe'
+import { Box, Menu, MenuItem, Fade } from '@mui/material'
 
 // i18n
 import { useTranslation } from 'react-i18next'
@@ -14,9 +15,20 @@ import { logOutUser } from '../../utils/helpers/user-helper'
 function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
   const [offcanvasShow, setOffcanvasShow] = useState(false)
   const [searchPopup, setSearchPopup] = useState(false)
+  const [isOpenSettings, setOpenSettings] = useState(null)
   const isAuthenticated = useAuthenticate()
 
   const { t: translation } = useTranslation()
+
+  const openSettings = (event) => setOpenSettings(event.currentTarget)
+  const handleCloseSettingsMenu = () => setOpenSettings(null)
+
+  useLayoutEffect(() => {
+    window.addEventListener('scroll', handleCloseSettingsMenu)
+    return () => {
+      window.removeEventListener('scroll', handleCloseSettingsMenu)
+    }
+  })
 
   const onCanvasHandler = () => {
     setOffcanvasShow((prevState) => !prevState)
@@ -76,15 +88,45 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                 )}
                 <div className="quote-icon quote-user d-none d-md-block ml--15 ml_sm--5">
                   {isAuthenticated ? (
-                    <button
-                      className={`edu-btn btn-secondary btn-medium left-icon header-button ${
-                        buttonStyle || ''
-                      }`}
-                      onClick={() => logOutUser()}
-                    >
-                      <i className="ri-logout-box-r-line" />
-                      {translation('auth.logOut')}
-                    </button>
+                    <Box>
+                      <div
+                        aria-controls="menu-settings"
+                        aria-haspopup="true"
+                        className="edu-header__authenticated"
+                        onClick={openSettings}
+                      >
+                        <i className="ri-user-line" />
+                      </div>
+                      <Menu
+                        id="menu-settings"
+                        transformOrigin={{
+                          horizontal: 'center',
+                          vertical: 'top'
+                        }}
+                        anchorOrigin={{
+                          horizontal: 'right',
+                          vertical: 'bottom'
+                        }}
+                        anchorEl={isOpenSettings}
+                        open={Boolean(isOpenSettings)}
+                        onClose={handleCloseSettingsMenu}
+                        TransitionComponent={Fade}
+                        disableScrollLock={true}
+                        className="edu-header__dropdown"
+                      >
+                        <Link to="/teacher-dashboard">
+                          <MenuItem>
+                            {translation('dropdown.teacherDashboard')}
+                          </MenuItem>
+                        </Link>
+
+                        <Link to="#">
+                          <MenuItem onClick={() => logOutUser()}>
+                            {translation('auth.logOut')}
+                          </MenuItem>
+                        </Link>
+                      </Menu>
+                    </Box>
                   ) : (
                     <Link
                       className={`edu-btn btn-medium left-icon header-button ${
@@ -115,7 +157,7 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                     </Link>
                   )}
                 </div>
-                <Globe />
+                <Globe size="2.2em" />
               </div>
               <div className="mobile-menu-bar ml--15 ml_sm--5 d-block d-xl-none">
                 <div className="hamberger">

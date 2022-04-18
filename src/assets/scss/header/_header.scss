@@ -18,6 +18,21 @@
     }
   }
 
+  &__authenticated {
+    padding: 0 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--color-primary);
+  }
+
+  &__dropdown {
+    padding: 0;
+
+    li {
+      font-size: 13px;
+    }
+  }
+
   &.header-relative {
     position: relative;
   }

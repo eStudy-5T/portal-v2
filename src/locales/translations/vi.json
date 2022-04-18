@@ -68,10 +68,13 @@
     "results": "kết quả",
     "searchCourse": "Tìm kiếm khóa học"
   },
-  "nav":{ 
+  "nav": {
     "home": "Trang chủ",
     "courses": "Các khóa học",
     "aboutUs": "Giới thiệu đội ngũ",
     "contactUs": "Liên hệ"
+  },
+  "dropdown": {
+    "teacherDashboard": "Trang giáo viên"
   }
 }
