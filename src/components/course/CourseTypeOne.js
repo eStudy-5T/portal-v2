@@ -68,10 +68,10 @@ function CourseTypeOne({ data, classes }) {
               {data.price === '0' ? (
                 <div className="price current-price">Free</div>
               ) : (
-                <div className="price current-price">${data.price}</div>
+                <div className="price current-price">{data.price} VND</div>
               )}
               {data.oldPrice && (
-                <div className="price old-price">${data.oldPrice}</div>
+                <div className="price old-price">{data.oldPrice} VND</div>
               )}
             </div>
             <div className="edu-rating rating-default">
@@ -120,10 +120,10 @@ function CourseTypeOne({ data, classes }) {
             {data.price === '0' ? (
               <div className="price current-price">Free</div>
             ) : (
-              <div className="price current-price">${data.price}</div>
+              <div className="price current-price">{data.price} VND</div>
             )}
             {data.oldPrice && (
-              <div className="price old-price">${data.oldPrice}</div>
+              <div className="price old-price">{data.oldPrice} VND</div>
             )}
           </div>
 
