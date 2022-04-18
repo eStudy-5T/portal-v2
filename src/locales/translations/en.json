@@ -61,5 +61,17 @@
     "verifyAccountSuccess": "Verify account success. Please return to the homepage to use the app.",
     "verifyAccountFail": "Verify account fail. The verify link appears to be invalid or expired. Please click the button below to receive a new link.",
     "alreadyVerified": "You have been verified. Please return to the homepage to use the app."
+  },
+  "courses": {
+    "showing": "Showing",
+    "of": "of",
+    "results": "results",
+    "searchCourse": "Search course"
+  },
+  "nav":{ 
+    "home": "Home",
+    "courses": "Courses",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us"
   }
 }

@@ -61,5 +61,17 @@
     "verifyAccountSuccess": "Xác thực hoàn tất. Vui lòng quay lại trang chủ để sử dụng ứng dụng.",
     "verifyAccountFail": "Xác thực thất bại. Link xác thực không hợp lệ hoặc đã hết hạn. Vui lòng nhấn vào nút bên dưới để nhận link xác thực mới.",
     "alreadyVerified": "Bạn đã được xác thực. Vui lòng quay lại trang chủ để sử dụng ứng dụng."
+  },
+  "courses": {
+    "showing": "Hiển thị",
+    "of": "trong",
+    "results": "kết quả",
+    "searchCourse": "Tìm kiếm khóa học"
+  },
+  "nav":{ 
+    "home": "Trang chủ",
+    "courses": "Các khóa học",
+    "aboutUs": "Giới thiệu đội ngũ",
+    "contactUs": "Liên hệ"
   }
 }

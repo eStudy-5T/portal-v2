@@ -1,23 +1,28 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+// i18
+import { useTranslation } from 'react-i18next'
+
 function Nav() {
+  const { t: translation } = useTranslation()
+
   return (
     <ul className="mainmenu">
       <li className="has-droupdown">
-        <Link to="/">Home</Link>
+        <Link to="/">{translation("nav.home")}</Link>
       </li>
 
       <li className="has-droupdown">
-        <Link to="/courses">Courses</Link>
+        <Link to="/courses">{translation("nav.courses")}</Link>
       </li>
 
       <li className="has-droupdown">
-        <Link to="/about-us">About Us</Link>
+        <Link to="/about-us">{translation("nav.aboutUs")}</Link>
       </li>
 
       <li className="has-droupdown">
-        <Link to="/contact-us">Contact Us</Link>
+        <Link to="/contact-us">{translation("nav.contactUs")}</Link>
       </li>
     </ul>
   )

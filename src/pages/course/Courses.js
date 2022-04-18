@@ -9,6 +9,9 @@ import CourseTypeOne from '../../components/course/CourseTypeOne'
 
 import courseService from '../../services/course-service'
 
+// i18
+import { useTranslation } from 'react-i18next'
+
 function CourseOne() {
   const [pageNumber, setPageNumber] = useState(1)
 
@@ -16,6 +19,8 @@ function CourseOne() {
 
   const [CourseData, setCourseData] = useState([])
   const [CourseCount, setCourseCount] = useState(0)
+
+  const { t: translation } = useTranslation()
 
   const handleChangePageNumber = (number) => {
     number <= CourseCount/CourseData.length && setPageNumber(number)
@@ -56,7 +61,7 @@ function CourseOne() {
               <div className="col-lg-6 col-md-6 col-12">
                 <div className="short-by">
                   <p>
-                    Showing <span>{pageSize > CourseCount ? CourseCount : pageSize}</span> Of <span>{CourseCount}</span> Results
+                    {translation("courses.showing")} <span>{pageSize > CourseCount ? CourseCount : pageSize}</span> {translation("courses.of")} <span>{CourseCount}</span> {translation("courses.results")}
                   </p>
                 </div>
               </div>
@@ -64,7 +69,7 @@ function CourseOne() {
                 <div className="edu-search-box-wrapper text-start text-md-end">
                   <div className="edu-search-box">
                     <form action="#">
-                      <input type="text" placeholder="Search Course..." />
+                      <input type="text" placeholder={translation("courses.searchCourse")} />
                       <button className="search-button">
                         <i className="icon-search-line" />
                       </button>
