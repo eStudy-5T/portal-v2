@@ -200,6 +200,8 @@ function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
 
                         <Link to="/teacher-dashboard">
                           <MenuItem>
+                            <i className="ri-dashboard-2-fill mr-5" />
+
                             {translation('dropdown.teacherDashboard')}
                           </MenuItem>
                         </Link>
@@ -211,7 +213,8 @@ function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
                         </Link>
 
                         <Link to="#">
-                          <MenuItem onClick={_logOutUser}>
+                          <MenuItem onClick={() => logOutUser()}>
+                            <i className="ri-logout-box-r-line mr-5" />
                             {translation('auth.logOut')}
                           </MenuItem>
                         </Link>
