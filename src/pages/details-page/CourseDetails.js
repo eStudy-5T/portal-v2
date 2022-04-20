@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import ScrollAnimation from 'react-animate-on-scroll'
 import { useParams, Link } from 'react-router-dom'
 import { Accordion } from 'react-bootstrap'
@@ -10,6 +10,10 @@ import Layout from '../../common/Layout'
 import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
 import CourseInfo from '../../components/course/CourseInfo'
 import RelatedCourses from '../../components/course/RelatedCourses'
+
+// Services
+import courseService from '../../services/course-service'
+
 import CourseData from '../../data/course/CourseData.json'
 import InstructorData from '../../data/instructor/InstructorData.json'
 import CurriculumTabContent from '../../data/course/CurriculumTabContent.json'
@@ -79,10 +83,22 @@ function CurriculumContent() {
 }
 
 function CourseDetails() {
+  const [courseData, setCourseData] = useState(null)
+  const [isMounted, setIsMounted] = useState(false)
+
   const { id } = useParams()
-  const courseId = parseInt(id, 10)
+  const courseId = 1
   const data = CourseData.filter((course) => course.id === courseId)
   const courseItem = data[0]
+  
+  useEffect(() => {
+    setIsMounted(true)
+    courseService.getSpecificCourse(id).then(({ data: CourseDetailsData }) => {
+      if(isMounted) setCourseData(CourseDetailsData)
+    })
+  }, [id, isMounted]);
+
+  console.log(courseData)
 
   const indexOfInstructor = InstructorData.findIndex(
     (instructor) => slugify(instructor.name) === slugify(courseItem.instructor)
@@ -234,12 +250,12 @@ function CourseDetails() {
                         } `}
                         animateOnce
                       >
-                        <div
+                        {isMounted && <div
                           className="course-tab-content"
                           dangerouslySetInnerHTML={{
-                            __html: courseItem.details
+                            __html: `<h5>Course Description</h5>`.concat(courseData ? `<p>${courseData.description}</p>` : null, `<h5>What You’ll Learn From This Course</h5>`, `<h5>Certification</h5>`)
                           }}
-                        />
+                        />}
                       </ScrollAnimation>
                     )}
 
