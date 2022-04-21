@@ -16,7 +16,7 @@ function CourseOne() {
   const [pageSize, setPageSize] = useState(9)
 
   const [CourseData, setCourseData] = useState([])
-  const [CourseCount, setCourseCount] = useState(0)
+  const [CourseCount, setCourseCount] = useState(9)
 
   const { t: translation } = useTranslation()
 
@@ -24,8 +24,8 @@ function CourseOne() {
     number <= CourseCount/CourseData.length && setPageNumber(number)
   }
 
-  const handleChangePageSize = (size) => {
-    setPageSize(size)
+  const handleChangePageSize = (event) => {
+    setPageSize(event.target.value);
   }
 
   useEffect(() => {
@@ -42,6 +42,17 @@ function CourseOne() {
     return () => { isMounted = false };
   }, [pageNumber, pageSize]);
 
+  useEffect(() => {
+    const selectedNumber = () => {
+      if (CourseCount > 0 && pageSize >= 0) {
+        return CourseCount <= pageSize ? CourseCount : pageSize;
+      }
+
+      return 0;
+    }
+    setPageSize(selectedNumber);
+  }, [CourseCount, pageSize]);
+
   const CourseItems = CourseData.slice((pageNumber - 1) * pageSize, pageSize)
   return (
     <>
@@ -53,7 +64,9 @@ function CourseOne() {
               <div className="col-lg-6 col-md-6 col-12">
                 <div className="short-by">
                   <p>
-                    {translation("courses.showing")} <span>{pageSize > CourseCount ? CourseCount : pageSize}</span> {translation("courses.of")} <span>{CourseCount}</span> {translation("courses.results")}
+                    <span>{translation("courses.showing")} </span>
+                    <input className="edu-size-number px-0" type="number" value={pageSize} onChange={handleChangePageSize} />
+                    <span> {translation("courses.of")} {CourseCount} {translation("courses.results")}</span>
                   </p>
                 </div>
               </div>
