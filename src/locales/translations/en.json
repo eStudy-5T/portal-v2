@@ -76,5 +76,14 @@
   },
   "dropdown": {
     "teacherDashboard": "Teacher Dashboard"
+  },
+  "footer": {
+    "explore": "Explore",
+    "aboutUs": "About us",
+    "faqQuestion": "FAQ Question",
+    "privatePolicy": "Private Policy",
+    "usefulLinks": "Useful Links",
+    "contactUs": "Contact Us",
+    "contactInfo": "Contact info"
   }
 }

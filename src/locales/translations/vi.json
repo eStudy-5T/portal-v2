@@ -76,5 +76,14 @@
   },
   "dropdown": {
     "teacherDashboard": "Trang giáo viên"
+  },
+  "footer": {
+    "explore": "Khám phá",
+    "aboutUs": "Đội ngũ phát triển",
+    "faqQuestion": "Hỏi đáp",
+    "privatePolicy": "Chính sách bảo mật",
+    "usefulLinks": "Liên kết hữu ích",
+    "contactUs": "Liên hệ",
+    "contactInfo": "Thông tin liên hệ"
   }
 }

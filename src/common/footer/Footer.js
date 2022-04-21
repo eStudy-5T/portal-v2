@@ -3,7 +3,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import ScrollTopButton from './ScrollTopButton'
 
+// i18
+import { useTranslation } from 'react-i18next'
+
 function Footer() {
+  const { t: translation } = useTranslation()
+
   return (
     <>
       <footer className="letmeet-footer-one edu-footer footer-style-default">
@@ -48,17 +53,14 @@ function Footer() {
 
               <div className="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div className="edu-footer-widget explore-widget">
-                  <h5 className="widget-title">Explore</h5>
+                  <h5 className="widget-title">{translation("footer.explore")}</h5>
                   <div className="inner">
                     <ul className="footer-link link-hover">
                       <li>
-                        <Link to="/about-us">About Us</Link>
+                        <Link to="/faq">{translation("footer.faqQuestion")}</Link>
                       </li>
                       <li>
-                        <Link to="/faq">FAQ Question</Link>
-                      </li>
-                      <li>
-                        <Link to="/privacy-policy">Privacy Policy</Link>
+                        <Link to="/faq">{translation("footer.privatePolicy")}</Link>
                       </li>
                     </ul>
                   </div>
@@ -67,17 +69,14 @@ function Footer() {
 
               <div className="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div className="edu-footer-widget quick-link-widget">
-                  <h5 className="widget-title">Useful Links</h5>
+                  <h5 className="widget-title">{translation("footer.usefulLinks")}</h5>
                   <div className="inner">
                     <ul className="footer-link link-hover">
                       <li>
-                        <Link to="/contact-us">Contact Us</Link>
+                        <Link to="/contact-us">{translation("footer.contactUs")}</Link>
                       </li>
                       <li>
-                        <Link to="/pricing">Pricing Plan</Link>
-                      </li>
-                      <li>
-                        <Link to="/purchase-guide">Purchase Guide</Link>
+                        <Link to="/about-us">{translation("footer.aboutUs")}</Link>
                       </li>
                     </ul>
                   </div>
@@ -86,7 +85,7 @@ function Footer() {
 
               <div className="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div className="edu-footer-widget">
-                  <h5 className="widget-title">Contact Info</h5>
+                  <h5 className="widget-title">{translation("footer.contactInfo")}</h5>
                   <div className="inner">
                     <div className="widget-information">
                       <ul className="information-list">
