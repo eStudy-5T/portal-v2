@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import ScrollAnimation from 'react-animate-on-scroll'
+import Pagination from '@mui/material/Pagination';
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
-import PaginationOne from '../../components/pagination/PaginationOne'
 import CourseTypeOne from '../../components/course/CourseTypeOne'
 
 import courseService from '../../services/course-service'
 
 // i18
 import { useTranslation } from 'react-i18next'
+import { isNumber } from 'lodash';
 
 function CourseOne() {
   const [pageNumber, setPageNumber] = useState(1)
@@ -20,12 +21,13 @@ function CourseOne() {
 
   const { t: translation } = useTranslation()
 
-  const handleChangePageNumber = (number) => {
-    number <= CourseCount/CourseData.length && setPageNumber(number)
+  const handleChangePageNumber = (event, value) => {
+    setPageNumber(isNumber(value) ? value : 1);
   }
 
   const handleChangePageSize = (event) => {
     setPageSize(event.target.value);
+    setPageNumber(1);
   }
 
   useEffect(() => {
@@ -53,7 +55,6 @@ function CourseOne() {
     setPageSize(selectedNumber);
   }, [CourseCount, pageSize]);
 
-  const CourseItems = CourseData.slice((pageNumber - 1) * pageSize, pageSize)
   return (
     <>
       <SEO title="Courses" />
@@ -85,7 +86,7 @@ function CourseOne() {
             </div>
 
             <div className="row g-5 mt--10">
-              {CourseItems.map((item) => (
+              {CourseData.map((item) => (
                 <ScrollAnimation
                   animateIn="fadeInUp"
                   animateOut="fadeInOut"
@@ -98,8 +99,8 @@ function CourseOne() {
               ))}
             </div>
             <div className="row">
-              <div className="col-lg-12 mt--60">
-                <PaginationOne />
+              <div className="col-lg-12 mt--60 edu-course-pagination">
+                <Pagination count={Math.ceil(CourseCount / pageSize)} page={pageNumber} onChange={handleChangePageNumber} ariant="outlined" size="large" siblingCount={2} color="primary" />
               </div>
             </div>
           </div>
