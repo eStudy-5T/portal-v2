@@ -11,8 +11,13 @@ import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
 import CourseInfo from '../../components/course/CourseInfo'
 import RelatedCourses from '../../components/course/RelatedCourses'
 
+// MUI component
+import { Rating } from '@mui/material'
+import StarBorderIcon from '@mui/icons-material/StarBorder'
+
 // Services
 import courseService from '../../services/course-service'
+import userService from '../../services/user-service'
 
 import CourseData from '../../data/course/CourseData.json'
 import InstructorData from '../../data/instructor/InstructorData.json'
@@ -90,13 +95,19 @@ function CourseDetails() {
   const courseId = 1
   const data = CourseData.filter((course) => course.id === courseId)
   const courseItem = data[0]
-  
+
   useEffect(() => {
     setIsMounted(true)
     courseService.getSpecificCourse(id).then(({ data: CourseDetailsData }) => {
-      if(isMounted) setCourseData(CourseDetailsData)
+      if (isMounted) {
+        userService
+          .fetchUserInfo(CourseDetailsData.ownerId)
+          .then(({ data: teacherInfo }) => {
+            setCourseData({ ...CourseDetailsData, teacherInfo })
+          })
+      }
     })
-  }, [id, isMounted]);
+  }, [id, isMounted])
 
   console.log(courseData)
 
@@ -105,6 +116,9 @@ function CourseDetails() {
   )
   const instructor = InstructorData[indexOfInstructor]
   const instructorExcerpt = `${instructor.details.substring(0, 190)}...`
+
+  const teacherInfo = courseData ? courseData.teacherInfo : null
+  const teacherFullName = teacherInfo ? teacherInfo.firstName + ' ' + teacherInfo.lastName : null
 
   const [contentTab, setContentTab] = useState('overview')
   const handleTab = (content) => {
@@ -157,22 +171,32 @@ function CourseDetails() {
                           )}`}
                         >
                           <img
-                            src={`${process.env.PUBLIC_URL}/images/instructor/instructor-small/${instructor.image}`}
+                            src={`${teacherInfo ? teacherInfo.avatar : instructor.image}`}
                             alt="Author Thumb"
                           />
                           <span className="author-title">
-                            By {courseItem.instructor}
+                            By{' '}{teacherFullName}
                           </span>
                         </Link>
                       </div>
                     </div>
                     <div className="edu-rating rating-default letmeet-course-rating-stars">
                       <div className="rating letmeet-course-rating-stars">
-                        <i className="icon-Star" />
-                        <i className="icon-Star" />
-                        <i className="icon-Star" />
-                        <i className="icon-Star" />
-                        <i className="icon-Star" />
+                        {courseData && (
+                          <Rating
+                            readOnly
+                            value={courseData.rating}
+                            precision={0.5}
+                            size="medium"
+                            sx={{ color: '#ffa41b' }}
+                            emptyIcon={
+                              <StarBorderIcon
+                                fontSize="inherit"
+                                sx={{ color: '#ffa41b' }}
+                              ></StarBorderIcon>
+                            }
+                          ></Rating>
+                        )}
                       </div>
                       <span className="rating-count">
                         ({courseItem.review} Review)
@@ -180,7 +204,9 @@ function CourseDetails() {
                     </div>
                   </div>
 
-                  <h3 className="title">{courseItem.title}</h3>
+                  <h3 className="title">
+                    {courseData ? courseData.title : null}
+                  </h3>
                   <ul className="edu-course-tab nav nav-tabs" role="tablist">
                     <li className="nav-item">
                       <button
@@ -250,12 +276,18 @@ function CourseDetails() {
                         } `}
                         animateOnce
                       >
-                        {isMounted && <div
+                        <div
                           className="course-tab-content"
                           dangerouslySetInnerHTML={{
-                            __html: `<h5>Course Description</h5>`.concat(courseData ? `<p>${courseData.description}</p>` : null, `<h5>What You’ll Learn From This Course</h5>`, `<h5>Certification</h5>`)
+                            __html: `<h5>Course Description</h5>`.concat(
+                              courseData
+                                ? `<p>${courseData.description}</p>`
+                                : null,
+                              `<h5>What You’ll Learn From This Course</h5>`,
+                              `<h5>Certification</h5>`
+                            )
                           }}
-                        />}
+                        />
                       </ScrollAnimation>
                     )}
 
@@ -294,7 +326,7 @@ function CourseDetails() {
                                 )}`}
                               >
                                 <img
-                                  src={`${process.env.PUBLIC_URL}/images/instructor/course-details/${instructor.image}`}
+                                  src={`${teacherInfo && teacherInfo.avatar}`}
                                   alt="Author Thumb"
                                 />
                               </Link>
@@ -308,13 +340,13 @@ function CourseDetails() {
                                     courseItem.instructor
                                   )}`}
                                 >
-                                  {instructor.name}
+                                  {teacherFullName}
                                 </Link>
                               </h6>
                               <span className="subtitle">
                                 {instructor.designation}
                               </span>
-                              <p>{instructorExcerpt}</p>
+                              <p>{teacherInfo && teacherInfo.description}</p>
                               <ul className="social-share border-style">
                                 <li>
                                   <a href={instructor.facebookUrl}>
