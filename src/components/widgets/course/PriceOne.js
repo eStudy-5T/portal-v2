@@ -1,28 +1,41 @@
 import React from 'react'
 
 function PriceOne(props) {
+  const {
+    extraClass,
+    onFilterChange,
+  } = props;
+
+  const onChangeChecked = (event) => {
+    onFilterChange('price', event.target.value);
+  }
+
   return (
     <div
-      className={`edu-course-widget widget-shortby ${props.extraClass || ''}`}
+      className={`edu-course-widget widget-shortby ${extraClass || ''}`}
     >
       <div className="inner">
         <h5 className="widget-title">Price</h5>
         <div className="content">
           <div className="edu-form-check">
-            <input type="checkbox" id="price-check1" />
-            <label htmlFor="price-check1">All Prices</label>
+            <input type="radio" id="no-filter-price" name="filterbyprice" value="no-filter-price" onChange={onChangeChecked}/>
+            <label htmlFor="no-filter-price">All Prices</label>
           </div>
           <div className="edu-form-check">
-            <input type="checkbox" id="price-check2" />
-            <label htmlFor="price-check2">Price: Low to High</label>
+            <input type="radio" id="price-lowest" name="filterbyprice" value="price-lowest" onChange={onChangeChecked}/>
+            <label htmlFor="price-lowest">Price: Low to High</label>
           </div>
           <div className="edu-form-check">
-            <input type="checkbox" id="price-check3" />
-            <label htmlFor="price-check3">Price: High to Low</label>
+            <input type="radio" id="price-highest" name="filterbyprice" value="price-highest" onChange={onChangeChecked}/>
+            <label htmlFor="price-highest">Price: High to Low</label>
           </div>
           <div className="edu-form-check">
-            <input type="checkbox" id="price-check4" />
-            <label htmlFor="price-check4">Free Paid</label>
+            <input type="radio" id="free" name="filterbyprice" value="free" onChange={onChangeChecked}/>
+            <label htmlFor="free">Free</label>
+          </div>
+          <div className="edu-form-check">
+            <input type="radio" id="paid" name="filterbyprice" value="paid" onChange={onChangeChecked}/>
+            <label htmlFor="paid">Paid</label>
           </div>
         </div>
       </div>
