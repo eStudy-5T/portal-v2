@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useMemo} from 'react'
 import ScrollAnimation from 'react-animate-on-scroll'
 import Pagination from '@mui/material/Pagination';
+import SectionTitle from '../../components/section-title/SectionTitle.js'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
 import CourseTypeOne from '../../components/course/CourseTypeOne'
@@ -18,6 +19,7 @@ function CourseOne() {
 
   const [CourseData, setCourseData] = useState([])
   const [CourseCount, setCourseCount] = useState(9)
+  const [activeFilters, setActiveFilters] = useState([])
 
   const { t: translation } = useTranslation()
 
@@ -55,6 +57,32 @@ function CourseOne() {
     setPageSize(selectedNumber);
   }, [CourseCount, pageSize]);
 
+  // const FilterControls = useMemo(
+  //   () => [...new Set(CourseData.map((item) => item.filterParam))],
+  //   [CourseData]
+  // )
+
+  const FilterControls = ['cost', 'title']
+
+  const handleChange = (e) => {
+    e.preventDefault()
+    let tempData
+    if (
+      !activeFilters.includes(e.target.lastChild.data.toLowerCase())
+    ) {
+      setActiveFilters([...activeFilters, e.target.lastChild.data.toLowerCase()])
+      tempData = CourseData.filter((data) => true)
+    } else {
+      // tempData = CourseData.filter(
+      //   (data) =>
+      //     data.filterParam.toLowerCase() ===
+      //       e.target.textContent.toLowerCase() && data.id <= dataVisibleCount
+      // )
+      setActiveFilters(activeFilters.filter((item) => item !== e.target.lastChild.data.toLowerCase()))
+    }
+    // setVisibleItems(tempData)
+  }
+
   return (
     <>
       <SEO title="Courses" />
@@ -72,19 +100,35 @@ function CourseOne() {
                 </div>
               </div>
               <div className="col-lg-6 col-md-6 col-12">
-                <div className="edu-search-box-wrapper text-start text-md-end">
-                  <div className="edu-search-box">
-                    <form action="#">
-                      <input type="text" placeholder={translation("courses.searchCourse")} />
-                      <button className="search-button">
-                        <i className="icon-search-line" />
-                      </button>
-                    </form>
+                <row className="g-5">
+                  <div className="edu-search-box-wrapper text-start text-md-end">
+                    <div className="edu-search-box">
+                      <form action="#">
+                        <input type="text" placeholder={translation("courses.searchCourse")} />
+                        <button className="search-button">
+                          <i className="icon-search-line" />
+                        </button>
+                      </form>
+                    </div>
                   </div>
-                </div>
+                </row>
+                <row className="g-5">
+                  <div className="button-group isotop-filter filters-button-group text-md-end mt--10">
+                    {FilterControls.map((filter, i) => (
+                      <button
+                        onClick={handleChange}
+                        key={i}
+                        className={
+                          activeFilters.includes(filter) ? 'is-checked' : ' '
+                        }
+                      >
+                        {filter}
+                      </button>
+                    ))}
+                  </div>
+                </row>
               </div>
             </div>
-
             <div className="row g-5 mt--10">
               {CourseData.map((item) => (
                 <ScrollAnimation
