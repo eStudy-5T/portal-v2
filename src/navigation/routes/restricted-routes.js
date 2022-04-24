@@ -2,6 +2,7 @@ import React from 'react'
 import Login from '../../pages/login-page/Login'
 import Register from '../../pages/register-page/Register'
 import ForgotPassword from '../../pages/forgot-password-page/ForgotPassword'
+import ResetPassword from '../../pages/reset-password/ResetPassword'
 
 const restrictedRoutes = [
   {
@@ -17,6 +18,11 @@ const restrictedRoutes = [
   {
     path: 'forgot-password',
     component: () => <ForgotPassword />,
+    exact: true
+  },
+  {
+    path: 'reset-password',
+    component: () => <ResetPassword />,
     exact: true
   }
 ]

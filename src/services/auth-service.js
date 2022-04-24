@@ -25,6 +25,18 @@ const authService = {
     return request
       .get('/auth/get-csrf')
       .then(() => request.put('/auth/verify-account', { verifyToken }))
+  },
+
+  forgotPassword: (email) => {
+    return request
+      .get('/auth/get-csrf')
+      .then(() => request.put('/auth/forgot-password', { email }))
+  },
+
+  resetPassword: (email, resetPasswordToken, newPassword) => {
+    return request
+      .get('/auth/get-csrf')
+      .then(() => request.put('/auth/reset-password', {email, resetPasswordToken, newPassword}))
   }
 }
 

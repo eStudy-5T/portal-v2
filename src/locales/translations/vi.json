@@ -35,7 +35,9 @@
     "minPrice": "Giá tiền cần tối thiểu là 0!",
     "minMaxSlots": "Số lượng học sinh cần tối thiểu là 1!",
     "dateInFuture": "Ngày tháng phải nằm trong tương lai!",
-    "dateAfterStart": "Ngày kết thúc phải nằm sau ngày bắt đầu!"
+    "dateAfterStart": "Ngày kết thúc phải nằm sau ngày bắt đầu!",
+    "invalidPassword": "Mật khẩu không hợp lệ",
+    "invalidResetPasswordToken": "Mã khôi phục mật khẩu không hợp lệ hoặc đã hết hạn"
   },
   "auth": {
     "login": "Đăng nhập",
@@ -49,6 +51,9 @@
     "agreeToTermOfUses": "Đồng ý với điều khoản sử dụng",
     "enterPasswordAgain": "Nhập lại mật khẩu",
     "forgotPassword": "Quên mật khẩu?",
+    "sendEmail": "Gửi email",
+    "tryLoginAgain": "Thử đăng nhập lại?",
+    "doNotHaveAccount": "Không có tài khoản?",
     "loginWith": "Đăng nhập với",
     "registerWith": "Đăng ký với",
     "noAccountYet": "Chưa có tài khoản?",
@@ -60,7 +65,11 @@
     "verifyAccount": "Xác thực tài khoản",
     "verifyAccountSuccess": "Xác thực hoàn tất. Vui lòng quay lại trang chủ để sử dụng ứng dụng.",
     "verifyAccountFail": "Xác thực thất bại. Link xác thực không hợp lệ hoặc đã hết hạn. Vui lòng nhấn vào nút bên dưới để nhận link xác thực mới.",
-    "alreadyVerified": "Bạn đã được xác thực. Vui lòng quay lại trang chủ để sử dụng ứng dụng."
+    "alreadyVerified": "Bạn đã được xác thực. Vui lòng quay lại trang chủ để sử dụng ứng dụng.",
+    "sendForgotPasswordEmailSuccess": "Một email xác nhận khôi phục mật khẩu đã được gửi cho bạn",
+    "sendForgotPasswordEmailFail": "Gửi mail xác thực khôi phục mật khẩu thất bại",
+    "resetPasswordSuccess": "Khôi phục mật khẩu thành công",
+    "resetPasswordFail": "Khôi phục mật khẩu thất bại"
   },
   "courses": {
     "showing": "Hiển thị",

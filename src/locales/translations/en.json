@@ -35,7 +35,9 @@
     "minPrice": "Minumum value of price is 0!",
     "minMaxSlots": "Minumum value of max slots is 1!",
     "dateInFuture": "Date must be in the future!",
-    "dateAfterStart": "End date must be after start date!"
+    "dateAfterStart": "End date must be after start date!",
+    "invalidPassword": "Invalid Password",
+    "invalidResetPasswordToken": "Reset password token is invalid or has expired"
   },
   "auth": {
     "login": "Login",
@@ -49,6 +51,9 @@
     "agreeToTermOfUses": "Agree To Term Of Uses",
     "enterPasswordAgain": "Confirm Password",
     "forgotPassword": "Forgot Password?",
+    "sendEmail": "Send Email",
+    "tryLoginAgain": "Try logging in again?",
+    "doNotHaveAccount": "Do not have an account?",
     "loginWith": "Login with",
     "registerWith": "Register with",
     "noAccountYet": "Don't have Account?",
@@ -60,7 +65,11 @@
     "verifyAccount": "Verify Account",
     "verifyAccountSuccess": "Verify account success. Please return to the homepage to use the app.",
     "verifyAccountFail": "Verify account fail. The verify link appears to be invalid or expired. Please click the button below to receive a new link.",
-    "alreadyVerified": "You have been verified. Please return to the homepage to use the app."
+    "alreadyVerified": "You have been verified. Please return to the homepage to use the app.",
+    "sendForgotPasswordEmailSuccess": "An email to confirm reset password has been sent",
+    "sendForgotPasswordEmailFail": "Send confirm reset password email fail",
+    "resetPasswordSuccess": "Reset password successful",
+    "resetPasswordFail": "Reset password fail"
   },
   "courses": {
     "showing": "Showing",
