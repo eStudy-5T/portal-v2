@@ -85,5 +85,29 @@
     "usefulLinks": "Liên kết hữu ích",
     "contactUs": "Liên hệ",
     "contactInfo": "Thông tin liên hệ"
+  },
+  "pageTitle": {
+    "home": "Trang chủ",
+    "courseDetails": "Chi tiết khóa học"
+  },
+  "courseDetails": {
+    "overview": "Tổng quan",
+    "classes": "Các lớp học",
+    "instructors": "Người dạy",
+    "reviews": "Đánh giá",
+    "description": "Mô tả khóa học",
+    "whatWillYouLearn": "Kiến thực nhận được từ khóa học",
+    "classDetails": {
+      "duration": "Thời lượng",
+      "maxSlot": "Sỉ số tối đa",
+      "enrolled": "Sỉ số hiện tại",
+      "grade": "Khối lớp tối thiểu",
+      "instructor": "Người dạy",
+      "fee": "Học phí"
+    }
+  },
+  "relatedCourses": {
+    "title": "Các khóa học liên quan",
+    "coursesSuggestion": "Gợi ý các khóa học"
   }
 }

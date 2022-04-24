@@ -23,6 +23,9 @@ import CourseData from '../../data/course/CourseData.json'
 import InstructorData from '../../data/instructor/InstructorData.json'
 import CurriculumTabContent from '../../data/course/CurriculumTabContent.json'
 
+// i18
+import { useTranslation } from 'react-i18next'
+
 function CustomToggle({ children, eventKey }) {
   const { activeEventKey } = useContext(AccordionContext)
   const decoratedOnClick = useAccordionButton(eventKey)
@@ -39,7 +42,9 @@ function CustomToggle({ children, eventKey }) {
   )
 }
 
-function CurriculumContent() {
+function ClassesTabContent() {
+  const { t: translation } = useTranslation()
+
   const [activeId, setActiveId] = useState('0')
 
   function toggleActive(id) {
@@ -68,17 +73,42 @@ function CurriculumContent() {
           </div>
           <Accordion.Body bsPrefix="edu-accordion-body">
             <ul>
-              {accordion.content.map((title, index) => (
-                <li key={index}>
-                  <div className="text">
-                    <i className="icon-draft-line" />
-                    {title}
-                  </div>
-                  <div className="icon">
-                    <i className="icon-lock-password-line" />
-                  </div>
-                </li>
-              ))}
+              <li>
+                <div className="text">
+                <i className="icon-time-line" />
+                  {translation("courseDetails.classDetails.duration")}
+                </div>
+                <div className="icon">
+                  {accordion.duration}
+                </div>
+              </li>
+              <li>
+                <div className="text">
+                  <i className="icon-user-2" />
+                  {translation("courseDetails.classDetails.enrolled")}/{translation("courseDetails.classDetails.maxSlot")}
+                </div>
+                <div className="icon">
+                  {accordion.enrolled}/{accordion.maxSlot}
+                </div>
+              </li>
+              <li>
+                <div className="text">
+                  <i className="icon-bar-chart-2-line" />
+                  {translation("courseDetails.classDetails.grade")}
+                </div>
+                <div className="icon">
+                  {accordion.grade}
+                </div>
+              </li>
+              <li>
+                <div className="text">
+                  <i className="icon-user-2-line_tie" />
+                  {translation("courseDetails.classDetails.fee")}
+                </div>
+                <div className="icon">
+                  {accordion.fee} VND
+                </div>
+              </li>
             </ul>
           </Accordion.Body>
         </Accordion.Item>
@@ -88,6 +118,8 @@ function CurriculumContent() {
 }
 
 function CourseDetails() {
+  const { t: translation } = useTranslation()
+  
   const [courseData, setCourseData] = useState(null)
   const [isMounted, setIsMounted] = useState(false)
 
@@ -138,10 +170,10 @@ function CourseDetails() {
       <SEO title={courseItem.title} />
       <Layout>
         <BreadcrumbOne
-          title="Course Details"
+          title={translation("pageTitle.courseDetails")}
           rootUrl="/"
-          parentUrl="Home"
-          currentUrl="Course Details"
+          parentUrl={translation("pageTitle.home")}
+          currentUrl={translation("pageTitle.courseDetails")}
         />
         <div className="edu-course-details-area edu-section-gap bg-color-white">
           <div className="container">
@@ -219,7 +251,7 @@ function CourseDetails() {
                         aria-label="Overview"
                         onClick={() => handleTab('overview')}
                       >
-                        Overview
+                        {translation("courseDetails.overview")}
                       </button>
                     </li>
                     <li className="nav-item">
@@ -233,7 +265,7 @@ function CourseDetails() {
                         aria-label="Curriculum"
                         onClick={() => handleTab('curriculum')}
                       >
-                        Curriculum
+                        {translation("courseDetails.classes")}
                       </button>
                     </li>
                     <li className="nav-item">
@@ -247,7 +279,7 @@ function CourseDetails() {
                         aria-label="Instructor"
                         onClick={() => handleTab('instructor')}
                       >
-                        Instructor
+                        {translation("courseDetails.instructors")}
                       </button>
                     </li>
                     <li className="nav-item">
@@ -261,7 +293,7 @@ function CourseDetails() {
                         aria-label="Reviews"
                         onClick={() => handleTab('reviews')}
                       >
-                        Reviews
+                        {translation("courseDetails.reviews")}
                       </button>
                     </li>
                   </ul>
@@ -279,12 +311,11 @@ function CourseDetails() {
                         <div
                           className="course-tab-content"
                           dangerouslySetInnerHTML={{
-                            __html: `<h5>Course Description</h5>`.concat(
+                            __html: `<h5>${translation("courseDetails.description")}</h5>`.concat(
                               courseData
                                 ? `<p>${courseData.description}</p>`
                                 : null,
-                              `<h5>What You’ll Learn From This Course</h5>`,
-                              `<h5>Certification</h5>`
+                              `<h5>${translation("courseDetails.whatWillYouLearn")}</h5>`,
                             )
                           }}
                         />
@@ -301,7 +332,7 @@ function CourseDetails() {
                         animateOnce
                       >
                         <div className="course-tab-content">
-                          <CurriculumContent />
+                          <ClassesTabContent />
                         </div>
                       </ScrollAnimation>
                     )}

@@ -5,7 +5,12 @@ import CourseData from '../../data/course/CourseData.json'
 import { TheeColumnCarousel2 } from '../../utils/configs/ui-config'
 import CourseTypeOne from './CourseTypeOne'
 
+// i18
+import { useTranslation } from 'react-i18next'
+
 function RelatedCourses({ courseID }) {
+  const { t: translation } = useTranslation()
+
   const coursIndex = courseID - 1
   const catts = CourseData[coursIndex].categories
 
@@ -31,8 +36,8 @@ function RelatedCourses({ courseID }) {
       {commonCourses && commonCourses.length > 0 && (
         <div className="edu-course-wrapper pt--65">
           <div className="section-title text-start mb--20">
-            <span className="pre-title">Related Courses</span>
-            <h3 className="title">Courses You May Like</h3>
+            <span className="pre-title">{translation("relatedCourses.title")}</span>
+            <h3 className="title">{translation("relatedCourses.coursesSuggestion")}</h3>
           </div>
           <Slider
             className="mt--40 edu-slick-button slick-activation-wrapper letmeet-course-one-carousel"

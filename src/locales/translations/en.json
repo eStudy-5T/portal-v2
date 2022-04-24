@@ -85,5 +85,29 @@
     "usefulLinks": "Useful Links",
     "contactUs": "Contact Us",
     "contactInfo": "Contact info"
+  },
+  "pageTitle": {
+    "home": "Home",
+    "courseDetails": "Course Details"
+  },
+  "courseDetails": {
+    "overview": "Overview",
+    "classes": "Classes",
+    "instructors": "Instructors",
+    "reviews": "Reviews",
+    "description": "Description",
+    "whatWillYouLearn": "What will you learn from this course",
+    "classDetails": {
+      "duration": "Duration",
+      "maxSlot": "Max Slot",
+      "enrolled": "Enrolled",
+      "grade": "Grade",
+      "instructor": "Instructor",
+      "fee": "Fee"
+    }
+  },
+  "relatedCourses": {
+    "title": "Related Courses",
+    "coursesSuggestion": "Courses you may like"
   }
 }

@@ -1,35 +1,29 @@
 [
   {
-    "title": "The First Steps",
-    "content": [
-      "Introduction",
-      "Course Overview",
-      "Local Development Environment Tools",
-      "Course Excercise",
-      "Embedding PHP in HTML",
-      "Using Dynamic Data"
-    ]
+    "title": "Nhập môn lập trình",
+    "maxSlot": "100",
+    "enrolled": "50",
+    "fee": "450000",
+    "grade": "12",
+    "duration": "2 tháng",
+    "instructor": "Hồ Hoàng Thương"
   },
   {
-    "title": "Data Types and More",
-    "content": [
-      "Introduction",
-      "Course Overview",
-      "Local Development Environment Tools",
-      "Course Excercise",
-      "Embedding PHP in HTML",
-      "Using Dynamic Data"
-    ]
+    "title": "Kỹ thuật lập trình",
+    "maxSlot": "50",
+    "enrolled": "25",
+    "fee": "500000",
+    "grade": "12",
+    "duration": "3 tháng",
+    "instructor": "Nguyễn Đình Trí"
   },
   {
-    "title": "Control Structure",
-    "content": [
-      "Introduction",
-      "Course Overview",
-      "Local Development Environment Tools",
-      "Course Excercise",
-      "Embedding PHP in HTML",
-      "Using Dynamic Data"
-    ]
+    "title": "Thiết kế web",
+    "maxSlot": "150",
+    "enrolled": "100",
+    "fee": "600000",
+    "grade": "Đại học",
+    "duration": "4 tháng",
+    "instructor": "Nguyễn Tấn Tài"
   }
 ]
