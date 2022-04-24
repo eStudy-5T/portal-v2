@@ -16,13 +16,22 @@ const courseService = {
   createClass: (courseId, data) => {
     return request.post(`/courses/${courseId}/classes`, data)
   },
-  getTeacherCourses: (searchTerm, { offset = 1, limit = 9 }) => {
+  getTeacherCourses: (searchText, paginationOptions, queryOptions) => {
+    const { offset = 1, limit = 9 } = paginationOptions
+    const {
+      sortBy = 'sortby-none',
+      categoryFilter = 'category-all',
+      gradeFilter = 'grade-all',
+      rangePrice = -1,
+    } = queryOptions
+
     return request.get('/courses', {
       params: {
-        q: searchTerm,
+        searchText,
         offset,
         limit,
-        type: 'teacher'
+        type: 'teacher',
+        sortBy, categoryFilter, gradeFilter, rangePrice
       }
     })
   },

@@ -20,7 +20,7 @@ function BannerTwo() {
                   <br /> readable popular and best content.
                 </p>
                 <div className="read-more-btn">
-                  <Link className="edu-btn" to="#">
+                  <Link className="edu-btn" to="/courses">
                     Get Started Today{' '}
                     <i className="icon-arrow-right-line-right" />
                   </Link>
