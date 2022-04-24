@@ -17,16 +17,24 @@ function SortBy(props) {
         <h5 className="widget-title">Sort By</h5>
         <div className="content">
           <div className="edu-form-check">
-            <input type="radio" id="none" name="sortby" value="none" onChange={onChangeChecked} />
-            <label htmlFor="none">None</label>
+            <input type="radio" id="sortby-none" name="sortby" value="sortby-none" onChange={onChangeChecked} defaultChecked/>
+            <label htmlFor="sortby-none">None</label>
           </div>
           <div className="edu-form-check">
-            <input type="radio" id="name-a-z" name="sortby" value="name-a-z" onChange={onChangeChecked} />
-            <label htmlFor="name-a-z">Name (A-Z)</label>
+            <input type="radio" id="sortby-name-a-z" name="sortby" value="sortby-name-a-z" onChange={onChangeChecked} />
+            <label htmlFor="sortby-name-a-z">Name (A-Z)</label>
           </div>
           <div className="edu-form-check">
-            <input type="radio" id="name-z-a" name="sortby" value="name-z-a" onChange={onChangeChecked}/>
-            <label htmlFor="name-z-a">Name (Z-A)</label>
+            <input type="radio" id="sortby-name-z-a" name="sortby" value="sortby-name-z-a" onChange={onChangeChecked}/>
+            <label htmlFor="sortby-name-z-a">Name (Z-A)</label>
+          </div>
+          <div className="edu-form-check">
+            <input type="radio" id="sortby-price-lowest" name="sortby" value="sortby-price-lowest" onChange={onChangeChecked}/>
+            <label htmlFor="sortby-price-lowest">Price: Low to High</label>
+          </div>
+          <div className="edu-form-check">
+            <input type="radio" id="sortby-price-highest" name="sortby" value="sortby-price-highest" onChange={onChangeChecked}/>
+            <label htmlFor="sortby-price-highest">Price: High to Low</label>
           </div>
         </div>
       </div>

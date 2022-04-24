@@ -30,7 +30,7 @@ function CourseTypeOne({ data, classes }) {
               className="letmeet-status status-03"
               to={`${process.env.PUBLIC_URL}/course-category/1}`}
             >
-              {'Categories'}
+              {data.category.name || 'Category'}
             </Link>
           </div>
         </div>
@@ -98,7 +98,7 @@ function CourseTypeOne({ data, classes }) {
                   'data.categories.slice(0, 1)'
                 )}`}
               >
-                {'Category Hover'}
+                {data.category.name}
               </Link>
             </div>
             <div className="top-wishlist-bar">

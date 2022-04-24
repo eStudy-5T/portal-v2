@@ -1,13 +1,12 @@
-import React, {useEffect, useState, useMemo} from 'react'
+import React, {useEffect, useState} from 'react'
 import ScrollAnimation from 'react-animate-on-scroll'
 import Pagination from '@mui/material/Pagination';
-import SectionTitle from '../../components/section-title/SectionTitle.js'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
 import CourseTypeOne from '../../components/course/CourseTypeOne'
 import SortBy from '../../components/widgets/course/SortBy'
-import PriceOne from '../../components/widgets/course/PriceOne'
-import LevelOne from '../../components/widgets/course/LevelOne'
+import PriceOne from '../../components/widgets/course/CategoryFilter'
+import LevelOne from '../../components/widgets/course/GradeFilter'
 import FilterByPrice from '../../components/widgets/course/FilterByPrice'
 
 import courseService from '../../services/course-service'
@@ -21,14 +20,22 @@ function CourseOne() {
 
   const [pageSize, setPageSize] = useState(9)
 
-  const [sortBy, setSortBy] = useState('none')
-  const [priceFilter, setPriceFilter] = useState('all')
-  const [levelFilter, setLevelFilter] = useState('all')
+  const [searchText, setSearchText] = useState('')
+
+  const [sortBy, setSortBy] = useState('sortby-none')
+  const [categoryFilter, setCategoryFilter] = useState('category-all')
+  const [gradeFilter, setGradeFilter] = useState('grade-all')
   const [rangePrice, setRangePrice] = useState(0);
+
+  const [queryOptions, setQueryOptions] = useState({
+    sortBy: 'sortby-none',
+    categoryFilter: 'category-all',
+    gradeFilter: 'grade-all',
+    rangePrice: -1
+  })
 
   const [CourseData, setCourseData] = useState([])
   const [CourseCount, setCourseCount] = useState(9)
-  const [activeFilters, setActiveFilters] = useState([])
 
   const { t: translation } = useTranslation()
 
@@ -45,34 +52,48 @@ function CourseOne() {
     switch (filter) {
       case 'sort':
         setSortBy(value);
+        setQueryOptions({...queryOptions, sortBy: value})
         break;
-      case 'price':
-        setPriceFilter(value);
+      case 'category':
+        setCategoryFilter(value);
+        setQueryOptions({...queryOptions, categoryFilter: value})
         break;
-      case 'level':
-        setLevelFilter(value);
+      case 'grade':
+        setGradeFilter(value);
+        setQueryOptions({...queryOptions, gradeFilter: value})
         break;
       case 'fiterByPrice':
         setRangePrice(value);
+        setQueryOptions({...queryOptions, rangePrice: value})
         break;
       default:
         break;
     }
   }
 
+  let delayTimer = null
+
+  const handleChangeSearchText = (e) => {
+    clearTimeout(delayTimer)
+    delayTimer = setTimeout(function() {
+      setSearchText(String(e.target.value).trim().toLocaleLowerCase())
+    }, 1000);
+  }
+
   useEffect(() => {
     let isMounted = true;
     const offset = (pageNumber - 1) * pageSize
-    async function fetchData(searchTerm, options) {
-      const {data: {courses, count}} = await courseService.getTeacherCourses(searchTerm, options);
+    async function fetchData(searchText, paginationOptions = {}, queryOptions = {}) {
+      const {data: {courses, count}} = await courseService.getTeacherCourses(searchText, paginationOptions, queryOptions);
+      console.log(courses)
       if (isMounted) {
         setCourseData(courses)
         setCourseCount(count)
       }
     }
-    fetchData(null, {offset, limit: pageSize})
+    fetchData(searchText, {offset, limit: pageSize}, queryOptions)
     return () => { isMounted = false };
-  }, [pageNumber, pageSize]);
+  }, [searchText, pageNumber, pageSize, queryOptions]);
 
   useEffect(() => {
     const selectedNumber = () => {
@@ -84,35 +105,6 @@ function CourseOne() {
     }
     setPageSize(selectedNumber);
   }, [CourseCount, pageSize]);
-
-  useEffect(() => {
-    console.log(sortBy, priceFilter, levelFilter, rangePrice);
-  }, [sortBy, priceFilter, levelFilter, rangePrice])
-
-  // const FilterControls = useMemo(
-  //   () => [...new Set(CourseData.map((item) => item.filterParam))],
-  //   [CourseData]
-  // )
-  const FilterControls = ['cost', 'title']
-
-  const handleChange = (e) => {
-    e.preventDefault()
-    let tempData
-    if (
-      !activeFilters.includes(e.target.lastChild.data.toLowerCase())
-    ) {
-      setActiveFilters([...activeFilters, e.target.lastChild.data.toLowerCase()])
-      tempData = CourseData.filter((data) => true)
-    } else {
-      // tempData = CourseData.filter(
-      //   (data) =>
-      //     data.filterParam.toLowerCase() ===
-      //       e.target.textContent.toLowerCase() && data.id <= dataVisibleCount
-      // )
-      setActiveFilters(activeFilters.filter((item) => item !== e.target.lastChild.data.toLowerCase()))
-    }
-    // setVisibleItems(tempData)
-  }
 
   return (
     <>
@@ -133,18 +125,18 @@ function CourseOne() {
                     </div>
                   </div>
                   <div className="col-lg-6 col-md-6 col-12">
-                    <row className="g-5">
+                    <div className="row g-5">
                       <div className="edu-search-box-wrapper text-start text-md-end">
                         <div className="edu-search-box">
                           <form action="#">
-                            <input type="text" placeholder={translation("courses.searchCourse")} />
+                            <input type="text" placeholder={translation("courses.searchCourse")} onChange={handleChangeSearchText} />
                             <button className="search-button">
                               <i className="icon-search-line" />
                             </button>
                           </form>
                         </div>
                       </div>
-                    </row>
+                    </div>
                   </div>
                 </div>
                 <div className="row g-5 mt--10">
@@ -165,7 +157,7 @@ function CourseOne() {
                 <SortBy onFilterChange={handleFilterChange}/>
                 <PriceOne extraClass='mt--40' onFilterChange={handleFilterChange}/>
                 <LevelOne extraClass='mt--40' onFilterChange={handleFilterChange}/>
-                {/* <FilterByPrice extraClass='mt--40' onFilterChange={handleFilterChange} /> */}
+                <FilterByPrice extraClass='mt--40' onFilterChange={handleFilterChange} />
               </div>
             </div>
             <div className="row">
