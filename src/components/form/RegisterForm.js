@@ -14,7 +14,6 @@ import authService from '../../services/auth-service'
 // Validators
 import {
   validateEmail,
-  validateName,
   validatePassword
 } from '../../utils/validators/field-validators'
 import { getValidationHelperText } from '../../utils/helpers/validation-helper'
@@ -75,10 +74,7 @@ function RegisterForm() {
                 autoFocus
                 autoComplete="given-name"
                 {...register('firstName', {
-                  required: 'error.emptyField',
-                  validate: {
-                    validateName: (data) => validateName(data, 'First')
-                  }
+                  required: 'error.emptyField'
                 })}
                 disabled={isLoading}
               />
@@ -93,10 +89,7 @@ function RegisterForm() {
                 placeholder={translation('auth.lastName')}
                 autoComplete="family-name"
                 {...register('lastName', {
-                  required: 'error.emptyField',
-                  validate: {
-                    validateName: (data) => validateName(data, 'Last')
-                  }
+                  required: 'error.emptyField'
                 })}
                 disabled={isLoading}
               />

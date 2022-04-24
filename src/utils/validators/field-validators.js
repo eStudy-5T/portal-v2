@@ -28,11 +28,6 @@ export const validatePassword = (password) => {
   return true
 }
 
-export const validateName = (name, type) => {
-  const regex = /^[a-zA-Z ]+$/
-  return regex.test(name) ? true : `error.invalid${type}Name`
-}
-
 export const validateDateInFuture = (date) => {
   switch (compareAsc(date, new Date())) {
     case 1:
