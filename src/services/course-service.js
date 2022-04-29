@@ -17,7 +17,7 @@ const courseService = {
     return request.post(`/courses/${courseId}/classes`, data)
   },
   getTeacherCourses: (searchText, paginationOptions, queryOptions) => {
-    const { offset = 1, limit = 9 } = paginationOptions
+    const { offset = 1, limit = 8 } = paginationOptions
     const {
       sortBy = 'sortby-none',
       categoryFilter = 'category-all',

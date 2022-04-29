@@ -18,14 +18,9 @@ import { isNumber } from 'lodash';
 function CourseOne() {
   const [pageNumber, setPageNumber] = useState(1)
 
-  const [pageSize, setPageSize] = useState(9)
+  const [pageSize, setPageSize] = useState(8)
 
   const [searchText, setSearchText] = useState('')
-
-  const [sortBy, setSortBy] = useState('sortby-none')
-  const [categoryFilter, setCategoryFilter] = useState('category-all')
-  const [gradeFilter, setGradeFilter] = useState('grade-all')
-  const [rangePrice, setRangePrice] = useState(0);
 
   const [queryOptions, setQueryOptions] = useState({
     sortBy: 'sortby-none',
@@ -35,7 +30,7 @@ function CourseOne() {
   })
 
   const [CourseData, setCourseData] = useState([])
-  const [CourseCount, setCourseCount] = useState(9)
+  const [CourseCount, setCourseCount] = useState(8)
 
   const { t: translation } = useTranslation()
 
@@ -51,19 +46,15 @@ function CourseOne() {
   const handleFilterChange = (filter, value) => {
     switch (filter) {
       case 'sort':
-        setSortBy(value);
         setQueryOptions({...queryOptions, sortBy: value})
         break;
       case 'category':
-        setCategoryFilter(value);
         setQueryOptions({...queryOptions, categoryFilter: value})
         break;
       case 'grade':
-        setGradeFilter(value);
         setQueryOptions({...queryOptions, gradeFilter: value})
         break;
       case 'fiterByPrice':
-        setRangePrice(value);
         setQueryOptions({...queryOptions, rangePrice: value})
         break;
       default:
@@ -85,7 +76,6 @@ function CourseOne() {
     const offset = (pageNumber - 1) * pageSize
     async function fetchData(searchText, paginationOptions = {}, queryOptions = {}) {
       const {data: {courses, count}} = await courseService.getTeacherCourses(searchText, paginationOptions, queryOptions);
-      console.log(courses)
       if (isMounted) {
         setCourseData(courses)
         setCourseCount(count)
@@ -98,7 +88,7 @@ function CourseOne() {
   useEffect(() => {
     const selectedNumber = () => {
       if (CourseCount > 0 && pageSize >= 0) {
-        return CourseCount <= pageSize ? CourseCount : pageSize;
+        return CourseCount <= pageSize || pageSize === 0 ? CourseCount : pageSize;
       }
 
       return 0;
@@ -162,7 +152,7 @@ function CourseOne() {
             </div>
             <div className="row">
               <div className="col-lg-12 mt--60 edu-course-pagination">
-                <Pagination count={Math.ceil(CourseCount / pageSize)} page={pageNumber} onChange={handleChangePageNumber} ariant="outlined" size="large" siblingCount={2} color="primary" />
+                <Pagination count={pageSize > 0 ? Math.ceil(CourseCount / pageSize) : CourseCount} page={pageNumber} onChange={handleChangePageNumber} ariant="outlined" size="large" siblingCount={2} color="primary" />
               </div>
             </div>
           </div>
