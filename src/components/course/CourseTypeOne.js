@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom'
 import { slugify } from '../../utils'
 import InstructorData from '../../data/instructor/InstructorData.json'
 import CourseData from '../../data/course/CourseData.json'
+import get from 'lodash/get'
 
 function CourseTypeOne({ data, classes }) {
 
   const instructorThumb = InstructorData[1].image
   const excerpt = `${data.description ? data.description.substring(0, 142) : CourseData[1].excerpt.substring(0, 142)}...`
+  const trimTitle = `${data.title ? data.title.substring(0, 26) : 'Unknown title'}${data.title.length > 26 ? '...' : ''}`
 
   return (
     <div className={`edu-card card-type-3 radius-small ${classes || ''}`}>
@@ -30,7 +32,7 @@ function CourseTypeOne({ data, classes }) {
               className="letmeet-status status-03"
               to={`${process.env.PUBLIC_URL}/course-category/1}`}
             >
-              {/* {data.category.name || 'Category'} */}
+              {get(data, 'category.name', 'General')}
             </Link>
           </div>
         </div>
@@ -60,29 +62,35 @@ function CourseTypeOne({ data, classes }) {
           </div>
           <h6 className="title">
             <Link to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}>
-              {data.title}
+              {trimTitle}
             </Link>
           </h6>
           <div className="card-bottom">
             <div className="price-list price-style-02">
-              {data.price === '0' ? (
-                <div className="price current-price">Free</div>
-              ) : (
-                <div className="price current-price">{data.price} VND</div>
-              )}
-              {data.oldPrice && (
-                <div className="price old-price">{data.oldPrice} VND</div>
-              )}
-            </div>
-            <div className="edu-rating rating-default">
-              <div className="rating letmeet-course-rating-stars">
-                <i className="icon-Star" />
-                <i className="icon-Star" />
-                <i className="icon-Star" />
-                <i className="icon-Star" />
-                <i className="icon-Star" />
+              <div className="row align-items-center">
+                <div className='col-lg-6 col-md-6 col-sm-6'>
+                  {data.price && (
+                    <div className="price current-price">{data.price !== 0 ? `${data.price}VND` : 'Free'}</div>
+                  )}
+                </div>
+                <div className='col-lg-6 col-md-6 col-sm-6'>
+                  {data.oldPrice && (
+                    <div className="price old-price">{data.oldPrice}VND</div>
+                  )}
               </div>
-              <span className="rating-count">({data.rating})</span>
+              <div className="row align-items-center">
+                <div className="edu-rating rating-default">
+                  <div className="rating letmeet-course-rating-stars">
+                    <i className="icon-Star" />
+                    <i className="icon-Star" />
+                    <i className="icon-Star" />
+                    <i className="icon-Star" />
+                    <i className="icon-Star" />
+                  </div>
+                  <span className="rating-count">({data.rating})</span>
+                </div>
+              </div>
+              </div>
             </div>
           </div>
         </div>
@@ -98,7 +106,7 @@ function CourseTypeOne({ data, classes }) {
                   'data.categories.slice(0, 1)'
                 )}`}
               >
-                {/* {data.category.name} */}
+                {get(data, 'category.name', 'General')}
               </Link>
             </div>
             <div className="top-wishlist-bar">
@@ -110,7 +118,7 @@ function CourseTypeOne({ data, classes }) {
 
           <h6 className="title">
             <Link to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}>
-              {data.title}
+              {trimTitle}
             </Link>
           </h6>
 
