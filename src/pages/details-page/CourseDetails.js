@@ -9,6 +9,7 @@ import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
 import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
 import CourseInfo from '../../components/course/CourseInfo'
+import MeetingLink from '../../components/meeting-link/MeetingLink'
 import RelatedCourses from '../../components/course/RelatedCourses'
 
 // MUI component
@@ -167,6 +168,7 @@ function CourseDetails() {
 
   return (
     <>
+      <MeetingLink shouldShow="true"/>
       <SEO title={courseItem.title} />
       <Layout>
         <BreadcrumbOne

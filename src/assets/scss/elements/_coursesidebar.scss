@@ -43,3 +43,81 @@
   justify-content: center;
   align-items: center;
 }
+
+.edu-meeting-link {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0 , 0 , 0.5);
+
+  .container {
+    width: 40%;
+    display: flex;
+    position: relative;
+  }
+
+  .thumbnail {
+    position: relative;
+    border-radius: 5px;
+    &::before {
+      background: linear-gradient(
+        360deg,
+        #2d284e 0%,
+        rgba(45, 40, 78, 0) 70.5%
+      );
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+    }
+    .close-button {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      text-align: center;
+      font-size: 30px;
+    }
+    img {
+      border-radius: 5px;
+    }
+    .content-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      padding: 50px 20px;
+      @media #{$sm-layout} {
+        padding: 20px 20px;
+      }
+      .title {
+        margin-bottom: 0;
+        color: var(--color-white);
+        font-size: 40px;
+        line-height: 44px;
+        @media #{$sm-layout} {
+          font-size: 22px;
+          line-height: 32px;
+        }
+      }
+    }
+  }
+
+  &__image {
+    border-radius: 10px;
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    bottom: -20px;
+  }
+}
