@@ -101,20 +101,30 @@
     "courseDetails": "Chi tiết khóa học"
   },
   "courseDetails": {
+    "duration": "Thời lượng",
+    "hours": "Giờ",
     "overview": "Tổng quan",
     "classes": "Các lớp học",
+    "owner": "Chủ lớp học",
     "instructors": "Người dạy",
     "reviews": "Đánh giá",
     "description": "Mô tả khóa học",
+    "price": "Học phí",
+    "grade": "Khối lớp",
+    "register": "Đăng ký lớp học",
+    "share": "Chia sẻ",
     "whatWillYouLearn": "Kiến thực nhận được từ khóa học",
-    "classDetails": {
-      "duration": "Thời lượng",
-      "maxSlot": "Sỉ số tối đa",
-      "enrolled": "Sỉ số hiện tại",
-      "grade": "Khối lớp tối thiểu",
-      "instructor": "Người dạy",
-      "fee": "Học phí"
-    }
+    "review": "Đánh giá",
+    "startDate": "Ngày bắt đầu",
+    "endDate": "Ngày kết thúc"
+  },
+  "classDetails": {
+    "duration": "Thời lượng",
+    "maxSlot": "Sỉ số tối đa",
+    "enrolled": "Sỉ số hiện tại",
+    "hours": "Giờ",
+    "startDate": "Ngày bắt đầu",
+    "endDate": "Ngày kết thúc"
   },
   "relatedCourses": {
     "title": "Các khóa học liên quan",

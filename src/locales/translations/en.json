@@ -101,20 +101,30 @@
     "courseDetails": "Course Details"
   },
   "courseDetails": {
+    "duration": "Duration",
+    "hours": "Hours",
     "overview": "Overview",
     "classes": "Classes",
+    "owner": "Owner",
     "instructors": "Instructors",
     "reviews": "Reviews",
     "description": "Description",
+    "price": "Price",
+    "grade": "Grade",
+    "register": "Register",
+    "share": "Share",
     "whatWillYouLearn": "What will you learn from this course",
-    "classDetails": {
-      "duration": "Duration",
-      "maxSlot": "Max Slot",
-      "enrolled": "Enrolled",
-      "grade": "Grade",
-      "instructor": "Instructor",
-      "fee": "Fee"
-    }
+    "review": "Review",
+    "startDate": "Ngày bắt đầu",
+    "endDate": "Ngày kết thúc"
+  },
+  "classDetails": {
+    "duration": "Duration",
+    "maxSlot": "Max Slots",
+    "enrolled": "Enrolled",
+    "hours": "Hours",
+    "startDate": "Start Date",
+    "endDate": "End Date"
   },
   "relatedCourses": {
     "title": "Related Courses",

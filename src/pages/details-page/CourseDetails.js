@@ -22,7 +22,6 @@ import userService from '../../services/user-service'
 
 import CourseData from '../../data/course/CourseData.json'
 import InstructorData from '../../data/instructor/InstructorData.json'
-import CurriculumTabContent from '../../data/course/CurriculumTabContent.json'
 
 // i18
 import { useTranslation } from 'react-i18next'
@@ -43,7 +42,24 @@ function CustomToggle({ children, eventKey }) {
   )
 }
 
-function ClassesTabContent() {
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [day, month, year].join('/');
+}
+
+function ClassesTabContent(data) {
+  const [classesData, setClassesData] = useState([])
+  const [isMounted, setIsMounted] = useState(false)
+
   const { t: translation } = useTranslation()
 
   const [activeId, setActiveId] = useState('0')
@@ -56,9 +72,19 @@ function ClassesTabContent() {
     }
   }
 
+  useEffect(() => {
+    setIsMounted(true)
+    const courseId = data.courseId
+    courseService.getClasses(courseId).then(({data: ClassesData}) => {
+      if (isMounted) {
+        setClassesData(ClassesData)
+      }
+    })
+  }, [data.courseId, isMounted]);
+
   return (
     <Accordion bsPrefix="edu-accordion-02" defaultActiveKey={activeId} flush>
-      {CurriculumTabContent.map((accordion, i) => (
+      {classesData?.map((accordion, i) => (
         <Accordion.Item
           eventKey={i.toString()}
           key={i}
@@ -69,7 +95,8 @@ function ClassesTabContent() {
         >
           <div className="edu-accordion-header">
             <CustomToggle eventKey={i.toString()}>
-              {accordion.title}
+              Lớp học {i + 1}
+              {/* {accordion.title} */}
             </CustomToggle>
           </div>
           <Accordion.Body bsPrefix="edu-accordion-body">
@@ -77,25 +104,43 @@ function ClassesTabContent() {
               <li>
                 <div className="text">
                 <i className="icon-time-line" />
-                  {translation("courseDetails.classDetails.duration")}
+                  {translation("classDetails.duration")}
                 </div>
                 <div className="icon">
-                  {accordion.duration}
+                  {accordion.duration} {translation("classDetails.hours")}
                 </div>
               </li>
               <li>
                 <div className="text">
                   <i className="icon-user-2" />
-                  {translation("courseDetails.classDetails.enrolled")}/{translation("courseDetails.classDetails.maxSlot")}
+                  {translation("classDetails.enrolled")}/{translation("classDetails.maxSlot")}
                 </div>
                 <div className="icon">
-                  {accordion.enrolled}/{accordion.maxSlot}
+                  {accordion.maxSlots - accordion.remainingSlots}/{accordion.maxSlots}
                 </div>
               </li>
               <li>
                 <div className="text">
+                  <i className="icon-calendar-2-line" />
+                  {translation("classDetails.startDate")}
+                </div>
+                <div className="icon">
+                  {formatDate(accordion.startDate)}
+                </div>
+              </li>
+              <li>
+                <div className="text">
+                  <i className="icon-calendar-2-line" />
+                  {translation("classDetails.endDate")}
+                </div>
+                <div className="icon">
+                {formatDate(accordion.endDate)}
+                </div>
+              </li>
+              {/* <li>
+                <div className="text">
                   <i className="icon-bar-chart-2-line" />
-                  {translation("courseDetails.classDetails.grade")}
+                  {translation("classDetails.grade")}
                 </div>
                 <div className="icon">
                   {accordion.grade}
@@ -104,12 +149,12 @@ function ClassesTabContent() {
               <li>
                 <div className="text">
                   <i className="icon-user-2-line_tie" />
-                  {translation("courseDetails.classDetails.fee")}
+                  {translation("classDetails.fee")}
                 </div>
                 <div className="icon">
                   {accordion.fee} VND
                 </div>
-              </li>
+              </li> */}
             </ul>
           </Accordion.Body>
         </Accordion.Item>
@@ -129,6 +174,8 @@ function CourseDetails() {
   const data = CourseData.filter((course) => course.id === courseId)
   const courseItem = data[0]
 
+  const fakeId = 'e1fbda3d-59d0-48b1-ba40-c5213396d1ce'
+
   useEffect(() => {
     setIsMounted(true)
     courseService.getSpecificCourse(id).then(({ data: CourseDetailsData }) => {
@@ -141,8 +188,6 @@ function CourseDetails() {
       }
     })
   }, [id, isMounted])
-
-  console.log(courseData)
 
   const indexOfInstructor = InstructorData.findIndex(
     (instructor) => slugify(instructor.name) === slugify(courseItem.instructor)
@@ -171,12 +216,6 @@ function CourseDetails() {
       <MeetingLink shouldShow="true"/>
       <SEO title={courseItem.title} />
       <Layout>
-        <BreadcrumbOne
-          title={translation("pageTitle.courseDetails")}
-          rootUrl="/"
-          parentUrl={translation("pageTitle.home")}
-          currentUrl={translation("pageTitle.courseDetails")}
-        />
         <div className="edu-course-details-area edu-section-gap bg-color-white">
           <div className="container">
             <div className="row g-5">
@@ -209,7 +248,7 @@ function CourseDetails() {
                             alt="Author Thumb"
                           />
                           <span className="author-title">
-                            By{' '}{teacherFullName}
+                            {' '}{teacherFullName}
                           </span>
                         </Link>
                       </div>
@@ -233,7 +272,7 @@ function CourseDetails() {
                         )}
                       </div>
                       <span className="rating-count">
-                        ({courseItem.review} Review)
+                        ({courseItem.review} {translation("courseDetails.review")})
                       </span>
                     </div>
                   </div>
@@ -334,7 +373,8 @@ function CourseDetails() {
                         animateOnce
                       >
                         <div className="course-tab-content">
-                          <ClassesTabContent />
+                          <ClassesTabContent courseId={fakeId}
+                          />
                         </div>
                       </ScrollAnimation>
                     )}

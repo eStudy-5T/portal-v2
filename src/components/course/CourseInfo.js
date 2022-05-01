@@ -2,7 +2,12 @@
 import React, { useState } from 'react'
 import FsLightbox from 'fslightbox-react'
 
+// i18
+import { useTranslation } from 'react-i18next'
+
 function CourseInfo({ data }) {
+  const { t: translation } = useTranslation()
+  
   const [toggler, setToggler] = useState(false)
   return (
     <div className="letmeet-sidebar course-details-sidebar">
@@ -30,104 +35,71 @@ function CourseInfo({ data }) {
                 {data.duration && (
                   <li>
                     <span>
-                      <i className="icon-time-line" /> Duration
+                      <i className="icon-time-line" /> {translation("courseDetails.duration")}
                     </span>
-                    <span>{data.duration}</span>
+                    <span>160 {translation("courseDetails.hours")}</span>
                   </li>
                 )}
-                {data.student && (
+                {/* {data.student && (
                   <li>
                     <span>
                       <i className="icon-user-2" /> Enrolled
                     </span>
                     <span>{data.student}</span>
                   </li>
-                )}
-                {data.lesson && (
+                )} */}
+                {/* {data.lesson && (
                   <li>
                     <span>
                       <i className="icon-draft-line" /> Lectures
                     </span>
                     <span>{data.lesson}</span>
                   </li>
-                )}
+                )} */}
                 {data.level && (
                   <li>
                     <span>
-                      <i className="icon-bar-chart-2-line" /> Skill Level
+                      <i className="icon-bar-chart-2-line" />  
+                      {translation("courseDetails.grade")}
                     </span>
-                    <span>{data.level}</span>
-                  </li>
-                )}
-                {data.language && (
-                  <li>
-                    <span>
-                      <i className="icon-translate" /> Language
-                    </span>
-                    <span>{data.language}</span>
-                  </li>
-                )}
-                {data.quizzes && (
-                  <li>
-                    <span>
-                      <i className="icon-artboard-line" /> Quizzes
-                    </span>
-                    <span>{data.quizzes}</span>
-                  </li>
-                )}
-                {data.certificate && (
-                  <li>
-                    <span>
-                      <i className="icon-award-line" /> Certificate
-                    </span>
-                    <span>
-                      {data.certificate === 'available' ? 'Yes' : 'No'}
-                    </span>
-                  </li>
-                )}
-                {data.passPercentage && (
-                  <li>
-                    <span>
-                      <img
-                        className="letmeet-course-sidebar-img-icon"
-                        src="/images/icons/percent.svg"
-                        alt="icon Thumb"
-                      />
-                      Pass Percentage
-                    </span>
-                    <span>{data.passPercentage}%</span>
-                  </li>
-                )}
-                {data.deadline && (
-                  <li>
-                    <span>
-                      <i className="icon-calendar-2-line" /> Deadline
-                    </span>
-                    <span>{data.deadline}</span>
+                    <span>12</span>
                   </li>
                 )}
                 {data.instructor && (
                   <li>
                     <span>
-                      <i className="icon-user-2-line_tie" /> Instructor
+                      <i className="icon-user-2-line_tie" />
+                      {translation("courseDetails.owner")}
                     </span>
-                    <span>{data.instructor}</span>
+                    <span>Hồ Hoàng Thương</span>
                   </li>
                 )}
+                <li>
+                  <span>
+                    <i className="icon-calendar-2-line" /> {translation("courseDetails.startDate")}
+                  </span>
+                  <span>09/04/2022</span>
+                </li>
+                <li>
+                  <span>
+                    <i className="icon-calendar-2-line" /> {translation("courseDetails.endDate")}
+                  </span>
+                  <span>09/04/2023</span>
+                </li>
               </ul>
               <div className="read-more-btn mt--45">
-                <a href="#" className="edu-btn btn-bg-alt w-100 text-center">
-                  Price: ${data.price}
-                </a>
+                <button className="edu-btn btn-bg-alt w-100 text-center" disabled>
+                  {translation("courseDetails.price")}: 450.000 VND
+                </button>
               </div>
               <div className="read-more-btn mt--15">
                 <a href="#" className="edu-btn w-100 text-center">
-                  Buy Now
+                  {translation("courseDetails.register")}
                 </a>
               </div>
               <div className="read-more-btn mt--30 text-center">
                 <div className="letmeet-post-share">
-                  <span>Share: </span>
+                  <span>{translation("courseDetails.share")}: </span>
                   <a className="linkedin" href="#">
                     <i className="icon-linkedin" />
                   </a>
