@@ -52,6 +52,16 @@ function LoginForm() {
       })
   }
 
+  const loginWithGoogle = () => {
+    const googleLoginURL = `${process.env.REACT_APP_API_HOST}/api/auth/google`
+    window.open(googleLoginURL, '_self')
+  }
+
+  const loginWithFacebook = () => {
+    const facebookLoginURL = `${process.env.REACT_APP_API_HOST}/api/auth/facebook`
+    window.open(facebookLoginURL, '_self')
+  }
+
   return (
     <div className="login-form-box bg-color-white">
       <h3 className="mb-30 text-center fs-35">{translation('auth.login')}</h3>
@@ -91,6 +101,36 @@ function LoginForm() {
         >
           <span>{translation('auth.login')}</span>
         </button>
+
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            gap: 3
+          }}
+        >
+          <button
+            className="rn-btn edu-btn btn-danger w-100 mb--30"
+            type="button"
+            disabled={isLoading}
+            onClick={loginWithGoogle}
+          >
+            <i className="ri-google-line"></i>
+            &nbsp; Google
+          </button>
+
+          <button
+            className="rn-btn edu-btn btn-facebook w-100 mb--30"
+            type="button"
+            disabled={isLoading}
+            onClick={loginWithFacebook}
+          >
+            <i className="ri-facebook-circle-fill"></i>
+            &nbsp; Facebook
+          </button>
+        </Box>
+
         <Box
           sx={{
             display: 'flex',

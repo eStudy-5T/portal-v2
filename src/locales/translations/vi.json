@@ -37,7 +37,9 @@
     "dateInFuture": "Ngày tháng phải nằm trong tương lai!",
     "dateAfterStart": "Ngày kết thúc phải nằm sau ngày bắt đầu!",
     "invalidPassword": "Mật khẩu không hợp lệ",
-    "invalidResetPasswordToken": "Mã khôi phục mật khẩu không hợp lệ hoặc đã hết hạn"
+    "invalidResetPasswordToken": "Mã khôi phục mật khẩu không hợp lệ hoặc đã hết hạn",
+    "externalLogin": "Đăng nhập bên thứ ba không hỗ trợ khôi phục mật khẩu",
+    "externalChangePassword": "Đăng nhập bên thứ ba không hỗ trợ đổi mật khẩu"
   },
   "auth": {
     "login": "Đăng nhập",

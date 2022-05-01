@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Outlet
-} from 'react-router-dom'
+import { Routes, Route, Outlet, useSearchParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { useTranslation } from 'react-i18next'
@@ -31,9 +26,17 @@ const AppRouter = () => {
   const isAuthenticated = useAuthenticate()
   const isVerified = useVerify()
   const dispatch = useDispatch()
+  const [searchParams, setSearchParams] = useSearchParams()
   const { t: translation } = useTranslation()
 
   useEffect(() => {
+    const userIdFromQuery = searchParams.get('userId')
+    if (userIdFromQuery) {
+      localStorage.setItem('currentUser', userIdFromQuery)
+      searchParams.delete('userId')
+      setSearchParams(searchParams)
+    }
+
     if (
       isAuthenticated &&
       !isVerified &&
@@ -52,62 +55,68 @@ const AppRouter = () => {
           dispatch(userActions.setUserInfo(userInfo))
           setIsAppLoading(false)
         } catch (err) {
+          localStorage.removeItem('currentUser')
           setIsAppLoading(false)
         }
       }
     }
     fetchUserInfo()
-  }, [dispatch, isAuthenticated, isVerified, translation])
+  }, [
+    dispatch,
+    isAuthenticated,
+    isVerified,
+    translation,
+    searchParams,
+    setSearchParams
+  ])
 
   return (
-    <Router>
-      <ScrollToTop>
-        <Routes>
-          {publicRoutes.map(({ component: Component, path, exact }) => (
-            <Route path={`/${path}`} key={path} element={<Outlet />}>
-              <Route
-                path={`/${path}`}
-                key={path}
-                exact={exact}
-                element={isAppLoading ? <Loading /> : <Component />}
-              />
-            </Route>
-          ))}
-
-          {privateRoutes.map(({ component: Component, path, exact }) => (
+    <ScrollToTop>
+      <Routes>
+        {publicRoutes.map(({ component: Component, path, exact }) => (
+          <Route path={`/${path}`} key={path} element={<Outlet />}>
             <Route
               path={`/${path}`}
               key={path}
-              element={<PrivateRoute isAuthenticated={isAuthenticated} />}
-            >
-              <Route
-                path={`/${path}`}
-                key={path}
-                exact={exact}
-                element={isAppLoading ? <Loading /> : <Component />}
-              />
-            </Route>
-          ))}
+              exact={exact}
+              element={isAppLoading ? <Loading /> : <Component />}
+            />
+          </Route>
+        ))}
 
-          {restrictedRoutes.map(({ component: Component, path, exact }) => (
+        {privateRoutes.map(({ component: Component, path, exact }) => (
+          <Route
+            path={`/${path}`}
+            key={path}
+            element={<PrivateRoute isAuthenticated={isAuthenticated} />}
+          >
             <Route
               path={`/${path}`}
               key={path}
-              element={<RestrictedRoute isAuthenticated={isAuthenticated} />}
-            >
-              <Route
-                path={`/${path}`}
-                key={path}
-                exact={exact}
-                element={isAppLoading ? <Loading /> : <Component />}
-              />
-            </Route>
-          ))}
+              exact={exact}
+              element={isAppLoading ? <Loading /> : <Component />}
+            />
+          </Route>
+        ))}
 
-          <Route path="*" element={<Error />} />
-        </Routes>
-      </ScrollToTop>
-    </Router>
+        {restrictedRoutes.map(({ component: Component, path, exact }) => (
+          <Route
+            path={`/${path}`}
+            key={path}
+            element={<RestrictedRoute isAuthenticated={isAuthenticated} />}
+          >
+            <Route
+              path={`/${path}`}
+              key={path}
+              exact={exact}
+              element={isAppLoading ? <Loading /> : <Component />}
+            />
+          </Route>
+        ))}
+
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </ScrollToTop>
   )
 }
 

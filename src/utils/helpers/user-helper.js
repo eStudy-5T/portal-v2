@@ -8,5 +8,5 @@ export const logOutUser = () => {
   localStorage.removeItem('currentUser')
   Cookies.remove('csrf_token')
   store.dispatch(userActions.logOutUser())
-  authService.logout()
+  return authService.logout()
 }

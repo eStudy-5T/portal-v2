@@ -1,5 +1,5 @@
 /*--------------------------
-    Header Styles  
+    Header Styles
 --------------------------*/
 
 .edu-header {
@@ -23,6 +23,10 @@
     font-size: 20px;
     cursor: pointer;
     color: var(--color-primary);
+    transition: 0.25s;
+    &:hover {
+      color: var(--color-secondary);
+    }
   }
 
   &__dropdown {
@@ -70,7 +74,7 @@
 }
 
 /*------------------------
-    Header Style One  
+    Header Style One
 --------------------------*/
 
 .header-default {
@@ -89,7 +93,7 @@
 }
 
 /*------------------------
-    Header Style Two  
+    Header Style Two
 --------------------------*/
 .header-style-2 {
   padding: 0 200px;

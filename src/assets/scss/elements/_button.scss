@@ -35,7 +35,7 @@ button {
     transition: 0.3s;
     &::after {
       position: absolute;
-      content: "";
+      content: '';
       left: auto;
       right: 0;
       bottom: 0;
@@ -192,6 +192,28 @@ button {
       border: 2px solid var(--color-primary);
       color: var(--color-primary);
       line-height: 58px;
+    }
+
+    &.btn-danger {
+      background: var(--color-danger);
+      &:hover {
+        background: var(--color-dark);
+        color: var(--color-white);
+      }
+      i {
+        padding-left: 0;
+      }
+    }
+
+    &.btn-facebook {
+      background: var(--color-facebook);
+      &:hover {
+        background: var(--color-dark);
+        color: var(--color-white);
+      }
+      i {
+        padding-left: 0;
+      }
     }
   }
 }
