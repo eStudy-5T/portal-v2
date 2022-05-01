@@ -37,7 +37,9 @@
     "dateInFuture": "Date must be in the future!",
     "dateAfterStart": "End date must be after start date!",
     "invalidPassword": "Invalid Password",
-    "invalidResetPasswordToken": "Reset password token is invalid or has expired"
+    "invalidResetPasswordToken": "Reset password token is invalid or has expired",
+    "externalLogin": "Third party login does not support password reset",
+    "externalChangePassword":"Third party login does not support password change"
   },
   "auth": {
     "login": "Login",

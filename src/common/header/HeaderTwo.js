@@ -1,4 +1,5 @@
 import { useState, useLayoutEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import HeaderSticky from './HeaderSticky'
@@ -17,6 +18,7 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
   const [searchPopup, setSearchPopup] = useState(false)
   const [isOpenSettings, setOpenSettings] = useState(null)
   const isAuthenticated = useAuthenticate()
+  const firstName = useSelector((state) => state.userInfo.firstName)
 
   const { t: translation } = useTranslation()
 
@@ -92,10 +94,12 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                       <div
                         aria-controls="menu-settings"
                         aria-haspopup="true"
-                        className="edu-header__authenticated"
+                        className="edu-header__authenticated d-flex justify-content-center"
                         onClick={openSettings}
                       >
                         <i className="ri-user-line" />
+                        &nbsp;
+                        {firstName}
                       </div>
                       <Menu
                         id="menu-settings"
@@ -141,12 +145,45 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                 </div>
                 <div className="quote-icon quote-user d-block d-md-none ml--15 ml_sm--5">
                   {isAuthenticated ? (
-                    <button
-                      className="white-box-icon"
-                      onClick={() => logOutUser()}
-                    >
-                      <i className="ri-logout-box-r-line" />
-                    </button>
+                    <Box>
+                      <div
+                        aria-controls="menu-settings"
+                        aria-haspopup="true"
+                        className="edu-header__authenticated"
+                        onClick={openSettings}
+                      >
+                        <i className="ri-user-line" />
+                      </div>
+                      <Menu
+                        id="menu-settings"
+                        transformOrigin={{
+                          horizontal: 'center',
+                          vertical: 'top'
+                        }}
+                        anchorOrigin={{
+                          horizontal: 'right',
+                          vertical: 'bottom'
+                        }}
+                        anchorEl={isOpenSettings}
+                        open={Boolean(isOpenSettings)}
+                        onClose={handleCloseSettingsMenu}
+                        TransitionComponent={Fade}
+                        disableScrollLock={true}
+                        className="edu-header__dropdown"
+                      >
+                        <Link to="/teacher-dashboard">
+                          <MenuItem>
+                            {translation('dropdown.teacherDashboard')}
+                          </MenuItem>
+                        </Link>
+
+                        <Link to="#">
+                          <MenuItem onClick={() => logOutUser()}>
+                            {translation('auth.logOut')}
+                          </MenuItem>
+                        </Link>
+                      </Menu>
+                    </Box>
                   ) : (
                     <Link
                       to={`${process.env.PUBLIC_URL}/login`}
