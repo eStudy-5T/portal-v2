@@ -13,8 +13,7 @@ import { useTranslation } from 'react-i18next'
 import useAuthenticate from '../../hooks/use-authenticate'
 import { logOutUser } from '../../utils/helpers/user-helper'
 
-
-function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
+function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
   const [offcanvasShow, setOffcanvasShow] = useState(false)
   const [searchPopup, setSearchPopup] = useState(false)
   const [isOpenSettings, setOpenSettings] = useState(null)
@@ -50,7 +49,7 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
   const navigate = useNavigate()
   const _logOutUser = () => {
     logOutUser()
-    navigate('/', {replace: true})
+    navigate('/', { replace: true })
   }
 
   const sticky = HeaderSticky(200)
@@ -133,6 +132,8 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
 
                         <Link to="/teacher-dashboard">
                           <MenuItem>
+                            <i className="ri-dashboard-2-fill mr-5" />
+
                             {translation('dropdown.teacherDashboard')}
                           </MenuItem>
                         </Link>
@@ -144,7 +145,8 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                         </Link>
 
                         <Link to="#">
-                          <MenuItem onClick={_logOutUser}>
+                          <MenuItem onClick={() => logOutUser()}>
+                            <i className="ri-logout-box-r-line mr-5" />
                             {translation('auth.logOut')}
                           </MenuItem>
                         </Link>
@@ -251,4 +253,4 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
   )
 }
 
-export default HeaderTwo
+export default Header

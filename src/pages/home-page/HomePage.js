@@ -1,7 +1,7 @@
 import React from 'react'
 import SEO from '../../common/SEO'
 import VerifyAccountAlert from '../../common/global-alert/VerifyAccountAlert'
-import HeaderTwo from '../../common/header/HeaderTwo'
+import Header from '../../common/header/Header'
 import BannerTwo from '../../components/banner/BannerTwo'
 import HomeTwoService from '../../components/home-two/HomeTwoService'
 import AboutFour from '../../components/about/AboutFour'
@@ -20,7 +20,7 @@ function HomePage() {
     <>
       <SEO title={t('nav.home')} />
 
-      <HeaderTwo styles="header-transparent header-style-2" />
+      <Header styles="header-transparent header-style-2" />
 
       <VerifyAccountAlert />
 
