@@ -13,8 +13,9 @@ const userService = {
   update: (userId, userInfo) => {
     return request.put(`/user/${userId}`, userInfo)
   },
-  enrolCourse: (courseId, ownerId, userId) => {
-    return request.get('/user/enrolCourse', {courseId, ownerId, userId})
+  enrollCourse: (courseId, ownerId) => {
+    console.log({courseId, ownerId})
+    return request.post('/courses/enroll', {courseId, ownerId})
   }
 }
 

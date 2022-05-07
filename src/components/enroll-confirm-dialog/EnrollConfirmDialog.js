@@ -2,7 +2,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next'
 
-function EnrolConfirmDialog(props) {
+function EnrollConfirmDialog(props) {
   const { t: translation } = useTranslation()
 
   const confirm = () => {
@@ -31,7 +31,7 @@ function EnrolConfirmDialog(props) {
           </img>
           <div className="content-overlay">
             <h4 className="title">
-              {translation("courseDetails.enrolConfirm")}
+              {translation("courseDetails.enrollConfirm")}
             </h4>
           </div>
         </div>
@@ -50,4 +50,4 @@ function EnrolConfirmDialog(props) {
   )
 }
 
-export default EnrolConfirmDialog
+export default EnrollConfirmDialog

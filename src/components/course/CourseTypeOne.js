@@ -4,8 +4,10 @@ import { slugify } from '../../utils'
 import InstructorData from '../../data/instructor/InstructorData.json'
 import CourseData from '../../data/course/CourseData.json'
 import get from 'lodash/get'
+import { useTranslation } from 'react-i18next'
 
-function CourseTypeOne({ data, classes }) {
+function CourseTypeOne({ data, classes, handleEnrollClick }) {
+  const { t: translation } = useTranslation()
 
   const instructorThumb = InstructorData[1].image
   const excerpt = `${data.description ? data.description.substring(0, 142) : CourseData[1].excerpt.substring(0, 142)}...`
@@ -161,9 +163,10 @@ function CourseTypeOne({ data, classes }) {
           <div className="read-more-btn">
             <Link
               className="edu-btn btn-medium btn-white"
-              to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}
+              to={`/course-details/${data.id}`}
+              onClick={handleEnrollClick}
             >
-              Enroll Now
+              {translation("courseDetails.register")}
               <i className="icon-arrow-right-line-right" />
             </Link>
           </div>

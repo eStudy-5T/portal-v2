@@ -25,7 +25,7 @@ import InstructorData from '../../data/instructor/InstructorData.json'
 
 // i18
 import { useTranslation } from 'react-i18next'
-import EnrolConfirmDialog from '../../components/enrol-confirm-dialog/EnrolConfirmDialog'
+import EnrollConfirmDialog from '../../components/enroll-confirm-dialog/EnrollConfirmDialog'
 
 function CustomToggle({ children, eventKey }) {
   const { activeEventKey } = useContext(AccordionContext)
@@ -178,7 +178,7 @@ function CourseDetails() {
   const instructor = InstructorData[indexOfInstructor]
   const instructorExcerpt = `${instructor.details.substring(0, 190)}...`
 
-  const teacherInfo = courseData ? courseData.teacherInfo : null
+  const teacherInfo = courseData && courseData.teacherInfo ? courseData.teacherInfo : instructor
   const teacherFullName = teacherInfo ? teacherInfo.firstName + ' ' + teacherInfo.lastName : null
 
   const [contentTab, setContentTab] = useState('overview')
@@ -227,7 +227,7 @@ function CourseDetails() {
                           )}`}
                         >
                           <img
-                            src={`${teacherInfo ? teacherInfo.avatar : instructor.image}`}
+                            src={`${teacherInfo.avatar ? teacherInfo.avatar : '/images/course/student-review/student-1.png'}`}
                             alt="Author Thumb"
                           />
                           <span className="author-title">
@@ -382,7 +382,7 @@ function CourseDetails() {
                                 )}`}
                               >
                                 <img
-                                  src={`${teacherInfo && teacherInfo.avatar}`}
+                                  src={`${teacherInfo && teacherInfo.avatar ? teacherInfo.avatar : '/images/instructor/instructor-02/instructor-1.jpg'}`}
                                   alt="Author Thumb"
                                 />
                               </Link>
@@ -400,7 +400,7 @@ function CourseDetails() {
                                 </Link>
                               </h6>
                               <span className="subtitle">
-                                {instructor.designation}
+                                {'Teacher' || instructor.designation}
                               </span>
                               <p>{teacherInfo && teacherInfo.description}</p>
                               <ul className="social-share border-style">
