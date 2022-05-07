@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import ScrollAnimation from 'react-animate-on-scroll'
-import Pagination from '@mui/material/Pagination';
+import Pagination from '@mui/material/Pagination'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
 import CourseTypeOne from '../../components/course/CourseTypeOne'
@@ -8,20 +8,20 @@ import SortBy from '../../components/widgets/course/SortBy'
 import PriceOne from '../../components/widgets/course/CategoryFilter'
 import LevelOne from '../../components/widgets/course/GradeFilter'
 import FilterByPrice from '../../components/widgets/course/FilterByPrice'
+import debounce from 'lodash.debounce'
 
 import courseService from '../../services/course-service'
 
 // i18
 import { useTranslation } from 'react-i18next'
-import { isNumber } from 'lodash';
+import { isNumber } from 'lodash'
 
 function CourseOne() {
   const [pageNumber, setPageNumber] = useState(1)
-
   const [pageSize, setPageSize] = useState(8)
-
   const [searchText, setSearchText] = useState('')
-
+  const [CourseData, setCourseData] = useState([])
+  const [CourseCount, setCourseCount] = useState(0)
   const [queryOptions, setQueryOptions] = useState({
     sortBy: 'sortby-none',
     categoryFilter: 'category-all',
@@ -29,72 +29,64 @@ function CourseOne() {
     rangePrice: -1
   })
 
-  const [CourseData, setCourseData] = useState([])
-  const [CourseCount, setCourseCount] = useState(8)
-
   const { t: translation } = useTranslation()
 
+  useEffect(() => {
+    const offset = (pageNumber - 1) * pageSize
+    const debouncedFetchData = debounce(async (pSearchText, paginationOptions = {}, queryOptions = {}) => {
+      const {
+        data: { courses, count }
+      } = await courseService.getTeacherCourses(
+        String(pSearchText).trim().toLowerCase(),
+        paginationOptions,
+        queryOptions
+      )
+      setCourseData(courses)
+      setCourseCount(count)
+    }, 750);
+    if (pageSize) {
+      debouncedFetchData(searchText, { offset, limit: pageSize }, queryOptions)
+    }
+    return () => {
+      debouncedFetchData.cancel()
+    }
+  }, [searchText, pageNumber, pageSize, queryOptions])
+
   const handleChangePageNumber = (event, value) => {
-    setPageNumber(isNumber(value) ? value : 1);
+    setPageNumber(isNumber(value) ? value : 1)
   }
 
   const handleChangePageSize = (event) => {
-    setPageSize(event.target.value);
-    setPageNumber(1);
+    const tempPageSize = event.target.value
+    console.log("asdasd", tempPageSize)
+    if (CourseCount >= tempPageSize && pageSize !== tempPageSize) {
+      setPageSize(tempPageSize)
+      setPageNumber(1)
+    }
   }
 
   const handleFilterChange = (filter, value) => {
     switch (filter) {
       case 'sort':
-        setQueryOptions({...queryOptions, sortBy: value})
-        break;
+        setQueryOptions({ ...queryOptions, sortBy: value })
+        break
       case 'category':
-        setQueryOptions({...queryOptions, categoryFilter: value})
-        break;
+        setQueryOptions({ ...queryOptions, categoryFilter: value })
+        break
       case 'grade':
-        setQueryOptions({...queryOptions, gradeFilter: value})
-        break;
+        setQueryOptions({ ...queryOptions, gradeFilter: value })
+        break
       case 'fiterByPrice':
-        setQueryOptions({...queryOptions, rangePrice: value})
-        break;
+        setQueryOptions({ ...queryOptions, rangePrice: value })
+        break
       default:
-        break;
+        break
     }
   }
 
-  let delayTimer = null
-
-  const handleChangeSearchText = (e) => {
-    clearTimeout(delayTimer)
-    delayTimer = setTimeout(function() {
-      setSearchText(String(e.target.value).trim().toLocaleLowerCase())
-    }, 1000);
+  const handleChangeSearchText = (event) => {
+    setSearchText(event.target.value)
   }
-
-  useEffect(() => {
-    let isMounted = true;
-    const offset = (pageNumber - 1) * pageSize
-    async function fetchData(searchText, paginationOptions = {}, queryOptions = {}) {
-      const {data: {courses, count}} = await courseService.getTeacherCourses(searchText, paginationOptions, queryOptions);
-      if (isMounted) {
-        setCourseData(courses)
-        setCourseCount(count)
-      }
-    }
-    fetchData(searchText, {offset, limit: pageSize}, queryOptions)
-    return () => { isMounted = false };
-  }, [searchText, pageNumber, pageSize, queryOptions]);
-
-  useEffect(() => {
-    const selectedNumber = () => {
-      if (CourseCount > 0 && pageSize >= 0) {
-        return CourseCount <= pageSize || pageSize === 0 ? CourseCount : pageSize;
-      }
-
-      return 0;
-    }
-    setPageSize(selectedNumber);
-  }, [CourseCount, pageSize]);
 
   return (
     <>
@@ -108,9 +100,19 @@ function CourseOne() {
                   <div className="col-lg-6 col-md-6 col-12">
                     <div className="short-by">
                       <p>
-                        <span>{translation("courses.showing")} </span>
-                        <input className="edu-size-number px-0" type="number" value={pageSize} onChange={handleChangePageSize} />
-                        <span> {translation("courses.of")} {CourseCount} {translation("courses.results")}</span>
+                        <span>{translation('courses.showing')} </span>
+                        <input
+                          className="edu-size-number px-0"
+                          type="number"
+                          max={CourseCount || 0}
+                          value={pageSize}
+                          onChange={handleChangePageSize}
+                        />
+                        <span>
+                          {' '}
+                          {translation('courses.of')} {CourseCount}{' '}
+                          {translation('courses.results')}
+                        </span>
                       </p>
                     </div>
                   </div>
@@ -119,7 +121,12 @@ function CourseOne() {
                       <div className="edu-search-box-wrapper text-start text-md-end">
                         <div className="edu-search-box">
                           <form action="#">
-                            <input type="text" placeholder={translation("courses.searchCourse")} onChange={handleChangeSearchText} />
+                            <input
+                              type="text"
+                              placeholder={translation('courses.searchCourse')}
+                              value={searchText}
+                              onChange={handleChangeSearchText}
+                            />
                             <button className="search-button">
                               <i className="icon-search-line" />
                             </button>
@@ -144,15 +151,36 @@ function CourseOne() {
                 </div>
               </div>
               <div className="col-lg-4">
-                <SortBy onFilterChange={handleFilterChange}/>
-                <PriceOne extraClass='mt--40' onFilterChange={handleFilterChange}/>
-                <LevelOne extraClass='mt--40' onFilterChange={handleFilterChange}/>
-                <FilterByPrice extraClass='mt--40' onFilterChange={handleFilterChange} />
+                <SortBy onFilterChange={handleFilterChange} />
+                <PriceOne
+                  extraClass="mt--40"
+                  onFilterChange={handleFilterChange}
+                />
+                <LevelOne
+                  extraClass="mt--40"
+                  onFilterChange={handleFilterChange}
+                />
+                <FilterByPrice
+                  extraClass="mt--40"
+                  onFilterChange={handleFilterChange}
+                />
               </div>
             </div>
             <div className="row">
               <div className="col-lg-12 mt--60 edu-course-pagination">
-                <Pagination count={pageSize > 0 ? Math.ceil(CourseCount / pageSize) : CourseCount} page={pageNumber} onChange={handleChangePageNumber} ariant="outlined" size="large" siblingCount={2} color="primary" />
+                <Pagination
+                  count={
+                    pageSize > 0
+                      ? Math.ceil(CourseCount / pageSize)
+                      : CourseCount
+                  }
+                  page={pageNumber}
+                  onChange={handleChangePageNumber}
+                  ariant="outlined"
+                  size="large"
+                  siblingCount={2}
+                  color="primary"
+                />
               </div>
             </div>
           </div>
