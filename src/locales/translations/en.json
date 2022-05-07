@@ -113,12 +113,15 @@
     "description": "Description",
     "price": "Price",
     "grade": "Grade",
-    "register": "Register",
+    "enrol": "Enrol",
     "share": "Share",
     "whatWillYouLearn": "What will you learn from this course",
     "review": "Review",
-    "startDate": "Ngày bắt đầu",
-    "endDate": "Ngày kết thúc"
+    "startDate": "Start date",
+    "endDate": "End date",
+    "enrolConfirm": "Confirm the enrollment ?",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   },
   "classDetails": {
     "duration": "Duration",

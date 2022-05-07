@@ -25,6 +25,7 @@ import InstructorData from '../../data/instructor/InstructorData.json'
 
 // i18
 import { useTranslation } from 'react-i18next'
+import EnrolConfirmDialog from '../../components/enrol-confirm-dialog/EnrolConfirmDialog'
 
 function CustomToggle({ children, eventKey }) {
   const { activeEventKey } = useContext(AccordionContext)
@@ -137,24 +138,6 @@ function ClassesTabContent(data) {
                 {formatDate(accordion.endDate)}
                 </div>
               </li>
-              {/* <li>
-                <div className="text">
-                  <i className="icon-bar-chart-2-line" />
-                  {translation("classDetails.grade")}
-                </div>
-                <div className="icon">
-                  {accordion.grade}
-                </div>
-              </li>
-              <li>
-                <div className="text">
-                  <i className="icon-user-2-line_tie" />
-                  {translation("classDetails.fee")}
-                </div>
-                <div className="icon">
-                  {accordion.fee} VND
-                </div>
-              </li> */}
             </ul>
           </Accordion.Body>
         </Accordion.Item>
@@ -605,7 +588,7 @@ function CourseDetails() {
                 </div>
               </div>
               <div className="col-xl-4 col-lg-5">
-                <CourseInfo data={courseItem} />
+                <CourseInfo courseData={courseData} />
               </div>
             </div>
             <div className="row">

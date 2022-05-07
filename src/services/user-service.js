@@ -12,6 +12,9 @@ const userService = {
   },
   update: (userId, userInfo) => {
     return request.put(`/user/${userId}`, userInfo)
+  },
+  enrolCourse: (courseId, ownerId, userId) => {
+    return request.get('/user/enrolCourse', {courseId, ownerId, userId})
   }
 }
 
