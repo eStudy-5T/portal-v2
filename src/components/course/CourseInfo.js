@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
 import FsLightbox from 'fslightbox-react'
-import EnrolConfirmDialog from '../../components/enrol-confirm-dialog/EnrolConfirmDialog'
+import EnrollConfirmDialog from '../../components/enroll-confirm-dialog/EnrollConfirmDialog'
 
 // i18
 import { useTranslation } from 'react-i18next'
@@ -43,27 +43,31 @@ function CourseInfo({ courseData }) {
 
   const [toggler, setToggler] = useState(false)
 
-  const enrolCourse = () => {
+  const enrollCourse = () => {
     setIsShown(true)
   }
   
-  const closeEnrolConfirmDialog = () => {
+  const closeEnrollConfirmDialog = () => {
     setIsShown(false)
   }
 
-  const confirmEnrolCourse = () => {
-    const courseId = courseData.id
-    const ownerId = courseData.ownerId
-    const userId = localStorage.getItem('currentUser')
-    userService.enrolCourse(courseId, ownerId, userId).then((res) => {
-      console.log(res)
-    })
-    closeEnrolConfirmDialog()
+  const confirmEnrollCourse = () => {
+    try {
+      const courseId = courseData.id
+      const ownerId = courseData.ownerId
+      userService.enrollCourse(courseId, ownerId).then((res) => {
+        console.log(res)
+      })
+      closeEnrollConfirmDialog()
+    }
+    catch (err) {
+
+    }
   }
 
   return (
     <>
-      {isShown && <EnrolConfirmDialog onClose={closeEnrolConfirmDialog} onConfirm={confirmEnrolCourse} onCancel={closeEnrolConfirmDialog}/>}
+      {isShown && <EnrollConfirmDialog onClose={closeEnrollConfirmDialog} onConfirm={confirmEnrollCourse} onCancel={closeEnrollConfirmDialog}/>}
       <div className="letmeet-sidebar course-details-sidebar">
         <div className="inner">
           <div className="letmeet-widget">
@@ -147,8 +151,8 @@ function CourseInfo({ courseData }) {
                   </button>
                 </div>
                 <div className="read-more-btn mt--15">
-                  <a className="edu-btn w-100 text-center" onClick={enrolCourse}>
-                    {translation("courseDetails.enrol")}
+                  <a className="edu-btn w-100 text-center edu-btn-hover" onClick={enrollCourse}>
+                    {translation("courseDetails.enroll")}
                   </a>
                 </div>
                 <div className="read-more-btn mt--30 text-center">

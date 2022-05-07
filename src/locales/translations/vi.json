@@ -113,15 +113,16 @@
     "description": "Mô tả khóa học",
     "price": "Học phí",
     "grade": "Khối lớp",
-    "enrol": "Đăng ký lớp học",
+    "enroll": "Đăng ký lớp học",
     "share": "Chia sẻ",
     "whatWillYouLearn": "Kiến thực nhận được từ khóa học",
     "review": "Đánh giá",
     "startDate": "Ngày bắt đầu",
     "endDate": "Ngày kết thúc",
-    "enrolConfirm": "Xác nhận đăng ký lớp học ?",
+    "enrollConfirm": "Xác nhận đăng ký lớp học ?",
     "confirm": "Xác nhận",
-    "cancel": "Hủy"
+    "cancel": "Hủy",
+    "register": "Đăng ký"
   },
   "classDetails": {
     "duration": "Thời lượng",

@@ -113,15 +113,16 @@
     "description": "Description",
     "price": "Price",
     "grade": "Grade",
-    "enrol": "Enrol",
+    "enroll": "Enroll",
     "share": "Share",
     "whatWillYouLearn": "What will you learn from this course",
     "review": "Review",
     "startDate": "Start date",
     "endDate": "End date",
-    "enrolConfirm": "Confirm the enrollment ?",
+    "enrollConfirm": "Confirm the enrollment ?",
     "confirm": "Confirm",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "register": "Enroll now"
   },
   "classDetails": {
     "duration": "Duration",
