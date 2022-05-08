@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { Routes, Route, Outlet, useSearchParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import debounce from 'lodash.debounce'
 
 import { useTranslation } from 'react-i18next'
 
@@ -29,10 +30,22 @@ const AppRouter = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const { t: translation } = useTranslation()
 
+  const fireVerifyAccountAlert = useCallback(
+    debounce(
+      () => {
+        toast.info(translation('auth.verifyAccountAlert'))
+      },
+      5000,
+      { leading: true, trailing: false }
+    ),
+    []
+  )
+
   useEffect(() => {
     const userIdFromQuery = searchParams.get('userId')
     if (userIdFromQuery) {
       localStorage.setItem('currentUser', userIdFromQuery)
+      localStorage.setItem('loginTimestamp', Date.now() + 86400000) // 1 day
       searchParams.delete('userId')
       setSearchParams(searchParams)
     }
@@ -42,9 +55,15 @@ const AppRouter = () => {
       !isVerified &&
       !window.location.pathname.includes('verify')
     ) {
-      toast.info(translation('auth.verifyAccountAlert'))
+      fireVerifyAccountAlert()
     }
     async function fetchUserInfo() {
+      const isLoginExpired =
+        Date.now() > Number(localStorage.getItem('loginTimestamp') || 0)
+      if (isLoginExpired) {
+        localStorage.removeItem('currentUser')
+      }
+
       const currentUser = localStorage.getItem('currentUser')
       if (currentUser) {
         setIsAppLoading(true)

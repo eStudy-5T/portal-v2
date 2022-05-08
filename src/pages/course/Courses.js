@@ -34,21 +34,24 @@ function CourseOne() {
 
   useEffect(() => {
     const offset = (pageNumber - 1) * pageSize
-    const debouncedFetchData = debounce(async (pSearchText, paginationOptions = {}, queryOptions = {}) => {
-      const {
-        data: { courses, count }
-      } = await courseService.getCourses(
-        String(pSearchText).trim().toLowerCase(),
-        paginationOptions,
-        queryOptions
-      )
-      setCourseData(courses)
-      setCourseCount(count)
-      if (isFirstTimeSetPageSize.current) {
-        isFirstTimeSetPageSize.current = false
-        setPageSize(count <= 8 ? count : 8)
-      }
-    }, 750);
+    const debouncedFetchData = debounce(
+      async (pSearchText, paginationOptions = {}, queryOptions = {}) => {
+        const {
+          data: { courses, count }
+        } = await courseService.getCourses(
+          String(pSearchText).trim().toLowerCase(),
+          paginationOptions,
+          queryOptions
+        )
+        setCourseData(courses)
+        setCourseCount(count)
+        if (isFirstTimeSetPageSize.current) {
+          isFirstTimeSetPageSize.current = false
+          setPageSize(count <= 8 ? count : 8)
+        }
+      },
+      750
+    )
     if (pageSize) {
       debouncedFetchData(searchText, { offset, limit: pageSize }, queryOptions)
     }
