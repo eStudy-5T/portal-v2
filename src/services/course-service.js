@@ -22,7 +22,7 @@ const courseService = {
       sortBy = 'sortby-none',
       categoryFilter = 'category-all',
       gradeFilter = 'grade-all',
-      rangePrice = -1,
+      rangePrice = -1
     } = queryOptions
 
     return request.get('/courses', {
@@ -30,7 +30,10 @@ const courseService = {
         searchText,
         offset,
         limit,
-        sortBy, categoryFilter, gradeFilter, rangePrice
+        sortBy,
+        categoryFilter,
+        gradeFilter,
+        rangePrice
       }
     })
   },

@@ -44,6 +44,7 @@ function LoginForm() {
       .login(data)
       .then(({ data: userInfo }) => {
         localStorage.setItem('currentUser', userInfo.userId)
+        localStorage.setItem('loginTimestamp', Date.now() + 86400000) // 1 day
         dispatch(userActions.setUserInfo(userInfo))
         navigate('/')
       })
