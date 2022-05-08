@@ -16,7 +16,6 @@ import StarBorderIcon from '@mui/icons-material/StarBorder'
 
 // Services
 import courseService from '../../services/course-service'
-import userService from '../../services/user-service'
 
 import CourseData from '../../data/course/CourseData.json'
 import InstructorData from '../../data/instructor/InstructorData.json'
@@ -24,6 +23,7 @@ import InstructorData from '../../data/instructor/InstructorData.json'
 // i18
 import { useTranslation } from 'react-i18next'
 import get from 'lodash/get'
+import isEmpty from 'lodash/isEmpty'
 
 function CustomToggle({ children, eventKey }) {
   const { activeEventKey } = useContext(AccordionContext)
@@ -175,7 +175,7 @@ function CourseDetails() {
     (instructor) => slugify(instructor.name) === slugify(courseItem.instructor)
   )
   const instructor = InstructorData[indexOfInstructor]
-  // const instructorExcerpt = `${instructor.details.substring(0, 190)}...`
+  const instructorExcerpt = `${!isEmpty(get(courseData, 'owner.description')) ? get(courseData, 'owner.description') : instructor.details.substring(0, 190)}...`
 
   const teacherInfo = get(courseData, 'owner', instructor)
   const teacherFullName = teacherInfo ? teacherInfo.firstName + ' ' + teacherInfo.lastName : null
@@ -216,7 +216,7 @@ function CourseDetails() {
               <div className="col-xl-8 col-lg-7">
                 <div className="course-details-content">
                   <div className="content-top">
-                    <div className="author-meta">
+                    {/* <div className="author-meta">
                       <div className="author-thumb">
                         <Link
                           to={`${
@@ -256,7 +256,7 @@ function CourseDetails() {
                       <span className="rating-count">
                         ({courseItem.review} {translation("courseDetails.review")})
                       </span>
-                    </div>
+                    </div> */}
                   </div>
 
                   <h3 className="title">
@@ -401,7 +401,7 @@ function CourseDetails() {
                               <span className="subtitle">
                                 {'Teacher' || instructor.designation}
                               </span>
-                              <p>{teacherInfo && teacherInfo.description}</p>
+                              <p>{instructorExcerpt}</p>
                               <ul className="social-share border-style">
                                 <li>
                                   <a href={instructor.facebookUrl}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { slugify } from '../../utils'
 import InstructorData from '../../data/instructor/InstructorData.json'
@@ -16,9 +16,7 @@ function CourseTypeOne({ data, classes, handleEnrollClick }) {
   const { t: translation } = useTranslation()
 
   const [avatar, setOwnerAvatar] = useState(null)
-  userService.fetchUserInfo(data.ownerId).then(({ data: teacherInfo }) => {
-    setOwnerAvatar(teacherInfo.avatar)
-  })
+
   const instructorThumb = InstructorData[1].image
   const excerpt = `${data.description ? data.description.substring(0, 142) : CourseData[1].excerpt.substring(0, 142)}...`
   const trimTitle = `${data.title ? data.title.substring(0, 26) : 'Unknown title'}${data.title.length > 26 ? '...' : ''}`
