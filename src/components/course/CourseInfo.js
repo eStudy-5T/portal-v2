@@ -44,7 +44,7 @@ const data = {
 }
 
 function CourseInfo({ courseData }) {
-  console.log(courseData)
+  console.log(courseData.owner)
   const { t: translation } = useTranslation()
 
   const [isShown, setIsShown] = useState(false)
@@ -62,7 +62,7 @@ function CourseInfo({ courseData }) {
   }
 
   useEffect(() => {
-    setIsEnrolled(courseData?.isEnrolled || false)
+    setIsEnrolled(get(courseData, 'isEnrolled', false))
   }, [courseData])
 
   const confirmEnrollCourse = () => {
@@ -160,7 +160,7 @@ function CourseInfo({ courseData }) {
                         <i className="icon-user-2-line_tie" />
                         {translation('courseDetails.owner')}
                       </span>
-                      <span>{get(courseData, 'teacherInfo.firstName', '') + ' ' + get(courseData, 'teacherInfo.lastName')}</span>
+                      <span>{get(courseData, 'owner.firstName', '') + ' ' + get(courseData, 'owner.lastName')}</span>
                     </li>
                   )}
                   <li>
@@ -188,20 +188,31 @@ function CourseInfo({ courseData }) {
                     </button>
                   </div>
                 )}
-                <div className="read-more-btn mt--15">
-                  <a
-                    className="edu-btn w-100 text-center edu-btn-hover"
-                    style={{ fontSize: '14px' }}
-                    onClick={enrollCourse}
-                    href={isEnrolled ? courseData.link ? courseData.link : data.link : null}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {isEnrolled
-                      ? courseData.link ? courseData.link : data.link
-                      : translation('courseDetails.enroll')}
-                  </a>
-                </div>
+                {isEnrolled && (
+                  <div className="read-more-btn mt--15">
+                    <a
+                      className="edu-btn w-100 text-center edu-btn-hover"
+                      style={{ fontSize: '14px' }}
+                      href={isEnrolled ? courseData.link ? courseData.link : data.link : null}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {courseData.link ? courseData.link : data.link}
+                    </a>
+                  </div>
+                )}
+                {!isEnrolled && (
+                  <div className="read-more-btn mt--15">
+                    <a
+                      className="edu-btn w-100 text-center edu-btn-hover"
+                      onClick={enrollCourse}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {translation('courseDetails.enroll')}
+                    </a>
+                  </div>
+                )}
                 <div className="read-more-btn mt--30 text-center">
                   <div className="letmeet-post-share">
                     <span>{translation('courseDetails.share')}: </span>

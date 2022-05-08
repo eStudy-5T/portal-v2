@@ -7,10 +7,8 @@ import AccordionContext from 'react-bootstrap/AccordionContext'
 import { slugify } from '../../utils'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
-import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
 import CourseInfo from '../../components/course/CourseInfo'
 import MeetingLink from '../../components/meeting-link/MeetingLink'
-import RelatedCourses from '../../components/course/RelatedCourses'
 
 // MUI component
 import { Rating } from '@mui/material'
@@ -25,7 +23,7 @@ import InstructorData from '../../data/instructor/InstructorData.json'
 
 // i18
 import { useTranslation } from 'react-i18next'
-import EnrollConfirmDialog from '../../components/enroll-confirm-dialog/EnrollConfirmDialog'
+import get from 'lodash/get'
 
 function CustomToggle({ children, eventKey }) {
   const { activeEventKey } = useContext(AccordionContext)
@@ -161,24 +159,25 @@ function CourseDetails() {
 
   useEffect(() => {
     setIsMounted(true)
-    courseService.getSpecificCourse(id).then(({ data: CourseDetailsData }) => {
-      if (isMounted) {
-        userService
-          .fetchUserInfo(CourseDetailsData.ownerId)
-          .then(({ data: teacherInfo }) => {
-            setCourseData({ ...CourseDetailsData, teacherInfo })
-          })
-      }
-    })
+  }, [])
+
+  useEffect(() => {
+    async function fetchData() {
+      const {data} = await courseService.getSpecificCourse(id)
+      setCourseData({ ...data})
+    }
+    if (isMounted) {
+      fetchData()
+    }
   }, [id, isMounted])
 
   const indexOfInstructor = InstructorData.findIndex(
     (instructor) => slugify(instructor.name) === slugify(courseItem.instructor)
   )
   const instructor = InstructorData[indexOfInstructor]
-  const instructorExcerpt = `${instructor.details.substring(0, 190)}...`
+  // const instructorExcerpt = `${instructor.details.substring(0, 190)}...`
 
-  const teacherInfo = courseData && courseData.teacherInfo ? courseData.teacherInfo : instructor
+  const teacherInfo = get(courseData, 'owner', instructor)
   const teacherFullName = teacherInfo ? teacherInfo.firstName + ' ' + teacherInfo.lastName : null
 
   const [contentTab, setContentTab] = useState('overview')
