@@ -16,7 +16,7 @@ const courseService = {
   createClass: (courseId, data) => {
     return request.post(`/courses/${courseId}/classes`, data)
   },
-  getTeacherCourses: (searchText, paginationOptions, queryOptions) => {
+  getCourses: (searchText, paginationOptions, queryOptions) => {
     const { offset = 1, limit = 8 } = paginationOptions
     const {
       sortBy = 'sortby-none',
@@ -30,7 +30,6 @@ const courseService = {
         searchText,
         offset,
         limit,
-        type: 'teacher',
         sortBy, categoryFilter, gradeFilter, rangePrice
       }
     })

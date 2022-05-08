@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import ScrollAnimation from 'react-animate-on-scroll'
 import Pagination from '@mui/material/Pagination'
 import SEO from '../../common/SEO'
@@ -28,6 +28,7 @@ function CourseOne() {
     gradeFilter: 'grade-all',
     rangePrice: -1
   })
+  const isFirstTimeSetPageSize = useRef(true)
 
   const { t: translation } = useTranslation()
 
@@ -36,13 +37,17 @@ function CourseOne() {
     const debouncedFetchData = debounce(async (pSearchText, paginationOptions = {}, queryOptions = {}) => {
       const {
         data: { courses, count }
-      } = await courseService.getTeacherCourses(
+      } = await courseService.getCourses(
         String(pSearchText).trim().toLowerCase(),
         paginationOptions,
         queryOptions
       )
       setCourseData(courses)
       setCourseCount(count)
+      if (isFirstTimeSetPageSize.current) {
+        isFirstTimeSetPageSize.current = false
+        setPageSize(count <= 8 ? count : 8)
+      }
     }, 750);
     if (pageSize) {
       debouncedFetchData(searchText, { offset, limit: pageSize }, queryOptions)
@@ -58,7 +63,6 @@ function CourseOne() {
 
   const handleChangePageSize = (event) => {
     const tempPageSize = event.target.value
-    console.log("asdasd", tempPageSize)
     if (CourseCount >= tempPageSize && pageSize !== tempPageSize) {
       setPageSize(tempPageSize)
       setPageNumber(1)
