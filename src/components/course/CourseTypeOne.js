@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { slugify } from '../../utils'
 import InstructorData from '../../data/instructor/InstructorData.json'
@@ -6,9 +6,19 @@ import CourseData from '../../data/course/CourseData.json'
 import get from 'lodash/get'
 import { useTranslation } from 'react-i18next'
 
+// MUI component
+import { Rating } from '@mui/material'
+import StarBorderIcon from '@mui/icons-material/StarBorder'
+
+import userService from '../../services/user-service'
+
 function CourseTypeOne({ data, classes, handleEnrollClick }) {
   const { t: translation } = useTranslation()
 
+  const [avatar, setOwnerAvatar] = useState(null)
+  userService.fetchUserInfo(data.ownerId).then(({ data: teacherInfo }) => {
+    setOwnerAvatar(teacherInfo.avatar)
+  })
   const instructorThumb = InstructorData[1].image
   const excerpt = `${data.description ? data.description.substring(0, 142) : CourseData[1].excerpt.substring(0, 142)}...`
   const trimTitle = `${data.title ? data.title.substring(0, 26) : 'Unknown title'}${data.title.length > 26 ? '...' : ''}`
@@ -48,10 +58,18 @@ function CourseTypeOne({ data, classes, handleEnrollClick }) {
                   )}`}
                 >
                   <img
-                    src={`${process.env.PUBLIC_URL}/images/instructor/instructor-small/${instructorThumb}`}
+                    src={
+                      avatar
+                        ? avatar
+                        : `${process.env.PUBLIC_URL}/images/instructor/instructor-small/${instructorThumb}`
+                    }
                     alt="Author Thumb"
                   />
-                  <span className="author-title">{`${data.instructor ? data.instructor : data.owner.firstName + ' ' + data.owner.lastName}`}</span>
+                  <span className="author-title">{`${
+                    data.instructor
+                      ? data.instructor
+                      : data.owner.firstName + ' ' + data.owner.lastName
+                  }`}</span>
                 </Link>
               </div>
             </div>
@@ -83,11 +101,19 @@ function CourseTypeOne({ data, classes, handleEnrollClick }) {
               <div className="row align-items-center">
                 <div className="edu-rating rating-default">
                   <div className="rating letmeet-course-rating-stars">
-                    <i className="icon-Star" />
-                    <i className="icon-Star" />
-                    <i className="icon-Star" />
-                    <i className="icon-Star" />
-                    <i className="icon-Star" />
+                  <Rating
+                  readOnly
+                  value={data.rating}
+                  precision={0.5}
+                  size="medium"
+                  sx={{ color: '#ffa41b' }}
+                  emptyIcon={
+                    <StarBorderIcon
+                      fontSize="inherit"
+                      sx={{ color: '#ffa41b' }}
+                    ></StarBorderIcon>
+                  }
+                ></Rating>
                   </div>
                   <span className="rating-count">({data.rating})</span>
                 </div>
@@ -142,14 +168,22 @@ function CourseTypeOne({ data, classes, handleEnrollClick }) {
               <div className="author-thumb">
                 <Link
                   to={`${process.env.PUBLIC_URL}/instructor-details/${slugify(
-                    "data.instructor"
+                    'data.instructor'
                   )}`}
                 >
                   <img
-                    src={`${process.env.PUBLIC_URL}/images/instructor/instructor-small/${instructorThumb}`}
+                    src={
+                      avatar
+                        ? avatar
+                        : `${process.env.PUBLIC_URL}/images/instructor/instructor-small/${instructorThumb}`
+                    }
                     alt="Author Thumb"
                   />
-                  <span className="author-title">{`${data.instructor ? data.instructor : data.owner.firstName + ' ' + data.owner.lastName}`}</span>
+                  <span className="author-title">{`${
+                    data.instructor
+                      ? data.instructor
+                      : data.owner.firstName + ' ' + data.owner.lastName
+                  }`}</span>
                 </Link>
               </div>
             </div>
@@ -163,10 +197,9 @@ function CourseTypeOne({ data, classes, handleEnrollClick }) {
           <div className="read-more-btn">
             <Link
               className="edu-btn btn-medium btn-white"
-              to={`/course-details/${data.id}`}
-              onClick={handleEnrollClick}
+              to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}
             >
-              {translation("courseDetails.register")}
+              Enroll Now
               <i className="icon-arrow-right-line-right" />
             </Link>
           </div>

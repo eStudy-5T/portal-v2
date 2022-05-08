@@ -445,14 +445,22 @@ function CourseDetails() {
                             <div className="col-lg-4">
                               <div className="rating-box">
                                 <div className="rating-number">
-                                  {courseItem.rating}
+                                  {courseData.rating || 0}
                                 </div>
                                 <div className="rating letmeet-course-rating-stars">
-                                  <i className="icon-Star" />
-                                  <i className="icon-Star" />
-                                  <i className="icon-Star" />
-                                  <i className="icon-Star" />
-                                  <i className="icon-Star" />
+                                <Rating
+                                  readOnly
+                                  value={courseData.rating || 0}
+                                  precision={0.5}
+                                  size="medium"
+                                  sx={{ color: '#ffa41b' }}
+                                  emptyIcon={
+                                    <StarBorderIcon
+                                      fontSize="inherit"
+                                      sx={{ color: '#ffa41b' }}
+                                    ></StarBorderIcon>
+                                  }
+                                ></Rating>
                                 </div>
                                 <span>({courseItem.review} Review)</span>
                               </div>
@@ -553,7 +561,7 @@ function CourseDetails() {
                             <div className="edu-comment">
                               <div className="thumbnail">
                                 <img
-                                  src="/images/course/student-review/student-1.png"
+                                  src={`${courseItem.imageDetails}`}
                                   alt="Student Thumb"
                                 />
                               </div>
@@ -591,11 +599,11 @@ function CourseDetails() {
                 <CourseInfo courseData={courseData} />
               </div>
             </div>
-            <div className="row">
+            {/* <div className="row">
               <div className="col-lg-12">
                 <RelatedCourses courseID={courseItem.id} />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </Layout>

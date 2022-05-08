@@ -25,7 +25,7 @@ function HomePage() {
 
       <BannerTwo />
 
-      <HomeFiveCategories />
+      {/* <HomeFiveCategories />
 
       <HomeTwoService />
 
@@ -41,7 +41,7 @@ function HomePage() {
 
       <CallToActionOne />
 
-      <HomeTwoBlog />
+      <HomeTwoBlog /> */}
 
       <Footer />
     </>

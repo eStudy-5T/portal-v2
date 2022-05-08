@@ -6,34 +6,40 @@ import EnrollConfirmDialog from '../../components/enroll-confirm-dialog/EnrollCo
 // i18
 import { useTranslation } from 'react-i18next'
 import userService from '../../services/user-service'
+import courseService from '../../services/course-service'
 
 const data = {
-  "id": 1,
-  "title": "Competitive Strategy law for all students",
-  "image": "https://eduvibe.react.devsvibe.com/images/course/course-01/course-01.jpg",
-  "imageDetails": "https://eduvibe.react.devsvibe.com/images/course/course-details/course-01.jpg",
-  "instructor": "James Carlson",
-  "duration": "3h 14m 20s",
-  "durationInHour": "3 Hours",
-  "durationInHourMinute": "3hr 14min",
-  "level": "Intermediate",
-  "language": "English",
-  "deadline": "25 Dec, 2022",
-  "rating": "4.9",
-  "student": 763,
-  "lesson": 29,
-  "quizzes": 12,
-  "price": "45.00",
-  "oldPrice": "55.00",
-  "review": 56,
-  "passPercentage": 80,
-  "featured": true,
-  "certificate": "available",
-  "filterParam": "Popularity",
-  "categories": ["Language Learning", "Business"],
-  "videoLink": ["https://www.youtube.com/watch?v=pNje3bWz7V8"],
-  "excerpt": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  "details": "<h5>Course Description</h5> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p><h5>What You’ll Learn From This Course</h5> <ul> <li>Neque sodales ut etiam sit amet nisl purus non tellus orci ac auctor</li><li>Tristique nulla aliquet enim tortor at auctor urna. Sit amet aliquam id diam maer</li><li>Nam libero justo laoreet sit amet. Lacus sed viverra tellus in hac</li><li>Tempus imperdiet nulla malesuada pellentesque elit eget gravida cum sociis</li></ul> <h5>Certification</h5> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>"
+  id: 1,
+  title: 'Competitive Strategy law for all students',
+  image:
+    'https://eduvibe.react.devsvibe.com/images/course/course-01/course-01.jpg',
+  imageDetails:
+    'https://eduvibe.react.devsvibe.com/images/course/course-details/course-01.jpg',
+  instructor: 'James Carlson',
+  duration: '3h 14m 20s',
+  durationInHour: '3 Hours',
+  durationInHourMinute: '3hr 14min',
+  level: 'Intermediate',
+  language: 'English',
+  deadline: '25 Dec, 2022',
+  rating: '4.9',
+  student: 763,
+  lesson: 29,
+  quizzes: 12,
+  price: '45.00',
+  oldPrice: '55.00',
+  review: 56,
+  passPercentage: 80,
+  featured: true,
+  certificate: 'available',
+  filterParam: 'Popularity',
+  categories: ['Language Learning', 'Business'],
+  videoLink: ['https://www.youtube.com/watch?v=pNje3bWz7V8'],
+  link: 'https://meet.google.com/ppi-nrzj-wgu',
+  excerpt:
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  details:
+    '<h5>Course Description</h5> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p><h5>What You’ll Learn From This Course</h5> <ul> <li>Neque sodales ut etiam sit amet nisl purus non tellus orci ac auctor</li><li>Tristique nulla aliquet enim tortor at auctor urna. Sit amet aliquam id diam maer</li><li>Nam libero justo laoreet sit amet. Lacus sed viverra tellus in hac</li><li>Tempus imperdiet nulla malesuada pellentesque elit eget gravida cum sociis</li></ul> <h5>Certification</h5> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>'
 }
 
 function CourseInfo({ courseData }) {
@@ -46,7 +52,7 @@ function CourseInfo({ courseData }) {
   const enrollCourse = () => {
     setIsShown(true)
   }
-  
+
   const closeEnrollConfirmDialog = () => {
     setIsShown(false)
   }
@@ -59,15 +65,35 @@ function CourseInfo({ courseData }) {
         console.log(res)
       })
       closeEnrollConfirmDialog()
-    }
-    catch (err) {
+    } catch (err) {}
+  }
 
+  const getEnrollments = () => {
+    try {
+      const courseId = courseData.id
+      courseService.getEnrollments(courseId).then((res) => {
+        console.log(res)
+      })
+    } catch (err) {
+      throw err
     }
   }
 
+  const isEnrolled = courseData
+    ? courseData.isEnrolled
+      ? courseData.isEnrolled
+      : false
+    : false
+
   return (
     <>
-      {isShown && <EnrollConfirmDialog onClose={closeEnrollConfirmDialog} onConfirm={confirmEnrollCourse} onCancel={closeEnrollConfirmDialog}/>}
+      {isShown && (
+        <EnrollConfirmDialog
+          onClose={closeEnrollConfirmDialog}
+          onConfirm={confirmEnrollCourse}
+          onCancel={closeEnrollConfirmDialog}
+        />
+      )}
       <div className="letmeet-sidebar course-details-sidebar">
         <div className="inner">
           <div className="letmeet-widget">
@@ -93,9 +119,10 @@ function CourseInfo({ courseData }) {
                   {data.duration && (
                     <li>
                       <span>
-                        <i className="icon-time-line" /> {translation("courseDetails.duration")}
+                        <i className="icon-time-line" />{' '}
+                        {translation('courseDetails.duration')}
                       </span>
-                      <span>160 {translation("courseDetails.hours")}</span>
+                      <span>160 {translation('courseDetails.hours')}</span>
                     </li>
                   )}
                   {/* {data.student && (
@@ -118,7 +145,7 @@ function CourseInfo({ courseData }) {
                     <li>
                       <span>
                         <i className="icon-bar-chart-2-line" />
-                        {translation("courseDetails.grade")}
+                        {translation('courseDetails.grade')}
                       </span>
                       <span>12</span>
                     </li>
@@ -127,37 +154,53 @@ function CourseInfo({ courseData }) {
                     <li>
                       <span>
                         <i className="icon-user-2-line_tie" />
-                        {translation("courseDetails.owner")}
+                        {translation('courseDetails.owner')}
                       </span>
                       <span>Hồ Hoàng Thương</span>
                     </li>
                   )}
                   <li>
                     <span>
-                      <i className="icon-calendar-2-line" /> {translation("courseDetails.startDate")}
+                      <i className="icon-calendar-2-line" />{' '}
+                      {translation('courseDetails.startDate')}
                     </span>
                     <span>09/04/2022</span>
                   </li>
                   <li>
                     <span>
-                      <i className="icon-calendar-2-line" /> {translation("courseDetails.endDate")}
+                      <i className="icon-calendar-2-line" />{' '}
+                      {translation('courseDetails.endDate')}
                     </span>
                     <span>09/04/2023</span>
                   </li>
                 </ul>
-                <div className="read-more-btn mt--45">
-                  <button className="edu-btn btn-bg-alt w-100 text-center" disabled>
-                    {translation("courseDetails.price")}: 450.000 VND
-                  </button>
-                </div>
+                {!isEnrolled && (
+                  <div className="read-more-btn mt--45">
+                    <button
+                      className="edu-btn btn-bg-alt w-100 text-center"
+                      onClick={getEnrollments}
+                    >
+                      {translation('courseDetails.price')}: 450.000 VND
+                    </button>
+                  </div>
+                )}
                 <div className="read-more-btn mt--15">
-                  <a className="edu-btn w-100 text-center edu-btn-hover" onClick={enrollCourse}>
-                    {translation("courseDetails.enroll")}
+                  <a
+                    className="edu-btn w-100 text-center edu-btn-hover"
+                    style={{ fontSize: 'medium' }}
+                    onClick={enrollCourse}
+                    href={isEnrolled ? data.link : null}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {isEnrolled
+                      ? data.link
+                      : translation('courseDetails.enroll')}
                   </a>
                 </div>
                 <div className="read-more-btn mt--30 text-center">
                   <div className="letmeet-post-share">
-                    <span>{translation("courseDetails.share")}: </span>
+                    <span>{translation('courseDetails.share')}: </span>
                     <a className="linkedin" href="#">
                       <i className="icon-linkedin" />
                     </a>
