@@ -10,6 +10,7 @@ import Pagination from '@mui/material/Pagination'
 import {
   Box,
   Card,
+  TableContainer,
   Table,
   TableBody,
   TableCell,
@@ -261,7 +262,9 @@ const TeacherCourses = () => {
               <div className="row g-5 mt--10">
                 <div className="col">
                   <Card ref={tableRef}>
-                    <Box sx={{ width: '100%', height: tableHeight + 'px' }}>
+                    <TableContainer
+                      sx={{ width: '100%', height: tableHeight + 'px' }}
+                    >
                       <Table className="dashboard-table">
                         <TableHead>
                           <TableRow>
@@ -312,7 +315,10 @@ const TeacherCourses = () => {
                                 )}
                               </TableCell>
                               <TableCell>
-                                {format(course.updatedAt, 'dd/MM/yyyy')}
+                                {format(
+                                  new Date(course.updatedAt),
+                                  'dd/MM/yyyy'
+                                )}
                               </TableCell>
                               <TableCell>
                                 <IconButton component={Link} to="#">
@@ -323,9 +329,9 @@ const TeacherCourses = () => {
                           ))}
                         </TableBody>
                       </Table>
-                    </Box>
-                    <div className="mt--10 edu-course-pagination d-flex justify-content-end">
-                      <div className="short-by">
+                    </TableContainer>
+                    <div className="mt--10 mb--10 mr--10 edu-course-pagination d-flex flex-column flex-sm-row justify-content-center justify-content-sm-end">
+                      <div className="short-by mx-3 mb-2 mb-sm-0">
                         <p>
                           <span>{translation('courses.showing')} </span>
                           <input
@@ -350,8 +356,6 @@ const TeacherCourses = () => {
                         }
                         page={pageNumber}
                         onChange={handleChangePageNumber}
-                        ariant="outlined"
-                        size="large"
                         siblingCount={2}
                         color="primary"
                       />
@@ -360,20 +364,6 @@ const TeacherCourses = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="col-lg-4">
-              <PriceOne
-                extraClass="mt--40"
-                onFilterChange={handleFilterChange}
-              />
-              <LevelOne
-                extraClass="mt--40"
-                onFilterChange={handleFilterChange}
-              />
-              <FilterByPrice
-                extraClass="mt--40"
-                onFilterChange={handleFilterChange}
-              />
-            </div> */}
           </div>
         </div>
       </div>

@@ -73,6 +73,9 @@ const courseService = {
   },
   deactivate: (courseId) => {
     return request.post(`courses/${courseId}/deactive`)
+  },
+  generateMeetLink: (courseId) => {
+    return request.post(`/courses/${courseId}/generate-meet-link`, {})
   }
 }
 

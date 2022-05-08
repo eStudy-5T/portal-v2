@@ -17,7 +17,7 @@ const teacherRoutes = [
     path: 'new-course',
     component: () => <NewCourse />,
     exact: true
-  },
+  }
 ]
 
 export default teacherRoutes

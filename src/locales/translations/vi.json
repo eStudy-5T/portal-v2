@@ -19,6 +19,7 @@
     "unauthorized": "Bạn chưa được xác thực",
     "getCourseFail": "Lấy khoá học thất bại",
     "createCourseFail": "Tạo khoá học thất bại",
+    "generateMeetLinkFail": "Tạo link google meet thất bại",
     "updateCourseFail": "Cập nhật khoá học thất bại",
     "deleteCourseFail": "Xoá khoá học thất bại",
     "getClassFail": "Lấy lớp học thất bại",

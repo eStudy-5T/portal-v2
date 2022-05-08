@@ -40,6 +40,7 @@ const DashboardLayout = (props) => {
             isDashboard
             isSidebarOpen={isSidebarOpen}
             openDashboard={() => setSidebarOpen(true)}
+            disableSticky
           />
 
           {children}
