@@ -44,7 +44,6 @@ const data = {
 }
 
 function CourseInfo({ courseData }) {
-  console.log(courseData.owner)
   const { t: translation } = useTranslation()
 
   const [isShown, setIsShown] = useState(false)
