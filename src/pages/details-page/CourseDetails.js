@@ -196,7 +196,7 @@ function CourseDetails() {
 
   return (
     <>
-      <MeetingLink shouldShow="true"/>
+      <MeetingLink shouldShow={false}/>
       <SEO title={courseItem.title} />
       <Layout>
         <div className="edu-course-details-area edu-section-gap bg-color-white">

@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import FsLightbox from 'fslightbox-react'
 import EnrollConfirmDialog from '../../components/enroll-confirm-dialog/EnrollConfirmDialog'
 
 // i18
 import { useTranslation } from 'react-i18next'
+import get from 'lodash/get'
 import userService from '../../services/user-service'
 import courseService from '../../services/course-service'
 
@@ -43,11 +44,14 @@ const data = {
 }
 
 function CourseInfo({ courseData }) {
+  console.log(courseData)
   const { t: translation } = useTranslation()
 
   const [isShown, setIsShown] = useState(false)
 
   const [toggler, setToggler] = useState(false)
+
+  const [isEnrolled, setIsEnrolled] = useState(false)
 
   const enrollCourse = () => {
     setIsShown(true)
@@ -57,12 +61,18 @@ function CourseInfo({ courseData }) {
     setIsShown(false)
   }
 
+  useEffect(() => {
+    setIsEnrolled(courseData?.isEnrolled || false)
+  }, [courseData])
+
   const confirmEnrollCourse = () => {
     try {
       const courseId = courseData.id
       const ownerId = courseData.ownerId
       userService.enrollCourse(courseId, ownerId).then((res) => {
-        console.log(res)
+        if (res.status === 200) {
+          setIsEnrolled(true)
+        }
       })
       closeEnrollConfirmDialog()
     } catch (err) {}
@@ -78,12 +88,6 @@ function CourseInfo({ courseData }) {
       throw err
     }
   }
-
-  const isEnrolled = courseData
-    ? courseData.isEnrolled
-      ? courseData.isEnrolled
-      : false
-    : false
 
   return (
     <>
@@ -147,7 +151,7 @@ function CourseInfo({ courseData }) {
                         <i className="icon-bar-chart-2-line" />
                         {translation('courseDetails.grade')}
                       </span>
-                      <span>12</span>
+                      <span>{get(courseData, 'gradeId', '')}</span>
                     </li>
                   )}
                   {data.instructor && (
@@ -156,7 +160,7 @@ function CourseInfo({ courseData }) {
                         <i className="icon-user-2-line_tie" />
                         {translation('courseDetails.owner')}
                       </span>
-                      <span>Hồ Hoàng Thương</span>
+                      <span>{get(courseData, 'teacherInfo.firstName', '') + ' ' + get(courseData, 'teacherInfo.lastName')}</span>
                     </li>
                   )}
                   <li>
@@ -180,21 +184,21 @@ function CourseInfo({ courseData }) {
                       className="edu-btn btn-bg-alt w-100 text-center"
                       onClick={getEnrollments}
                     >
-                      {translation('courseDetails.price')}: 450.000 VND
+                      {translation('courseDetails.price')}: {get(courseData, 'price') > 0 ? courseData.price : 'Free'} VND
                     </button>
                   </div>
                 )}
                 <div className="read-more-btn mt--15">
                   <a
                     className="edu-btn w-100 text-center edu-btn-hover"
-                    style={{ fontSize: 'medium' }}
+                    style={{ fontSize: '14px' }}
                     onClick={enrollCourse}
-                    href={isEnrolled ? data.link : null}
+                    href={isEnrolled ? courseData.link ? courseData.link : data.link : null}
                     target="_blank"
                     rel="noreferrer"
                   >
                     {isEnrolled
-                      ? data.link
+                      ? courseData.link ? courseData.link : data.link
                       : translation('courseDetails.enroll')}
                   </a>
                 </div>
