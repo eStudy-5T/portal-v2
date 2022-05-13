@@ -16,7 +16,28 @@ const userService = {
   enrollCourse: (courseId, ownerId) => {
     console.log({courseId, ownerId})
     return request.post('/courses/enroll', {courseId, ownerId})
-  }
+  },
+  getEnrolledCourses: (userId, searchText, paginationOptions, queryOptions) => {
+    const { offset = 1, limit = 8 } = paginationOptions
+    const {
+      sortBy = 'sortby-none',
+      categoryFilter = 'category-all',
+      gradeFilter = 'grade-all',
+      rangePrice = -1
+    } = queryOptions
+
+    return request.get(`/user/${userId}/enrolled-courses`, {
+      params: {
+        searchText,
+        offset,
+        limit,
+        sortBy,
+        categoryFilter,
+        gradeFilter,
+        rangePrice
+      }
+    })
+  },
 }
 
 export default userService

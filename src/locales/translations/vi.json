@@ -87,7 +87,8 @@
     "contactUs": "Liên hệ"
   },
   "dropdown": {
-    "teacherDashboard": "Trang giáo viên"
+    "teacherDashboard": "Trang giáo viên",
+    "enrolledCourses": "Khóa học đã đăng ký"
   },
   "footer": {
     "explore": "Khám phá",

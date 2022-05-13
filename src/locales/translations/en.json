@@ -87,7 +87,8 @@
     "contactUs": "Contact Us"
   },
   "dropdown": {
-    "teacherDashboard": "Teacher Dashboard"
+    "teacherDashboard": "Teacher Dashboard",
+    "enrolledCourses": "Enrolled Courses"
   },
   "footer": {
     "explore": "Explore",
