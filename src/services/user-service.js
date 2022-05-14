@@ -14,7 +14,6 @@ const userService = {
     return request.put(`/user/${userId}`, userInfo)
   },
   enrollCourse: (courseId, ownerId) => {
-    console.log({courseId, ownerId})
     return request.post('/courses/enroll', {courseId, ownerId})
   },
   getEnrolledCourses: (userId, searchText, paginationOptions, queryOptions) => {

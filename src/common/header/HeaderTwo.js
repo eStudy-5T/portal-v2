@@ -1,6 +1,6 @@
 import { useState, useLayoutEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Nav from './Nav'
 import HeaderSticky from './HeaderSticky'
 import ResponsiveMenu from './ResponsiveMenu'
@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 
 import useAuthenticate from '../../hooks/use-authenticate'
 import { logOutUser } from '../../utils/helpers/user-helper'
+
 
 function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
   const [offcanvasShow, setOffcanvasShow] = useState(false)
@@ -44,6 +45,12 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
     document.body.classList.add('search-popup-active')
   } else {
     document.body.classList.remove('search-popup-active')
+  }
+
+  const navigate = useNavigate()
+  const _logOutUser = () => {
+    logOutUser()
+    navigate('/', {replace: true})
   }
 
   const sticky = HeaderSticky(200)
@@ -131,7 +138,7 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                         </Link>
 
                         <Link to="#">
-                          <MenuItem onClick={() => logOutUser()}>
+                          <MenuItem onClick={_logOutUser}>
                             {translation('auth.logOut')}
                           </MenuItem>
                         </Link>
@@ -190,7 +197,7 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                         </Link>
 
                         <Link to="#">
-                          <MenuItem onClick={() => logOutUser()}>
+                          <MenuItem onClick={_logOutUser}>
                             {translation('auth.logOut')}
                           </MenuItem>
                         </Link>

@@ -37,8 +37,6 @@ function EnrolledCourses() {
     const offset = (pageNumber - 1) * pageSize
     const debouncedFetchData = debounce(
       async (pSearchText, paginationOptions = {}, queryOptions = {}) => {
-        console.log("1111111111")
-        console.log(userId)
         const {
           data: { courses, count }
         } = await userService.getEnrolledCourses(
