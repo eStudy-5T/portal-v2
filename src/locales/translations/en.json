@@ -109,7 +109,8 @@
     "duration": "Duration",
     "hours": "Hours",
     "overview": "Overview",
-    "classes": "Classes",
+    "sessions": "Sessions",
+    "enrolled": "Enrolled",
     "owner": "Owner",
     "instructors": "Instructors",
     "reviews": "Reviews",
@@ -125,7 +126,13 @@
     "enrollConfirm": "Confirm the enrollment ?",
     "confirm": "Confirm",
     "cancel": "Cancel",
-    "register": "Enroll now"
+    "register": "Enroll now",
+    "fullName": "Full name",
+    "dateOfBirth": "Date of birth",
+    "email": "Email",
+    "phoneNumber": "Phone Number",
+    "enrolledDate": "Enrolled Date",
+    "nationalities": "Nationalities"
   },
   "classDetails": {
     "duration": "Duration",
