@@ -45,6 +45,9 @@ const courseService = {
   },
   getEnrollments: (courseId) => {
     return request.get(`/courses/${courseId}/enrollments`)
+  },
+  getEnrolledStudents: (courseId) => {
+    return request.get(`/courses/${courseId}/enrolled-students`)
   }
 }
 

@@ -109,7 +109,8 @@
     "duration": "Thời lượng",
     "hours": "Giờ",
     "overview": "Tổng quan",
-    "classes": "Các lớp học",
+    "sessions": "Buổi học",
+    "enrolled": "Học viên",
     "owner": "Chủ lớp học",
     "instructors": "Người dạy",
     "reviews": "Đánh giá",
@@ -125,7 +126,13 @@
     "enrollConfirm": "Xác nhận đăng ký lớp học ?",
     "confirm": "Xác nhận",
     "cancel": "Hủy",
-    "register": "Đăng ký"
+    "register": "Đăng ký",
+    "fullName": "Họ tên",
+    "dateOfBirth": "Ngày sinh",
+    "email": "Email",
+    "phoneNumber": "Số điện thoại",
+    "enrolledDate": "Ngày vào lớp",
+    "nationalities": "Quốc tịch"
   },
   "classDetails": {
     "duration": "Thời lượng",
