@@ -39,7 +39,9 @@
     "invalidPassword": "Invalid Password",
     "invalidResetPasswordToken": "Reset password token is invalid or has expired",
     "externalLogin": "Third party login does not support password reset",
-    "externalChangePassword":"Third party login does not support password change"
+    "externalChangePassword":"Third party login does not support password change",
+    "teacherEnrollCourse": "You can not enroll your own course!",
+    "userReEnroll": "You have already enrolled this course!"
   },
   "auth": {
     "login": "Login",

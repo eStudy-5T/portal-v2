@@ -7,7 +7,6 @@ import EnrollConfirmDialog from '../../components/enroll-confirm-dialog/EnrollCo
 import { useTranslation } from 'react-i18next'
 import get from 'lodash/get'
 import userService from '../../services/user-service'
-import courseService from '../../services/course-service'
 
 const data = {
   id: 1,
@@ -52,6 +51,8 @@ function CourseInfo({ courseData }) {
 
   const [isEnrolled, setIsEnrolled] = useState(false)
 
+  const [isEnrollVisible, setEnrollVisible] = useState(false)
+
   const enrollCourse = () => {
     setIsShown(true)
   }
@@ -62,7 +63,8 @@ function CourseInfo({ courseData }) {
 
   useEffect(() => {
     setIsEnrolled(get(courseData, 'isEnrolled', false))
-  }, [courseData])
+    setEnrollVisible(!get(courseData, 'isEnrolled', false) || !get(courseData, 'isCreator', false))
+  }, [courseData, isEnrolled])
 
   const confirmEnrollCourse = () => {
     try {
@@ -75,17 +77,6 @@ function CourseInfo({ courseData }) {
       })
       closeEnrollConfirmDialog()
     } catch (err) {}
-  }
-
-  const getEnrollments = () => {
-    try {
-      const courseId = courseData.id
-      courseService.getEnrollments(courseId).then((res) => {
-        console.log(res)
-      })
-    } catch (err) {
-      throw err
-    }
   }
 
   return (
@@ -177,17 +168,16 @@ function CourseInfo({ courseData }) {
                     <span>09/04/2023</span>
                   </li>
                 </ul>
-                {!isEnrolled && (
+                {(!isEnrolled) && (
                   <div className="read-more-btn mt--45">
                     <button
                       className="edu-btn btn-bg-alt w-100 text-center"
-                      onClick={getEnrollments}
                     >
                       {translation('courseDetails.price')}: {get(courseData, 'price') > 0 ? courseData.price : 'Free'} VND
                     </button>
                   </div>
                 )}
-                {isEnrolled && (
+                {(isEnrolled) && (
                   <div className="read-more-btn mt--15">
                     <a
                       className="edu-btn w-100 text-center edu-btn-hover"
@@ -200,7 +190,7 @@ function CourseInfo({ courseData }) {
                     </a>
                   </div>
                 )}
-                {!isEnrolled && (
+                {isEnrollVisible && (
                   <div className="read-more-btn mt--15">
                     <a
                       className="edu-btn w-100 text-center edu-btn-hover"

@@ -1,8 +1,14 @@
 import request from '../utils/configs/http-config'
 
+const isUserVerified = () => {
+  const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+  const userId = localStorage.getItem('currentUser')
+  return regexExp.test(userId)
+}
+
 const courseService = {
   getSpecificCourse: (courseId) => {
-    return request.get(`/courses/${courseId}`)
+    return request.get(`/courses/${courseId}?verified=${isUserVerified()}`)
   },
   createCourse: (data) => {
     return request.post('/courses', data)

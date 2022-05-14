@@ -39,7 +39,9 @@
     "invalidPassword": "Mật khẩu không hợp lệ",
     "invalidResetPasswordToken": "Mã khôi phục mật khẩu không hợp lệ hoặc đã hết hạn",
     "externalLogin": "Đăng nhập bên thứ ba không hỗ trợ khôi phục mật khẩu",
-    "externalChangePassword": "Đăng nhập bên thứ ba không hỗ trợ đổi mật khẩu"
+    "externalChangePassword": "Đăng nhập bên thứ ba không hỗ trợ đổi mật khẩu",
+    "teacherEnrollCourse": "Bạn không thể tham gia khóa học mà bạn tạo ra!",
+    "userReEnroll": "Bạn đã tham gia khóa học này rồi!"
   },
   "auth": {
     "login": "Đăng nhập",
