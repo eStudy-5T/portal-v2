@@ -2,15 +2,17 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { slugify } from '../../utils'
 import InstructorData from '../../data/instructor/InstructorData.json'
+import CourseData from '../../data/course/CourseData.json'
 
-function CourseTwo({ data, classes }) {
-  const indexOfInstructor = InstructorData.findIndex(
-    (instructor) => slugify(instructor.name) === slugify(data.instructor)
-  )
+function CourseTwo(data) {
+  console.log(data)
+  const indexOfInstructor = 0
   const instructorThumb = InstructorData[indexOfInstructor].image
-
+  data = CourseData[0]
+  console.log(data)
+  
   return (
-    <div className={`edu-card card-type-2 radius-small ${classes || ''}`}>
+    <div className={`edu-card card-type-2 radius-small`}>
       <div className="inner">
         <div className="thumbnail">
           <Link to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}>

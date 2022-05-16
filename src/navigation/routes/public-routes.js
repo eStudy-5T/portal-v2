@@ -80,7 +80,7 @@ const publicRoutes = [
     exact: true
   },
   {
-    path: 'instructor-details/:slug',
+    path: 'instructor-details/:id',
     component: () => <InstructorDetails />,
     exact: true
   }

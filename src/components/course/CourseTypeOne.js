@@ -51,9 +51,7 @@ function CourseTypeOne({ data, classes, handleEnrollClick }) {
             <div className="author-meta">
               <div className="author-thumb">
                 <Link
-                  to={`${process.env.PUBLIC_URL}/instructor-details/${slugify(
-                    'data.instructor'
-                  )}`}
+                  to={`${process.env.PUBLIC_URL}/instructor-details/${data.ownerId}`}
                 >
                   <img
                     src={
@@ -165,9 +163,7 @@ function CourseTypeOne({ data, classes, handleEnrollClick }) {
             <div className="author-meta">
               <div className="author-thumb">
                 <Link
-                  to={`${process.env.PUBLIC_URL}/instructor-details/${slugify(
-                    'data.instructor'
-                  )}`}
+                  to={`${process.env.PUBLIC_URL}/instructor-details/${data.ownerId}`}
                 >
                   <img
                     src={
@@ -188,7 +184,7 @@ function CourseTypeOne({ data, classes, handleEnrollClick }) {
             <ul className="edu-meta meta-02">
               <li>
                 <i className="icon-file-list-3-line" />
-                {data.lesson || 0} Lessons
+                {data.lesson || 0} {translation('courseDetails.sessions')}
               </li>
             </ul>
           </div>
@@ -197,7 +193,7 @@ function CourseTypeOne({ data, classes, handleEnrollClick }) {
               className="edu-btn btn-medium btn-white"
               to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}
             >
-              Enroll Now
+              {translation('courseDetails.seeDetails')}
               <i className="icon-arrow-right-line-right" />
             </Link>
           </div>

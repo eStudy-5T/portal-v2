@@ -48,6 +48,9 @@ const courseService = {
   },
   getEnrolledStudents: (courseId) => {
     return request.get(`/courses/${courseId}/enrolled-students`)
+  },
+  getCreatedCourses: (ownerId) => {
+    return request.get(`/courses/created-courses/${ownerId}`)
   }
 }
 

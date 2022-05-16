@@ -132,7 +132,8 @@
     "email": "Email",
     "phoneNumber": "Phone Number",
     "enrolledDate": "Enrolled Date",
-    "nationalities": "Nationalities"
+    "nationalities": "Nationalities",
+    "seeDetails": "See details"
   },
   "classDetails": {
     "duration": "Duration",
@@ -141,6 +142,20 @@
     "hours": "Hours",
     "startDate": "Start Date",
     "endDate": "End Date"
+  },
+  "instructorDetails": {
+    "subTitle": "Instructor",
+    "phone": "Phone",
+    "contactMe": "Contact Me",
+    "about": "About me",
+    "skillSet": "Skillset",
+    "courseAuthor": "Course Author",
+    "rating": "Rating",
+    "courses": "Courses",
+    "coursesBy": "Courses By",
+    "noInfo": "No Information",
+    "greeting": "Hello, I'm ",
+    "skills": "Expertized skills"
   },
   "relatedCourses": {
     "title": "Related Courses",

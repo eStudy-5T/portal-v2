@@ -132,7 +132,8 @@
     "email": "Email",
     "phoneNumber": "Số điện thoại",
     "enrolledDate": "Ngày vào lớp",
-    "nationalities": "Quốc tịch"
+    "nationalities": "Quốc tịch",
+    "seeDetails": "Xem chi tiết"
   },
   "classDetails": {
     "duration": "Thời lượng",
@@ -141,6 +142,20 @@
     "hours": "Giờ",
     "startDate": "Ngày bắt đầu",
     "endDate": "Ngày kết thúc"
+  },
+  "instructorDetails": {
+    "subTitle": "Giáo viên",
+    "phone": "Số điện thoại",
+    "contactMe": "Liên hệ",
+    "about": "Mô tả bản thân",
+    "skillSet": "Kỹ năng",
+    "courseAuthor": "Khóa học quản lý",
+    "rating": "Điểm đánh giá",
+    "courses": "Các khóa học",
+    "coursesBy": "Các khóa học của",
+    "noInfo": "Chưa có thông tin",
+    "greeting": "Xin chào, tôi là ",
+    "skills": "Các kỹ năng chuyên môn"
   },
   "relatedCourses": {
     "title": "Các khóa học liên quan",
