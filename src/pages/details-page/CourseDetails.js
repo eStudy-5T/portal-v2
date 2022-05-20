@@ -249,10 +249,12 @@ function CourseDetails() {
   const { t: translation } = useTranslation()
 
   const [courseData, setCourseData] = useState(null)
+  const [ownerId, setOwnerId] = useState(null)
   const [isMounted, setIsMounted] = useState(false)
 
   const { id } = useParams()
   const courseId = 1
+  const userId = localStorage.getItem('currentUser')
   const data = CourseData.filter((course) => course.id === courseId)
   const courseItem = data[0]
 
@@ -262,7 +264,9 @@ function CourseDetails() {
     setIsMounted(true)
     async function fetchData() {
       const { data } = await courseService.getSpecificCourse(id)
+      const { ownerId } = data
       setCourseData({ ...data })
+      setOwnerId(ownerId)
     }
     if (isMounted) {
       fetchData()
@@ -397,20 +401,24 @@ function CourseDetails() {
                         {translation('courseDetails.sessions')}
                       </button>
                     </li>
-                    <li className="nav-item">
-                      <button
-                        className={
-                          contentTab === 'enrolled'
-                            ? 'nav-link active'
-                            : 'nav-link'
-                        }
-                        type="button"
-                        aria-label="Enrolled"
-                        onClick={() => handleTab('enrolled')}
-                      >
-                        {translation('courseDetails.enrolled')}
-                      </button>
-                    </li>
+                    { 
+                      userId === ownerId
+                        ? <li className="nav-item">
+                            <button
+                              className={
+                                contentTab === 'enrolled'
+                                  ? 'nav-link active'
+                                  : 'nav-link'
+                              }
+                              type="button"
+                              aria-label="Enrolled"
+                              onClick={() => handleTab('enrolled')}
+                            >
+                              {translation('courseDetails.enrolled')}
+                            </button>
+                          </li>
+                        : null
+                    }
                     <li className="nav-item">
                       <button
                         className={
