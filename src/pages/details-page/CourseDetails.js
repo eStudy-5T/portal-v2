@@ -534,7 +534,7 @@ function CourseDetails() {
                                   to={`${
                                     process.env.PUBLIC_URL
                                   }/instructor-details/${slugify(
-                                    courseItem.instructor
+                                    courseData.ownerId || courseItem.instructor
                                   )}`}
                                 >
                                   {teacherFullName}
