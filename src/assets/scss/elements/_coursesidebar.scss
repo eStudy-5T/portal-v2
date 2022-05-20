@@ -30,6 +30,26 @@
   }
 }
 
+.edu-btn-show-my-courses {
+  border-radius: 5px;
+  display: inline-block;
+  height: 60px;
+  line-height: 60px;
+  color: var(--color-white);
+  background: var(--color-primary);
+  padding: 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+  transition: 0.4s;
+  font-family: var(--font-primary);
+  border: 0 none;
+
+  &:hover {
+    background: var(--color-dark);
+    color: var(--color-white);
+  }
+}
+
 .edu-size-number {
   width: 40px;
   text-align: center;

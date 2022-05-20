@@ -80,7 +80,10 @@
     "of": "of",
     "results": "results",
     "searchCourse": "Search course",
-    "showMeetingLinkTitle": "You can already join the lessons of this class"
+    "showMeetingLinkTitle": "You can already join the lessons of this class",
+    "allCourses": "All courses",
+    "yourCreatedCourses": "Your created courses",
+    "yourEnrolledCourses": "Your enrolled courses"
   },
   "nav": {
     "home": "Home",
