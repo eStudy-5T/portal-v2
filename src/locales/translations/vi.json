@@ -155,7 +155,9 @@
     "coursesBy": "Các khóa học của",
     "noInfo": "Chưa có thông tin",
     "greeting": "Xin chào, tôi là ",
-    "skills": "Các kỹ năng chuyên môn"
+    "skills": "Các kỹ năng chuyên môn",
+    "students": "Học sinh",
+    "lessons": "Buổi học"
   },
   "relatedCourses": {
     "title": "Các khóa học liên quan",

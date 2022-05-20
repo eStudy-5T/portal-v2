@@ -155,7 +155,9 @@
     "coursesBy": "Courses By",
     "noInfo": "No Information",
     "greeting": "Hello, I'm ",
-    "skills": "Expertized skills"
+    "skills": "Expertized skills",
+    "students": "Students",
+    "lessons": "Lessons"
   },
   "relatedCourses": {
     "title": "Related Courses",

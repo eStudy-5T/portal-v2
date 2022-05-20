@@ -45,8 +45,6 @@ function InstructorDetails() {
     })
   }, [id, isMounted])
 
-  console.log(instructor)
-
   return (
     <>
       <SEO title={instructor?.lastName + ' ' + instructor?.firstName} />
@@ -68,7 +66,8 @@ function InstructorDetails() {
                         {instructor?.lastName + ' ' + instructor?.firstName}
                       </h5>
                       <span className="subtitle">
-                        {instructor?.designation || translation('instructorDetails.subTitle')}
+                        {instructor?.designation ||
+                          translation('instructorDetails.subTitle')}
                       </span>
                       <div className="contact-with-info">
                         <p>
@@ -204,9 +203,7 @@ function InstructorDetails() {
                                   )
                                 }
                               </TrackVisibility>
-                              <p>
-                                {translation('instructorDetails.rating')}
-                              </p>
+                              <p>{translation('instructorDetails.rating')}</p>
                             </div>
                           </div>
                         </div>
@@ -216,27 +213,45 @@ function InstructorDetails() {
                     {courses && courses.length > 0 && (
                       <div className="edu-course-wrapper pt--65">
                         <div className="section-title text-start mb--20">
-                          <span className="pre-title">{translation('instructorDetails.courses')}</span>
+                          <span className="pre-title">
+                            {translation('instructorDetails.courses')}
+                          </span>
                           <h3 className="title">
-                            {translation('instructorDetails.coursesBy')} : {instructor?.lastName + " " + instructor?.firstName }
+                            {translation('instructorDetails.coursesBy')} :{' '}
+                            {instructor?.lastName + ' ' + instructor?.firstName}
                           </h3>
                         </div>
-                        <Slider
-                          className="instructor-profile-courses course-activation course-activation-item-2 slick-gutter-15 edu-slick-button"
-                          {...InstructorCourseSliderParams}
-                        >
-                          {courses.map((course, i) => {
-                            const data = { instructor, course }
+
+                        {courses.length > 1 ? (
+                          <Slider
+                            className="instructor-profile-courses course-activation course-activation-item-2 slick-gutter-15 edu-slick-button"
+                            {...InstructorCourseSliderParams}
+                          >
+                            {courses.map((course) => {
+                              return (
+                                <div
+                                  key={course.id}
+                                  className="letmeet-course-two-single"
+                                >
+                                  <CourseTypeTwo
+                                    data={{ instructor, course }}
+                                  />
+                                </div>
+                              )
+                            })}
+                          </Slider>
+                        ) : (
+                          courses.map((course) => {
                             return (
                               <div
                                 key={course.id}
                                 className="letmeet-course-two-single"
                               >
-                                <CourseTypeTwo data={data} />
+                                <CourseTypeTwo data={{ instructor, course }} />
                               </div>
                             )
-                          })}
-                        </Slider>
+                          })
+                        )}
                       </div>
                     )}
                   </div>
