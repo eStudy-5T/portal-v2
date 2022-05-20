@@ -22,24 +22,27 @@ const courseService = {
   createClass: (courseId, data) => {
     return request.post(`/courses/${courseId}/classes`, data)
   },
-  getCourses: (searchText, paginationOptions, queryOptions) => {
+  getCourses: (userId, searchText, paginationOptions, queryOptions) => {
     const { offset = 1, limit = 8 } = paginationOptions
     const {
       sortBy = 'sortby-none',
       categoryFilter = 'category-all',
       gradeFilter = 'grade-all',
-      rangePrice = -1
+      rangePrice = -1,
+      type = undefined
     } = queryOptions
 
     return request.get('/courses', {
       params: {
+        userId,
         searchText,
         offset,
         limit,
         sortBy,
         categoryFilter,
         gradeFilter,
-        rangePrice
+        rangePrice,
+        type
       }
     })
   },

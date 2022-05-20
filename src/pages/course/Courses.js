@@ -11,12 +11,21 @@ import FilterByPrice from '../../components/widgets/course/FilterByPrice'
 import debounce from 'lodash.debounce'
 
 import courseService from '../../services/course-service'
+import userService from '../../services/user-service'
 
 // i18
 import { useTranslation } from 'react-i18next'
 import { isNumber } from 'lodash'
+import { t } from 'i18next'
+
+const ROLE = {
+  GUEST: 'guest',
+  STUDENT: 'student',
+  TEACHER: 'teacher'
+}
 
 function CourseOne() {
+  const [isShowMyCourse, setIsShowMyCourse] = useState(false);
   const [pageNumber, setPageNumber] = useState(1)
   const [pageSize, setPageSize] = useState(8)
   const [searchText, setSearchText] = useState('')
@@ -26,9 +35,12 @@ function CourseOne() {
     sortBy: 'sortby-none',
     categoryFilter: 'category-all',
     gradeFilter: 'grade-all',
-    rangePrice: -1
+    rangePrice: -1,
+    type: undefined
   })
   const isFirstTimeSetPageSize = useRef(true)
+  const userId = localStorage.getItem('currentUser')
+  const userRole = ROLE.TEACHER
 
   const { t: translation } = useTranslation()
 
@@ -38,11 +50,17 @@ function CourseOne() {
       async (pSearchText, paginationOptions = {}, queryOptions = {}) => {
         const {
           data: { courses, count }
-        } = await courseService.getCourses(
+        } = (isShowMyCourse && userRole === ROLE.STUDENT) ? await userService.getEnrolledCourses(
+          userId,
           String(pSearchText).trim().toLowerCase(),
           paginationOptions,
           queryOptions
-        )
+        ) : await courseService.getCourses(
+          userId,
+          String(pSearchText).trim().toLowerCase(),
+          paginationOptions,
+          queryOptions
+        ) 
         setCourseData(courses)
         setCourseCount(count)
         if (isFirstTimeSetPageSize.current) {
@@ -58,7 +76,7 @@ function CourseOne() {
     return () => {
       debouncedFetchData.cancel()
     }
-  }, [searchText, pageNumber, pageSize, queryOptions])
+  }, [isShowMyCourse, searchText, pageNumber, pageSize, queryOptions])
 
   const handleChangePageNumber = (event, value) => {
     setPageNumber(isNumber(value) ? value : 1)
@@ -70,6 +88,13 @@ function CourseOne() {
       setPageSize(tempPageSize)
       setPageNumber(1)
     }
+  }
+
+  const handleChangeIsShowMyCourse = (event) => {
+    const value = !isShowMyCourse ? userRole : undefined
+
+    setQueryOptions({ ...queryOptions, type: value })
+    setIsShowMyCourse(!isShowMyCourse)
   }
 
   const handleFilterChange = (filter, value) => {
@@ -94,6 +119,8 @@ function CourseOne() {
   const handleChangeSearchText = (event) => {
     setSearchText(event.target.value)
   }
+
+  const myCoursesTitle = userRole === ROLE.STUDENT ? 'courses.yourEnrolledCourses' : 'courses.yourCreatedCourses'
 
   return (
     <>
@@ -158,6 +185,17 @@ function CourseOne() {
                 </div>
               </div>
               <div className="col-lg-4">
+                { userId 
+                  ? <div className="edu-course-widget mb-5">
+                      <div className="inner">
+                        <h5 className="widget-title">{t(isShowMyCourse ? myCoursesTitle : 'courses.allCourses')}</h5>
+                        <div className="d-grid gap-2">
+                          <button className="rn-btn edu-btn-show-my-courses" onClick={handleChangeIsShowMyCourse}>{`${t(!isShowMyCourse ? myCoursesTitle : 'courses.allCourses')}`}</button>
+                        </div>
+                      </div>
+                    </div>
+                  : null
+                }
                 <SortBy onFilterChange={handleFilterChange} />
                 <PriceOne
                   extraClass="mt--40"

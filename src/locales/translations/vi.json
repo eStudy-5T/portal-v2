@@ -80,7 +80,10 @@
     "of": "trong",
     "results": "kết quả",
     "searchCourse": "Tìm kiếm khóa học",
-    "showMeetingLinkTitle": "Bạn đã có thể tham gia vào các buổi học của lớp này"
+    "showMeetingLinkTitle": "Bạn đã có thể tham gia vào các buổi học của lớp này",
+    "allCourses": "Tất cả khoá học",
+    "yourCreatedCourses": "Các khoá học của bạn",
+    "yourEnrolledCourses": "Các khoá học đã đăng ký"
   },
   "nav": {
     "home": "Trang chủ",
