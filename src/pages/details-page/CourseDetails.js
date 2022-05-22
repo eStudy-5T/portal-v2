@@ -245,6 +245,245 @@ const EnrolledTabContent = (props) => {
   )
 }
 
+function ReviewsTabContent(data) {
+  const [courseReviews, setCourseReviews] = useState([])
+  const [isMounted, setIsMounted] = useState(false)
+  const [oneStarRateCount, setOneStarRateCount] = useState(0)
+  const [twoStarRateCount, setTwoStarRateCount] = useState(0)
+  const [threeStarRateCount, setThreeStarRateCount] = useState(0)
+  const [fourStarRateCount, setFourStarRateCount] = useState(0)
+  const [fiveStarRateCount, setFiveStarRateCount] = useState(0)
+
+  const { t: translation } = useTranslation()
+
+  useEffect(() => {
+    setIsMounted(true)
+    console.log('Reviews tab')
+    console.log(data.courseId)
+    courseService
+      .getCourseReviews(data.courseId)
+      .then(({ data: CourseReviewsData }) => {
+        if (isMounted) {
+          setCourseReviews(CourseReviewsData.data)
+          CourseReviewsData.data.map((review) => {
+            console.log('this is ', review.rate)
+            if (review.rate === 1) {
+              setOneStarRateCount(oneStarRateCount + 1)
+            }
+            if (review.rate === 2) {
+              setTwoStarRateCount(twoStarRateCount + 1)
+            }
+            if (review.rate === 3) {
+              setThreeStarRateCount(threeStarRateCount + 1)
+            }
+            if (review.rate === 4) {
+              setFourStarRateCount(fourStarRateCount + 1)
+            }
+            if (review.rate === 5) {
+              setFiveStarRateCount(fiveStarRateCount + 1)
+            }
+
+            return
+          })
+        }
+      })
+  }, [data.courseId, isMounted])
+
+  const totalRateCount =
+    oneStarRateCount +
+    twoStarRateCount +
+    threeStarRateCount +
+    fourStarRateCount +
+    fiveStarRateCount
+  const totalRateStar =
+    oneStarRateCount +
+    twoStarRateCount * 2 +
+    threeStarRateCount * 3 +
+    fourStarRateCount * 4 +
+    fiveStarRateCount * 5
+  const averageRating = totalRateStar / totalRateCount
+
+  return (
+    <ScrollAnimation
+      animateIn="fadeIn"
+      animateOut="fadeInOut"
+      className={`tab-pane fade show active`}
+      animateOnce
+    >
+      <div className="course-tab-content">
+        <div className="row row--30">
+          <div className="col-lg-4">
+            <div className="rating-box">
+              <div className="rating-number">{averageRating}</div>
+              <div className="rating letmeet-course-rating-stars">
+                <Rating
+                  readOnly
+                  value={averageRating}
+                  precision={0.5}
+                  size="medium"
+                  sx={{ color: '#ffa41b' }}
+                  emptyIcon={
+                    <StarBorderIcon
+                      fontSize="inherit"
+                      sx={{ color: '#ffa41b' }}
+                    ></StarBorderIcon>
+                  }
+                ></Rating>
+              </div>
+              {/* <span>({courseItem.review} Review)</span> */}
+            </div>
+          </div>
+          <div className="col-lg-8">
+            <div className="review-wrapper">
+              <div className="single-progress-bar">
+                <div className="rating-text">
+                  5 <i className="icon-Star" />
+                </div>
+                <div className="progress">
+                  <div
+                    className="progress-bar"
+                    role="progressbar"
+                    style={{
+                      width: (fiveStarRateCount * 100) / totalRateCount + '%'
+                    }}
+                    aria-valuenow="100"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  />
+                </div>
+                <span className="rating-value">{fiveStarRateCount}</span>
+              </div>
+
+              <div className="single-progress-bar">
+                <div className="rating-text">
+                  4 <i className="icon-Star" />
+                </div>
+                <div className="progress">
+                  <div
+                    className="progress-bar"
+                    role="progressbar"
+                    style={{
+                      width: (fourStarRateCount * 100) / totalRateCount + '%'
+                    }}
+                    aria-valuenow="0"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  />
+                </div>
+                <span className="rating-value">{fourStarRateCount}</span>
+              </div>
+
+              <div className="single-progress-bar">
+                <div className="rating-text">
+                  3 <i className="icon-Star" />
+                </div>
+                <div className="progress">
+                  <div
+                    className="progress-bar"
+                    role="progressbar"
+                    style={{
+                      width: (threeStarRateCount * 100) / totalRateCount + '%'
+                    }}
+                    aria-valuenow="0"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  />
+                </div>
+                <span className="rating-value">{threeStarRateCount}</span>
+              </div>
+
+              <div className="single-progress-bar">
+                <div className="rating-text">
+                  2 <i className="icon-Star" />
+                </div>
+                <div className="progress">
+                  <div
+                    className="progress-bar"
+                    role="progressbar"
+                    style={{
+                      width: (twoStarRateCount * 100) / totalRateCount + '%'
+                    }}
+                    aria-valuenow="0"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  />
+                </div>
+                <span className="rating-value">{twoStarRateCount}</span>
+              </div>
+
+              <div className="single-progress-bar">
+                <div className="rating-text">
+                  1 <i className="icon-Star" />
+                </div>
+                <div className="progress">
+                  <div
+                    className="progress-bar"
+                    role="progressbar"
+                    style={{
+                      width: (oneStarRateCount * 100) / totalRateCount + '%'
+                    }}
+                    aria-valuenow="0"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  />
+                </div>
+                <span className="rating-value">{oneStarRateCount}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="comment-wrapper pt--40">
+          {courseReviews.map((review) => (
+            <div className="edu-comment" key={review.id}>
+              <div className="thumbnail">
+                <img
+                  src="https://scontent.fsgn8-2.fna.fbcdn.net/v/t39.30808-1/280625274_2933762000177853_5642260365791263882_n.jpg?stp=c0.7.200.200a_dst-jpg_p200x200&_nc_cat=100&ccb=1-7&_nc_sid=7206a8&_nc_ohc=pjSE69EKyoQAX8mHZch&_nc_ht=scontent.fsgn8-2.fna&oh=00_AT8rGvTZWquCsovt1ER485aOju98us07LtyU7tISXcThBw&oe=628D6001g"
+                  alt="Student Thumb"
+                />
+              </div>
+              <div className="comment-content">
+                <div className="comment-top">
+                  <h6 className="title">{review.username}</h6>
+                  <div className="rating letmeet-course-rating-stars">
+                    <i
+                      className={
+                        review.rate >= 1 ? 'icon-Star' : 'off icon-Star'
+                      }
+                    />
+                    <i
+                      className={
+                        review.rate >= 2 ? 'icon-Star' : 'off icon-Star'
+                      }
+                    />
+                    <i
+                      className={
+                        review.rate >= 3 ? 'icon-Star' : 'off icon-Star'
+                      }
+                    />
+                    <i
+                      className={
+                        review.rate >= 4 ? 'icon-Star' : 'off icon-Star'
+                      }
+                    />
+                    <i
+                      className={
+                        review.rate >= 5 ? 'icon-Star' : 'off icon-Star'
+                      }
+                    />
+                  </div>
+                </div>
+                <span className="subtitle">{review.title}</span>
+                <p>{review.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </ScrollAnimation>
+  )
+}
+
 function CourseDetails() {
   const { t: translation } = useTranslation()
 
@@ -401,24 +640,22 @@ function CourseDetails() {
                         {translation('courseDetails.sessions')}
                       </button>
                     </li>
-                    { 
-                      userId === ownerId
-                        ? <li className="nav-item">
-                            <button
-                              className={
-                                contentTab === 'enrolled'
-                                  ? 'nav-link active'
-                                  : 'nav-link'
-                              }
-                              type="button"
-                              aria-label="Enrolled"
-                              onClick={() => handleTab('enrolled')}
-                            >
-                              {translation('courseDetails.enrolled')}
-                            </button>
-                          </li>
-                        : null
-                    }
+                    {userId === ownerId ? (
+                      <li className="nav-item">
+                        <button
+                          className={
+                            contentTab === 'enrolled'
+                              ? 'nav-link active'
+                              : 'nav-link'
+                          }
+                          type="button"
+                          aria-label="Enrolled"
+                          onClick={() => handleTab('enrolled')}
+                        >
+                          {translation('courseDetails.enrolled')}
+                        </button>
+                      </li>
+                    ) : null}
                     <li className="nav-item">
                       <button
                         className={
@@ -581,165 +818,7 @@ function CourseDetails() {
                     )}
 
                     {contentTab === 'reviews' && (
-                      <ScrollAnimation
-                        animateIn="fadeIn"
-                        animateOut="fadeInOut"
-                        className={`tab-pane fade show ${
-                          contentTab === 'reviews' ? 'active' : ''
-                        } `}
-                        animateOnce
-                      >
-                        <div className="course-tab-content">
-                          <div className="row row--30">
-                            <div className="col-lg-4">
-                              <div className="rating-box">
-                                <div className="rating-number">
-                                  {courseData.rating || 0}
-                                </div>
-                                <div className="rating letmeet-course-rating-stars">
-                                  <Rating
-                                    readOnly
-                                    value={courseData.rating || 0}
-                                    precision={0.5}
-                                    size="medium"
-                                    sx={{ color: '#ffa41b' }}
-                                    emptyIcon={
-                                      <StarBorderIcon
-                                        fontSize="inherit"
-                                        sx={{ color: '#ffa41b' }}
-                                      ></StarBorderIcon>
-                                    }
-                                  ></Rating>
-                                </div>
-                                <span>({courseItem.review} Review)</span>
-                              </div>
-                            </div>
-                            <div className="col-lg-8">
-                              <div className="review-wrapper">
-                                <div className="single-progress-bar">
-                                  <div className="rating-text">
-                                    5 <i className="icon-Star" />
-                                  </div>
-                                  <div className="progress">
-                                    <div
-                                      className="progress-bar"
-                                      role="progressbar"
-                                      style={{ width: '100%' }}
-                                      aria-valuenow="100"
-                                      aria-valuemin="0"
-                                      aria-valuemax="100"
-                                    />
-                                  </div>
-                                  <span className="rating-value">1</span>
-                                </div>
-
-                                <div className="single-progress-bar">
-                                  <div className="rating-text">
-                                    4 <i className="icon-Star" />
-                                  </div>
-                                  <div className="progress">
-                                    <div
-                                      className="progress-bar"
-                                      role="progressbar"
-                                      style={{ width: '0%' }}
-                                      aria-valuenow="0"
-                                      aria-valuemin="0"
-                                      aria-valuemax="100"
-                                    />
-                                  </div>
-                                  <span className="rating-value">0</span>
-                                </div>
-
-                                <div className="single-progress-bar">
-                                  <div className="rating-text">
-                                    3 <i className="icon-Star" />
-                                  </div>
-                                  <div className="progress">
-                                    <div
-                                      className="progress-bar"
-                                      role="progressbar"
-                                      style={{ width: '0%' }}
-                                      aria-valuenow="0"
-                                      aria-valuemin="0"
-                                      aria-valuemax="100"
-                                    />
-                                  </div>
-                                  <span className="rating-value">0</span>
-                                </div>
-
-                                <div className="single-progress-bar">
-                                  <div className="rating-text">
-                                    2 <i className="icon-Star" />
-                                  </div>
-                                  <div className="progress">
-                                    <div
-                                      className="progress-bar"
-                                      role="progressbar"
-                                      style={{ width: '0%' }}
-                                      aria-valuenow="0"
-                                      aria-valuemin="0"
-                                      aria-valuemax="100"
-                                    />
-                                  </div>
-                                  <span className="rating-value">0</span>
-                                </div>
-
-                                <div className="single-progress-bar">
-                                  <div className="rating-text">
-                                    1 <i className="icon-Star" />
-                                  </div>
-                                  <div className="progress">
-                                    <div
-                                      className="progress-bar"
-                                      role="progressbar"
-                                      style={{ width: '0%' }}
-                                      aria-valuenow="0"
-                                      aria-valuemin="0"
-                                      aria-valuemax="100"
-                                    />
-                                  </div>
-                                  <span className="rating-value">0</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="comment-wrapper pt--40">
-                            <div className="section-title">
-                              <h5 className="mb--25">Reviews</h5>
-                            </div>
-                            <div className="edu-comment">
-                              <div className="thumbnail">
-                                <img
-                                  src={`${courseItem.imageDetails}`}
-                                  alt="Student Thumb"
-                                />
-                              </div>
-                              <div className="comment-content">
-                                <div className="comment-top">
-                                  <h6 className="title">Elen Saspita</h6>
-                                  <div className="rating letmeet-course-rating-stars">
-                                    <i className="icon-Star" />
-                                    <i className="icon-Star" />
-                                    <i className="icon-Star" />
-                                    <i className="icon-Star" />
-                                    <i className="icon-Star" />
-                                  </div>
-                                </div>
-                                <span className="subtitle">
-                                  “ Outstanding Course ”
-                                </span>
-                                <p>
-                                  As Thomas pointed out, Chegg’s survey appears
-                                  more like a scorecard that details obstacles
-                                  and challenges that the current university
-                                  undergraduate student population is going
-                                  through in their universities and countries.
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </ScrollAnimation>
+                      <ReviewsTabContent courseId={id} />
                     )}
                   </div>
                 </div>

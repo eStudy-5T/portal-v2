@@ -54,6 +54,9 @@ const courseService = {
   },
   getCreatedCourses: (ownerId) => {
     return request.get(`/courses/created-courses/${ownerId}`)
+  },
+  getCourseReviews: (courseId) => {
+    return request.get(`/reviews/${courseId}`)
   }
 }
 
