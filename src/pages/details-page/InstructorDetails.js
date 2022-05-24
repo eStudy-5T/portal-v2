@@ -32,7 +32,7 @@ function InstructorDetails() {
 
   useEffect(() => {
     setIsMounted(true)
-    userService.getUser(id).then(({ data: InstructorData }) => {
+    userService.fetchUserInfo(id).then(({ data: InstructorData }) => {
       if (isMounted) {
         setInstructor(InstructorData)
       }

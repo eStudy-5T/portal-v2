@@ -13,11 +13,12 @@ import AboutOne from '../../components/about/AboutOne'
 import CallToActionOne from '../../components/cta/CallToActionOne'
 import HomeTwoBlog from '../../components/home-two/HomeTwoBlog'
 import Footer from '../../common/footer/Footer'
+import { t } from 'i18next'
 
 function HomePage() {
   return (
     <>
-      <SEO title="Home" />
+      <SEO title={t('nav.home')} />
 
       <HeaderTwo styles="header-transparent header-style-2" />
 

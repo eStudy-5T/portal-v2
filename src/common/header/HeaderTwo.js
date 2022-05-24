@@ -127,7 +127,7 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                       >
                         <Link to={`/enrolled-courses/${userId}/`}>
                           <MenuItem>
-                            {translation('dropdown.enrolledCourses')}
+                            {translation('dropdown.myCourses')}
                           </MenuItem>
                         </Link>
 
@@ -186,7 +186,7 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                       >
                         <Link to={`/enrolled-courses/${userId}/`}>
                           <MenuItem>
-                            {translation('dropdown.enrolledCourses')}
+                            {translation('dropdown.myCourses')}
                           </MenuItem>
                         </Link>
                         

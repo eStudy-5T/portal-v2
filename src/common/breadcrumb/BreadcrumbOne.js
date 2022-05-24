@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function BreadcrumbOne({ title, rootUrl, parentUrl, currentUrl }) {
+function BreadcrumbOne({ title }) {
   return (
     <div className="edu-breadcrumb-area breadcrumb-style-1 ptb--60 ptb_md--40 ptb_sm--40 bg-image">
       <div className="container letmeet-animated-shape">
@@ -14,7 +14,7 @@ function BreadcrumbOne({ title, rootUrl, parentUrl, currentUrl }) {
                   dangerouslySetInnerHTML={{ __html: title }}
                 />
               </div>
-              <nav className="edu-breadcrumb-nav">
+              {/* <nav className="edu-breadcrumb-nav">
                 <ol className="edu-breadcrumb d-flex justify-content-start liststyle">
                   <li className="breadcrumb-item">
                     <Link
@@ -30,7 +30,7 @@ function BreadcrumbOne({ title, rootUrl, parentUrl, currentUrl }) {
                     dangerouslySetInnerHTML={{ __html: currentUrl }}
                   />
                 </ol>
-              </nav>
+              </nav> */}
             </div>
           </div>
         </div>

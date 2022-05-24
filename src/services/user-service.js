@@ -4,9 +4,6 @@ const userService = {
   fetchUserInfo: (userId) => {
     return request.get(`/user/${userId}`)
   },
-  getUser: (userId) => {
-    return request.get(`/user/${userId}`)
-  },
   uploadAvatar: (avatar) => {
     const formData = new FormData()
     formData.append('uploadFile', avatar, avatar.name)

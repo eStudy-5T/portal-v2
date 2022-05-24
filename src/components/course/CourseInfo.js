@@ -181,12 +181,11 @@ function CourseInfo({ courseData }) {
                   <div className="read-more-btn mt--15">
                     <a
                       className="edu-btn w-100 text-center edu-btn-hover"
-                      style={{ fontSize: '14px' }}
                       href={isEnrolled ? courseData.link ? courseData.link : data.link : null}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      {courseData.link ? courseData.link : data.link}
+                      {translation('courseDetails.joinClass')}
                     </a>
                   </div>
                 )}

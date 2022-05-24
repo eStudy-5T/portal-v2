@@ -93,7 +93,7 @@
   },
   "dropdown": {
     "teacherDashboard": "Trang giáo viên",
-    "enrolledCourses": "Khóa học đã đăng ký"
+    "myCourses": "Khóa học của tôi"
   },
   "footer": {
     "explore": "Khám phá",
@@ -109,6 +109,7 @@
     "courseDetails": "Chi tiết khóa học"
   },
   "courseDetails": {
+    "details": "Chi tiết",
     "duration": "Thời lượng",
     "hours": "Giờ",
     "overview": "Tổng quan",
@@ -130,6 +131,7 @@
     "confirm": "Xác nhận",
     "cancel": "Hủy",
     "register": "Đăng ký",
+    "joinClass": "Vào lớp",
     "fullName": "Họ tên",
     "dateOfBirth": "Ngày sinh",
     "email": "Email",

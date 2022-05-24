@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import ScrollAnimation from 'react-animate-on-scroll'
 import { useParams, Link } from 'react-router-dom'
 import { Accordion } from 'react-bootstrap'
@@ -10,9 +11,14 @@ import Layout from '../../common/Layout'
 import CourseInfo from '../../components/course/CourseInfo'
 import MeetingLink from '../../components/meeting-link/MeetingLink'
 
+// Images
+import CloneAvatar from '../../assets/images/clone.png'
+
+//Form
+import ReviewForm from '../../components/form/ReviewForm'
+
 // MUI component
 import { Rating } from '@mui/material'
-import StarBorderIcon from '@mui/icons-material/StarBorder'
 
 // Services
 import courseService from '../../services/course-service'
@@ -24,6 +30,7 @@ import InstructorData from '../../data/instructor/InstructorData.json'
 import { useTranslation } from 'react-i18next'
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
+import userService from '../../services/user-service'
 
 function CustomToggle({ children, eventKey }) {
   const { activeEventKey } = useContext(AccordionContext)
@@ -246,6 +253,7 @@ const EnrolledTabContent = (props) => {
 }
 
 function ReviewsTabContent(data) {
+  const userInfo = useSelector((state) => state.userInfo)
   const [courseReviews, setCourseReviews] = useState([])
   const [isMounted, setIsMounted] = useState(false)
   const [oneStarRateCount, setOneStarRateCount] = useState(0)
@@ -253,37 +261,43 @@ function ReviewsTabContent(data) {
   const [threeStarRateCount, setThreeStarRateCount] = useState(0)
   const [fourStarRateCount, setFourStarRateCount] = useState(0)
   const [fiveStarRateCount, setFiveStarRateCount] = useState(0)
+  const [avatar, setAvatar] = useState(null)
 
   const { t: translation } = useTranslation()
 
   useEffect(() => {
     setIsMounted(true)
-    console.log('Reviews tab')
-    console.log(data.courseId)
     courseService
       .getCourseReviews(data.courseId)
       .then(({ data: CourseReviewsData }) => {
         if (isMounted) {
           setCourseReviews(CourseReviewsData.data)
           CourseReviewsData.data.map((review) => {
-            console.log('this is ', review.rate)
-            if (review.rate === 1) {
-              setOneStarRateCount(oneStarRateCount + 1)
+            switch (review.rate) {
+              default:
+                break
+              case 1: {
+                setOneStarRateCount(oneStarRateCount + 1)
+                break
+              }
+              case 2: {
+                setTwoStarRateCount(twoStarRateCount + 1)
+                break
+              }
+              case 3: {
+                setThreeStarRateCount(threeStarRateCount + 1)
+                break
+              }
+              case 4: {
+                setFourStarRateCount(fiveStarRateCount + 1)
+                break
+              }
+              case 5: {
+                setFiveStarRateCount(fiveStarRateCount + 1)
+                break
+              }
             }
-            if (review.rate === 2) {
-              setTwoStarRateCount(twoStarRateCount + 1)
-            }
-            if (review.rate === 3) {
-              setThreeStarRateCount(threeStarRateCount + 1)
-            }
-            if (review.rate === 4) {
-              setFourStarRateCount(fourStarRateCount + 1)
-            }
-            if (review.rate === 5) {
-              setFiveStarRateCount(fiveStarRateCount + 1)
-            }
-
-            return
+            return null
           })
         }
       })
@@ -314,23 +328,25 @@ function ReviewsTabContent(data) {
         <div className="row row--30">
           <div className="col-lg-4">
             <div className="rating-box">
-              <div className="rating-number">{averageRating}</div>
+              <div className="rating-number">{averageRating || 0}</div>
               <div className="rating letmeet-course-rating-stars">
                 <Rating
                   readOnly
-                  value={averageRating}
+                  value={averageRating || 0}
                   precision={0.5}
-                  size="medium"
-                  sx={{ color: '#ffa41b' }}
+                  size="large"
+                  icon={
+                    <i className="icon-Star" style={{ marginRight: '5px' }} />
+                  }
                   emptyIcon={
-                    <StarBorderIcon
-                      fontSize="inherit"
-                      sx={{ color: '#ffa41b' }}
-                    ></StarBorderIcon>
+                    <i
+                      className="off icon-Star"
+                      style={{ marginRight: '5px' }}
+                    />
                   }
                 ></Rating>
               </div>
-              {/* <span>({courseItem.review} Review)</span> */}
+              <span>{totalRateCount + ' Reviews'}</span>
             </div>
           </div>
           <div className="col-lg-8">
@@ -433,51 +449,65 @@ function ReviewsTabContent(data) {
           </div>
         </div>
 
+        {localStorage.getItem('currentUser') && localStorage.getItem('currentUser') !== data.ownerId && (
+          <ReviewForm
+            avatar={`${userInfo.avatar || CloneAvatar}`}
+            firstName={userInfo.firstName || 'Guest'}
+            lastName={userInfo.lastName || 'User'}
+            courseId={data.courseId}
+          ></ReviewForm>
+        )}
+
         <div className="comment-wrapper pt--40">
-          {courseReviews.map((review) => (
-            <div className="edu-comment" key={review.id}>
-              <div className="thumbnail">
-                <img
-                  src="https://scontent.fsgn8-2.fna.fbcdn.net/v/t39.30808-1/280625274_2933762000177853_5642260365791263882_n.jpg?stp=c0.7.200.200a_dst-jpg_p200x200&_nc_cat=100&ccb=1-7&_nc_sid=7206a8&_nc_ohc=pjSE69EKyoQAX8mHZch&_nc_ht=scontent.fsgn8-2.fna&oh=00_AT8rGvTZWquCsovt1ER485aOju98us07LtyU7tISXcThBw&oe=628D6001g"
-                  alt="Student Thumb"
-                />
-              </div>
-              <div className="comment-content">
-                <div className="comment-top">
-                  <h6 className="title">{review.username}</h6>
-                  <div className="rating letmeet-course-rating-stars">
-                    <i
-                      className={
-                        review.rate >= 1 ? 'icon-Star' : 'off icon-Star'
-                      }
-                    />
-                    <i
-                      className={
-                        review.rate >= 2 ? 'icon-Star' : 'off icon-Star'
-                      }
-                    />
-                    <i
-                      className={
-                        review.rate >= 3 ? 'icon-Star' : 'off icon-Star'
-                      }
-                    />
-                    <i
-                      className={
-                        review.rate >= 4 ? 'icon-Star' : 'off icon-Star'
-                      }
-                    />
-                    <i
-                      className={
-                        review.rate >= 5 ? 'icon-Star' : 'off icon-Star'
-                      }
-                    />
-                  </div>
+          {courseReviews.map((review) => {
+            // userService
+            //   .fetchUserInfo(review.userId)
+            //   .then((userInfoResponse) => {
+            //     review.avatar = userInfoResponse.data.avatar
+            //     setAvatar(userInfoResponse.data.avatar)
+            //   })
+            return (
+              <div className="edu-comment" key={review.id}>
+                <div className="thumbnail" >
+                  <img src={avatar || CloneAvatar} alt="Student Thumb" />
                 </div>
-                <span className="subtitle">{review.title}</span>
-                <p>{review.description}</p>
+                <div className="comment-content">
+                  <div className="comment-top">
+                    <h6 className="title mb--0">{review.username}</h6>
+                    <div className="rating letmeet-course-rating-stars">
+                      <i
+                        className={
+                          review.rate >= 1 ? 'icon-Star' : 'off icon-Star'
+                        }
+                      />
+                      <i
+                        className={
+                          review.rate >= 2 ? 'icon-Star' : 'off icon-Star'
+                        }
+                      />
+                      <i
+                        className={
+                          review.rate >= 3 ? 'icon-Star' : 'off icon-Star'
+                        }
+                      />
+                      <i
+                        className={
+                          review.rate >= 4 ? 'icon-Star' : 'off icon-Star'
+                        }
+                      />
+                      <i
+                        className={
+                          review.rate >= 5 ? 'icon-Star' : 'off icon-Star'
+                        }
+                      />
+                    </div>
+                  </div>
+                  <span className="subtitle">{review.title}</span>
+                  <p>{review.description}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </ScrollAnimation>
@@ -545,7 +575,7 @@ function CourseDetails() {
   return (
     <>
       <MeetingLink shouldShow={false} />
-      <SEO title={courseItem.title} />
+      <SEO title={courseData && courseData.title} />
       <Layout>
         <div className="edu-course-details-area edu-section-gap bg-color-white">
           <div className="container">
@@ -818,7 +848,7 @@ function CourseDetails() {
                     )}
 
                     {contentTab === 'reviews' && (
-                      <ReviewsTabContent courseId={id} />
+                      <ReviewsTabContent courseId={id} ownerId={ownerId} />
                     )}
                   </div>
                 </div>

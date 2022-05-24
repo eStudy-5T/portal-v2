@@ -93,7 +93,7 @@
   },
   "dropdown": {
     "teacherDashboard": "Teacher Dashboard",
-    "enrolledCourses": "Enrolled Courses"
+    "myCourses": "My Courses"
   },
   "footer": {
     "explore": "Explore",
@@ -109,6 +109,7 @@
     "courseDetails": "Course Details"
   },
   "courseDetails": {
+    "details": "Details",
     "duration": "Duration",
     "hours": "Hours",
     "overview": "Overview",
@@ -130,6 +131,7 @@
     "confirm": "Confirm",
     "cancel": "Cancel",
     "register": "Enroll now",
+    "joinClass": "Join class",
     "fullName": "Full name",
     "dateOfBirth": "Date of birth",
     "email": "Email",
