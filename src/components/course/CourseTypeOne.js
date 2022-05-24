@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { slugify } from '../../utils'
 import InstructorData from '../../data/instructor/InstructorData.json'
@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next'
 import { Rating } from '@mui/material'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 
-import userService from '../../services/user-service'
 
 function CourseTypeOne({ data, classes, handleEnrollClick }) {
   const { t: translation } = useTranslation()

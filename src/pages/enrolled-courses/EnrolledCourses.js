@@ -3,6 +3,7 @@ import ScrollAnimation from 'react-animate-on-scroll'
 import Pagination from '@mui/material/Pagination'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
+import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
 import CourseTypeOne from '../../components/course/CourseTypeOne'
 import SortBy from '../../components/widgets/course/SortBy'
 import PriceOne from '../../components/widgets/course/CategoryFilter'
@@ -99,8 +100,11 @@ function EnrolledCourses() {
 
   return (
     <>
-      <SEO title="Courses" />
+      <SEO title={translation('dropdown.myCourses')} />
       <Layout>
+        <BreadcrumbOne
+          title={translation('dropdown.myCourses')}
+        />
         <div className="edu-course-area edu-section-gap bg-color-white">
           <div className="container">
             <div className="row g-5">

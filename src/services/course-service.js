@@ -55,6 +55,9 @@ const courseService = {
   getCreatedCourses: (ownerId) => {
     return request.get(`/courses/created-courses/${ownerId}`)
   },
+  submitReview: (courseId, data) => {
+    return request.post(`/reviews/${courseId}`, data)
+  },
   getCourseReviews: (courseId) => {
     return request.get(`/reviews/${courseId}`)
   }
