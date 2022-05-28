@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Checking dependencies') {
       steps {
-        sh 'bash ./scripts dependencies.sh'
+        sh 'bash ./scripts/dependencies.sh'
       }
     }
     stage('Building portal') {
