@@ -6,5 +6,5 @@ WORKDIR /usr/src/app
 COPY . .
 RUN yarn
 
-EXPOSE 8181
+EXPOSE 9000
 CMD ["pm2-runtime", "./ecosystem.json"]

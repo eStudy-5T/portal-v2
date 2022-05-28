@@ -2,7 +2,7 @@
     "script": "serve",
     "env": {
       "PM2_SERVE_PATH": "./build",
-      "PM2_SERVE_PORT": 8181,
+      "PM2_SERVE_PORT": 9000,
       "PM2_SERVE_SPA": true
     }
   }
