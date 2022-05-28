@@ -16,14 +16,15 @@ export NVM_DIR="$HOME/.nvm"
 
 nvm use 14 | grep "N/A" &> /dev/null
 if [ $? == 0 ]; then
- echo "NVM 14 ready"
-else
  echo "Installing NVM 14"
  nvm install 14
+ echo "NVM 14 ready"
+else
  echo "NVM 14 ready"
 fi
 
 nvm use 14
-yarn
 yarn upgrade node-sass
+yarn
+
 
