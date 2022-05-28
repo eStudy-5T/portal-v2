@@ -11,7 +11,18 @@ pipeline {
         sh 'bash ./scripts/build.sh'
       }
     }
+    stage('Stopping old version') {
+      // when {
+      //   branch 'main'
+      // }
+      steps {
+        sh 'bash ./scripts/stop.sh'
+      }
+    }
     stage('Deploying portal') {
+      // when {
+      //   branch 'main'
+      // }
       steps {
         sh 'bash ./scripts/deploy.sh'
       }
