@@ -25,5 +25,5 @@ fi
 
 nvm use 14
 yarn
-npm rebuild node-sass
+yarn upgrade node-sass
 
