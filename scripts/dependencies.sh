@@ -24,7 +24,6 @@ else
 fi
 
 nvm use 14
-yarn upgrade node-sass
 yarn
 
 

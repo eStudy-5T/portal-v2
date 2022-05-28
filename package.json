@@ -40,7 +40,6 @@
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
-    "node-sass": "^7.0.1",
     "parallax-js": "^3.1.0",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
@@ -65,6 +64,7 @@
     "react-slick": "^0.28.1",
     "react-toastify": "^8.2.0",
     "rrule": "^2.6.9",
+    "sass": "^1.52.1",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.2"
   },
