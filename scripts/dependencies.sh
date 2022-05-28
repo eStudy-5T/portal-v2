@@ -8,5 +8,5 @@ else
  sudo bash /tmp/nodesource_setup.sh
  sudo apt install nodejs -y
 fi
-npm i -g yarn
+sudo npm i -g yarn
 echo "Node Version Check Complete"
