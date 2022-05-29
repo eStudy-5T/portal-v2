@@ -30,8 +30,9 @@
 @import 'header/search-popup';
 
 /**************************************
-    Elemnts Styles
+Elemnts Styles
 ***************************************/
+@import 'elements/wizard-create-course';
 @import 'elements/button';
 @import 'elements/brands';
 @import 'elements/section-title';
@@ -99,3 +100,5 @@
 ***************************************/
 @import 'footer/footer';
 @import 'footer/copyright';
+
+@import 'mui/mui';

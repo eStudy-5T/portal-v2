@@ -1,0 +1,42 @@
+.MuiStepLabel {
+  &-labelContainer {
+    span {
+      font-size: 18px;
+      font-family: 'Calibri', sans-serif;
+    }
+
+    .Mui-active {
+      font-weight: bold !important;
+    }
+  }
+
+  &-iconContainer {
+    transform: scale(1.5);
+
+    text {
+      font-size: 13px;
+      font-weight: bold;
+      font-family: 'Calibri', sans-serif;
+    }
+  }
+}
+
+.Mui {
+  &-active {
+    color: var(--color-primary) !important;
+  }
+
+  &-completed {
+    color: green !important;
+  }
+}
+
+.MuiFormLabel {
+  &-asterisk {
+    color: red !important;
+  }
+
+  &-root.Mui-focused {
+    color: var(--color-primary) !important;
+  }
+}

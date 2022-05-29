@@ -1,0 +1,10 @@
+.basic-info {
+  &__input {
+    &-label {
+      margin-bottom: 5px;
+      font-weight: bold !important;
+      color: #121212 !important;
+      font-size: 14px !important;
+    }
+  }
+}

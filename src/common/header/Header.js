@@ -20,6 +20,7 @@ function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
   const [isAuthenticated] = useAuthenticate()
   const firstName = useSelector((state) => state.userInfo.firstName)
   const userId = localStorage.getItem('currentUser')
+
   const { t: translation } = useTranslation()
 
   const openSettings = (event) => setOpenSettings(event.currentTarget)
@@ -104,8 +105,6 @@ function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
                         onClick={openSettings}
                       >
                         <i className="ri-user-line" />
-                        &nbsp;
-                        {firstName}
                       </div>
                       <Menu
                         id="menu-settings"
@@ -130,10 +129,11 @@ function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
                           </MenuItem>
                         </Link>
 
-                        <Link to="/teacher-dashboard">
+                        <Link
+                          to={`${process.env.PUBLIC_URL}/teacher-dashboard`}
+                        >
                           <MenuItem>
                             <i className="ri-dashboard-2-fill mr-5" />
-
                             {translation('dropdown.teacherDashboard')}
                           </MenuItem>
                         </Link>
@@ -161,72 +161,6 @@ function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
                     >
                       <i className="ri-user-line" />
                       {translation('auth.login')}
-                    </Link>
-                  )}
-                </div>
-                <div className="quote-icon quote-user d-block d-md-none ml--15 ml_sm--5">
-                  {isAuthenticated ? (
-                    <Box>
-                      <div
-                        aria-controls="menu-settings"
-                        aria-haspopup="true"
-                        className="edu-header__authenticated"
-                        onClick={openSettings}
-                      >
-                        <i className="ri-user-line" />
-                      </div>
-                      <Menu
-                        id="menu-settings"
-                        transformOrigin={{
-                          horizontal: 'center',
-                          vertical: 'top'
-                        }}
-                        anchorOrigin={{
-                          horizontal: 'right',
-                          vertical: 'bottom'
-                        }}
-                        anchorEl={isOpenSettings}
-                        open={Boolean(isOpenSettings)}
-                        onClose={handleCloseSettingsMenu}
-                        TransitionComponent={Fade}
-                        disableScrollLock={true}
-                        className="edu-header__dropdown"
-                      >
-                        <Link to={`/enrolled-courses/${userId}/`}>
-                          <MenuItem>
-                            {translation('dropdown.myCourses')}
-                          </MenuItem>
-                        </Link>
-
-                        <Link to="/teacher-dashboard">
-                          <MenuItem>
-                            <i className="ri-dashboard-2-fill mr-5" />
-
-                            {translation('dropdown.teacherDashboard')}
-                          </MenuItem>
-                        </Link>
-
-                        <Link to="/manage-users">
-                          <MenuItem>
-                            {translation('dropdown.manageUsers')}
-                          </MenuItem>
-                        </Link>
-
-                        <Link to="#">
-                          <MenuItem onClick={() => logOutUser()}>
-                            <i className="ri-logout-box-r-line mr-5" />
-                            {translation('auth.logOut')}
-                          </MenuItem>
-                        </Link>
-                      </Menu>
-                    </Box>
-                  ) : (
-                    <Link
-                      to={`${process.env.PUBLIC_URL}/login`}
-                      className="white-box-icon"
-                      href="#"
-                    >
-                      <i className="ri-user-line" />
                     </Link>
                   )}
                 </div>

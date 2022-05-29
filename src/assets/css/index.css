@@ -11,9 +11,8 @@
 
 html,
 body {
-  height: 100%;
-  line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
   background-repeat: repeat-y;
   background-size: 50% auto;
 }
@@ -369,8 +368,8 @@ template {
   font-size: 1rem;
   background: #fff;
   color: #333;
-  border: 1px solid #1b74ef;
-  border-radius: 5px;
+  border: 2px solid #eeeeee;
+  border-radius: 10px;
 }
 .react-tag-input * {
   box-sizing: border-box;
@@ -411,7 +410,7 @@ template {
   align-items: center;
   font-size: 0.85em;
   line-height: 1;
-  background: #1b74ef;
+  background: #525fe1;
   border-radius: 10px;
 }
 .react-tag-input__tag__content {
@@ -427,7 +426,7 @@ template {
   width: 2em;
   font-size: 0.85em;
   cursor: pointer;
-  background: #1b74ef;
+  background: #525fe1;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
