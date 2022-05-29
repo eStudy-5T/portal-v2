@@ -26,7 +26,7 @@ const ROLE = {
 }
 
 function CourseOne() {
-  const [isShowMyCourse, setIsShowMyCourse] = useState(false);
+  const [isShowMyCourse, setIsShowMyCourse] = useState(false)
   const [pageNumber, setPageNumber] = useState(1)
   const [pageSize, setPageSize] = useState(8)
   const [searchText, setSearchText] = useState('')
@@ -51,17 +51,21 @@ function CourseOne() {
       async (pSearchText, paginationOptions = {}, queryOptions = {}) => {
         const {
           data: { courses, count }
-        } = (isShowMyCourse && userRole === ROLE.STUDENT) ? await userService.getEnrolledCourses(
-          userId,
-          String(pSearchText).trim().toLowerCase(),
-          paginationOptions,
-          queryOptions
-        ) : await courseService.getCourses(
-          userId,
-          String(pSearchText).trim().toLowerCase(),
-          paginationOptions,
-          queryOptions
-        ) 
+        } =
+          isShowMyCourse && userRole === ROLE.STUDENT
+            ? await userService.getEnrolledCourses(
+                userId,
+                String(pSearchText).trim().toLowerCase(),
+                paginationOptions,
+                queryOptions
+              )
+            : await courseService.getCourses(
+                userId,
+                String(pSearchText).trim().toLowerCase(),
+                paginationOptions,
+                queryOptions
+              )
+
         setCourseData(courses)
         setCourseCount(count)
         if (isFirstTimeSetPageSize.current) {
@@ -77,7 +81,15 @@ function CourseOne() {
     return () => {
       debouncedFetchData.cancel()
     }
-  }, [isShowMyCourse, searchText, pageNumber, pageSize, queryOptions])
+  }, [
+    isShowMyCourse,
+    searchText,
+    pageNumber,
+    pageSize,
+    queryOptions,
+    userId,
+    userRole
+  ])
 
   const handleChangePageNumber = (event, value) => {
     setPageNumber(isNumber(value) ? value : 1)
@@ -121,15 +133,16 @@ function CourseOne() {
     setSearchText(event.target.value)
   }
 
-  const myCoursesTitle = userRole === ROLE.STUDENT ? 'courses.yourEnrolledCourses' : 'courses.yourCreatedCourses'
+  const myCoursesTitle =
+    userRole === ROLE.STUDENT
+      ? 'courses.yourEnrolledCourses'
+      : 'courses.yourCreatedCourses'
 
   return (
     <>
       <SEO title={translation('nav.courses')} />
       <Layout>
-        <BreadcrumbOne
-          title={translation('nav.courses')}
-        />
+        <BreadcrumbOne title={translation('nav.courses')} />
         <div className="edu-course-area edu-section-gap bg-color-white">
           <div className="container">
             <div className="row g-5">
@@ -189,17 +202,27 @@ function CourseOne() {
                 </div>
               </div>
               <div className="col-lg-4">
-                { userId 
-                  ? <div className="edu-course-widget mb-5">
-                      <div className="inner">
-                        <h5 className="widget-title">{t(isShowMyCourse ? myCoursesTitle : 'courses.allCourses')}</h5>
-                        <div className="d-grid gap-2">
-                          <button className="rn-btn edu-btn-show-my-courses" onClick={handleChangeIsShowMyCourse}>{`${t(!isShowMyCourse ? myCoursesTitle : 'courses.allCourses')}`}</button>
-                        </div>
+                {userId ? (
+                  <div className="edu-course-widget mb-5">
+                    <div className="inner">
+                      <h5 className="widget-title">
+                        {t(
+                          isShowMyCourse ? myCoursesTitle : 'courses.allCourses'
+                        )}
+                      </h5>
+                      <div className="d-grid gap-2">
+                        <button
+                          className="rn-btn edu-btn-show-my-courses"
+                          onClick={handleChangeIsShowMyCourse}
+                        >{`${t(
+                          !isShowMyCourse
+                            ? myCoursesTitle
+                            : 'courses.allCourses'
+                        )}`}</button>
                       </div>
                     </div>
-                  : null
-                }
+                  </div>
+                ) : null}
                 <SortBy onFilterChange={handleFilterChange} />
                 <PriceOne
                   extraClass="mt--40"

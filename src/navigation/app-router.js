@@ -24,21 +24,22 @@ import useVerify from '../hooks/use-verify'
 
 const AppRouter = () => {
   const [isAppLoading, setIsAppLoading] = useState(false)
-  const isAuthenticated = useAuthenticate()
-  const isVerified = useVerify()
+  const [isAuthenticated] = useAuthenticate()
+  const [isVerified] = useVerify()
   const dispatch = useDispatch()
   const [searchParams, setSearchParams] = useSearchParams()
   const { t: translation } = useTranslation()
 
   const fireVerifyAccountAlert = useCallback(
-    debounce(
-      () => {
-        toast.info(translation('auth.verifyAccountAlert'))
-      },
-      5000,
-      { leading: true, trailing: false }
-    ),
-    []
+    () =>
+      debounce(
+        () => {
+          toast.info(translation('auth.verifyAccountAlert'))
+        },
+        5000,
+        { leading: true, trailing: false }
+      ),
+    [translation]
   )
 
   useEffect(() => {
@@ -60,12 +61,13 @@ const AppRouter = () => {
     async function fetchUserInfo() {
       const isLoginExpired =
         Date.now() > Number(localStorage.getItem('loginTimestamp') || 0)
+
       if (isLoginExpired) {
         localStorage.removeItem('currentUser')
       }
 
       const currentUser = localStorage.getItem('currentUser')
-      if (currentUser) {
+      if (currentUser && !isAuthenticated) {
         setIsAppLoading(true)
         try {
           const { data: userInfo } = await userService.fetchUserInfo(
@@ -74,7 +76,6 @@ const AppRouter = () => {
           dispatch(userActions.setUserInfo(userInfo))
           setIsAppLoading(false)
         } catch (err) {
-          localStorage.removeItem('currentUser')
           setIsAppLoading(false)
         }
       }
@@ -86,7 +87,8 @@ const AppRouter = () => {
     isVerified,
     translation,
     searchParams,
-    setSearchParams
+    setSearchParams,
+    fireVerifyAccountAlert
   ])
 
   return (

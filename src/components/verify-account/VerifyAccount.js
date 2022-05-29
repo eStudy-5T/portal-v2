@@ -18,7 +18,7 @@ function VerifyAccount() {
 
   const { verifyToken } = useParams()
   const { t: translation } = useTranslation()
-  const [isVerified, changeVerification] = useVerify(true)
+  const [isVerified, changeVerification] = useVerify()
 
   useEffect(() => {
     if (isVerified) {

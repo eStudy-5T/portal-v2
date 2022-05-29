@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { userActions } from '../redux/store/user-info'
 
-const useAuthenticate = (willUseChange = null) => {
+const useAuthenticate = () => {
   const dispatch = useDispatch()
   const isAuthenticated = useSelector((state) => state.userInfo.isAuthenticated)
 
@@ -11,9 +11,7 @@ const useAuthenticate = (willUseChange = null) => {
     }
   }
 
-  return willUseChange
-    ? [isAuthenticated, changeAuthentication]
-    : isAuthenticated
+  return [isAuthenticated, changeAuthentication]
 }
 
 export default useAuthenticate
