@@ -13,14 +13,14 @@ import { useTranslation } from 'react-i18next'
 import useAuthenticate from '../../hooks/use-authenticate'
 import { logOutUser } from '../../utils/helpers/user-helper'
 
-
-function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
+function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
   const [offcanvasShow, setOffcanvasShow] = useState(false)
   const [searchPopup, setSearchPopup] = useState(false)
   const [isOpenSettings, setOpenSettings] = useState(null)
   const [isAuthenticated] = useAuthenticate()
   const firstName = useSelector((state) => state.userInfo.firstName)
   const userId = localStorage.getItem('currentUser')
+
   const { t: translation } = useTranslation()
 
   const openSettings = (event) => setOpenSettings(event.currentTarget)
@@ -50,7 +50,7 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
   const navigate = useNavigate()
   const _logOutUser = () => {
     logOutUser()
-    navigate('/', {replace: true})
+    navigate('/', { replace: true })
   }
 
   const sticky = HeaderSticky(200)
@@ -105,8 +105,6 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                         onClick={openSettings}
                       >
                         <i className="ri-user-line" />
-                        &nbsp;
-                        {firstName}
                       </div>
                       <Menu
                         id="menu-settings"
@@ -131,8 +129,11 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                           </MenuItem>
                         </Link>
 
-                        <Link to="/teacher-dashboard">
+                        <Link
+                          to={`${process.env.PUBLIC_URL}/teacher-dashboard`}
+                        >
                           <MenuItem>
+                            <i className="ri-dashboard-2-fill mr-5" />
                             {translation('dropdown.teacherDashboard')}
                           </MenuItem>
                         </Link>
@@ -144,7 +145,8 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                         </Link>
 
                         <Link to="#">
-                          <MenuItem onClick={_logOutUser}>
+                          <MenuItem onClick={() => logOutUser()}>
+                            <i className="ri-logout-box-r-line mr-5" />
                             {translation('auth.logOut')}
                           </MenuItem>
                         </Link>
@@ -159,69 +161,6 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                     >
                       <i className="ri-user-line" />
                       {translation('auth.login')}
-                    </Link>
-                  )}
-                </div>
-                <div className="quote-icon quote-user d-block d-md-none ml--15 ml_sm--5">
-                  {isAuthenticated ? (
-                    <Box>
-                      <div
-                        aria-controls="menu-settings"
-                        aria-haspopup="true"
-                        className="edu-header__authenticated"
-                        onClick={openSettings}
-                      >
-                        <i className="ri-user-line" />
-                      </div>
-                      <Menu
-                        id="menu-settings"
-                        transformOrigin={{
-                          horizontal: 'center',
-                          vertical: 'top'
-                        }}
-                        anchorOrigin={{
-                          horizontal: 'right',
-                          vertical: 'bottom'
-                        }}
-                        anchorEl={isOpenSettings}
-                        open={Boolean(isOpenSettings)}
-                        onClose={handleCloseSettingsMenu}
-                        TransitionComponent={Fade}
-                        disableScrollLock={true}
-                        className="edu-header__dropdown"
-                      >
-                        <Link to={`/enrolled-courses/${userId}/`}>
-                          <MenuItem>
-                            {translation('dropdown.myCourses')}
-                          </MenuItem>
-                        </Link>
-
-                        <Link to="/teacher-dashboard">
-                          <MenuItem>
-                            {translation('dropdown.teacherDashboard')}
-                          </MenuItem>
-                        </Link>
-
-                        <Link to="/manage-users">
-                          <MenuItem>
-                            {translation('dropdown.manageUsers')}
-                          </MenuItem>
-                        </Link>
-
-                        <Link to="#">
-                          <MenuItem onClick={_logOutUser}>
-                            {translation('auth.logOut')}
-                          </MenuItem>
-                        </Link>
-                      </Menu>
-                    </Box>
-                  ) : (
-                    <Link
-                      to={`${process.env.PUBLIC_URL}/login`}
-                      className="white-box-icon"
-                      href="#"
-                    >
-                      <i className="ri-user-line" />
                     </Link>
                   )}
                 </div>
@@ -251,4 +190,4 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
   )
 }
 
-export default HeaderTwo
+export default Header

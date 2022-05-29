@@ -84,11 +84,11 @@ button {
   &.edu-btn {
     border-radius: 5px;
     display: inline-block;
-    height: 60px;
-    line-height: 60px;
+    // height: 60px;
+    // line-height: 60px;
     color: var(--color-white);
     background: var(--color-primary);
-    padding: 0 10px;
+    padding: 10px 25px;
     font-size: 18px;
     font-weight: 700;
     transition: 0.4s;
@@ -133,7 +133,7 @@ button {
     }
 
     &:hover {
-      background: var(--color-dark);
+      background: var(--color-primary-darker);
       color: var(--color-white);
     }
 

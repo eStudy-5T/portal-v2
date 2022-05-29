@@ -33,7 +33,7 @@
     padding: 0;
 
     li {
-      font-size: 13px;
+      font-size: 14px;
     }
   }
 
@@ -59,7 +59,7 @@
       left: 0;
       background-color: var(--color-white) !important;
       width: 100%;
-      height: 80px;
+      height: 120px;
       animation: headerSticky 0.95s ease forwards;
       box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.05);
       z-index: 10;
@@ -70,6 +70,11 @@
         }
       }
     }
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-around;
   }
 }
 
@@ -153,4 +158,18 @@
   100% {
     transform: translateY(0);
   }
+}
+
+.mr-5 {
+  margin-right: 5px;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.nav-links {
+  position: absolute;
+  right: 12%;
+  top: 50px;
 }
