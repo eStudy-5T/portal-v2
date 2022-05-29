@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { slugify } from '../../utils'
 
 function InstructorOne({ data, classes }) {
+  console.log(data)
   return (
     <ScrollAnimation
       animateIn="fadeInUp"

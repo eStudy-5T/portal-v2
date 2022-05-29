@@ -137,6 +137,12 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                           </MenuItem>
                         </Link>
 
+                        <Link to="/manage-users">
+                          <MenuItem>
+                            {translation('dropdown.manageUsers')}
+                          </MenuItem>
+                        </Link>
+
                         <Link to="#">
                           <MenuItem onClick={_logOutUser}>
                             {translation('auth.logOut')}
@@ -193,6 +199,12 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                         <Link to="/teacher-dashboard">
                           <MenuItem>
                             {translation('dropdown.teacherDashboard')}
+                          </MenuItem>
+                        </Link>
+
+                        <Link to="/manage-users">
+                          <MenuItem>
+                            {translation('dropdown.manageUsers')}
                           </MenuItem>
                         </Link>
 

@@ -93,7 +93,8 @@
   },
   "dropdown": {
     "teacherDashboard": "Trang giáo viên",
-    "myCourses": "Khóa học của tôi"
+    "myCourses": "Khóa học của tôi",
+    "manageUsers": "Quản lý người dùng"
   },
   "footer": {
     "explore": "Khám phá",
@@ -167,5 +168,9 @@
   "relatedCourses": {
     "title": "Các khóa học liên quan",
     "coursesSuggestion": "Gợi ý các khóa học"
+  },
+  "admin": {
+    "studentList": "Danh sách học sinh",
+    "instructorList": "Danh sách giáo viên"
   }
 }

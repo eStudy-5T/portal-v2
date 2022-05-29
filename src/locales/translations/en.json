@@ -93,7 +93,8 @@
   },
   "dropdown": {
     "teacherDashboard": "Teacher Dashboard",
-    "myCourses": "My Courses"
+    "myCourses": "My Courses",
+    "manageUsers": "Manage Users"
   },
   "footer": {
     "explore": "Explore",
@@ -167,5 +168,9 @@
   "relatedCourses": {
     "title": "Related Courses",
     "coursesSuggestion": "Courses you may like"
+  },
+  "admin": {
+    "studentList": "Student List",
+    "instructorList": "Instructor List"
   }
 }
