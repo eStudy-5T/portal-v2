@@ -18,7 +18,7 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
   const [offcanvasShow, setOffcanvasShow] = useState(false)
   const [searchPopup, setSearchPopup] = useState(false)
   const [isOpenSettings, setOpenSettings] = useState(null)
-  const isAuthenticated = useAuthenticate()
+  const [isAuthenticated] = useAuthenticate()
   const firstName = useSelector((state) => state.userInfo.firstName)
   const userId = localStorage.getItem('currentUser')
   const { t: translation } = useTranslation()
@@ -195,7 +195,7 @@ function HeaderTwo({ styles, disableSticky, searchDisable, buttonStyle }) {
                             {translation('dropdown.myCourses')}
                           </MenuItem>
                         </Link>
-                        
+
                         <Link to="/teacher-dashboard">
                           <MenuItem>
                             {translation('dropdown.teacherDashboard')}

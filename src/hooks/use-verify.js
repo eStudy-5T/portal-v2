@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { userActions } from '../redux/store/user-info'
 
-const useVerify = (willUseChange = null) => {
+const useVerify = () => {
   const dispatch = useDispatch()
   const isVerified = useSelector((state) => state.userInfo.isVerified)
 
@@ -11,7 +11,7 @@ const useVerify = (willUseChange = null) => {
     }
   }
 
-  return willUseChange ? [isVerified, changeVerification] : isVerified
+  return [isVerified, changeVerification]
 }
 
 export default useVerify

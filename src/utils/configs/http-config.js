@@ -20,15 +20,10 @@ httpService.interceptors.request.use(
 
     return config
   },
-  (req) => {
-    window.logger.info('Network', `Request ${req.baseURL}${req.url}`, {
-      options: req
-    })
-    return req
-  },
   (error) => Promise.reject(error)
 )
 
+let refreshTokenPromise
 httpService.interceptors.response.use(
   (res) => {
     window.logger.info(
@@ -47,13 +42,23 @@ httpService.interceptors.response.use(
       error?.response?.data === 'error.accessTokenExpired' &&
       !originalConfig._retry
     ) {
+      // Ensure only one request to refresh token is called when multiple requests are called with expired token
+      if (!refreshTokenPromise) {
+        refreshTokenPromise = httpService
+          .get('/auth/refresh-token')
+          .then(() => {
+            refreshTokenPromise = null
+          })
+      }
+
       originalConfig._retry = true
-      httpService
-        .get('/auth/refresh-token')
+      return refreshTokenPromise
         .then(() => {
+          originalConfig.headers = authHeader()
           return httpService(originalConfig)
         })
         .catch((_error) => {
+          localStorage.removeItem('currentUser')
           return Promise.reject(_error)
         })
     } else {
