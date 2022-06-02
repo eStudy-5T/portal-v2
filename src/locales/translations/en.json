@@ -39,9 +39,10 @@
     "invalidPassword": "Invalid Password",
     "invalidResetPasswordToken": "Reset password token is invalid or has expired",
     "externalLogin": "Third party login does not support password reset",
-    "externalChangePassword":"Third party login does not support password change",
+    "externalChangePassword": "Third party login does not support password change",
     "teacherEnrollCourse": "You can not enroll your own course!",
-    "userReEnroll": "You have already enrolled this course!"
+    "userReEnroll": "You have already enrolled this course!",
+    "alreadyReviewed": "You have already left a review!"
   },
   "auth": {
     "login": "Login",
@@ -119,13 +120,14 @@
     "owner": "Owner",
     "instructors": "Instructors",
     "reviews": "Reviews",
+    "leaveAReview": "Leave a review",
     "description": "Description",
     "price": "Price",
     "grade": "Grade",
     "enroll": "Enroll",
     "share": "Share",
     "whatWillYouLearn": "What will you learn from this course",
-    "review": "Review",
+    "thankYouForYourReview": "Thank you for your review",
     "startDate": "Start date",
     "endDate": "End date",
     "enrollConfirm": "Confirm the enrollment ?",

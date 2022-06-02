@@ -41,7 +41,8 @@
     "externalLogin": "Đăng nhập bên thứ ba không hỗ trợ khôi phục mật khẩu",
     "externalChangePassword": "Đăng nhập bên thứ ba không hỗ trợ đổi mật khẩu",
     "teacherEnrollCourse": "Bạn không thể tham gia khóa học mà bạn tạo ra!",
-    "userReEnroll": "Bạn đã tham gia khóa học này rồi!"
+    "userReEnroll": "Bạn đã tham gia khóa học này rồi!",
+    "alreadyReviewed": "Bạn đã thực hiện đánh giá rồi!"
   },
   "auth": {
     "login": "Đăng nhập",
@@ -119,13 +120,14 @@
     "owner": "Chủ lớp học",
     "instructors": "Người dạy",
     "reviews": "Đánh giá",
+    "leaveAReview": "Viết đánh giá",
     "description": "Mô tả khóa học",
     "price": "Học phí",
     "grade": "Khối lớp",
     "enroll": "Đăng ký lớp học",
     "share": "Chia sẻ",
     "whatWillYouLearn": "Kiến thực nhận được từ khóa học",
-    "review": "Đánh giá",
+    "thankYouForYourReview": "Cảm ơn đánh giá của bạn",
     "startDate": "Ngày bắt đầu",
     "endDate": "Ngày kết thúc",
     "enrollConfirm": "Xác nhận đăng ký lớp học ?",

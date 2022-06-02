@@ -7,6 +7,7 @@ import EnrollConfirmDialog from '../../components/enroll-confirm-dialog/EnrollCo
 import { useTranslation } from 'react-i18next'
 import get from 'lodash/get'
 import userService from '../../services/user-service'
+import { useNavigate } from 'react-router-dom'
 
 const data = {
   id: 1,
@@ -42,8 +43,9 @@ const data = {
     '<h5>Course Description</h5> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p><h5>What You’ll Learn From This Course</h5> <ul> <li>Neque sodales ut etiam sit amet nisl purus non tellus orci ac auctor</li><li>Tristique nulla aliquet enim tortor at auctor urna. Sit amet aliquam id diam maer</li><li>Nam libero justo laoreet sit amet. Lacus sed viverra tellus in hac</li><li>Tempus imperdiet nulla malesuada pellentesque elit eget gravida cum sociis</li></ul> <h5>Certification</h5> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>'
 }
 
-function CourseInfo({ courseData }) {
+function CourseInfo({ courseData, currentUserId }) {
   const { t: translation } = useTranslation()
+  const navigate = useNavigate()
 
   const [isShown, setIsShown] = useState(false)
 
@@ -54,7 +56,8 @@ function CourseInfo({ courseData }) {
   const [isEnrollVisible, setEnrollVisible] = useState(false)
 
   const enrollCourse = () => {
-    setIsShown(true)
+    if (currentUserId !== null) setIsShown(true)
+    else navigate('/login')
   }
 
   const closeEnrollConfirmDialog = () => {
@@ -63,7 +66,12 @@ function CourseInfo({ courseData }) {
 
   useEffect(() => {
     setIsEnrolled(get(courseData, 'isEnrolled', false))
-    setEnrollVisible(!get(courseData, 'isEnrolled', false) || !get(courseData, 'isCreator', false))
+    setEnrollVisible(
+      !(
+        get(courseData, 'isCreator', false) ||
+        get(courseData, 'isEnrolled', false)
+      )
+    )
   }, [courseData, isEnrolled])
 
   const confirmEnrollCourse = () => {
@@ -150,7 +158,11 @@ function CourseInfo({ courseData }) {
                         <i className="icon-user-2-line_tie" />
                         {translation('courseDetails.owner')}
                       </span>
-                      <span>{get(courseData, 'owner.firstName', '') + ' ' + get(courseData, 'owner.lastName')}</span>
+                      <span>
+                        {get(courseData, 'owner.firstName', '') +
+                          ' ' +
+                          get(courseData, 'owner.lastName')}
+                      </span>
                     </li>
                   )}
                   <li>
@@ -168,20 +180,25 @@ function CourseInfo({ courseData }) {
                     <span>09/04/2023</span>
                   </li>
                 </ul>
-                {(!isEnrolled) && (
+                {isEnrollVisible && (
                   <div className="read-more-btn mt--45">
-                    <button
-                      className="edu-btn btn-bg-alt w-100 text-center"
-                    >
-                      {translation('courseDetails.price')}: {get(courseData, 'price') > 0 ? courseData.price : 'Free'} VND
+                    <button className="edu-btn btn-bg-alt w-100 text-center">
+                      {translation('courseDetails.price')}:{' '}
+                      {get(courseData, 'price') > 0
+                        ? courseData.price + ' VND'
+                        : 'Free'}
                     </button>
                   </div>
                 )}
-                {(isEnrolled) && (
+                {!isEnrollVisible && (
                   <div className="read-more-btn mt--15">
                     <a
                       className="edu-btn w-100 text-center edu-btn-hover"
-                      href={isEnrolled ? courseData.link ? courseData.link : data.link : null}
+                      href={
+                        courseData && courseData.link !== null
+                          ? courseData.link
+                          : data.link
+                      }
                       target="_blank"
                       rel="noreferrer"
                     >
