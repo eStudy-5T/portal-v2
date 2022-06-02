@@ -19,12 +19,14 @@ import ReviewForm from '../../components/form/ReviewForm'
 
 // MUI component
 import { Rating } from '@mui/material'
+import { Star, StarBorder } from '@mui/icons-material'
 
 // Services
 import courseService from '../../services/course-service'
 
 import CourseData from '../../data/course/CourseData.json'
 import InstructorData from '../../data/instructor/InstructorData.json'
+import RelatedCourses from '../../components/course/RelatedCourses'
 
 // i18
 import { useTranslation } from 'react-i18next'
@@ -254,6 +256,7 @@ const EnrolledTabContent = (props) => {
 
 function ReviewsTabContent(data) {
   const userInfo = useSelector((state) => state.userInfo)
+  const currentUserId = data.currentUserId
   const [courseReviews, setCourseReviews] = useState([])
   const [isMounted, setIsMounted] = useState(false)
   const [oneStarRateCount, setOneStarRateCount] = useState(0)
@@ -261,7 +264,9 @@ function ReviewsTabContent(data) {
   const [threeStarRateCount, setThreeStarRateCount] = useState(0)
   const [fourStarRateCount, setFourStarRateCount] = useState(0)
   const [fiveStarRateCount, setFiveStarRateCount] = useState(0)
-  const [avatar, setAvatar] = useState(null)
+  const [totalRateCount, setTotalRateCount] = useState(0)
+  const [isReviewable, setIsReviewable] = useState(false)
+  const [avatars, setAvatars] = useState([])
 
   const { t: translation } = useTranslation()
 
@@ -271,44 +276,68 @@ function ReviewsTabContent(data) {
       .getCourseReviews(data.courseId)
       .then(({ data: CourseReviewsData }) => {
         if (isMounted) {
+          let countOneStar = 0,
+            countTwoStar = 0,
+            countThreeStar = 0,
+            countFourStar = 0,
+            countFiveStar = 0
+          setTotalRateCount(CourseReviewsData.count)
           setCourseReviews(CourseReviewsData.data)
-          CourseReviewsData.data.map((review) => {
+          CourseReviewsData.data.forEach((review) => {
             switch (review.rate) {
               default:
                 break
               case 1: {
-                setOneStarRateCount(oneStarRateCount + 1)
+                countOneStar = countOneStar + 1
                 break
               }
               case 2: {
-                setTwoStarRateCount(twoStarRateCount + 1)
+                countTwoStar = countTwoStar + 1
                 break
               }
               case 3: {
-                setThreeStarRateCount(threeStarRateCount + 1)
+                countThreeStar = countThreeStar + 1
                 break
               }
               case 4: {
-                setFourStarRateCount(fiveStarRateCount + 1)
+                countFourStar = countFourStar + 1
                 break
               }
               case 5: {
-                setFiveStarRateCount(fiveStarRateCount + 1)
+                countFiveStar = countFiveStar + 1
                 break
               }
             }
-            return null
+            userService
+              .fetchUserInfo(review.userId)
+              .then((user) => {
+                setAvatars((previousState) => {
+                  const newState = [...previousState, user.data.avatar]
+                  return newState
+                })
+              })
+              .catch()
           })
+          setOneStarRateCount(countOneStar)
+          setTwoStarRateCount(countTwoStar)
+          setThreeStarRateCount(countThreeStar)
+          setFourStarRateCount(countFourStar)
+          setFiveStarRateCount(countFiveStar)
         }
       })
-  }, [data.courseId, isMounted])
+    currentUserId &&
+      courseService
+        .getEnrolledStudents(data.courseId)
+        .then(({ data: StudentsData }) => {
+          if (isMounted) {
+            StudentsData.map((student) => {
+              if (student.user.id === currentUserId) setIsReviewable(true)
+              return null
+            })
+          }
+        })
+  }, [data, isMounted, currentUserId])
 
-  const totalRateCount =
-    oneStarRateCount +
-    twoStarRateCount +
-    threeStarRateCount +
-    fourStarRateCount +
-    fiveStarRateCount
   const totalRateStar =
     oneStarRateCount +
     twoStarRateCount * 2 +
@@ -334,19 +363,17 @@ function ReviewsTabContent(data) {
                   readOnly
                   value={averageRating || 0}
                   precision={0.5}
-                  size="large"
                   icon={
-                    <i className="icon-Star" style={{ marginRight: '5px' }} />
+                    <Star sx={{ color: '#ffa41b' }}></Star>
                   }
                   emptyIcon={
-                    <i
-                      className="off icon-Star"
-                      style={{ marginRight: '5px' }}
-                    />
+                    <StarBorder sx={{ color: '#ffa41b' }}></StarBorder>
                   }
                 ></Rating>
               </div>
-              <span>{totalRateCount + ' Reviews'}</span>
+              <span>
+                {totalRateCount + ' ' + translation('courseDetails.reviews')}
+              </span>
             </div>
           </div>
           <div className="col-lg-8">
@@ -449,7 +476,7 @@ function ReviewsTabContent(data) {
           </div>
         </div>
 
-        {localStorage.getItem('currentUser') && localStorage.getItem('currentUser') !== data.ownerId && (
+        {isReviewable && (
           <ReviewForm
             avatar={`${userInfo.avatar || CloneAvatar}`}
             firstName={userInfo.firstName || 'Guest'}
@@ -459,17 +486,19 @@ function ReviewsTabContent(data) {
         )}
 
         <div className="comment-wrapper pt--40">
-          {courseReviews.map((review) => {
-            // userService
-            //   .fetchUserInfo(review.userId)
-            //   .then((userInfoResponse) => {
-            //     review.avatar = userInfoResponse.data.avatar
-            //     setAvatar(userInfoResponse.data.avatar)
-            //   })
+          {courseReviews.length > 0 && (
+            <div className="section-title">
+              <h5 className="mb--25">{translation('courseDetails.reviews')}</h5>
+            </div>
+          )}
+          {courseReviews.map((review, index) => {
             return (
               <div className="edu-comment" key={review.id}>
-                <div className="thumbnail" >
-                  <img src={avatar || CloneAvatar} alt="Student Thumb" />
+                <div className="thumbnail">
+                  <img
+                    src={avatars[index] || CloneAvatar}
+                    alt="Student Thumb"
+                  />
                 </div>
                 <div className="comment-content">
                   <div className="comment-top">
@@ -633,7 +662,7 @@ function CourseDetails() {
                         )}
                       </div>
                       <span className="rating-count">
-                        ({courseItem.review} {translation("courseDetails.review")})
+                        ({courseItem.review} {translation("courseDetails.reviews")})
                       </span>
                     </div> */}
                   </div>
@@ -848,13 +877,17 @@ function CourseDetails() {
                     )}
 
                     {contentTab === 'reviews' && (
-                      <ReviewsTabContent courseId={id} ownerId={ownerId} />
+                      <ReviewsTabContent
+                        courseId={id}
+                        ownerId={ownerId}
+                        currentUserId={userId}
+                      />
                     )}
                   </div>
                 </div>
               </div>
               <div className="col-xl-4 col-lg-5">
-                <CourseInfo courseData={courseData} />
+                <CourseInfo courseData={courseData} currentUserId={userId} />
               </div>
             </div>
             {/* <div className="row">

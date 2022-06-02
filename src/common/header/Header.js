@@ -1,37 +1,22 @@
-import { useState, useLayoutEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import HeaderSticky from './HeaderSticky'
 import ResponsiveMenu from './ResponsiveMenu'
 import Globe from '../../components/globe/globe'
-import { Box, Menu, MenuItem, Fade } from '@mui/material'
+import ProfileSection from './profile-section/ProfileSection'
 
 // i18n
 import { useTranslation } from 'react-i18next'
 
 import useAuthenticate from '../../hooks/use-authenticate'
-import { logOutUser } from '../../utils/helpers/user-helper'
 
 function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
   const [offcanvasShow, setOffcanvasShow] = useState(false)
   const [searchPopup, setSearchPopup] = useState(false)
-  const [isOpenSettings, setOpenSettings] = useState(null)
   const [isAuthenticated] = useAuthenticate()
-  const firstName = useSelector((state) => state.userInfo.firstName)
-  const userId = localStorage.getItem('currentUser')
 
   const { t: translation } = useTranslation()
-
-  const openSettings = (event) => setOpenSettings(event.currentTarget)
-  const handleCloseSettingsMenu = () => setOpenSettings(null)
-
-  useLayoutEffect(() => {
-    window.addEventListener('scroll', handleCloseSettingsMenu)
-    return () => {
-      window.removeEventListener('scroll', handleCloseSettingsMenu)
-    }
-  })
 
   const onCanvasHandler = () => {
     setOffcanvasShow((prevState) => !prevState)
@@ -45,12 +30,6 @@ function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
     document.body.classList.add('search-popup-active')
   } else {
     document.body.classList.remove('search-popup-active')
-  }
-
-  const navigate = useNavigate()
-  const _logOutUser = () => {
-    logOutUser()
-    navigate('/', { replace: true })
   }
 
   const sticky = HeaderSticky(200)
@@ -97,61 +76,7 @@ function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
                 )}
                 <div className="quote-icon quote-user d-none d-md-block ml--15 ml_sm--5">
                   {isAuthenticated ? (
-                    <Box>
-                      <div
-                        aria-controls="menu-settings"
-                        aria-haspopup="true"
-                        className="edu-header__authenticated d-flex justify-content-center"
-                        onClick={openSettings}
-                      >
-                        <i className="ri-user-line" />
-                      </div>
-                      <Menu
-                        id="menu-settings"
-                        transformOrigin={{
-                          horizontal: 'center',
-                          vertical: 'top'
-                        }}
-                        anchorOrigin={{
-                          horizontal: 'right',
-                          vertical: 'bottom'
-                        }}
-                        anchorEl={isOpenSettings}
-                        open={Boolean(isOpenSettings)}
-                        onClose={handleCloseSettingsMenu}
-                        TransitionComponent={Fade}
-                        disableScrollLock={true}
-                        className="edu-header__dropdown"
-                      >
-                        <Link to={`/enrolled-courses/${userId}/`}>
-                          <MenuItem>
-                            {translation('dropdown.myCourses')}
-                          </MenuItem>
-                        </Link>
-
-                        <Link
-                          to={`${process.env.PUBLIC_URL}/teacher-dashboard`}
-                        >
-                          <MenuItem>
-                            <i className="ri-dashboard-2-fill mr-5" />
-                            {translation('dropdown.teacherDashboard')}
-                          </MenuItem>
-                        </Link>
-
-                        <Link to="/manage-users">
-                          <MenuItem>
-                            {translation('dropdown.manageUsers')}
-                          </MenuItem>
-                        </Link>
-
-                        <Link to="#">
-                          <MenuItem onClick={() => logOutUser()}>
-                            <i className="ri-logout-box-r-line mr-5" />
-                            {translation('auth.logOut')}
-                          </MenuItem>
-                        </Link>
-                      </Menu>
-                    </Box>
+                    <ProfileSection></ProfileSection>
                   ) : (
                     <Link
                       className={`edu-btn btn-medium left-icon header-button ${
