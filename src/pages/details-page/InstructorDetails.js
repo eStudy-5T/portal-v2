@@ -13,10 +13,8 @@ import userService from '../../services/user-service'
 import { useState } from 'react'
 
 import InstructorData from '../../data/instructor/InstructorData.json'
-import CourseData from '../../data/course/CourseData.json'
 // i18
 import { useTranslation } from 'react-i18next'
-import InstructorOne from '../../components/instructor/InstructorOne'
 
 function InstructorDetails() {
   const { t: translation } = useTranslation()

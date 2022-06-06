@@ -26,7 +26,6 @@ import courseService from '../../services/course-service'
 
 import CourseData from '../../data/course/CourseData.json'
 import InstructorData from '../../data/instructor/InstructorData.json'
-import RelatedCourses from '../../components/course/RelatedCourses'
 
 // i18
 import { useTranslation } from 'react-i18next'
@@ -238,14 +237,14 @@ const EnrolledTabContent = (props) => {
                     (formatDate(student.createdAt) || '')}
                 </div>
               </li>
-              <li>
+              {/* <li>
                 <div className="text">
                   <i className="icon-draft-line" />
                   {translation('courseDetails.nationalities') +
                     ': ' +
                     (student.user.nationality || '')}
                 </div>
-              </li>
+              </li> */}
             </ul>
           </Accordion.Body>
         </Accordion.Item>
@@ -331,7 +330,7 @@ function ReviewsTabContent(data) {
         .then(({ data: StudentsData }) => {
           if (isMounted) {
             StudentsData.map((student) => {
-              if (student.user.id === currentUserId) setIsReviewable(true)
+              if (student.user.id === currentUserId) setIsReviewable(data.isActive)
               return null
             })
           }

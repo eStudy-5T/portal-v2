@@ -60,6 +60,12 @@ const courseService = {
   },
   getCourseReviews: (courseId) => {
     return request.get(`/reviews/${courseId}`)
+  },
+  activate: (courseId) => {
+    return request.post(`courses/${courseId}/active`)
+  },
+  deactivate: (courseId) => {
+    return request.post(`courses/${courseId}/deactive`)
   }
 }
 

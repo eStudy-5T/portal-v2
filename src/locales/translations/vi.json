@@ -84,7 +84,9 @@
     "showMeetingLinkTitle": "Bạn đã có thể tham gia vào các buổi học của lớp này",
     "allCourses": "Tất cả khoá học",
     "yourCreatedCourses": "Các khoá học của bạn",
-    "yourEnrolledCourses": "Các khoá học đã đăng ký"
+    "yourEnrolledCourses": "Các khoá học đã đăng ký",
+    "confirmDeactivate": "Vô hiệu hoá khoá học này?",
+    "confirmActivate": "Kích hoạt khoá học này?"
   },
   "nav": {
     "home": "Trang chủ",
@@ -141,7 +143,8 @@
     "phoneNumber": "Số điện thoại",
     "enrolledDate": "Ngày vào lớp",
     "nationalities": "Quốc tịch",
-    "seeDetails": "Xem chi tiết"
+    "seeDetails": "Xem chi tiết",
+    "courseDisabled": "Khoá học không khả dụng"
   },
   "classDetails": {
     "duration": "Thời lượng",

@@ -55,6 +55,8 @@ function CourseInfo({ courseData, currentUserId }) {
 
   const [isEnrollVisible, setEnrollVisible] = useState(false)
 
+  const [isCourseDisabled, setCourseDisabled] = useState(false)
+
   const enrollCourse = () => {
     if (currentUserId !== null) setIsShown(true)
     else navigate('/login')
@@ -65,6 +67,7 @@ function CourseInfo({ courseData, currentUserId }) {
   }
 
   useEffect(() => {
+    console.log(courseData)
     setIsEnrolled(get(courseData, 'isEnrolled', false))
     setEnrollVisible(
       !(
@@ -72,6 +75,7 @@ function CourseInfo({ courseData, currentUserId }) {
         get(courseData, 'isEnrolled', false)
       )
     )
+    setCourseDisabled(!get(courseData, 'isActive', false))
   }, [courseData, isEnrolled])
 
   const confirmEnrollCourse = () => {
@@ -127,22 +131,6 @@ function CourseInfo({ courseData, currentUserId }) {
                       <span>160 {translation('courseDetails.hours')}</span>
                     </li>
                   )}
-                  {/* {data.student && (
-                  <li>
-                    <span>
-                      <i className="icon-user-2" /> Enrolled
-                    </span>
-                    <span>{data.student}</span>
-                  </li>
-                )} */}
-                  {/* {data.lesson && (
-                  <li>
-                    <span>
-                      <i className="icon-draft-line" /> Lectures
-                    </span>
-                    <span>{data.lesson}</span>
-                  </li>
-                )} */}
                   {data.level && (
                     <li>
                       <span>
@@ -190,7 +178,7 @@ function CourseInfo({ courseData, currentUserId }) {
                     </button>
                   </div>
                 )}
-                {!isEnrollVisible && (
+                {(!isEnrollVisible && !isCourseDisabled) && (
                   <div className="read-more-btn mt--15">
                     <a
                       className="edu-btn w-100 text-center edu-btn-hover"
@@ -206,7 +194,7 @@ function CourseInfo({ courseData, currentUserId }) {
                     </a>
                   </div>
                 )}
-                {isEnrollVisible && (
+                {(isEnrollVisible && !isCourseDisabled) && (
                   <div className="read-more-btn mt--15">
                     <a
                       className="edu-btn w-100 text-center edu-btn-hover"
@@ -215,6 +203,16 @@ function CourseInfo({ courseData, currentUserId }) {
                       rel="noreferrer"
                     >
                       {translation('courseDetails.enroll')}
+                    </a>
+                  </div>
+                )}
+                {isCourseDisabled && (
+                  <div className="read-more-btn mt--15">
+                    <a
+                      className="edu-btn w-100 text-center edu-btn-hover btn-disabled"
+                      rel="noreferrer"
+                    >
+                      {translation('courseDetails.courseDisabled')}
                     </a>
                   </div>
                 )}
