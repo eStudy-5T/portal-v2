@@ -9,7 +9,8 @@ import SortBy from '../../components/widgets/course/SortBy'
 import PriceOne from '../../components/widgets/course/CategoryFilter'
 import LevelOne from '../../components/widgets/course/GradeFilter'
 import FilterByPrice from '../../components/widgets/course/FilterByPrice'
-import debounce from 'lodash.debounce'
+import debounce from 'lodash/debounce'
+import ModifyCourseAccessDialog from '../../components/modify-course-access-dialog/ModifyCourseAccessDialog'
 
 import courseService from '../../services/course-service'
 import userService from '../../services/user-service'
@@ -39,6 +40,10 @@ function CourseOne() {
     rangePrice: -1,
     type: undefined
   })
+  const [isModifyAccessPopupShown, setPopupModifyAccessConfirm] = useState(false)
+  const [selectedCourse, setSelectedCourse] = useState(null)
+  const [selectedAction, setSelectedAction] = useState(null)
+  const [accessChanged, setAccessChanged] = useState(false)
   const isFirstTimeSetPageSize = useRef(true)
   const userId = localStorage.getItem('currentUser')
   const userRole = ROLE.TEACHER
@@ -78,6 +83,11 @@ function CourseOne() {
     if (pageSize) {
       debouncedFetchData(searchText, { offset, limit: pageSize }, queryOptions)
     }
+
+    if (accessChanged) {
+      setAccessChanged(false)
+    }
+
     return () => {
       debouncedFetchData.cancel()
     }
@@ -88,7 +98,8 @@ function CourseOne() {
     pageSize,
     queryOptions,
     userId,
-    userRole
+    userRole,
+    accessChanged
   ])
 
   const handleChangePageNumber = (event, value) => {
@@ -138,11 +149,57 @@ function CourseOne() {
       ? 'courses.yourEnrolledCourses'
       : 'courses.yourCreatedCourses'
 
+  const onCancel = () => {
+    console.log('CANCEL!')
+    setPopupModifyAccessConfirm(false)
+  }
+
+  const onClose = () => {
+    console.log('CLOSE!')
+    setPopupModifyAccessConfirm(false)
+  }
+
+  const onModifyAccessClick = () => {
+    console.log('CLICK!')
+    setPopupModifyAccessConfirm(true)
+  }
+
+  const onConfirm = async (courseId) => {
+    console.log('CONFIRMED!')
+    switch (selectedAction) {
+      case 'activate':
+        const result = await courseService.activate(selectedCourse)
+        if (result.status === 200) {
+          setAccessChanged(true)
+          window.location.reload()
+        }
+        break
+      case 'deactivate':
+        const result2 = await courseService.deactivate(selectedCourse)
+        if (result2.status === 200) {
+          setAccessChanged(true)
+          window.location.reload()
+        }
+        break
+      default:
+        setSelectedAction(null)
+        setSelectedCourse(null)
+        break
+    }
+  }
+
   return (
     <>
       <SEO title={translation('nav.courses')} />
       <Layout>
         <BreadcrumbOne title={translation('nav.courses')} />
+        {isModifyAccessPopupShown && (
+          <ModifyCourseAccessDialog
+            onClose={onClose}
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+          />
+        )}
         <div className="edu-course-area edu-section-gap bg-color-white">
           <div className="container">
             <div className="row g-5">
@@ -196,7 +253,13 @@ function CourseOne() {
                       animateOnce
                       key={item.id}
                     >
-                      <CourseTypeOne data={item} />
+                      <CourseTypeOne
+                        data={item}
+                        isAdmin={true}
+                        onModifyAccessClick={onModifyAccessClick}
+                        setSelectedCourse={setSelectedCourse}
+                        setSelectedAction={setSelectedAction}
+                         />
                     </ScrollAnimation>
                   ))}
                 </div>

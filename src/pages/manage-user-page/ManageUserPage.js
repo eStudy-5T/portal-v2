@@ -2,13 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Slider from 'react-slick'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
-import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
-import SectionTitle from '../../components/section-title/SectionTitle'
-import InstructorData from '../../data/instructor/InstructorData.json'
 import userService from '../../services/user-service'
 import { useTranslation } from 'react-i18next'
 import StudentOne from '../../components/student/StudentOne'
-import InstructorOne from '../../components/instructor/InstructorOne'
 
 function PrevArrow(props) {
   const { onClick } = props
@@ -116,7 +112,7 @@ function ManageUserPage({ wrapperClass }) {
                 </div>
               </div>
             </div>
-            {students?.length > 4 ? (
+            {students?.length > 12 ? (
               <div className="row">
                 <div className="col-lg-12">
                   <Slider

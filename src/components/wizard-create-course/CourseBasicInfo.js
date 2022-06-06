@@ -10,7 +10,6 @@ import {
   Radio
 } from '@mui/material'
 import ReactTagInput from '@pathofdev/react-tag-input'
-import UploadFileIcon from '@mui/icons-material/UploadFile'
 
 const styles = {
   radio: {
@@ -23,7 +22,6 @@ const styles = {
 
 const CourseBasicInfo = () => {
   const [tags, setTags] = useState([])
-  const [categories, setCategories] = useState([])
   const [loadingFieldName, setLoadingFieldName] = useState(null)
 
   const saveTags = (newTags) => {

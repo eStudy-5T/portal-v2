@@ -191,6 +191,15 @@ button {
       }
     }
 
+    &.btn-enroll {
+      background: var(--color-white);
+      color: var(--color-primary);
+      &:hover {
+        color: var(--color-white);
+        background: var(--color-secondary);
+      }
+    }
+
     &.btn-border {
       background: transparent;
       border: 2px solid var(--color-primary);
@@ -215,6 +224,14 @@ button {
         background: var(--color-dark);
         color: var(--color-white);
       }
+      i {
+        padding-left: 0;
+      }
+    }
+
+    &.btn-disabled {
+      background: var(--color-extra01);
+      cursor: not-allowed;
       i {
         padding-left: 0;
       }
