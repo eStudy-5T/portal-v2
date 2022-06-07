@@ -2,7 +2,7 @@ import request from '../utils/configs/http-config'
 
 const isUserVerified = () => {
   const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
-  const userId = localStorage.getItem('currentUser')
+  const userId = localStorage.getItem('currentUserId')
   return regexExp.test(userId)
 }
 
@@ -23,6 +23,7 @@ const courseService = {
     return request.post(`/courses/${courseId}/classes`, data)
   },
   getCourses: (userId, searchText, paginationOptions, queryOptions) => {
+    console.log({userId, searchText, paginationOptions, queryOptions})
     const { offset = 1, limit = 8 } = paginationOptions
     const {
       sortBy = 'sortby-none',

@@ -45,7 +45,7 @@ const AppRouter = () => {
   useEffect(() => {
     const userIdFromQuery = searchParams.get('userId')
     if (userIdFromQuery) {
-      localStorage.setItem('currentUser', userIdFromQuery)
+      localStorage.setItem('currentUserId', userIdFromQuery)
       localStorage.setItem('loginTimestamp', Date.now() + 86400000) // 1 day
       searchParams.delete('userId')
       setSearchParams(searchParams)
@@ -63,15 +63,15 @@ const AppRouter = () => {
         Date.now() > Number(localStorage.getItem('loginTimestamp') || 0)
 
       if (isLoginExpired) {
-        localStorage.removeItem('currentUser')
+        localStorage.removeItem('currentUserId')
       }
 
-      const currentUser = localStorage.getItem('currentUser')
-      if (currentUser && !isAuthenticated) {
+      const currentUserId = localStorage.getItem('currentUserId')
+      if (currentUserId && !isAuthenticated) {
         setIsAppLoading(true)
         try {
           const { data: userInfo } = await userService.fetchUserInfo(
-            currentUser
+            currentUserId
           )
           dispatch(userActions.setUserInfo(userInfo))
           setIsAppLoading(false)

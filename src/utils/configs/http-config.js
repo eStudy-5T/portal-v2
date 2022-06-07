@@ -58,7 +58,7 @@ httpService.interceptors.response.use(
           return httpService(originalConfig)
         })
         .catch((_error) => {
-          localStorage.removeItem('currentUser')
+          localStorage.removeItem('currentUserId')
           return Promise.reject(_error)
         })
     } else {
