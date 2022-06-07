@@ -28,7 +28,7 @@ function ManageUserPage({ wrapperClass }) {
   const [students, setStudents] = useState([])
   const { t: translation } = useTranslation()
   const [isMounted, setIsMounted] = useState(false)
-  const currentUser = localStorage.getItem('currentUser')
+  const currentUserId = localStorage.getItem('currentUserId')
 
   const sliderSettings = {
     dots: true,
@@ -68,12 +68,12 @@ function ManageUserPage({ wrapperClass }) {
 
   useEffect(() => {
     setIsMounted(true)
-    userService.getStudents(currentUser).then(({ data: StudentsData }) => {
+    userService.getStudents(currentUserId).then(({ data: StudentsData }) => {
       if (isMounted) {
         setStudents(StudentsData)
       }
     })
-  }, [currentUser, isMounted])
+  }, [currentUserId, isMounted])
 
   return (
     <>

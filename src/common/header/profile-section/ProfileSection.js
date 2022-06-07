@@ -42,7 +42,7 @@ const ProfileSection = () => {
   const theme = useTheme()
   const navigate = useNavigate()
   const { t: translation } = useTranslation()
-  const userId = localStorage.getItem('currentUser')
+  const userId = localStorage.getItem('currentUserId')
   const userInfo = useSelector((state) => state.userInfo)
   let role = ''
   if (userInfo.roleId === 2) {

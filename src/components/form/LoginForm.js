@@ -43,7 +43,8 @@ function LoginForm() {
     authService
       .login(data)
       .then(({ data: userInfo }) => {
-        localStorage.setItem('currentUser', userInfo.userId)
+        localStorage.setItem('currentUser', JSON.stringify(userInfo))
+        localStorage.setItem('currentUserId', userInfo.userId)
         localStorage.setItem('loginTimestamp', Date.now() + 86400000) // 1 day
         dispatch(userActions.setUserInfo(userInfo))
         navigate('/')
