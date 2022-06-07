@@ -28,7 +28,7 @@
     "getEnrollmentFail": "Lấy học viên thất bại",
     "enrollFail": "Tham gia khoá học thất bại",
     "updateUserFail": "Cập nhật người dùng thất bại",
-    "csrfTokenInvalid": "Cookie bị lỗi. Vui lòng đăng nhập lại",
+    "csrfTokenInvalid": "Bạn chưa được xác thực",
     "refreshTokenExpired": "Phiên hoạt động hết hạn. Vui lòng đăng nhập lại",
     "minTitle": "Tiêu đề cần tốt thiểu 10 ký tự!",
     "maxTitle": "Tiêu đề chỉ tối đa 100 kí tự!",
