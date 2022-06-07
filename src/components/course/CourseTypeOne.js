@@ -23,7 +23,7 @@ const BlueOnGreenTooltip = withStyles({
   }
 })(Tooltip);
 
-function CourseTypeOne({ data, classes, onModifyAccessClick, setSelectedCourse, setSelectedAction }) {
+function CourseTypeOne({ data, classes, isAdmin, onModifyAccessClick, setSelectedCourse, setSelectedAction }) {
   const { t: translation } = useTranslation()
 
   const [avatar, setOwnerAvatar] = useState(null)
@@ -32,7 +32,6 @@ function CourseTypeOne({ data, classes, onModifyAccessClick, setSelectedCourse, 
   const excerpt = `${data.description ? data.description.substring(0, 142) : CourseData[1].excerpt.substring(0, 142)}...`
   const trimTitle = `${data.title ? data.title.substring(0, 26) : 'Unknown title'}${data.title.length > 26 ? '...' : ''}`
 
-  const isAdmin = true
   const isActive = get(data, 'isActive', false)
 
   const handleActivateClick = () => {
@@ -223,14 +222,14 @@ function CourseTypeOne({ data, classes, onModifyAccessClick, setSelectedCourse, 
                     to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}
                   >
                     <div style={{ marginBottom: "20px" }}>
-                      <i class="fa fa-arrow-right" />
+                      <i className="fa fa-arrow-right" />
                     </div>
                   </Link>
                 </BlueOnGreenTooltip>
                 <BlueOnGreenTooltip title="Approve" style={{ marginLeft: '5px' }}>
                   <Link className='edu-btn btn-medium btn-white' to=''>
                     <div style={{ marginBottom: "20px" }}>
-                      <i class="fa fa-check" />
+                      <i className="fa fa-check" />
                     </div>
                   </Link>
                   </BlueOnGreenTooltip>
@@ -238,7 +237,7 @@ function CourseTypeOne({ data, classes, onModifyAccessClick, setSelectedCourse, 
                   <BlueOnGreenTooltip title="Activate" style={{ marginLeft: '5px' }}>
                     <Link className='edu-btn btn-medium btn-white' to='' onClick={handleActivateClick}>
                       <div style={{ marginBottom: "20px" }}>
-                        <i class="fa fa-lock" />
+                        <i className="fa fa-lock" />
                       </div>
                     </Link>
                   </BlueOnGreenTooltip>
@@ -247,7 +246,7 @@ function CourseTypeOne({ data, classes, onModifyAccessClick, setSelectedCourse, 
                   <BlueOnGreenTooltip title="Deactivate" style={{ marginLeft: '5px' }}>
                     <Link className='edu-btn btn-medium btn-white' to='' onClick={handleDeactivateClick}>
                       <div style={{ marginBottom: "20px" }}>
-                        <i class="fa fa-unlock" />
+                        <i className="fa fa-unlock" />
                       </div>
                     </Link>
                   </BlueOnGreenTooltip>
@@ -255,7 +254,7 @@ function CourseTypeOne({ data, classes, onModifyAccessClick, setSelectedCourse, 
                 <BlueOnGreenTooltip title="Remove" style={{ marginLeft: '5px' }}>
                   <Link className='edu-btn btn-medium btn-white' to=''>
                     <div style={{ marginBottom: "20px" }}>
-                      <i class="fa fa-close" />
+                      <i className="fa fa-close" />
                     </div>
                   </Link>
                 </BlueOnGreenTooltip>

@@ -17,7 +17,8 @@ import userService from '../../services/user-service'
 
 // i18
 import { useTranslation } from 'react-i18next'
-import { isNumber } from 'lodash'
+import get from 'lodash/get'
+import isNumber from 'lodash/isNumber'
 import { t } from 'i18next'
 
 const ROLE = {
@@ -45,8 +46,9 @@ function CourseOne() {
   const [selectedAction, setSelectedAction] = useState(null)
   const [accessChanged, setAccessChanged] = useState(false)
   const isFirstTimeSetPageSize = useRef(true)
-  const userId = localStorage.getItem('currentUser')
+  const userId = localStorage.getItem('currentUserId')
   const userRole = ROLE.TEACHER
+  const isAdmin = get(JSON.parse(localStorage.getItem('currentUser')), 'isAdmin', false)
 
   const { t: translation } = useTranslation()
 
@@ -255,7 +257,7 @@ function CourseOne() {
                     >
                       <CourseTypeOne
                         data={item}
-                        isAdmin={true}
+                        isAdmin={isAdmin}
                         onModifyAccessClick={onModifyAccessClick}
                         setSelectedCourse={setSelectedCourse}
                         setSelectedAction={setSelectedAction}

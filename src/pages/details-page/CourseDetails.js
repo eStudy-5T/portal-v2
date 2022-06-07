@@ -551,7 +551,7 @@ function CourseDetails() {
 
   const { id } = useParams()
   const courseId = 1
-  const userId = localStorage.getItem('currentUser')
+  const userId = localStorage.getItem('currentUserId')
   const data = CourseData.filter((course) => course.id === courseId)
   const courseItem = data[0]
 
