@@ -28,7 +28,7 @@
     "getEnrollmentFail": "Get enrollment fail",
     "enrollFail": "Enroll fail",
     "updateUserFail": "Update user fail",
-    "csrfTokenInvalid": "Cookies has been tampered. Please login again",
+    "csrfTokenInvalid": "You are not authorized",
     "refreshTokenExpired": "Your active session has expired. Please login again",
     "minTitle": "Mimimun length of title is 10!",
     "maxTitle": "Maximum length of title is 100!",

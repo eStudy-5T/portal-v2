@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 
 import { authHeader } from '../helpers/request-helper'
 import { logOutUser } from '../helpers/user-helper'
+import store from '../../redux'
 
 import ToastContent from '../../components/toast-content/ToastContent'
 
@@ -54,8 +55,7 @@ httpService.interceptors.response.use(
       originalConfig._retry = true
       return refreshTokenPromise
         .then(() => {
-          originalConfig.headers = authHeader()
-          return httpService(originalConfig)
+          return axios(originalConfig)
         })
         .catch((_error) => {
           localStorage.removeItem('currentUserId')
@@ -68,7 +68,8 @@ httpService.interceptors.response.use(
         if (
           ['error.csrfTokenInvalid', 'error.refreshTokenExpired'].includes(
             error?.response?.data
-          )
+          ) &&
+          store.getState().userInfo.isAuthenticated
         ) {
           logOutUser()
         }
