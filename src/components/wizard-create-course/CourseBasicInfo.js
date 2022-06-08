@@ -25,7 +25,6 @@ const CourseBasicInfo = () => {
   const [loadingFieldName, setLoadingFieldName] = useState(null)
 
   const saveTags = (newTags) => {
-    console.log('newTags', newTags)
     setTags(newTags)
   }
 

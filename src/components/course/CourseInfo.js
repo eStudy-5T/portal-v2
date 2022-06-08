@@ -67,7 +67,6 @@ function CourseInfo({ courseData, currentUserId }) {
   }
 
   useEffect(() => {
-    console.log(courseData)
     setIsEnrolled(get(courseData, 'isEnrolled', false))
     setEnrollVisible(
       !(

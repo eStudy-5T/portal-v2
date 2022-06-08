@@ -23,7 +23,6 @@ const courseService = {
     return request.post(`/courses/${courseId}/classes`, data)
   },
   getCourses: (userId, searchText, paginationOptions, queryOptions) => {
-    console.log({userId, searchText, paginationOptions, queryOptions})
     const { offset = 1, limit = 8 } = paginationOptions
     const {
       sortBy = 'sortby-none',

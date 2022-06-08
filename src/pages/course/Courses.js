@@ -152,22 +152,18 @@ function CourseOne() {
       : 'courses.yourCreatedCourses'
 
   const onCancel = () => {
-    console.log('CANCEL!')
     setPopupModifyAccessConfirm(false)
   }
 
   const onClose = () => {
-    console.log('CLOSE!')
     setPopupModifyAccessConfirm(false)
   }
 
   const onModifyAccessClick = () => {
-    console.log('CLICK!')
     setPopupModifyAccessConfirm(true)
   }
 
   const onConfirm = async (courseId) => {
-    console.log('CONFIRMED!')
     switch (selectedAction) {
       case 'activate':
         const result = await courseService.activate(selectedCourse)
