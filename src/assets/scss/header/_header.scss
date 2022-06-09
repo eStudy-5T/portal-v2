@@ -6,14 +6,10 @@
   .logo {
     a {
       display: block;
-      height: 118px;
-      line-height: 118px;
+      height: 80px;
+      line-height: 80px;
       img {
         max-height: 35px;
-      }
-      @media #{$smlg-device} {
-        height: 80px;
-        line-height: 80px;
       }
     }
   }
