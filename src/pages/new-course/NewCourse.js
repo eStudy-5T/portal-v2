@@ -47,7 +47,7 @@ const NewCourse = () => {
 
   return (
     <>
-      <SEO title="Create Cousre" />
+      <SEO title="Create Course" />
       <Header styles="header-style-2" />
       <Box sx={{ marginTop: '1.1em' }}>
         <Box sx={{ width: '100%' }}>

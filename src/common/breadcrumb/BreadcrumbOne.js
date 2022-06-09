@@ -2,7 +2,7 @@ import React from 'react'
 
 function BreadcrumbOne({ title }) {
   return (
-    <div className="edu-breadcrumb-area breadcrumb-style-1 ptb--60 ptb_md--40 ptb_sm--40 bg-image">
+    <div className="edu-breadcrumb-area breadcrumb-style-1 ptb--40 ptb_md--40 ptb_sm--40 bg-image">
       <div className="container letmeet-animated-shape">
         <div className="row">
           <div className="col-lg-12">

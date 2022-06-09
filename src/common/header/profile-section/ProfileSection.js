@@ -7,9 +7,7 @@ import { useTheme } from '@mui/material/styles'
 import {
   Box,
   Avatar,
-  Chip,
   ClickAwayListener,
-  Grid,
   List,
   ListItemButton,
   ListItemIcon,
@@ -45,7 +43,7 @@ const ProfileSection = () => {
   const userId = localStorage.getItem('currentUserId')
   const userInfo = useSelector((state) => state.userInfo)
   let role = ''
-  if (userInfo.roleId === 2) {
+  if (userInfo.isAdmin) {
     role = 'Administrator'
   } else {
     if (userInfo.isVerifiedToTeach === true) role = 'Teacher'
@@ -83,48 +81,12 @@ const ProfileSection = () => {
 
   return (
     <>
-      <Chip
+      <Avatar
+        src={userInfo.avatar || CloneAvatar}
         sx={{
-          height: '50px',
-          alignItems: 'center',
-          borderRadius: '27px',
-          transition: 'all .2s ease-in-out',
-          borderColor: 'var(--color-primary)',
-          backgroundColor: 'var(--color-white)',
-          '&[aria-controls="menu-list-grow"], &:hover': {
-            borderColor: 'var(--color-primary)',
-            background: `${'var(--color-primary)'}!important`,
-            color: 'var(--color-primary)',
-            '& svg': {
-              stroke: theme.palette.primary.light
-            }
-          },
-          '& .MuiChip-label': {
-            lineHeight: 0
-          }
+          ...theme.typography.mediumAvatar,
+          cursor: 'pointer'
         }}
-        icon={
-          <Avatar
-            src={userInfo.avatar || CloneAvatar}
-            sx={{
-              ...theme.typography.mediumAvatar,
-              margin: '0 0 0 12px !important',
-              cursor: 'pointer'
-            }}
-            ref={anchorRef}
-            aria-controls={open ? 'menu-list-grow' : undefined}
-            aria-haspopup="true"
-            color="inherit"
-          />
-        }
-        label={
-          <IconSettings
-            stroke={1.5}
-            size="2rem"
-            color={theme.palette.primary.main}
-          />
-        }
-        variant="outlined"
         ref={anchorRef}
         aria-controls={open ? 'menu-list-grow' : undefined}
         aria-haspopup="true"
@@ -160,9 +122,13 @@ const ProfileSection = () => {
                   boxShadow
                   shadow={theme.shadows[16]}
                 >
-                  <Box sx={{ p: 2 }}>
+                  <Box sx={{ p: 1 }}>
                     <Stack spacing={0.5}>
-                      <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                      <Typography
+                        variant="h6"
+                        sx={{ fontWeight: 'bold' }}
+                        color="var(--color-primary)"
+                      >
                         {userInfo.firstName + ' ' + userInfo.lastName}
                       </Typography>
                       <Typography
@@ -178,16 +144,20 @@ const ProfileSection = () => {
                     <List
                       component="nav"
                       sx={{
-                        width: '100%',
-                        maxWidth: 350,
-                        minWidth: 200,
+                        minWidth: 150,
                         backgroundColor: theme.palette.background.paper,
                         borderRadius: '10px',
                         [theme.breakpoints.down('md')]: {
                           minWidth: '100%'
                         },
+                        '& .MuiListItemIcon-root': {
+                          minWidth: 40
+                        },
+                        '& .MuiListItemText-root': {
+                          m: 0
+                        },
                         '& .MuiListItemButton-root': {
-                          mt: 0
+                          p: 1,
                         }
                       }}
                     >
@@ -203,7 +173,11 @@ const ProfileSection = () => {
                         }
                       >
                         <ListItemIcon>
-                          <IconBooks stroke={1.5} size="1.5rem" />
+                          <IconBooks
+                            color="var(--color-primary)"
+                            stroke={1.5}
+                            size="1.5rem"
+                          />
                         </ListItemIcon>
                         <ListItemText
                           primary={
@@ -222,60 +196,78 @@ const ProfileSection = () => {
                           }
                         >
                           <ListItemIcon>
-                            <IconLayoutDashboard stroke={1.5} size="1.5rem" />
+                            <IconLayoutDashboard
+                              color="var(--color-primary)"
+                              stroke={1.5}
+                              size="1.5rem"
+                            />
                           </ListItemIcon>
                           <ListItemText
                             primary={
-                              <Grid
-                                container
-                                spacing={1}
-                                justifyContent="space-between"
-                              >
-                                <Grid item>
-                                  <Typography variant="button">
-                                    {translation('dropdown.teacherDashboard')}
-                                  </Typography>
-                                </Grid>
-                              </Grid>
-                            }
-                          />
-                        </ListItemButton>
-                      )}
-                      {role === 'Administrator' && (
-                        <ListItemButton
-                          sx={{ borderRadius: '12px' }}
-                          selected={selectedIndex === 2}
-                          onClick={(event) =>
-                            handleListItemClick(event, 2, '/manage-users')
-                          }
-                        >
-                          <ListItemIcon>
-                            <IconUsers stroke={1.5} size="1.5rem" />
-                          </ListItemIcon>
-                          <ListItemText
-                            primary={
-                              <Grid
-                                container
-                                spacing={1}
-                                justifyContent="space-between"
-                              >
-                                <Grid item>
-                                  <Typography variant="button">
-                                    {translation('dropdown.manageUsers')}
-                                  </Typography>
-                                </Grid>
-                              </Grid>
+                              <Typography variant="button">
+                                {translation('dropdown.teacherDashboard')}
+                              </Typography>
                             }
                           />
                         </ListItemButton>
                       )}
                       <ListItemButton
                         sx={{ borderRadius: '12px' }}
-                        selected={selectedIndex === 3}
+                        selected={selectedIndex === 2}
+                        onClick={(event) =>
+                          handleListItemClick(event, 2, `/account-setting`)
+                        }
+                      >
+                        <ListItemIcon>
+                          <IconSettings
+                            color="var(--color-primary)"
+                            stroke={1.5}
+                            size="1.5rem"
+                          />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={
+                            <Typography variant="button">
+                              {translation('dropdown.accountSettings')}
+                            </Typography>
+                          }
+                        />
+                      </ListItemButton>
+                      {role === 'Administrator' && (
+                        <ListItemButton
+                          sx={{ borderRadius: '12px' }}
+                          selected={selectedIndex === 3}
+                          onClick={(event) =>
+                            handleListItemClick(event, 3, '/manage-users')
+                          }
+                        >
+                          <ListItemIcon>
+                            <IconUsers
+                              color="var(--color-primary)"
+                              stroke={1.5}
+                              size="1.5rem"
+                            />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={
+                              <Typography variant="button">
+                                {translation('dropdown.manageUsers')}
+                              </Typography>
+                            }
+                          />
+                        </ListItemButton>
+                      )}
+                      <ListItemButton
+                        sx={{ borderRadius: '12px' }}
+                        selected={selectedIndex === 4}
                         onClick={handleLogout}
                       >
                         <ListItemIcon>
-                          <IconLogout stroke={1.5} size="1.5rem" />
+                          <IconLogout
+                            color="var(--color-primary)"
+                            stroke={1.5}
+                            size="1.5rem"
+                          />
                         </ListItemIcon>
                         <ListItemText
                           primary={

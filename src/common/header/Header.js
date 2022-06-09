@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Nav from './Nav'
+// import Nav from './Nav'
 import HeaderSticky from './HeaderSticky'
 import ResponsiveMenu from './ResponsiveMenu'
 import Globe from '../../components/globe/globe'
@@ -55,13 +55,13 @@ function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
             </div>
           </div>
 
-          <div className="col-lg-6 d-none d-xl-block">
+          {/* <div className="col-lg-6 d-none d-xl-block">
             <nav className="mainmenu-nav d-none d-lg-block">
               <Nav />
             </nav>
-          </div>
+          </div> */}
 
-          <div className="col-lg-8 col-xl-3 col-md-6 col-6">
+          <div className="col-xl-9 col-lg-8 col-md-6 col-6">
             <div className="header-right d-flex justify-content-end">
               <div className="header-menu-bar">
                 {!searchDisable && (
@@ -70,7 +70,7 @@ function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
                       className="white-box-icon search-trigger header-search"
                       onClick={onSearchHandler}
                     >
-                      <i className="ri-search-line" />
+                      <i className="ri-notification-line" />
                     </button>
                   </div>
                 )}
@@ -91,7 +91,7 @@ function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
                 </div>
                 <Globe size="2.2em" />
               </div>
-              <div className="mobile-menu-bar ml--15 ml_sm--5 d-block d-xl-none">
+              <div className="mobile-menu-bar ml--15 ml_sm--5 d-block">
                 <div className="hamberger">
                   <button
                     className="white-box-icon hamberger-button header-menu"
