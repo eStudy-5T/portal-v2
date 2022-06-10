@@ -89,7 +89,7 @@ function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
                     </Link>
                   )}
                 </div>
-                <Globe size="2.2em" />
+                <Globe size="1.8em" />
               </div>
               <div className="mobile-menu-bar ml--15 ml_sm--5 d-block">
                 <div className="hamberger">

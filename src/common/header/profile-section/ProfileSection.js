@@ -88,7 +88,9 @@ const ProfileSection = () => {
         src={userInfo.avatar || CloneAvatar}
         sx={{
           ...theme.typography.mediumAvatar,
-          cursor: 'pointer'
+          cursor: 'pointer',
+          width: 35,
+          height: 35
         }}
         ref={anchorRef}
         aria-controls={open ? 'menu-list-grow' : undefined}
