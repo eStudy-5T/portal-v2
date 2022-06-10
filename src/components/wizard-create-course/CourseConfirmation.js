@@ -4,18 +4,22 @@ import { Box, Grid, Typography } from '@mui/material'
 const CourseConfirmation = () => {
   return (
     <Fragment>
-      <Box sx={{ mt: 5, mb: 5 }}>
+      <Box sx={{ mt: 10, mb: 10 }}>
         <Grid container component="main" spacing={1}>
-          <Typography variant="h6" align="center">
-            Congratulations! You just completed the first step towards creating
-            a Course in LetMeet
-            <Typography variant="h6">
-              Nothing is visible to the public at this time. Press the Done
-              button below to complete this process. You may then continue to
-              add content to your Course or exit and come back later. Your
-              progress will be saved.
-            </Typography>
-          </Typography>
+          <Grid item xs={12}>
+            <Box mt={5} mb={4} sx={{ textAlign: 'center' }}>
+              <Typography variant="h6" fontSize="18px">
+                Congratulations! You just completed the first step towards
+                creating a Course in LetMeet Nothing is visible to the public at
+                this time.
+              </Typography>
+              <Typography variant="h6" fontSize="18px">
+                Press the <strong>Done</strong> button below to complete this
+                process. You may continue to add content to your Course or exit
+                and come back later.
+              </Typography>
+            </Box>
+          </Grid>
         </Grid>
       </Box>
     </Fragment>

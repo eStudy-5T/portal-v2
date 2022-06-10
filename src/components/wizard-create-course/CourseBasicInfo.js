@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import {
   Box,
   Grid,
@@ -7,9 +7,13 @@ import {
   RadioGroup,
   FormLabel,
   FormControlLabel,
-  Radio
+  Radio,
+  Tooltip
 } from '@mui/material'
-import ReactTagInput from '@pathofdev/react-tag-input'
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
+
+import CreatableSelect from 'react-select/creatable'
+import Select from 'react-select'
 
 const styles = {
   radio: {
@@ -20,12 +24,25 @@ const styles = {
   }
 }
 
-const CourseBasicInfo = () => {
-  const [tags, setTags] = useState([])
-  const [loadingFieldName, setLoadingFieldName] = useState(null)
+const colourOptions = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+]
 
-  const saveTags = (newTags) => {
-    setTags(newTags)
+const CourseBasicInfo = () => {
+  const handleChangeTags = (newValue, actionMeta) => {
+    console.group('Value Changed')
+    console.log(newValue)
+    console.log(`action: ${actionMeta.action}`)
+    console.groupEnd()
+  }
+
+  const handleChangeCategories = (newValue, actionMeta) => {
+    console.group('Value Changed')
+    console.log(newValue)
+    console.log(`action: ${actionMeta.action}`)
+    console.groupEnd()
   }
 
   return (
@@ -47,12 +64,12 @@ const CourseBasicInfo = () => {
               <FormControlLabel
                 value="consump-course"
                 control={<Radio sx={styles.radio} />}
-                label="Running Course. I have completed planning course schedule timeline for LetMeet student to enroll. My course is finished and ready for consumption"
+                label="Learning Course. I have completed planning course schedule timeline for LetMeet student to enroll. My course is finished and ready for teaching"
               />
               <FormControlLabel
                 value="mkt-course"
                 control={<Radio sx={styles.radio} />}
-                label=" Marketing Course. I do not want student to enroll my course just yet. At this moment in time, I only want to create a marketing course for promotional purposes"
+                label=" Marketing Page. I do not want student to enroll my course yet. At this moment in time, I only want to create a marketing course for promotional purposes"
               />
             </RadioGroup>
           </FormControl>
@@ -72,37 +89,98 @@ const CourseBasicInfo = () => {
                 required
               />
             </Grid>
-            <Grid item xs={12} md={6} sx={{ mt: 2 }}>
+            <Grid item xs={12} md={4} sx={{ mt: 2 }}>
               <InputLabel
-                htmlFor="course-title"
+                htmlFor="course-slug"
                 className="basic-info__input-label"
                 required
               >
                 Slug
               </InputLabel>
               <input
-                id="course-title"
+                id="course-slug"
                 type="text"
                 placeholder="example-slug"
                 required
               />
             </Grid>
-          </Grid>
-          <Grid container component="main" sx={{ mt: 2 }}>
-            <InputLabel
-              htmlFor="course-description"
-              className="basic-info__input-label"
-              required
-            >
-              Logline or Short Description
-            </InputLabel>
-            <textarea
-              id="course-description"
-              placeholder="Type here"
-              required
-            ></textarea>
+            <Grid item xs={12} md={2} sx={{ mt: 2 }}>
+              <InputLabel
+                htmlFor="course-max-student"
+                className="basic-info__input-label"
+                required
+                sx={{ display: 'flex' }}
+              >
+                Number of students
+                <Tooltip title="Maximum number of students allow to enroll">
+                  <HelpOutlineIcon
+                    sx={{ ml: 0.5, fontSize: '20px', cursor: 'pointer' }}
+                  />
+                </Tooltip>
+              </InputLabel>
+              <input
+                id="course-max-student"
+                type="number"
+                placeholder="Type here"
+                required
+              />
+            </Grid>
           </Grid>
           <Grid container component="main" spacing={1}>
+            <Grid item xs={12} md={12} sx={{ mt: 2 }}>
+              <InputLabel
+                htmlFor="course-description"
+                className="basic-info__input-label"
+                required
+              >
+                Logline or Short Description
+              </InputLabel>
+              <textarea
+                id="course-description"
+                placeholder="Type here"
+                required
+              ></textarea>
+            </Grid>
+            <Grid item xs={12} md={12} sx={{ mt: 2 }}>
+              <InputLabel
+                htmlFor="course-tags"
+                className="basic-info__input-label"
+                required
+              >
+                Course Categories
+              </InputLabel>
+              <CreatableSelect
+                id="course-categories"
+                className="basic-multi-select"
+                classNamePrefix="select"
+                name="categories"
+                placeholder="Search"
+                isMulti
+                onChange={handleChangeCategories}
+                options={colourOptions}
+              />
+            </Grid>
+          </Grid>
+          <Grid container component="main" spacing={1}>
+            <Grid item xs={12} md={6} sx={{ mt: 2 }}>
+              <InputLabel
+                htmlFor="course-subject"
+                className="basic-info__input-label"
+                required
+              >
+                Subject
+              </InputLabel>
+              <Select
+                id="course-subject"
+                className="basic-single"
+                classNamePrefix="select"
+                placeholder="Select here"
+                isClearable={true}
+                isSearchable={true}
+                name="subject"
+                options={colourOptions}
+              />
+            </Grid>
             <Grid item xs={12} md={6} sx={{ mt: 2 }}>
               <InputLabel
                 htmlFor="course-grade"
@@ -111,108 +189,36 @@ const CourseBasicInfo = () => {
               >
                 Grade
               </InputLabel>
-              <select id="course-grade" required>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
-              </select>
-            </Grid>
-            <Grid item xs={12} md={6} sx={{ mt: 2 }}>
-              <InputLabel
-                htmlFor="course-generes"
-                className="basic-info__input-label"
-                required
-              >
-                Course Genres
-              </InputLabel>
-              <ReactTagInput
-                required
-                id="course-generes"
-                tags={tags}
-                placeholder="Type and enter"
-                disabled={Boolean(loadingFieldName)}
-                onChange={saveTags}
+              <Select
+                id="course-grade"
+                className="basic-single"
+                classNamePrefix="select"
+                placeholder="Select here"
+                isClearable={true}
+                isSearchable={true}
+                name="grade"
+                options={colourOptions}
               />
             </Grid>
           </Grid>
           <Grid container component="main" spacing={1}>
-            <Grid item xs={12} md={4} sx={{ mt: 2 }}>
+            <Grid item xs={12} md={12} sx={{ mt: 2 }}>
               <InputLabel
-                required
-                htmlFor="start-date"
-                className="basic-info__input-label"
-              >
-                Start Date
-              </InputLabel>
-              <input
-                id="start-date"
-                type="date"
-                placeholder="Type here"
-                required
-              />
-            </Grid>
-            <Grid item xs={12} md={4} sx={{ mt: 2 }}>
-              <InputLabel
-                htmlFor="end-date"
+                htmlFor="course-tags"
                 className="basic-info__input-label"
                 required
               >
-                End Date
+                Course Tags
               </InputLabel>
-              <input
-                id="end-date"
-                type="date"
-                placeholder="Type here"
-                required
-              />
-            </Grid>
-            <Grid item xs={12} md={4} sx={{ mt: 2 }}>
-              <InputLabel
-                htmlFor="total-week"
-                className="basic-info__input-label"
-              >
-                Total Week
-              </InputLabel>
-              <input id="total-week" type="text" readOnly disabled />
-            </Grid>
-          </Grid>
-          <Grid container component="main" spacing={1}>
-            <Grid item xs={12} md={4} sx={{ mt: 2 }}>
-              <InputLabel
-                required
-                htmlFor="lesson-per-week"
-                className="basic-info__input-label"
-              >
-                Lesson per Week
-              </InputLabel>
-              <input
-                id="lesson-per-week"
-                type="number"
-                placeholder="Type here"
-                required
-              />
-            </Grid>
-            <Grid item xs={12} md={4} sx={{ mt: 2 }}>
-              <InputLabel
-                htmlFor="total-lesson"
-                className="basic-info__input-label"
-              >
-                Total Lesson in Course
-              </InputLabel>
-              <input id="total-lesson" type="number" readOnly disabled />
-            </Grid>
-            <Grid item xs={12} md={4} sx={{ mt: 2 }}>
-              <InputLabel
-                htmlFor="allowed-to-absent"
-                className="basic-info__input-label"
-              >
-                Allowed to be absent
-              </InputLabel>
-              <input
-                id="allowed-to-absent"
-                type="number"
-                placeholder="Type here"
+              <CreatableSelect
+                id="course-tags"
+                className="basic-multi-select"
+                classNamePrefix="select"
+                name="tags"
+                placeholder="Search"
+                isMulti
+                onChange={handleChangeTags}
+                options={colourOptions}
               />
             </Grid>
           </Grid>

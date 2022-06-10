@@ -3,7 +3,7 @@
 =============================*/
 .footer-style-default {
   position: relative;
-  z-index: 1;
+
   .footer-top {
     padding: 85px 0;
     @media #{$md-layout} {
@@ -253,5 +253,61 @@
   &:hover {
     background: var(--color-primary);
     border-color: var(--color-primary);
+  }
+}
+
+/*---------------------------------
+ Compact footer
+----------------------------------*/
+.compact-footer {
+  &__top {
+    padding: 20px 0;
+  }
+
+  &__content {
+    color: white;
+
+    &-nav {
+      &_logo {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+
+      &_list {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin: 0;
+
+        @media #{$large-mobile} {
+          text-align: center;
+          flex-direction: column;
+        }
+
+        li {
+          list-style: none !important;
+          padding: 0 20px;
+          border-right: 2px solid white;
+
+          @media #{$large-mobile} {
+            border: none;
+          }
+
+          &:last-child {
+            border: none !important;
+          }
+
+          &:first-child {
+            padding-left: 0;
+          }
+
+          a {
+            color: white;
+          }
+        }
+      }
+    }
   }
 }
