@@ -99,7 +99,7 @@ const ProfileSection = () => {
         color="primary"
       />
       <Popper
-        placement="bottom-end"
+        placement="bottom"
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
@@ -127,7 +127,7 @@ const ProfileSection = () => {
                   boxShadow
                   shadow={theme.shadows[16]}
                 >
-                  <Box sx={{ p: 1 }}>
+                  <Box sx={{ p: 2 }}>
                     <Stack spacing={0.5}>
                       <Typography
                         variant="h6"
