@@ -136,7 +136,7 @@ function CourseInfo({ courseData, currentUserId }) {
                         <i className="icon-bar-chart-2-line" />
                         {translation('courseDetails.grade')}
                       </span>
-                      <span>{get(courseData, 'gradeId', '')}</span>
+                      <span>{get(courseData, 'grade', '')}</span>
                     </li>
                   )}
                   {data.instructor && (
@@ -177,7 +177,7 @@ function CourseInfo({ courseData, currentUserId }) {
                     </button>
                   </div>
                 )}
-                {(!isEnrollVisible && !isCourseDisabled) && (
+                {!isEnrollVisible && !isCourseDisabled && (
                   <div className="read-more-btn mt--15">
                     <a
                       className="edu-btn w-100 text-center edu-btn-hover"
@@ -193,7 +193,7 @@ function CourseInfo({ courseData, currentUserId }) {
                     </a>
                   </div>
                 )}
-                {(isEnrollVisible && !isCourseDisabled) && (
+                {isEnrollVisible && !isCourseDisabled && (
                   <div className="read-more-btn mt--15">
                     <a
                       className="edu-btn w-100 text-center edu-btn-hover"
