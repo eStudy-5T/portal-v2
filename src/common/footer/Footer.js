@@ -39,11 +39,6 @@ function Footer() {
                     </li>
                     <li>
                       <a href="#">
-                        <i className="icon-Pinterest" />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
                         <i className="icon-Twitter" />
                       </a>
                     </li>
@@ -53,14 +48,20 @@ function Footer() {
 
               <div className="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div className="edu-footer-widget explore-widget">
-                  <h5 className="widget-title">{translation("footer.explore")}</h5>
+                  <h5 className="widget-title">
+                    {translation('footer.explore')}
+                  </h5>
                   <div className="inner">
                     <ul className="footer-link link-hover">
                       <li>
-                        <Link to="/faq">{translation("footer.faqQuestion")}</Link>
+                        <Link to="/faq">
+                          {translation('footer.faqQuestion')}
+                        </Link>
                       </li>
                       <li>
-                        <Link to="/faq">{translation("footer.privatePolicy")}</Link>
+                        <Link to="/faq">
+                          {translation('footer.privatePolicy')}
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -69,14 +70,20 @@ function Footer() {
 
               <div className="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div className="edu-footer-widget quick-link-widget">
-                  <h5 className="widget-title">{translation("footer.usefulLinks")}</h5>
+                  <h5 className="widget-title">
+                    {translation('footer.usefulLinks')}
+                  </h5>
                   <div className="inner">
                     <ul className="footer-link link-hover">
                       <li>
-                        <Link to="/contact-us">{translation("footer.contactUs")}</Link>
+                        <Link to="/contact-us">
+                          {translation('footer.contactUs')}
+                        </Link>
                       </li>
                       <li>
-                        <Link to="/about-us">{translation("footer.aboutUs")}</Link>
+                        <Link to="/about-us">
+                          {translation('footer.aboutUs')}
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -85,7 +92,9 @@ function Footer() {
 
               <div className="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div className="edu-footer-widget">
-                  <h5 className="widget-title">{translation("footer.contactInfo")}</h5>
+                  <h5 className="widget-title">
+                    {translation('footer.contactInfo')}
+                  </h5>
                   <div className="inner">
                     <div className="widget-information">
                       <ul className="information-list">

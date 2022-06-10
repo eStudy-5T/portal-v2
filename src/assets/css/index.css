@@ -11,12 +11,12 @@
 
 html,
 body {
+  height: 100%;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   background-repeat: repeat-y;
   background-size: 50% auto;
 }
-
 /* Sections
    ========================================================================== */
 
@@ -170,6 +170,14 @@ textarea {
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
+}
+
+select {
+  background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png')
+    no-repeat right;
+  background-size: 12px;
+  -webkit-appearance: none;
+  background-position-x: 98%;
 }
 
 /**
@@ -353,107 +361,6 @@ template {
 [hidden] {
   display: none;
 }
-
-.react-tag-input {
-  box-sizing: border-box;
-  position: relative;
-  width: 100%;
-  height: 56px;
-  min-height: 2.375em;
-  padding: 0.1875em 0.375em;
-  overflow-y: auto;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  font-size: 1rem;
-  background: #fff;
-  color: #333;
-  border: 2px solid #eeeeee;
-  border-radius: 10px;
-}
-.react-tag-input * {
-  box-sizing: border-box;
-}
-.react-tag-input > * {
-  margin: 0.1875em;
-}
-.react-tag-input__input {
-  width: auto;
-  flex-grow: 1;
-  height: 1.875em;
-  padding: 0 0 0 0.1875em;
-  margin: 0 0.1875em;
-  font-size: 1em;
-  line-height: 1;
-  background: transparent;
-  color: #333;
-  border: none;
-  border-radius: 10px;
-  outline: 0;
-  box-shadow: none;
-  -webkit-appearance: none;
-}
-.react-tag-input__input::placeholder,
-.react-tag-input__input:-moz-placeholder,
-.react-tag-input__input:-ms-input-placeholder,
-.react-tag-input__input::-moz-placeholder,
-.react-tag-input__input::-webkit-input-placeholder {
-  color: #333;
-}
-.react-tag-input__input:focus {
-  border: none;
-}
-.react-tag-input__tag {
-  height: 30px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  font-size: 0.85em;
-  line-height: 1;
-  background: #525fe1;
-  border-radius: 10px;
-}
-.react-tag-input__tag__content {
-  outline: 0;
-  border: none;
-  white-space: nowrap;
-  padding: 0 0.46875em;
-  color: #fff;
-}
-.react-tag-input__tag__remove {
-  position: relative;
-  height: 2em;
-  width: 2em;
-  font-size: 0.85em;
-  cursor: pointer;
-  background: #525fe1;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-.react-tag-input__tag__remove:before,
-.react-tag-input__tag__remove:after {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  content: ' ';
-  height: 0.9em;
-  width: 0.15em;
-  background-color: #fff;
-}
-.react-tag-input__tag__remove:before {
-  transform: translateX(-50%) translateY(-50%) rotate(45deg);
-}
-.react-tag-input__tag__remove:after {
-  transform: translateX(-50%) translateY(-50%) rotate(-45deg);
-}
-.react-tag-input__tag__remove-readonly {
-  width: 0;
-}
-.react-tag-input__tag__remove-readonly:before,
-.react-tag-input__tag__remove-readonly:after {
-  content: '';
-  width: 0;
-} /*# sourceMappingURL=index.css.map */
 
 ::-webkit-scrollbar {
   width: 10px;

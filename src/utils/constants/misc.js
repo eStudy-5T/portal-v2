@@ -106,31 +106,36 @@ export const LEVELS = [
 
 export const WEEK_DAYS = [
   {
-    key: 1,
+    label: 'Monday',
     value: 'mon'
   },
   {
-    key: 2,
+    label: 'Tuesday',
     value: 'tue'
   },
   {
-    key: 3,
+    label: 'Wednesday',
     value: 'wed'
   },
   {
-    key: 4,
+    label: 'Thursday',
     value: 'thu'
   },
   {
-    key: 5,
+    label: 'Friday',
     value: 'fri'
   },
   {
-    key: 6,
+    label: 'Saturday',
     value: 'sat'
   },
   {
-    key: 7,
+    label: 'Sunday',
     value: 'sun'
   }
 ]
+
+export const COURSE_SCHEDULE_TYPE = {
+  PERMANENT: 'permanent',
+  FLEXIBLE: 'flexible'
+}

@@ -37,6 +37,20 @@
   }
 
   &-root.Mui-focused {
-    color: var(--color-primary) !important;
+    color: #121212 !important;
+  }
+}
+
+.MuiStepConnector {
+  &-root {
+    top: 20px !important;
+    left: calc(-50% + 30px) !important;
+    right: calc(50% + 30px) !important;
+  }
+}
+
+.MuiStepIcon {
+  &-root {
+    font-size: 2.5rem !important;
   }
 }
