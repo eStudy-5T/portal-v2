@@ -54,3 +54,18 @@
     font-size: 2.5rem !important;
   }
 }
+
+.MuiOutlinedInput {
+  &-input {
+    border: none !important;
+  }
+  &-notchedOutline {
+    border: var(--border-width) solid var(--color-border) !important;
+    border-radius: var(--radius) !important;
+  }
+  &-root.Mui-focused {
+    & .MuiOutlinedInput-notchedOutline {
+      border-color: var(--color-primary) !important;
+    }
+  }
+}

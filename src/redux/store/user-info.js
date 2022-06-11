@@ -39,6 +39,10 @@ const userInfoSlice = createSlice({
       state.isVerifiedToTeach = action.payload.isVerifiedToTeach
       state.createdAt = action.payload.createdAt
       state.isAdmin = action.payload.isAdmin
+      state.mobilePhone = action.payload.mobilePhone
+      state.nationality = action.payload.nationality
+      state.identityNumber = action.payload.identityNumber
+      state.grade = action.payload.grade
     },
     addTeacherInfo(state, action) {
       // update teacher info to info if need

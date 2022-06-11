@@ -1,11 +1,39 @@
 export const NATIONALITIES = [
   {
-    key: 'us',
-    value: 'US'
-  },
-  {
     key: 'vn',
     value: 'Vietnam'
+  },
+  {
+    key: 'us',
+    value: 'United States'
+  },
+  {
+    key: 'gb',
+    value: 'England'
+  },
+  {
+    key: 'fr',
+    value: 'France'
+  },
+  {
+    key: 'de',
+    value: 'Germany'
+  },
+  {
+    key: 'cn',
+    value: 'China'
+  },
+  {
+    key: 'jp',
+    value: 'Japan'
+  },
+  {
+    key: 'sg',
+    value: 'Singapore'
+  },
+  {
+    key: 'hk',
+    value: 'Hong Kong'
   }
 ]
 
