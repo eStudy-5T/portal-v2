@@ -12,7 +12,7 @@ import { languages } from '../../utils/constants/language'
 
 const Globe = ({ size }) => {
   const currentLanguageCode = localStorage.getItem('language') || 'vi-VN'
-  const [currentLanguage, setCurrentLanguage] = useState(null)
+  const [currentLanguage, setCurrentLanguage] = useState('en')
   const [anchorEl, setAnchorEl] = useState(null)
 
   useLayoutEffect(() => {

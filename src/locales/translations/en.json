@@ -179,5 +179,48 @@
   "admin": {
     "studentList": "Student List",
     "instructorList": "Instructor List"
+  },
+  "accountSetting": {
+    "profile": "Profile",
+    "theInformationCanBeEdited": "The information can be edited",
+    "changeAvatar": "Change Avatar",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "dateOfBirth": "Date Of Birth",
+    "mobilePhone":"Mobile Phone",
+    "nationality": "Nationality",
+    "saveDetails": "Save Details",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "showPassword": "Show Password",
+    "selectGrade": "Select Grade"
+  },
+  "grades": {
+    "first": "Grade 1",
+    "second": "Grade 2",
+    "third": "Grade 3",
+    "fourth": "Grade 4",
+    "fifth": "Grade 5",
+    "sixth": "Grade 6",
+    "seventh": "Grade 7",
+    "eighth": "Grade 8",
+    "ninth": "Grade 9",
+    "tenth": "Grade 10",
+    "eleventh": "Grade 11",
+    "twelfth": "Grade 12",
+    "others": "Others"
+  },
+  "nationalities": {
+    "vn": "Vietnam",
+    "us": "United States",
+    "gb": "England",
+    "fr": "France",
+    "de": "Germany",
+    "cn": "China",
+    "jp": "Japan",
+    "sg": "Singapore",
+    "hk": "Hong Kong"
   }
 }

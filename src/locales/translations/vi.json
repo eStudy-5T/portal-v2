@@ -178,5 +178,48 @@
   "admin": {
     "studentList": "Danh sách học sinh",
     "instructorList": "Danh sách giáo viên"
+  },
+  "accountSetting": {
+    "profile": "Hồ Sơ",
+    "theInformationCanBeEdited": "Thông tin có thể được chỉnh sửa",
+    "changeAvatar": "Đổi ảnh đại diện",
+    "email": "Địa chỉ mail",
+    "firstName": "Tên của bạn",
+    "lastName": "Họ của bạn",
+    "dateOfBirth": "Ngày sinh",
+    "mobilePhone": "Số điện thoại",
+    "nationality": "Quốc tịch",
+    "saveDetails": "Lưu thông tin",
+    "currentPassword": "Mật khẩu hiện tại",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận lại mật khẩu",
+    "showPassword": "Hiển thị mật khẩu",
+    "selectGrade": "Chọn khối lớp"
+  },
+  "grades": {
+    "first": "Lớp 1",
+    "second": "Lớp 2",
+    "third": "Lớp 3",
+    "fourth": "Lớp 4",
+    "fifth": "Lớp 5",
+    "sixth": "Lớp 6",
+    "seventh": "Lớp 7",
+    "eighth": "Lớp 8",
+    "ninth": "Lớp 9",
+    "tenth": "Lớp 10",
+    "eleventh": "Lớp 11",
+    "twelfth": "Lớp 12",
+    "others": "Khác"
+  },
+  "nationalities": {
+    "vn": "Viet Nam",
+    "us": "Hoa Kỳ",
+    "gb": "Vương Quốc Anh",
+    "fr": "Pháp",
+    "de": "Đức",
+    "cn": "Trung Quốc",
+    "jp": "Nhật Bản",
+    "sg": "Singapore",
+    "hk": "Hồng Kông"
   }
 }

@@ -36,9 +36,6 @@ import {
 // i18n
 import { useTranslation } from 'react-i18next'
 
-// Constants
-import ROLE from '../../../utils/constants/role'
-
 const ProfileSection = () => {
   const theme = useTheme()
   const navigate = useNavigate()
