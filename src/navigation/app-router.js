@@ -15,6 +15,7 @@ import ScrollToTop from '../components/scroll-to-top/ScrollToTop'
 
 import publicRoutes from './routes/public-routes'
 import privateRoutes from './routes/private-routes'
+import teacherRoutes from './routes/teacher-routes'
 import restrictedRoutes from './routes/restricted-routes'
 
 import userService from '../services/user-service'
@@ -24,6 +25,7 @@ import useVerify from '../hooks/use-verify'
 
 const AppRouter = () => {
   const [isAppLoading, setIsAppLoading] = useState(false)
+  const [userInfo, setUserInfo] = useState({})
   const [isAuthenticated] = useAuthenticate()
   const [isVerified] = useVerify()
   const dispatch = useDispatch()
@@ -70,10 +72,11 @@ const AppRouter = () => {
       if (currentUserId && !isAuthenticated) {
         setIsAppLoading(true)
         try {
-          const { data: userInfo } = await userService.fetchUserInfo(
+          const { data: tempUserInfo } = await userService.fetchUserInfo(
             currentUserId
           )
-          dispatch(userActions.setUserInfo(userInfo))
+          setUserInfo(tempUserInfo)
+          dispatch(userActions.setUserInfo(tempUserInfo))
           setIsAppLoading(false)
         } catch (err) {
           setIsAppLoading(false)
@@ -105,20 +108,22 @@ const AppRouter = () => {
           </Route>
         ))}
 
-        {privateRoutes.map(({ component: Component, path, exact }) => (
-          <Route
-            path={`/${path}`}
-            key={path}
-            element={<PrivateRoute isAuthenticated={isAuthenticated} />}
-          >
+        {privateRoutes
+          .concat(userInfo.isVerifiedToTeach ? teacherRoutes : [])
+          .map(({ component: Component, path, exact }) => (
             <Route
               path={`/${path}`}
               key={path}
-              exact={exact}
-              element={isAppLoading ? <Loading /> : <Component />}
-            />
-          </Route>
-        ))}
+              element={<PrivateRoute isAuthenticated={isAuthenticated} />}
+            >
+              <Route
+                path={`/${path}`}
+                key={path}
+                exact={exact}
+                element={isAppLoading ? <Loading /> : <Component />}
+              />
+            </Route>
+          ))}
 
         {restrictedRoutes.map(({ component: Component, path, exact }) => (
           <Route
