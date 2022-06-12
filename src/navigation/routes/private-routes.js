@@ -1,13 +1,8 @@
 import EnrolledCourses from '../../pages/enrolled-courses/EnrolledCourses'
 import ManageUserPage from '../../pages/manage-user-page/ManageUserPage'
 import VerifyAccountPage from '../../pages/verify-account-page/VerifyAccountPage'
-import TeacherDashboard from '../../pages/teacher-dashboard/TeacherDashboard'
 import NewCourse from '../../pages/new-course/NewCourse'
 import AccountSetting from '../../pages/account-setting/AccountSetting'
-import TeacherCourses from '../../pages/teacher-dashboard/TeacherCourses'
-import store from '../../redux'
-
-const isTeacher = store.getState().userInfo.isVerifiedToTeach
 
 const privateRoutes = [
   {
@@ -37,19 +32,4 @@ const privateRoutes = [
   }
 ]
 
-const finalRoutes = isTeacher
-  ? privateRoutes.concat([
-      {
-        path: 'teacher-dashboard',
-        component: () => <TeacherDashboard />,
-        exact: true
-      },
-      {
-        path: 'teacher-courses',
-        component: () => <TeacherCourses />,
-        exact: true
-      }
-    ])
-  : privateRoutes
-
-export default finalRoutes
+export default privateRoutes
