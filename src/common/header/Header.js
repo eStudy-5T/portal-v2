@@ -1,17 +1,25 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-// import Nav from './Nav'
 import HeaderSticky from './HeaderSticky'
 import ResponsiveMenu from './ResponsiveMenu'
 import Globe from '../../components/globe/globe'
 import ProfileSection from './profile-section/ProfileSection'
+import DashboardIcon from '@mui/icons-material/Dashboard'
 
 // i18n
 import { useTranslation } from 'react-i18next'
 
 import useAuthenticate from '../../hooks/use-authenticate'
 
-function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
+function Header({
+  styles,
+  disableSticky,
+  searchDisable,
+  buttonStyle,
+  isDashboard,
+  isSidebarOpen,
+  openDashboard
+}) {
   const [offcanvasShow, setOffcanvasShow] = useState(false)
   const [searchPopup, setSearchPopup] = useState(false)
   const [isAuthenticated] = useAuthenticate()
@@ -42,17 +50,33 @@ function Header({ styles, disableSticky, searchDisable, buttonStyle }) {
           classes || ''
         }`}
       >
-        <div className="row align-items-center">
+        <div
+          className={`row align-items-center ${isSidebarOpen ? 'my-3' : ''}`}
+        >
           <div className="col-lg-4 col-xl-3 col-md-6 col-6">
-            <div className="logo">
-              <Link to={`${process.env.PUBLIC_URL}/`}>
-                <img
-                  className="logo-light"
-                  src="/images/logo/logo.png"
-                  alt="Main Logo"
-                />
-              </Link>
-            </div>
+            {!isSidebarOpen && (
+              <div className="d-flex align-items-center">
+                <div className="logo">
+                  <Link to={`${process.env.PUBLIC_URL}/`}>
+                    <img
+                      className="logo-light"
+                      src="/images/logo/logo.png"
+                      alt="Main Logo"
+                    />
+                  </Link>
+                </div>
+                {isDashboard && (
+                  <div className="mobile-menu-bar ml--15 ml_sm--5 d-block">
+                    <button
+                      className="white-box-icon header-menu"
+                      onClick={openDashboard}
+                    >
+                      <DashboardIcon />
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* <div className="col-lg-6 d-none d-xl-block">

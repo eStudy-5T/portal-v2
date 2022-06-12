@@ -1,0 +1,66 @@
+.dashboard-drawer {
+  &.MuiDrawer-root {
+    .MuiDrawer-paper {
+      background-color: var(--color-dark) !important;
+      color: #ffffff !important;
+      width: 280px !important;
+    }
+  }
+
+  &.logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    a {
+      display: block;
+      text-align: center;
+      height: 80px;
+      line-height: 80px;
+      img {
+        max-height: 35px;
+      }
+    }
+  }
+}
+
+.dashboard-table {
+  .MuiTableHead-root {
+    background-color: var(--color-shade);
+    .MuiTableCell-root {
+      color: var(--color-primary);
+      border-bottom: none;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.5;
+      text-transform: uppercase;
+    }
+    .MuiTableCell-paddingCheckbox {
+      padding-top: 4;
+      padding-bottom: 4;
+    }
+  }
+
+  .MuiTableBody-root {
+    .MuiTableRow-root {
+      font-size: 16px;
+      transition: box-shadow 0.3s;
+      &:hover {
+        box-shadow: 0 0 15px var(--color-primary);
+      }
+    }
+    .MuiTableCell-root {
+      border-left: none;
+      border-right: none;
+    }
+  }
+}
+
+.dashboard-popover {
+  &.MuiPopover-root {
+    .MuiPaper-root {
+      width: 300px;
+    }
+  }
+}
