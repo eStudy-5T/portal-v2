@@ -86,7 +86,14 @@
     "yourCreatedCourses": "Các khoá học của bạn",
     "yourEnrolledCourses": "Các khoá học đã đăng ký",
     "confirmDeactivate": "Vô hiệu hoá khoá học này?",
-    "confirmActivate": "Kích hoạt khoá học này?"
+    "confirmActivate": "Kích hoạt khoá học này?",
+    "title":  "Tên",
+    "category": "Thể loại",
+    "subject": "Môn",
+    "status": "Trạng thái",
+    "updatedAt": "Thời gian cập nhật",
+    "action": "Hành động",
+    "add": "Thêm"
   },
   "nav": {
     "home": "Trang chủ",
@@ -221,5 +228,9 @@
     "jp": "Nhật Bản",
     "sg": "Singapore",
     "hk": "Hồng Kông"
+  },
+  "dashboard": {
+    "dashboard": "Bảng điều khiển",
+    "courses": "Khoá học của giáo viên"
   }
 }

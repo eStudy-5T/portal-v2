@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
 // Mui Components
-import { Grid } from '@mui/material'
+import { Grid, CircularProgress } from '@mui/material'
 
 // i18n
 import { useTranslation } from 'react-i18next'
@@ -170,10 +170,25 @@ function RegisterForm() {
           </div>
         </div>
         <button
-          className="rn-btn edu-btn w-100 mt--30"
+          className="rn-btn edu-btn btn-progress w-100 mt--30"
           type="submit"
           disabled={isLoading}
         >
+          {isLoading && (
+            <CircularProgress
+              thickness={5}
+              sx={{
+                color: 'red',
+                position: 'absolute',
+                margin: 'auto',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                padding: 1
+              }}
+            />
+          )}
           <span>{translation('auth.register')}</span>
         </button>
       </form>

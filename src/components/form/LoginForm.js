@@ -18,6 +18,7 @@ import authService from '../../services/auth-service'
 // Validators
 import { validateEmail } from '../../utils/validators/field-validators'
 import { getValidationHelperText } from '../../utils/helpers/validation-helper'
+import { CircularProgress } from '@mui/material'
 
 function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
@@ -97,10 +98,25 @@ function LoginForm() {
           <label htmlFor="checkbox-1">Remember Me</label>
         </div> */}
         <button
-          className="rn-btn edu-btn w-100 mb--30"
+          className="rn-btn edu-btn btn-progress w-100 mb--30"
           type="submit"
           disabled={isLoading}
         >
+          {isLoading && (
+            <CircularProgress
+              thickness={5}
+              sx={{
+                color: 'red',
+                position: 'absolute',
+                margin: 'auto',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                padding: 1
+              }}
+            />
+          )}
           <span>{translation('auth.login')}</span>
         </button>
 

@@ -41,47 +41,54 @@ function CourseOne() {
     rangePrice: -1,
     type: undefined
   })
-  const [isModifyAccessPopupShown, setPopupModifyAccessConfirm] = useState(false)
+  const [isModifyAccessPopupShown, setPopupModifyAccessConfirm] =
+    useState(false)
   const [selectedCourse, setSelectedCourse] = useState(null)
   const [selectedAction, setSelectedAction] = useState(null)
   const [accessChanged, setAccessChanged] = useState(false)
   const isFirstTimeSetPageSize = useRef(true)
   const userId = localStorage.getItem('currentUserId')
   const userRole = ROLE.TEACHER
-  const isAdmin = get(JSON.parse(localStorage.getItem('currentUser')), 'isAdmin', false)
+  const isAdmin = get(
+    JSON.parse(localStorage.getItem('currentUser')),
+    'isAdmin',
+    false
+  )
 
   const { t: translation } = useTranslation()
 
+  const debouncedFetchData = debounce(
+    async (pSearchText, paginationOptions = {}, queryOptions = {}) => {
+      const {
+        data: { courses, count }
+      } =
+        isShowMyCourse && userRole === ROLE.STUDENT
+          ? await userService.getEnrolledCourses(
+              userId,
+              String(pSearchText).trim().toLowerCase(),
+              paginationOptions,
+              queryOptions
+            )
+          : await courseService.getCourses(
+              userId,
+              String(pSearchText).trim().toLowerCase(),
+              paginationOptions,
+              queryOptions
+            )
+
+      setCourseData(courses)
+      setCourseCount(count)
+      if (isFirstTimeSetPageSize.current) {
+        isFirstTimeSetPageSize.current = false
+        setPageSize(count <= 8 ? count : 8)
+      }
+    },
+    750
+  )
+
   useEffect(() => {
     const offset = (pageNumber - 1) * pageSize
-    const debouncedFetchData = debounce(
-      async (pSearchText, paginationOptions = {}, queryOptions = {}) => {
-        const {
-          data: { courses, count }
-        } =
-          isShowMyCourse && userRole === ROLE.STUDENT
-            ? await userService.getEnrolledCourses(
-                userId,
-                String(pSearchText).trim().toLowerCase(),
-                paginationOptions,
-                queryOptions
-              )
-            : await courseService.getCourses(
-                userId,
-                String(pSearchText).trim().toLowerCase(),
-                paginationOptions,
-                queryOptions
-              )
 
-        setCourseData(courses)
-        setCourseCount(count)
-        if (isFirstTimeSetPageSize.current) {
-          isFirstTimeSetPageSize.current = false
-          setPageSize(count <= 8 ? count : 8)
-        }
-      },
-      750
-    )
     if (pageSize) {
       debouncedFetchData(searchText, { offset, limit: pageSize }, queryOptions)
     }
@@ -93,9 +100,10 @@ function CourseOne() {
     return () => {
       debouncedFetchData.cancel()
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isShowMyCourse,
-    searchText,
     pageNumber,
     pageSize,
     queryOptions,
@@ -103,6 +111,14 @@ function CourseOne() {
     userRole,
     accessChanged
   ])
+
+  const search = () => {
+    const offset = (pageNumber - 1) * pageSize
+
+    if (pageSize) {
+      debouncedFetchData(searchText, { offset, limit: pageSize }, queryOptions)
+    }
+  }
 
   const handleChangePageNumber = (event, value) => {
     setPageNumber(isNumber(value) ? value : 1)
@@ -226,17 +242,15 @@ function CourseOne() {
                     <div className="row g-5">
                       <div className="edu-search-box-wrapper text-start text-md-end">
                         <div className="edu-search-box">
-                          <form action="#">
-                            <input
-                              type="text"
-                              placeholder={translation('courses.searchCourse')}
-                              value={searchText}
-                              onChange={handleChangeSearchText}
-                            />
-                            <button className="search-button">
-                              <i className="icon-search-line" />
-                            </button>
-                          </form>
+                          <input
+                            type="text"
+                            placeholder={translation('courses.searchCourse')}
+                            value={searchText}
+                            onChange={handleChangeSearchText}
+                          />
+                          <button className="search-button" onClick={search}>
+                            <i className="icon-search-line" />
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -257,7 +271,7 @@ function CourseOne() {
                         onModifyAccessClick={onModifyAccessClick}
                         setSelectedCourse={setSelectedCourse}
                         setSelectedAction={setSelectedAction}
-                         />
+                      />
                     </ScrollAnimation>
                   ))}
                 </div>

@@ -87,7 +87,14 @@
     "yourCreatedCourses": "Your created courses",
     "yourEnrolledCourses": "Your enrolled courses",
     "confirmDeactivate": "Deactivate this course?",
-    "confirmActivate": "Activate this course?"
+    "confirmActivate": "Activate this course?",
+    "title":  "Title",
+    "category": "Category",
+    "subject": "Subject",
+    "status": "Status",
+    "updatedAt": "Updated At",
+    "action": "Action",
+    "add": "Add"
   },
   "nav": {
     "home": "Home",
@@ -222,5 +229,9 @@
     "jp": "Japan",
     "sg": "Singapore",
     "hk": "Hong Kong"
+  },
+  "dashboard": {
+    "dashboard": "Dashboard",
+    "courses": "Teacher Courses"
   }
 }
