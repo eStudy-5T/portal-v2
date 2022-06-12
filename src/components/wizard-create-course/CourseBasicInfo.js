@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import {
   Box,
   Grid,
@@ -11,9 +11,10 @@ import {
   Tooltip
 } from '@mui/material'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
-
 import CreatableSelect from 'react-select/creatable'
 import Select from 'react-select'
+import { COURSE_TYPE } from '../../utils/constants/misc'
+import { COURSE_GRADE } from '../../utils/constants/course-grade'
 
 const styles = {
   radio: {
@@ -30,19 +31,38 @@ const colourOptions = [
   { value: 'vanilla', label: 'Vanilla' }
 ]
 
-const CourseBasicInfo = () => {
-  const handleChangeTags = (newValue, actionMeta) => {
-    console.group('Value Changed')
-    console.log(newValue)
-    console.log(`action: ${actionMeta.action}`)
-    console.groupEnd()
+const CourseBasicInfo = ({
+  courseBasicData,
+  handleChangeBasicData,
+  handleChangeMultiSelect
+}) => {
+  const [tagsData, setTagsData] = useState([])
+
+  useEffect(() => {
+    const tags = courseBasicData.tags.map((tag) => {
+      return colourOptions.find((option) => option.value === tag)
+    })
+    setTagsData(tags)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const handleSelectTags = (newValue, actionMeta) => {
+    setTagsData(newValue)
+    handleChangeMultiSelect(newValue, 'tags', 'basic')
   }
 
-  const handleChangeCategories = (newValue, actionMeta) => {
-    console.group('Value Changed')
-    console.log(newValue)
-    console.log(`action: ${actionMeta.action}`)
-    console.groupEnd()
+  const handleChangeFieldData = (event, field) => {
+    const selectField = /categoryId|subjectId|grade/
+    if (selectField.test(field)) {
+      handleChangeBasicData(event?.value, field)
+    } else {
+      const inputFieldName = event.target.name
+      const value = event.target.value
+      handleChangeBasicData(
+        inputFieldName === 'maxStudentNumber' ? Number(value) : value,
+        inputFieldName
+      )
+    }
   }
 
   return (
@@ -58,16 +78,17 @@ const CourseBasicInfo = () => {
             </FormLabel>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
-              name="radio-buttons-group"
-              defaultValue="consump-course"
+              name="type"
+              value={courseBasicData.type || COURSE_TYPE.RUNNING}
+              onChange={handleChangeFieldData}
             >
               <FormControlLabel
-                value="consump-course"
+                value={COURSE_TYPE.RUNNING}
                 control={<Radio sx={styles.radio} />}
                 label="Learning Course. I have completed planning course schedule timeline for LetMeet student to enroll. My course is finished and ready for teaching"
               />
               <FormControlLabel
-                value="mkt-course"
+                value={COURSE_TYPE.MARKETING}
                 control={<Radio sx={styles.radio} />}
                 label=" Marketing Page. I do not want student to enroll my course yet. At this moment in time, I only want to create a marketing course for promotional purposes"
               />
@@ -86,6 +107,9 @@ const CourseBasicInfo = () => {
                 id="course-title"
                 type="text"
                 placeholder="Type here"
+                name="title"
+                value={courseBasicData.title || ''}
+                onChange={handleChangeFieldData}
                 required
               />
             </Grid>
@@ -101,6 +125,9 @@ const CourseBasicInfo = () => {
                 id="course-slug"
                 type="text"
                 placeholder="example-slug"
+                name="slug"
+                value={courseBasicData.slug || ''}
+                onChange={handleChangeFieldData}
                 required
               />
             </Grid>
@@ -122,6 +149,9 @@ const CourseBasicInfo = () => {
                 id="course-max-student"
                 type="number"
                 placeholder="Type here"
+                name="maxStudentNumber"
+                value={courseBasicData.maxStudentNumber || ''}
+                onChange={handleChangeFieldData}
                 required
               />
             </Grid>
@@ -138,26 +168,35 @@ const CourseBasicInfo = () => {
               <textarea
                 id="course-description"
                 placeholder="Type here"
+                name="description"
+                value={courseBasicData.description || ''}
+                onChange={handleChangeFieldData}
                 required
               ></textarea>
             </Grid>
             <Grid item xs={12} md={12} sx={{ mt: 2 }}>
               <InputLabel
-                htmlFor="course-tags"
+                htmlFor="course-category"
                 className="basic-info__input-label"
                 required
               >
-                Course Categories
+                Course Category
               </InputLabel>
-              <CreatableSelect
-                id="course-categories"
-                className="basic-multi-select"
+              <Select
+                id="course-category"
+                className="basic-single"
                 classNamePrefix="select"
-                name="categories"
-                placeholder="Search"
-                isMulti
-                onChange={handleChangeCategories}
+                placeholder="Select here"
+                isClearable={true}
+                isSearchable={true}
+                name="categoryId"
                 options={colourOptions}
+                value={
+                  colourOptions.find(
+                    (option) => option.value === courseBasicData.categoryId
+                  ) || ''
+                }
+                onChange={(event) => handleChangeFieldData(event, 'categoryId')}
               />
             </Grid>
           </Grid>
@@ -177,8 +216,14 @@ const CourseBasicInfo = () => {
                 placeholder="Select here"
                 isClearable={true}
                 isSearchable={true}
-                name="subject"
+                name="subjectId"
                 options={colourOptions}
+                value={
+                  colourOptions.find(
+                    (option) => option.value === courseBasicData.subjectId
+                  ) || ''
+                }
+                onChange={(event) => handleChangeFieldData(event, 'subjectId')}
               />
             </Grid>
             <Grid item xs={12} md={6} sx={{ mt: 2 }}>
@@ -197,7 +242,13 @@ const CourseBasicInfo = () => {
                 isClearable={true}
                 isSearchable={true}
                 name="grade"
-                options={colourOptions}
+                options={COURSE_GRADE}
+                value={
+                  COURSE_GRADE.find(
+                    (option) => option.value === courseBasicData.grade
+                  ) || ''
+                }
+                onChange={(event) => handleChangeFieldData(event, 'grade')}
               />
             </Grid>
           </Grid>
@@ -217,7 +268,8 @@ const CourseBasicInfo = () => {
                 name="tags"
                 placeholder="Search"
                 isMulti
-                onChange={handleChangeTags}
+                value={tagsData}
+                onChange={handleSelectTags}
                 options={colourOptions}
               />
             </Grid>

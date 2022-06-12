@@ -12,7 +12,10 @@ function CompactFooter() {
 
   return (
     <>
-      <footer className="letmeet-footer-one edu-footer footer-style-default">
+      <footer
+        className="letmeet-footer-one edu-footer footer-style-default"
+        style={{ marginTop: '30px' }}
+      >
         <div className="compact-footer__top">
           <div className="container compact-footer__content">
             <div className="compact-footer__content-nav">
