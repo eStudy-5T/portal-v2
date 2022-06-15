@@ -69,3 +69,23 @@
     }
   }
 }
+
+.MuiListItemSecondaryAction {
+  &-root {
+    position: relative !important;
+    transform: none !important;
+    margin-left: 50px !important;
+  }
+}
+
+.MuiList {
+  &-root {
+    padding: 0 !important;
+  }
+}
+
+.MuiListItem {
+  &-root {
+    padding-top: 0 !important;
+  }
+}

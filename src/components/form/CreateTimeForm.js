@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
@@ -16,30 +16,34 @@ import {
 } from '@mui/material'
 
 // i18n
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 
-// Validators
-import { getValidationHelperText } from '../../utils/helpers/validation-helper'
 import { WEEK_DAYS } from '../../utils/constants/misc'
 
-const CreateTimeForm = (props) => {
-  const { t: translation } = useTranslation()
+const CreateTimeForm = ({ setOpen, handleAddScheduleTime }) => {
+  // const { t: translation } = useTranslation()
 
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors, isValid }
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
-      start_time: '',
-      end_time: '',
-      day: 0
+      startTime: '',
+      endTime: '',
+      dayOfWeek: ''
     }
   })
 
-  const onSubmit = (data) => {}
+  const onSubmit = (data) => {
+    if (!isValid) {
+      return
+    }
+
+    handleAddScheduleTime(data)
+    setOpen(false)
+  }
 
   return (
     <div className="login-form-box">
@@ -54,10 +58,14 @@ const CreateTimeForm = (props) => {
               Start Time
             </InputLabel>
             <input
-              className="input_time"
+              className={
+                'input_time ' + (errors.startTime ? ' input-error' : '')
+              }
               id="lesson-duration-start"
               type="time"
-              name="start-time"
+              {...register('startTime', {
+                required: 'error.emptyField'
+              })}
             />
           </Grid>
           <Grid item xs={12} md={6} sx={{ mt: 1 }}>
@@ -69,10 +77,12 @@ const CreateTimeForm = (props) => {
               End Time
             </InputLabel>
             <input
-              className="input_time"
+              className={'input_time ' + (errors.endTime ? ' input-error' : '')}
               id="lesson-duration-end"
               type="time"
-              name="end-time"
+              {...register('endTime', {
+                required: 'error.emptyField'
+              })}
             />
           </Grid>
         </Grid>
@@ -80,20 +90,25 @@ const CreateTimeForm = (props) => {
           <Grid item xs={12}>
             <Box sx={{ mt: 2 }}>
               <FormControl required sx={{ width: '100%' }}>
-                <FormLabel
-                  id="demo-radio-buttons-group-label"
-                  className="basic-info__input-label"
-                >
-                  Day of Week
-                </FormLabel>
+                <Box>
+                  <FormLabel
+                    id="demo-radio-buttons-group-label"
+                    className="basic-info__input-label"
+                    sx={{ mr: '10px' }}
+                  >
+                    Day of Week
+                  </FormLabel>
+                </Box>
                 <RadioGroup
                   row
                   aria-labelledby="demo-radio-buttons-group-label"
-                  name="radio-buttons-group"
                   sx={{ margin: '0 auto' }}
                 >
                   {WEEK_DAYS.map((day) => (
                     <FormControlLabel
+                      {...register('dayOfWeek', {
+                        required: 'error.emptyField'
+                      })}
                       key={day.value}
                       value={day.value}
                       control={<Radio />}
@@ -110,10 +125,14 @@ const CreateTimeForm = (props) => {
           spacing={2}
           sx={{ mt: 4, justifyContent: 'right' }}
         >
-          <Button variant="contained" color="error">
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => setOpen(false)}
+          >
             Cancel
           </Button>
-          <Button variant="contained" color="success">
+          <Button type="submit" variant="contained" color="success">
             Add
           </Button>
         </Stack>

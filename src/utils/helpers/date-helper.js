@@ -40,7 +40,7 @@ export const calculateFlexibleLessonNumber = (
     const rrule = new RRule({
       freq: RRule.WEEKLY,
       byweekday: [RRule[dayOfWeek.toUpperCase().substring(0, 2)]],
-      byhour: Array.from(Array(schedulesGroupedByDay[dayOfWeek]).keys()),
+      byhour: Array.from(Array(schedulesGroupedByDay[dayOfWeek].length).keys()),
       dtstart: new Date(
         Date.UTC(
           startDate.getUTCFullYear(),

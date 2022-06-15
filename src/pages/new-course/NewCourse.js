@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import usePrompt from '../../hooks/user-prompt'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
@@ -7,7 +8,11 @@ import CourseConfirmation from '../../components/wizard-create-course/CourseConf
 import CourseSchedule from '../../components/wizard-create-course/CourseSchedule'
 import { Box, Stepper, Step, StepLabel, Container } from '@mui/material'
 import { COURSE_TYPE, COURSE_SCHEDULE_TYPE } from '../../utils/constants/misc'
-import { validateForm } from '../../utils/validators/create-course-validate'
+import {
+  validateBasicForm,
+  validateScheduleForm
+} from '../../utils/validators/create-course-validate'
+import courseService from '../../services/course-service'
 
 const steps = ['Course Overview', 'Course Schedule', 'Confirmation']
 
@@ -32,13 +37,13 @@ const initializeCourseSchedule = {
   startTime: null,
   endTime: null,
   daysOfWeek: [],
-  lessonNumberPerWeek: 0,
   //Flexible time
-  dayOfWeek: null,
-  schedules: null
+  lessonNumberPerWeek: 0,
+  schedules: []
 }
 
 const NewCourse = () => {
+  const navigate = useNavigate()
   const [isAllowNextStep, setAllowNextStep] = useState(false)
   const [courseBasicData, setCourseBasicData] = useState(initializeCourseBasic)
   const [courseScheduleData, setCourseScheduleData] = useState(
@@ -52,9 +57,11 @@ const NewCourse = () => {
   useEffect(() => {
     let isAllowNextStep
     if (activeStep === 0) {
-      isAllowNextStep = validateForm(courseBasicData)
+      isAllowNextStep = validateBasicForm(courseBasicData)
     } else if (activeStep === 1) {
-      isAllowNextStep = validateForm(courseScheduleData)
+      isAllowNextStep = validateScheduleForm(courseScheduleData)
+    } else if (activeStep === 2) {
+      isAllowNextStep = true
     }
 
     setAllowNextStep(isAllowNextStep)
@@ -87,8 +94,6 @@ const NewCourse = () => {
 
   const handleChangeScheduleData = (value, field) => {
     setIsBlocking(true)
-    console.log('event.target.value', value)
-    console.log('field', field)
 
     if (field === 'scheduleType') {
       setCourseScheduleData((prevCourseScheduleData) => ({
@@ -97,7 +102,6 @@ const NewCourse = () => {
         endTime: null,
         daysOfWeek: [],
         lessonNumberPerWeek: 0,
-        dayOfWeek: null,
         schedules: null
       }))
     }
@@ -111,9 +115,12 @@ const NewCourse = () => {
   const handleChangeMultiSelect = (newValue, field, form) => {
     setIsBlocking(true)
     let values = []
-    newValue.forEach((e) => {
-      values.push(e.value)
-    })
+
+    if (!!newValue.length) {
+      newValue.forEach((e) => {
+        values.push(e.value)
+      })
+    }
 
     if (form === 'basic') {
       setCourseBasicData({
@@ -126,6 +133,43 @@ const NewCourse = () => {
         [field]: values
       })
     }
+  }
+
+  const handleAddScheduleTime = (data) => {
+    setIsBlocking(true)
+    const scheduleTime = {
+      id:
+        (courseScheduleData.schedules
+          ? courseScheduleData.schedules.length
+          : 0) + 1,
+      startTime: data.startTime,
+      endTime: data.endTime,
+      dayOfWeek: data.dayOfWeek
+    }
+
+    let schedules = courseScheduleData.schedules
+      ? [...courseScheduleData.schedules]
+      : []
+    schedules.push(scheduleTime)
+    setCourseScheduleData({
+      ...courseScheduleData,
+      schedules: schedules
+    })
+  }
+
+  const handleSubmit = () => {
+    console.log('courseBasicData', courseBasicData)
+    console.log('courseScheduleData', courseScheduleData)
+    const courseData = { ...courseBasicData, ...courseScheduleData }
+
+    courseService
+      .createCourse(courseData)
+      .then((res) => {
+        if (res) {
+          navigate('/teacher-courses')
+        }
+      })
+      .catch(console.log)
   }
 
   const getStepContent = (step) => {
@@ -144,6 +188,7 @@ const NewCourse = () => {
             courseScheduleData={courseScheduleData}
             handleChangeScheduleData={handleChangeScheduleData}
             handleChangeMultiSelect={handleChangeMultiSelect}
+            handleAddScheduleTime={handleAddScheduleTime}
           />
         )
       case 2:
@@ -192,13 +237,23 @@ const NewCourse = () => {
                     </button>
                   )}
                   <Box sx={{ flex: '1 1 auto' }} />
-                  <button
-                    className="rn-btn edu-btn"
-                    onClick={handleNext}
-                    disabled={!isAllowNextStep}
-                  >
-                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                  </button>
+                  {activeStep === steps.length - 1 ? (
+                    <button
+                      className="rn-btn edu-btn"
+                      onClick={handleSubmit}
+                      disabled={!isAllowNextStep}
+                    >
+                      Finish
+                    </button>
+                  ) : (
+                    <button
+                      className="rn-btn edu-btn"
+                      onClick={handleNext}
+                      disabled={!isAllowNextStep}
+                    >
+                      Next
+                    </button>
+                  )}
                 </Box>
               </Fragment>
             </Container>

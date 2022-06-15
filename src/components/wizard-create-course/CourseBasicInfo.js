@@ -15,6 +15,7 @@ import CreatableSelect from 'react-select/creatable'
 import Select from 'react-select'
 import { COURSE_TYPE } from '../../utils/constants/misc'
 import { COURSE_GRADE } from '../../utils/constants/course-grade'
+import courseService from '../../services/course-service'
 
 const styles = {
   radio: {
@@ -37,14 +38,44 @@ const CourseBasicInfo = ({
   handleChangeMultiSelect
 }) => {
   const [tagsData, setTagsData] = useState([])
+  const [categories, setCategories] = useState([])
+  const [subjects, setSubjects] = useState([])
+  const [subOptions, setSubOptions] = useState([])
 
   useEffect(() => {
-    const tags = courseBasicData.tags.map((tag) => {
-      return colourOptions.find((option) => option.value === tag)
-    })
-    setTagsData(tags)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const fetchCategoriesAndSubjects = async () => {
+      const cats = await courseService.getCategoryOptions()
+      const subs = await courseService.getSubjectOptions()
+      setCategories(
+        cats.data.map((cat) => ({ value: cat.id, label: cat.name }))
+      )
+      setSubjects(subs.data)
+    }
+
+    fetchCategoriesAndSubjects()
   }, [])
+
+  useEffect(() => {
+    if (courseBasicData.tags && !!courseBasicData.tags.length) {
+      const tags = courseBasicData.tags.map((tag) => {
+        return colourOptions.find((option) => option.value === tag)
+      })
+      setTagsData(tags)
+    }
+
+    if (courseBasicData.categoryId) {
+      const subjectOptions = subjects
+        .map((subject) => {
+          if (subject.categoryId === courseBasicData.categoryId) {
+            return { value: subject.id, label: subject.name }
+          }
+          return null
+        })
+        .filter((e) => e)
+      console.log('subjectOptions', subjectOptions)
+      setSubOptions(subjectOptions)
+    }
+  }, [subjects, courseBasicData.tags, courseBasicData.categoryId])
 
   const handleSelectTags = (newValue, actionMeta) => {
     setTagsData(newValue)
@@ -55,6 +86,21 @@ const CourseBasicInfo = ({
     const selectField = /categoryId|subjectId|grade/
     if (selectField.test(field)) {
       handleChangeBasicData(event?.value, field)
+
+      if (field === 'categoryId' && event?.value) {
+        console.log('subjects', subjects)
+        console.log('event.value', event.value)
+        const subjectOptions = subjects
+          .map((subject) => {
+            if (subject.categoryId === event.value) {
+              return { value: subject.id, label: subject.name }
+            }
+            return null
+          })
+          .filter((e) => e)
+        console.log('subjectOptions', subjectOptions)
+        setSubOptions(subjectOptions)
+      }
     } else {
       const inputFieldName = event.target.name
       const value = event.target.value
@@ -190,9 +236,9 @@ const CourseBasicInfo = ({
                 isClearable={true}
                 isSearchable={true}
                 name="categoryId"
-                options={colourOptions}
+                options={categories}
                 value={
-                  colourOptions.find(
+                  categories.find(
                     (option) => option.value === courseBasicData.categoryId
                   ) || ''
                 }
@@ -217,9 +263,10 @@ const CourseBasicInfo = ({
                 isClearable={true}
                 isSearchable={true}
                 name="subjectId"
-                options={colourOptions}
+                options={subOptions}
+                isDisabled={!courseBasicData.categoryId}
                 value={
-                  colourOptions.find(
+                  subOptions.find(
                     (option) => option.value === courseBasicData.subjectId
                   ) || ''
                 }

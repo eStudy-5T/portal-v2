@@ -8,15 +8,23 @@ import {
   FormLabel,
   FormControlLabel,
   Radio,
-  Typography
+  Typography,
+  List,
+  ListItem,
+  IconButton,
+  ListItemAvatar,
+  ListItemText,
+  Avatar
 } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import * as moment from 'moment'
 import * as fns from 'date-fns'
-import { toast } from 'react-toastify'
-// import {
-//   calculatePermanentLessonNumber,
-//   calculateFlexibleLessonNumber
-// } from '../../utils/helpers/date-helper'
+import {
+  calculatePermanentLessonNumber,
+  calculateFlexibleLessonNumber
+} from '../../utils/helpers/date-helper'
 import CustomDialog from '../dialog/CustomDialog'
 import CreateTimeForm from '../../components/form/CreateTimeForm'
 
@@ -30,19 +38,24 @@ const FORMAT_TIME = 'h:mma'
 const CourseSchedule = ({
   courseScheduleData,
   handleChangeScheduleData,
-  handleChangeMultiSelect
+  handleChangeMultiSelect,
+  handleAddScheduleTime
 }) => {
+  const [totalDuration, setTotalDuration] = useState(0)
+  const [totalLesson, setTotalLesson] = useState(0)
   const [lessonDuration, setLessonDuration] = useState(0)
   const [totalWeek, setTotalWeek] = useState(0)
   const [daysOfWeek, setDaysOfWeek] = useState([])
   const [isAddTimeItem, setAddTimeItem] = useState(false)
 
   useEffect(() => {
-    const days = courseScheduleData.daysOfWeek.map((day) => {
-      return WEEK_DAYS.find((wd) => wd.value === day)
-    })
+    if (courseScheduleData.daysOfWeek) {
+      const days = courseScheduleData.daysOfWeek.map((day) => {
+        return WEEK_DAYS.find((wd) => wd.value === day)
+      })
 
-    setDaysOfWeek(days)
+      setDaysOfWeek(days)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -69,6 +82,45 @@ const CourseSchedule = ({
     courseScheduleData.endDate
   ])
 
+  useEffect(() => {
+    if (
+      courseScheduleData.startDate &&
+      courseScheduleData.endDate &&
+      ((courseScheduleData.daysOfWeek &&
+        !!courseScheduleData.daysOfWeek.length) ||
+        (courseScheduleData.schedules && !!courseScheduleData.schedules.length))
+    ) {
+      if (
+        courseScheduleData.schedules.length ===
+        Number(courseScheduleData.lessonNumberPerWeek)
+      ) {
+        const lessons = calculateTotalLessonInCourse(
+          courseScheduleData.startDate,
+          courseScheduleData.endDate,
+          courseScheduleData.daysOfWeek,
+          courseScheduleData.schedules,
+          courseScheduleData.scheduleType
+        )
+
+        setTotalLesson(lessons)
+      }
+    }
+  }, [
+    courseScheduleData.lessonNumberPerWeek,
+    courseScheduleData.startDate,
+    courseScheduleData.endDate,
+    courseScheduleData.daysOfWeek,
+    courseScheduleData.schedules,
+    courseScheduleData.scheduleType
+  ])
+
+  useEffect(() => {
+    if (totalLesson && lessonDuration) {
+      const hours = (totalLesson * lessonDuration) / 60
+      setTotalDuration(hours)
+    }
+  }, [totalLesson, lessonDuration])
+
   const handleDialogAddTimeItem = (status) => setAddTimeItem(status)
 
   const handleChangeWeekDays = (newValue, actionMeta) => {
@@ -79,6 +131,17 @@ const CourseSchedule = ({
   const handleChangeFieldData = (event) => {
     const field = event.target.name
     const value = event.target.value
+
+    if (field === 'lessonNumberPerWeek') {
+      if (
+        courseScheduleData.schedules &&
+        !!courseScheduleData.schedules.length
+      ) {
+        handleChangeMultiSelect([], 'schedules', 'schedule')
+        setTotalLesson(0)
+      }
+    }
+
     handleChangeScheduleData(value, field)
 
     if (field === 'startDate') {
@@ -89,15 +152,16 @@ const CourseSchedule = ({
         const defaultDeadline = moment(value, FORMAT_DATE)
           .add(7, 'days')
           .format(FORMAT_DATE)
-        console.log('defaultDeadline', defaultDeadline)
+
         handleChangeScheduleData(defaultDeadline, 'enrollmentDeadline')
       }
     }
 
     if (field === 'scheduleType') {
       setLessonDuration(0)
-      setTotalWeek(0)
       setDaysOfWeek([])
+      setTotalLesson(0)
+      setTotalDuration(0)
     }
   }
 
@@ -112,6 +176,52 @@ const CourseSchedule = ({
     const start = new Date(startDate)
     const end = new Date(endDate)
     return fns.differenceInWeeks(end, start)
+  }
+
+  const calculateTotalLessonInCourse = (
+    startDate,
+    endDate,
+    daysOfWeek = [],
+    schedules = [],
+    scheduleType
+  ) => {
+    if (scheduleType === COURSE_SCHEDULE_TYPE.PERMANENT) {
+      return calculatePermanentLessonNumber(
+        new Date(startDate),
+        new Date(endDate),
+        daysOfWeek
+      )
+    } else if (scheduleType === COURSE_SCHEDULE_TYPE.FLEXIBLE) {
+      return calculateFlexibleLessonNumber(
+        new Date(startDate),
+        new Date(endDate),
+        schedules
+      )
+    }
+  }
+
+  const getLessonLeft = () => {
+    return (
+      courseScheduleData.lessonNumberPerWeek -
+      (courseScheduleData.schedules ? courseScheduleData.schedules.length : 0)
+    )
+  }
+
+  const convertTimeFormat = (time) => moment(time, 'hh:mm').format(FORMAT_TIME)
+
+  const getLongTextDay = (valueKey) =>
+    WEEK_DAYS.find((day) => day.value === valueKey).label
+
+  const handleDeleteTimeItem = (id) => {
+    if (!courseScheduleData.schedules.length) {
+      return
+    }
+
+    const schedules = [...courseScheduleData.schedules]
+    const schedulesAfterRemove = schedules.filter(
+      (schedule) => schedule.id !== id
+    )
+    handleChangeMultiSelect(schedulesAfterRemove, 'schedules', 'schedule')
   }
 
   return (
@@ -284,7 +394,13 @@ const CourseSchedule = ({
                     >
                       Total Lesson in Course
                     </InputLabel>
-                    <input id="total-lesson" type="number" readOnly disabled />
+                    <input
+                      id="total-lesson"
+                      type="number"
+                      value={totalLesson}
+                      readOnly
+                      disabled
+                    />
                   </Grid>
                   <Grid item xs={12} md={4} sx={{ mt: 2 }}>
                     <InputLabel
@@ -311,6 +427,7 @@ const CourseSchedule = ({
                     <input
                       id="total-duration"
                       type="number"
+                      value={totalDuration}
                       readOnly
                       disabled
                     />
@@ -351,6 +468,7 @@ const CourseSchedule = ({
                       <input
                         id="total-lesson"
                         type="number"
+                        value={totalLesson}
                         readOnly
                         disabled
                       />
@@ -360,16 +478,64 @@ const CourseSchedule = ({
                     className="rn-btn edu-btn add-btn"
                     type="button"
                     onClick={() => handleDialogAddTimeItem(true)}
+                    disabled={!getLessonLeft()}
                   >
                     Add Time
                   </button>
                   <Typography variant="main" fontWeight="bold">
-                    {courseScheduleData.lessonNumberPerWeek || 0} lesson left
+                    {getLessonLeft()} lesson left
                   </Typography>
                   <Grid container component="main" spacing={1} sx={{ mt: 1 }}>
-                    <Typography variant="main" ml={2}>
-                      No Time Established
-                    </Typography>
+                    <Box>
+                      {courseScheduleData.schedules &&
+                      !!courseScheduleData.schedules.length ? (
+                        courseScheduleData.schedules.map((schedule) => (
+                          <List dense key={schedule.id} sx={{ mt: 1, mb: 2 }}>
+                            <ListItem
+                              secondaryAction={
+                                <Box id="item-action">
+                                  <IconButton
+                                    edge="end"
+                                    aria-label="edit"
+                                    sx={{ mr: '5px' }}
+                                  >
+                                    <EditIcon />
+                                  </IconButton>
+                                  <IconButton
+                                    edge="end"
+                                    aria-label="delete"
+                                    onClick={() =>
+                                      handleDeleteTimeItem(schedule.id)
+                                    }
+                                  >
+                                    <DeleteIcon />
+                                  </IconButton>
+                                </Box>
+                              }
+                            >
+                              <ListItemAvatar>
+                                <Avatar sx={{ background: '#525fe1' }}>
+                                  <CalendarTodayIcon />
+                                </Avatar>
+                              </ListItemAvatar>
+                              <ListItemText
+                                secondary={getLongTextDay(schedule?.dayOfWeek)}
+                              >
+                                <strong>Start time:&nbsp;</strong>
+                                {convertTimeFormat(schedule.startTime)}
+                                &nbsp; - &nbsp;
+                                <strong>End time:&nbsp;</strong>
+                                {convertTimeFormat(schedule.endTime)}
+                              </ListItemText>
+                            </ListItem>
+                          </List>
+                        ))
+                      ) : (
+                        <Typography variant="main" ml={2}>
+                          No Time Established
+                        </Typography>
+                      )}
+                    </Box>
                   </Grid>
                 </Box>
                 {/* Popup goes here */}
@@ -380,7 +546,10 @@ const CourseSchedule = ({
                   open={isAddTimeItem}
                   setOpen={handleDialogAddTimeItem}
                 >
-                  <CreateTimeForm />
+                  <CreateTimeForm
+                    setOpen={handleDialogAddTimeItem}
+                    handleAddScheduleTime={handleAddScheduleTime}
+                  />
                 </CustomDialog>
               </Fragment>
             )}
