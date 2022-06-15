@@ -167,3 +167,8 @@ export const COURSE_SCHEDULE_TYPE = {
   PERMANENT: 'permanent',
   FLEXIBLE: 'flexible'
 }
+
+export const COURSE_TYPE = {
+  RUNNING: 'RUNNING',
+  MARKETING: 'MARKETING'
+}

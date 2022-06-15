@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SEO from '../../common/SEO'
 import DashboardLayout from '../../components/dashboard/dashboard-layout'
 import SortBy from '../../components/widgets/course/SortBy'
@@ -51,6 +51,7 @@ const TeacherCourses = () => {
   const [gradeFilterEl, setGradeFilterEl] = useState(null)
   const [filterByPriceEl, setFilterByPriceEl] = useState(null)
   const isFirstTimeSetPageSize = useRef(true)
+  const navigate = useNavigate()
   const tableRef = useRef()
   const userId = localStorage.getItem('currentUserId')
 
@@ -155,6 +156,8 @@ const TeacherCourses = () => {
     }
   }
 
+  const handleAddNewCourse = () => navigate('/new-course')
+
   return (
     <DashboardLayout>
       <SEO title="Teacher Courses" />
@@ -250,7 +253,7 @@ const TeacherCourses = () => {
                   </div>
                 </div>
                 <div className="col-lg-2 col-md-6 col-6 d-flex justify-content-end">
-                  <button className="edu-btn">
+                  <button className="edu-btn" onClick={handleAddNewCourse}>
                     {translation('courses.add')}
                   </button>
                 </div>

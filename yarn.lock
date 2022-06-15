@@ -6804,11 +6804,6 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-luxon@^1.21.3:
-  version "1.28.0"
-  resolved "https://registry.npmjs.org/luxon/-/luxon-1.28.0.tgz"
-  integrity sha512-TfTiyvZhwBYM/7QdAVDh+7dBTBA29v4ik0Ce9zda3Mnf8on1S5KJI8P2jKFZ8+5C0jhmr0KwJEO/Wdpm0VeWJQ==
-
 lz-string@^1.4.4:
   version "1.4.4"
   resolved "https://registry.npmjs.org/lz-string/-/lz-string-1.4.4.tgz"
@@ -8956,14 +8951,12 @@ rollup@^2.43.1:
   optionalDependencies:
     fsevents "~2.3.2"
 
-rrule@^2.6.9:
-  version "2.6.9"
-  resolved "https://registry.npmjs.org/rrule/-/rrule-2.6.9.tgz"
-  integrity sha512-PE4ErZDMfAcRnc1B35bZgPGS9mbn7Z9bKDgk6+XgrIwvBjeWk7JVEYsqKwHYTrDGzsHPtZTpaon8IyeKzAhj5w==
+rrule@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/rrule/-/rrule-2.7.0.tgz#f985bae79102a08893885a81e551a4977c6e6bcc"
+  integrity sha512-PnSvdJLHrETO4qQxm9nlDvSxNfbPdDFbgdz2BSHXTP+IzHbdwSNvTHOeN0O9khiy91GjzWXyiVJhnPDOQvejNg==
   dependencies:
     tslib "^1.10.0"
-  optionalDependencies:
-    luxon "^1.21.3"
 
 run-parallel@^1.1.9:
   version "1.2.0"
