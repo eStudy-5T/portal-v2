@@ -91,8 +91,9 @@ const CourseSchedule = ({
         (courseScheduleData.schedules && !!courseScheduleData.schedules.length))
     ) {
       if (
+        courseScheduleData.schedules &&
         courseScheduleData.schedules.length ===
-        Number(courseScheduleData.lessonNumberPerWeek)
+          Number(courseScheduleData.lessonNumberPerWeek)
       ) {
         const lessons = calculateTotalLessonInCourse(
           courseScheduleData.startDate,
@@ -150,7 +151,7 @@ const CourseSchedule = ({
         courseScheduleData.enrollmentDeadline === 'Invalid date'
       ) {
         const defaultDeadline = moment(value, FORMAT_DATE)
-          .add(7, 'days')
+          .subtract(7, 'days')
           .format(FORMAT_DATE)
 
         handleChangeScheduleData(defaultDeadline, 'enrollmentDeadline')

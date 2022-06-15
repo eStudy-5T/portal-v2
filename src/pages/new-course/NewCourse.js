@@ -102,7 +102,7 @@ const NewCourse = () => {
         endTime: null,
         daysOfWeek: [],
         lessonNumberPerWeek: 0,
-        schedules: null
+        schedules: []
       }))
     }
 
@@ -158,8 +158,6 @@ const NewCourse = () => {
   }
 
   const handleSubmit = () => {
-    console.log('courseBasicData', courseBasicData)
-    console.log('courseScheduleData', courseScheduleData)
     const courseData = { ...courseBasicData, ...courseScheduleData }
 
     courseService
