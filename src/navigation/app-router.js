@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route, Outlet, useSearchParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import debounce from 'lodash.debounce'
@@ -25,12 +25,12 @@ import useVerify from '../hooks/use-verify'
 
 const AppRouter = () => {
   const [isAppLoading, setIsAppLoading] = useState(false)
-  const [userInfo, setUserInfo] = useState({})
   const [isAuthenticated] = useAuthenticate()
   const [isVerified] = useVerify()
   const dispatch = useDispatch()
   const [searchParams, setSearchParams] = useSearchParams()
   const { t: translation } = useTranslation()
+  const userInfo = useSelector((state) => state.userInfo)
 
   const fireVerifyAccountAlert = useCallback(
     () =>
@@ -75,7 +75,6 @@ const AppRouter = () => {
           const { data: tempUserInfo } = await userService.fetchUserInfo(
             currentUserId
           )
-          setUserInfo(tempUserInfo)
           dispatch(userActions.setUserInfo(tempUserInfo))
           setIsAppLoading(false)
         } catch (err) {
