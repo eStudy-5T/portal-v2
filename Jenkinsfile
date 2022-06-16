@@ -25,6 +25,7 @@ pipeline {
       // }
       steps {
         sh 'bash ./scripts/deploy.sh'
+        sh 'docker-compose up'
       }
     }
   }
