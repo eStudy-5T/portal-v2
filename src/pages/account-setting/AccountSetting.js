@@ -134,14 +134,16 @@ const AccountDetails = (props) => {
 
   const currentUserId = localStorage.getItem('currentUserId')
 
-  function formatDateTimeToYYYYMMDD(date) {
-    const d = new Date(date || Date.now())
-
-    const day = ('0' + d.getDate()).slice(-2)
-    const month = ('0' + (d.getMonth() + 1)).slice(-2)
-    const year = d.getFullYear()
-
-    return year + '-' + month + '-' + day
+  function formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear()
+  
+    if (month.length < 2) month = '0' + month
+    if (day.length < 2) day = '0' + day
+  
+    return [year, month, day].join('-')
   }
 
   const handleChange = (event) => {
@@ -225,7 +227,7 @@ const AccountDetails = (props) => {
                 onChange={handleChange}
                 type="date"
                 required
-                defaultValue={formatDateTimeToYYYYMMDD(
+                defaultValue={formatDate(
                   '2022-06-10T06:57:10.750Z'
                 )}
                 variant="outlined"
