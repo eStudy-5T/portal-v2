@@ -14,16 +14,16 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-nvm use 14 | grep "N/A" &> /dev/null
+nvm use 16 | grep "N/A" &> /dev/null
 if [ $? == 0 ]; then
- echo "Installing NVM 14"
- nvm install 14
- echo "NVM 14 ready"
+ echo "Installing NVM 16"
+ nvm install 16
+ echo "NVM 16 ready"
 else
- echo "NVM 14 ready"
+ echo "NVM 16 ready"
 fi
 
-nvm use 14
+nvm use 16
 yarn
 
 
