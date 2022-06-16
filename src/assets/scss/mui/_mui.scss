@@ -1,0 +1,91 @@
+.MuiStepLabel {
+  &-labelContainer {
+    span {
+      font-size: 18px;
+      font-family: 'Calibri', sans-serif;
+    }
+
+    .Mui-active {
+      font-weight: bold !important;
+    }
+  }
+
+  &-iconContainer {
+    transform: scale(1.5);
+
+    text {
+      font-size: 13px;
+      font-weight: bold;
+      font-family: 'Calibri', sans-serif;
+    }
+  }
+}
+
+.Mui {
+  &-active {
+    color: var(--color-primary) !important;
+  }
+
+  &-completed {
+    color: green !important;
+  }
+}
+
+.MuiFormLabel {
+  &-asterisk {
+    color: red !important;
+  }
+
+  &-root.Mui-focused {
+    color: #121212 !important;
+  }
+}
+
+.MuiStepConnector {
+  &-root {
+    top: 20px !important;
+    left: calc(-50% + 30px) !important;
+    right: calc(50% + 30px) !important;
+  }
+}
+
+.MuiStepIcon {
+  &-root {
+    font-size: 2.5rem !important;
+  }
+}
+
+.MuiOutlinedInput {
+  &-input {
+    border: none !important;
+  }
+  &-notchedOutline {
+    border: var(--border-width) solid var(--color-border) !important;
+    border-radius: var(--radius) !important;
+  }
+  &-root.Mui-focused {
+    & .MuiOutlinedInput-notchedOutline {
+      border-color: var(--color-primary) !important;
+    }
+  }
+}
+
+.MuiListItemSecondaryAction {
+  &-root {
+    position: relative !important;
+    transform: none !important;
+    margin-left: 50px !important;
+  }
+}
+
+.MuiList {
+  &-root {
+    padding: 0 !important;
+  }
+}
+
+.MuiListItem {
+  &-root {
+    padding-top: 0 !important;
+  }
+}

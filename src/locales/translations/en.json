@@ -28,7 +28,7 @@
     "getEnrollmentFail": "Get enrollment fail",
     "enrollFail": "Enroll fail",
     "updateUserFail": "Update user fail",
-    "csrfTokenInvalid": "Cookies has been tampered. Please login again",
+    "csrfTokenInvalid": "You are not authorized",
     "refreshTokenExpired": "Your active session has expired. Please login again",
     "minTitle": "Mimimun length of title is 10!",
     "maxTitle": "Maximum length of title is 100!",
@@ -39,9 +39,11 @@
     "invalidPassword": "Invalid Password",
     "invalidResetPasswordToken": "Reset password token is invalid or has expired",
     "externalLogin": "Third party login does not support password reset",
-    "externalChangePassword":"Third party login does not support password change",
+    "externalChangePassword": "Third party login does not support password change",
     "teacherEnrollCourse": "You can not enroll your own course!",
-    "userReEnroll": "You have already enrolled this course!"
+    "userReEnroll": "You have already enrolled this course!",
+    "alreadyReviewed": "You have already left a review!",
+    "notAdmin": "You must have admin permissions to do this action"
   },
   "auth": {
     "login": "Login",
@@ -83,7 +85,16 @@
     "showMeetingLinkTitle": "You can already join the lessons of this class",
     "allCourses": "All courses",
     "yourCreatedCourses": "Your created courses",
-    "yourEnrolledCourses": "Your enrolled courses"
+    "yourEnrolledCourses": "Your enrolled courses",
+    "confirmDeactivate": "Deactivate this course?",
+    "confirmActivate": "Activate this course?",
+    "title":  "Title",
+    "category": "Category",
+    "subject": "Subject",
+    "status": "Status",
+    "updatedAt": "Updated At",
+    "action": "Action",
+    "add": "Add"
   },
   "nav": {
     "home": "Home",
@@ -93,7 +104,9 @@
   },
   "dropdown": {
     "teacherDashboard": "Teacher Dashboard",
-    "myCourses": "My Courses"
+    "myCourses": "My Courses",
+    "accountSettings": "Account Settings",
+    "manageUsers": "Manage Users"
   },
   "footer": {
     "explore": "Explore",
@@ -118,13 +131,14 @@
     "owner": "Owner",
     "instructors": "Instructors",
     "reviews": "Reviews",
+    "leaveAReview": "Leave a review",
     "description": "Description",
     "price": "Price",
     "grade": "Grade",
     "enroll": "Enroll",
     "share": "Share",
     "whatWillYouLearn": "What will you learn from this course",
-    "review": "Review",
+    "thankYouForYourReview": "Thank you for your review",
     "startDate": "Start date",
     "endDate": "End date",
     "enrollConfirm": "Confirm the enrollment ?",
@@ -138,7 +152,8 @@
     "phoneNumber": "Phone Number",
     "enrolledDate": "Enrolled Date",
     "nationalities": "Nationalities",
-    "seeDetails": "See details"
+    "seeDetails": "See details",
+    "courseDisabled": "Course is disabled"
   },
   "classDetails": {
     "duration": "Duration",
@@ -167,5 +182,56 @@
   "relatedCourses": {
     "title": "Related Courses",
     "coursesSuggestion": "Courses you may like"
+  },
+  "admin": {
+    "studentList": "Student List",
+    "instructorList": "Instructor List"
+  },
+  "accountSetting": {
+    "profile": "Profile",
+    "theInformationCanBeEdited": "The information can be edited",
+    "changeAvatar": "Change Avatar",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "dateOfBirth": "Date Of Birth",
+    "mobilePhone":"Mobile Phone",
+    "nationality": "Nationality",
+    "saveDetails": "Save Details",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "showPassword": "Show Password",
+    "selectGrade": "Select Grade"
+  },
+  "grades": {
+    "first": "Grade 1",
+    "second": "Grade 2",
+    "third": "Grade 3",
+    "fourth": "Grade 4",
+    "fifth": "Grade 5",
+    "sixth": "Grade 6",
+    "seventh": "Grade 7",
+    "eighth": "Grade 8",
+    "ninth": "Grade 9",
+    "tenth": "Grade 10",
+    "eleventh": "Grade 11",
+    "twelfth": "Grade 12",
+    "others": "Others"
+  },
+  "nationalities": {
+    "vn": "Vietnam",
+    "us": "United States",
+    "gb": "England",
+    "fr": "France",
+    "de": "Germany",
+    "cn": "China",
+    "jp": "Japan",
+    "sg": "Singapore",
+    "hk": "Hong Kong"
+  },
+  "dashboard": {
+    "dashboard": "Dashboard",
+    "courses": "Teacher Courses"
   }
 }

@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 
 import { authHeader } from '../helpers/request-helper'
 import { logOutUser } from '../helpers/user-helper'
+import store from '../../redux'
 
 import ToastContent from '../../components/toast-content/ToastContent'
 
@@ -20,15 +21,10 @@ httpService.interceptors.request.use(
 
     return config
   },
-  (req) => {
-    window.logger.info('Network', `Request ${req.baseURL}${req.url}`, {
-      options: req
-    })
-    return req
-  },
   (error) => Promise.reject(error)
 )
 
+let refreshTokenPromise
 httpService.interceptors.response.use(
   (res) => {
     window.logger.info(
@@ -47,13 +43,22 @@ httpService.interceptors.response.use(
       error?.response?.data === 'error.accessTokenExpired' &&
       !originalConfig._retry
     ) {
+      // Ensure only one request to refresh token is called when multiple requests are called with expired token
+      if (!refreshTokenPromise) {
+        refreshTokenPromise = httpService
+          .get('/auth/refresh-token')
+          .then(() => {
+            refreshTokenPromise = null
+          })
+      }
+
       originalConfig._retry = true
-      httpService
-        .get('/auth/refresh-token')
+      return refreshTokenPromise
         .then(() => {
-          return httpService(originalConfig)
+          return axios(originalConfig)
         })
         .catch((_error) => {
+          localStorage.removeItem('currentUserId')
           return Promise.reject(_error)
         })
     } else {
@@ -63,7 +68,8 @@ httpService.interceptors.response.use(
         if (
           ['error.csrfTokenInvalid', 'error.refreshTokenExpired'].includes(
             error?.response?.data
-          )
+          ) &&
+          store.getState().userInfo.isAuthenticated
         ) {
           logOutUser()
         }

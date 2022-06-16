@@ -28,7 +28,7 @@
     "getEnrollmentFail": "Lấy học viên thất bại",
     "enrollFail": "Tham gia khoá học thất bại",
     "updateUserFail": "Cập nhật người dùng thất bại",
-    "csrfTokenInvalid": "Cookie bị lỗi. Vui lòng đăng nhập lại",
+    "csrfTokenInvalid": "Bạn chưa được xác thực",
     "refreshTokenExpired": "Phiên hoạt động hết hạn. Vui lòng đăng nhập lại",
     "minTitle": "Tiêu đề cần tốt thiểu 10 ký tự!",
     "maxTitle": "Tiêu đề chỉ tối đa 100 kí tự!",
@@ -41,7 +41,8 @@
     "externalLogin": "Đăng nhập bên thứ ba không hỗ trợ khôi phục mật khẩu",
     "externalChangePassword": "Đăng nhập bên thứ ba không hỗ trợ đổi mật khẩu",
     "teacherEnrollCourse": "Bạn không thể tham gia khóa học mà bạn tạo ra!",
-    "userReEnroll": "Bạn đã tham gia khóa học này rồi!"
+    "userReEnroll": "Bạn đã tham gia khóa học này rồi!",
+    "alreadyReviewed": "Bạn đã thực hiện đánh giá rồi!"
   },
   "auth": {
     "login": "Đăng nhập",
@@ -83,7 +84,16 @@
     "showMeetingLinkTitle": "Bạn đã có thể tham gia vào các buổi học của lớp này",
     "allCourses": "Tất cả khoá học",
     "yourCreatedCourses": "Các khoá học của bạn",
-    "yourEnrolledCourses": "Các khoá học đã đăng ký"
+    "yourEnrolledCourses": "Các khoá học đã đăng ký",
+    "confirmDeactivate": "Vô hiệu hoá khoá học này?",
+    "confirmActivate": "Kích hoạt khoá học này?",
+    "title":  "Tên",
+    "category": "Thể loại",
+    "subject": "Môn",
+    "status": "Trạng thái",
+    "updatedAt": "Thời gian cập nhật",
+    "action": "Hành động",
+    "add": "Thêm"
   },
   "nav": {
     "home": "Trang chủ",
@@ -93,7 +103,9 @@
   },
   "dropdown": {
     "teacherDashboard": "Trang giáo viên",
-    "myCourses": "Khóa học của tôi"
+    "myCourses": "Khóa học của tôi",
+    "accountSettings": "Tài khoản",
+    "manageUsers": "Quản lý người dùng"
   },
   "footer": {
     "explore": "Khám phá",
@@ -118,13 +130,14 @@
     "owner": "Chủ lớp học",
     "instructors": "Người dạy",
     "reviews": "Đánh giá",
+    "leaveAReview": "Viết đánh giá",
     "description": "Mô tả khóa học",
     "price": "Học phí",
     "grade": "Khối lớp",
     "enroll": "Đăng ký lớp học",
     "share": "Chia sẻ",
     "whatWillYouLearn": "Kiến thực nhận được từ khóa học",
-    "review": "Đánh giá",
+    "thankYouForYourReview": "Cảm ơn đánh giá của bạn",
     "startDate": "Ngày bắt đầu",
     "endDate": "Ngày kết thúc",
     "enrollConfirm": "Xác nhận đăng ký lớp học ?",
@@ -138,7 +151,8 @@
     "phoneNumber": "Số điện thoại",
     "enrolledDate": "Ngày vào lớp",
     "nationalities": "Quốc tịch",
-    "seeDetails": "Xem chi tiết"
+    "seeDetails": "Xem chi tiết",
+    "courseDisabled": "Khoá học không khả dụng"
   },
   "classDetails": {
     "duration": "Thời lượng",
@@ -167,5 +181,56 @@
   "relatedCourses": {
     "title": "Các khóa học liên quan",
     "coursesSuggestion": "Gợi ý các khóa học"
+  },
+  "admin": {
+    "studentList": "Danh sách học sinh",
+    "instructorList": "Danh sách giáo viên"
+  },
+  "accountSetting": {
+    "profile": "Hồ Sơ",
+    "theInformationCanBeEdited": "Thông tin có thể được chỉnh sửa",
+    "changeAvatar": "Đổi ảnh đại diện",
+    "email": "Địa chỉ mail",
+    "firstName": "Tên của bạn",
+    "lastName": "Họ của bạn",
+    "dateOfBirth": "Ngày sinh",
+    "mobilePhone": "Số điện thoại",
+    "nationality": "Quốc tịch",
+    "saveDetails": "Lưu thông tin",
+    "currentPassword": "Mật khẩu hiện tại",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận lại mật khẩu",
+    "showPassword": "Hiển thị mật khẩu",
+    "selectGrade": "Chọn khối lớp"
+  },
+  "grades": {
+    "first": "Lớp 1",
+    "second": "Lớp 2",
+    "third": "Lớp 3",
+    "fourth": "Lớp 4",
+    "fifth": "Lớp 5",
+    "sixth": "Lớp 6",
+    "seventh": "Lớp 7",
+    "eighth": "Lớp 8",
+    "ninth": "Lớp 9",
+    "tenth": "Lớp 10",
+    "eleventh": "Lớp 11",
+    "twelfth": "Lớp 12",
+    "others": "Khác"
+  },
+  "nationalities": {
+    "vn": "Viet Nam",
+    "us": "Hoa Kỳ",
+    "gb": "Vương Quốc Anh",
+    "fr": "Pháp",
+    "de": "Đức",
+    "cn": "Trung Quốc",
+    "jp": "Nhật Bản",
+    "sg": "Singapore",
+    "hk": "Hồng Kông"
+  },
+  "dashboard": {
+    "dashboard": "Bảng điều khiển",
+    "courses": "Khoá học của giáo viên"
   }
 }

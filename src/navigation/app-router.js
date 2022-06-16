@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route, Outlet, useSearchParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import debounce from 'lodash.debounce'
@@ -15,6 +15,7 @@ import ScrollToTop from '../components/scroll-to-top/ScrollToTop'
 
 import publicRoutes from './routes/public-routes'
 import privateRoutes from './routes/private-routes'
+import teacherRoutes from './routes/teacher-routes'
 import restrictedRoutes from './routes/restricted-routes'
 
 import userService from '../services/user-service'
@@ -24,27 +25,29 @@ import useVerify from '../hooks/use-verify'
 
 const AppRouter = () => {
   const [isAppLoading, setIsAppLoading] = useState(false)
-  const isAuthenticated = useAuthenticate()
-  const isVerified = useVerify()
+  const [isAuthenticated] = useAuthenticate()
+  const [isVerified] = useVerify()
   const dispatch = useDispatch()
   const [searchParams, setSearchParams] = useSearchParams()
   const { t: translation } = useTranslation()
+  const userInfo = useSelector((state) => state.userInfo)
 
   const fireVerifyAccountAlert = useCallback(
-    debounce(
-      () => {
-        toast.info(translation('auth.verifyAccountAlert'))
-      },
-      5000,
-      { leading: true, trailing: false }
-    ),
-    []
+    () =>
+      debounce(
+        () => {
+          toast.info(translation('auth.verifyAccountAlert'))
+        },
+        5000,
+        { leading: true, trailing: false }
+      ),
+    [translation]
   )
 
   useEffect(() => {
     const userIdFromQuery = searchParams.get('userId')
     if (userIdFromQuery) {
-      localStorage.setItem('currentUser', userIdFromQuery)
+      localStorage.setItem('currentUserId', userIdFromQuery)
       localStorage.setItem('loginTimestamp', Date.now() + 86400000) // 1 day
       searchParams.delete('userId')
       setSearchParams(searchParams)
@@ -60,21 +63,21 @@ const AppRouter = () => {
     async function fetchUserInfo() {
       const isLoginExpired =
         Date.now() > Number(localStorage.getItem('loginTimestamp') || 0)
+
       if (isLoginExpired) {
-        localStorage.removeItem('currentUser')
+        localStorage.removeItem('currentUserId')
       }
 
-      const currentUser = localStorage.getItem('currentUser')
-      if (currentUser) {
+      const currentUserId = localStorage.getItem('currentUserId')
+      if (currentUserId && !isAuthenticated) {
         setIsAppLoading(true)
         try {
-          const { data: userInfo } = await userService.fetchUserInfo(
-            currentUser
+          const { data: tempUserInfo } = await userService.fetchUserInfo(
+            currentUserId
           )
-          dispatch(userActions.setUserInfo(userInfo))
+          dispatch(userActions.setUserInfo(tempUserInfo))
           setIsAppLoading(false)
         } catch (err) {
-          localStorage.removeItem('currentUser')
           setIsAppLoading(false)
         }
       }
@@ -86,7 +89,8 @@ const AppRouter = () => {
     isVerified,
     translation,
     searchParams,
-    setSearchParams
+    setSearchParams,
+    fireVerifyAccountAlert
   ])
 
   return (
@@ -103,20 +107,22 @@ const AppRouter = () => {
           </Route>
         ))}
 
-        {privateRoutes.map(({ component: Component, path, exact }) => (
-          <Route
-            path={`/${path}`}
-            key={path}
-            element={<PrivateRoute isAuthenticated={isAuthenticated} />}
-          >
+        {privateRoutes
+          .concat(userInfo.isVerifiedToTeach ? teacherRoutes : [])
+          .map(({ component: Component, path, exact }) => (
             <Route
               path={`/${path}`}
               key={path}
-              exact={exact}
-              element={isAppLoading ? <Loading /> : <Component />}
-            />
-          </Route>
-        ))}
+              element={<PrivateRoute isAuthenticated={isAuthenticated} />}
+            >
+              <Route
+                path={`/${path}`}
+                key={path}
+                exact={exact}
+                element={isAppLoading ? <Loading /> : <Component />}
+              />
+            </Route>
+          ))}
 
         {restrictedRoutes.map(({ component: Component, path, exact }) => (
           <Route

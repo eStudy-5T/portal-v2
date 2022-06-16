@@ -84,11 +84,11 @@ button {
   &.edu-btn {
     border-radius: 5px;
     display: inline-block;
-    height: 60px;
-    line-height: 60px;
+    // height: 60px;
+    // line-height: 60px;
     color: var(--color-white);
     background: var(--color-primary);
-    padding: 0 10px;
+    padding: 10px 25px;
     font-size: 18px;
     font-weight: 700;
     transition: 0.4s;
@@ -133,7 +133,7 @@ button {
     }
 
     &:hover {
-      background: var(--color-dark);
+      background: var(--color-primary-darker);
       color: var(--color-white);
     }
 
@@ -191,6 +191,15 @@ button {
       }
     }
 
+    &.btn-enroll {
+      background: var(--color-white);
+      color: var(--color-primary);
+      &:hover {
+        color: var(--color-white);
+        background: var(--color-secondary);
+      }
+    }
+
     &.btn-border {
       background: transparent;
       border: 2px solid var(--color-primary);
@@ -219,6 +228,28 @@ button {
         padding-left: 0;
       }
     }
+
+    &.btn-disabled {
+      background: var(--color-extra01);
+      cursor: not-allowed;
+      i {
+        padding-left: 0;
+      }
+    }
+
+    &:disabled {
+      opacity: 0.7;
+    }
+
+    &.btn-progress {
+      position: relative;
+    }
+  }
+  &.add-btn {
+    font-size: 14px;
+    padding: 10px;
+    margin-right: 10px;
+    outline: none !important;
   }
 }
 
@@ -255,4 +286,17 @@ button {
   to {
     transform: rotate(-360deg);
   }
+}
+
+button:disabled,
+button[disabled] {
+  background-color: #cccccc;
+  color: #666666;
+
+  &:hover {
+    background-color: #cccccc;
+    color: #666666;
+  }
+
+  cursor: no-drop;
 }

@@ -6,14 +6,10 @@
   .logo {
     a {
       display: block;
-      height: 118px;
-      line-height: 118px;
+      height: 80px;
+      line-height: 80px;
       img {
         max-height: 35px;
-      }
-      @media #{$smlg-device} {
-        height: 80px;
-        line-height: 80px;
       }
     }
   }
@@ -33,7 +29,7 @@
     padding: 0;
 
     li {
-      font-size: 13px;
+      font-size: 14px;
     }
   }
 
@@ -70,6 +66,11 @@
         }
       }
     }
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-around;
   }
 }
 
@@ -153,4 +154,18 @@
   100% {
     transform: translateY(0);
   }
+}
+
+.mr-5 {
+  margin-right: 5px;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.nav-links {
+  position: absolute;
+  right: 12%;
+  top: 50px;
 }

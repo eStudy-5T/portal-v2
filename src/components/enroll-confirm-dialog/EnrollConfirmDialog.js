@@ -26,7 +26,7 @@ function EnrollConfirmDialog(props) {
           </div>
           <img
             className="edu-meeting-link__image"
-            src="https://blog.gapowork.vn/content/images/2021/09/Zoom-meetings-SMART-Recovery-1.jpeg"
+            src={`${process.env.PUBLIC_URL}/images/feature/meet-photo.png`}
           >
           </img>
           <div className="content-overlay">

@@ -9,14 +9,16 @@ import SortBy from '../../components/widgets/course/SortBy'
 import PriceOne from '../../components/widgets/course/CategoryFilter'
 import LevelOne from '../../components/widgets/course/GradeFilter'
 import FilterByPrice from '../../components/widgets/course/FilterByPrice'
-import debounce from 'lodash.debounce'
+import debounce from 'lodash/debounce'
+import ModifyCourseAccessDialog from '../../components/modify-course-access-dialog/ModifyCourseAccessDialog'
 
 import courseService from '../../services/course-service'
 import userService from '../../services/user-service'
 
 // i18
 import { useTranslation } from 'react-i18next'
-import { isNumber } from 'lodash'
+import get from 'lodash/get'
+import isNumber from 'lodash/isNumber'
 import { t } from 'i18next'
 
 const ROLE = {
@@ -26,7 +28,7 @@ const ROLE = {
 }
 
 function CourseOne() {
-  const [isShowMyCourse, setIsShowMyCourse] = useState(false);
+  const [isShowMyCourse, setIsShowMyCourse] = useState(false)
   const [pageNumber, setPageNumber] = useState(1)
   const [pageSize, setPageSize] = useState(8)
   const [searchText, setSearchText] = useState('')
@@ -39,45 +41,84 @@ function CourseOne() {
     rangePrice: -1,
     type: undefined
   })
+  const [isModifyAccessPopupShown, setPopupModifyAccessConfirm] =
+    useState(false)
+  const [selectedCourse, setSelectedCourse] = useState(null)
+  const [selectedAction, setSelectedAction] = useState(null)
+  const [accessChanged, setAccessChanged] = useState(false)
   const isFirstTimeSetPageSize = useRef(true)
-  const userId = localStorage.getItem('currentUser')
+  const userId = localStorage.getItem('currentUserId')
   const userRole = ROLE.TEACHER
+  const isAdmin = get(
+    JSON.parse(localStorage.getItem('currentUser')),
+    'isAdmin',
+    false
+  )
 
   const { t: translation } = useTranslation()
 
+  const debouncedFetchData = debounce(
+    async (pSearchText, paginationOptions = {}, queryOptions = {}) => {
+      const {
+        data: { courses, count }
+      } =
+        isShowMyCourse && userRole === ROLE.STUDENT
+          ? await userService.getEnrolledCourses(
+              userId,
+              String(pSearchText).trim().toLowerCase(),
+              paginationOptions,
+              queryOptions
+            )
+          : await courseService.getCourses(
+              userId,
+              String(pSearchText).trim().toLowerCase(),
+              paginationOptions,
+              queryOptions
+            )
+
+      setCourseData(courses)
+      setCourseCount(count)
+      if (isFirstTimeSetPageSize.current) {
+        isFirstTimeSetPageSize.current = false
+        setPageSize(count <= 8 ? count : 8)
+      }
+    },
+    750
+  )
+
   useEffect(() => {
     const offset = (pageNumber - 1) * pageSize
-    const debouncedFetchData = debounce(
-      async (pSearchText, paginationOptions = {}, queryOptions = {}) => {
-        const {
-          data: { courses, count }
-        } = (isShowMyCourse && userRole === ROLE.STUDENT) ? await userService.getEnrolledCourses(
-          userId,
-          String(pSearchText).trim().toLowerCase(),
-          paginationOptions,
-          queryOptions
-        ) : await courseService.getCourses(
-          userId,
-          String(pSearchText).trim().toLowerCase(),
-          paginationOptions,
-          queryOptions
-        ) 
-        setCourseData(courses)
-        setCourseCount(count)
-        if (isFirstTimeSetPageSize.current) {
-          isFirstTimeSetPageSize.current = false
-          setPageSize(count <= 8 ? count : 8)
-        }
-      },
-      750
-    )
+
     if (pageSize) {
       debouncedFetchData(searchText, { offset, limit: pageSize }, queryOptions)
     }
+
+    if (accessChanged) {
+      setAccessChanged(false)
+    }
+
     return () => {
       debouncedFetchData.cancel()
     }
-  }, [isShowMyCourse, searchText, pageNumber, pageSize, queryOptions])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    isShowMyCourse,
+    pageNumber,
+    pageSize,
+    queryOptions,
+    userId,
+    userRole,
+    accessChanged
+  ])
+
+  const search = () => {
+    const offset = (pageNumber - 1) * pageSize
+
+    if (pageSize) {
+      debouncedFetchData(searchText, { offset, limit: pageSize }, queryOptions)
+    }
+  }
 
   const handleChangePageNumber = (event, value) => {
     setPageNumber(isNumber(value) ? value : 1)
@@ -121,15 +162,58 @@ function CourseOne() {
     setSearchText(event.target.value)
   }
 
-  const myCoursesTitle = userRole === ROLE.STUDENT ? 'courses.yourEnrolledCourses' : 'courses.yourCreatedCourses'
+  const myCoursesTitle =
+    userRole === ROLE.STUDENT
+      ? 'courses.yourEnrolledCourses'
+      : 'courses.yourCreatedCourses'
+
+  const onCancel = () => {
+    setPopupModifyAccessConfirm(false)
+  }
+
+  const onClose = () => {
+    setPopupModifyAccessConfirm(false)
+  }
+
+  const onModifyAccessClick = () => {
+    setPopupModifyAccessConfirm(true)
+  }
+
+  const onConfirm = async (courseId) => {
+    switch (selectedAction) {
+      case 'activate':
+        const result = await courseService.activate(selectedCourse)
+        if (result.status === 200) {
+          setAccessChanged(true)
+          window.location.reload()
+        }
+        break
+      case 'deactivate':
+        const result2 = await courseService.deactivate(selectedCourse)
+        if (result2.status === 200) {
+          setAccessChanged(true)
+          window.location.reload()
+        }
+        break
+      default:
+        setSelectedAction(null)
+        setSelectedCourse(null)
+        break
+    }
+  }
 
   return (
     <>
       <SEO title={translation('nav.courses')} />
       <Layout>
-        <BreadcrumbOne
-          title={translation('nav.courses')}
-        />
+        <BreadcrumbOne title={translation('nav.courses')} />
+        {isModifyAccessPopupShown && (
+          <ModifyCourseAccessDialog
+            onClose={onClose}
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+          />
+        )}
         <div className="edu-course-area edu-section-gap bg-color-white">
           <div className="container">
             <div className="row g-5">
@@ -158,17 +242,15 @@ function CourseOne() {
                     <div className="row g-5">
                       <div className="edu-search-box-wrapper text-start text-md-end">
                         <div className="edu-search-box">
-                          <form action="#">
-                            <input
-                              type="text"
-                              placeholder={translation('courses.searchCourse')}
-                              value={searchText}
-                              onChange={handleChangeSearchText}
-                            />
-                            <button className="search-button">
-                              <i className="icon-search-line" />
-                            </button>
-                          </form>
+                          <input
+                            type="text"
+                            placeholder={translation('courses.searchCourse')}
+                            value={searchText}
+                            onChange={handleChangeSearchText}
+                          />
+                          <button className="search-button" onClick={search}>
+                            <i className="icon-search-line" />
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -183,23 +265,39 @@ function CourseOne() {
                       animateOnce
                       key={item.id}
                     >
-                      <CourseTypeOne data={item} />
+                      <CourseTypeOne
+                        data={item}
+                        isAdmin={isAdmin}
+                        onModifyAccessClick={onModifyAccessClick}
+                        setSelectedCourse={setSelectedCourse}
+                        setSelectedAction={setSelectedAction}
+                      />
                     </ScrollAnimation>
                   ))}
                 </div>
               </div>
               <div className="col-lg-4">
-                { userId 
-                  ? <div className="edu-course-widget mb-5">
-                      <div className="inner">
-                        <h5 className="widget-title">{t(isShowMyCourse ? myCoursesTitle : 'courses.allCourses')}</h5>
-                        <div className="d-grid gap-2">
-                          <button className="rn-btn edu-btn-show-my-courses" onClick={handleChangeIsShowMyCourse}>{`${t(!isShowMyCourse ? myCoursesTitle : 'courses.allCourses')}`}</button>
-                        </div>
+                {userId ? (
+                  <div className="edu-course-widget mb-5">
+                    <div className="inner">
+                      <h5 className="widget-title">
+                        {t(
+                          isShowMyCourse ? myCoursesTitle : 'courses.allCourses'
+                        )}
+                      </h5>
+                      <div className="d-grid gap-2">
+                        <button
+                          className="rn-btn edu-btn-show-my-courses"
+                          onClick={handleChangeIsShowMyCourse}
+                        >{`${t(
+                          !isShowMyCourse
+                            ? myCoursesTitle
+                            : 'courses.allCourses'
+                        )}`}</button>
                       </div>
                     </div>
-                  : null
-                }
+                  </div>
+                ) : null}
                 <SortBy onFilterChange={handleFilterChange} />
                 <PriceOne
                   extraClass="mt--40"

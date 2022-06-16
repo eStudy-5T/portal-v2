@@ -10,8 +10,20 @@ import { useTranslation } from 'react-i18next'
 import { Rating } from '@mui/material'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 
+import {
+  withStyles
+} from "@material-ui/core/styles";
+import Tooltip from "@material-ui/core/Tooltip";
 
-function CourseTypeOne({ data, classes, handleEnrollClick }) {
+const BlueOnGreenTooltip = withStyles({
+  tooltip: {
+    fontSize: 'inherit',
+    color: 'var(--color-primary)',
+    backgroundColor: 'var(--color-white)'
+  }
+})(Tooltip);
+
+function CourseTypeOne({ data, classes, isAdmin, onModifyAccessClick, setSelectedCourse, setSelectedAction }) {
   const { t: translation } = useTranslation()
 
   const [avatar, setOwnerAvatar] = useState(null)
@@ -19,6 +31,20 @@ function CourseTypeOne({ data, classes, handleEnrollClick }) {
   const instructorThumb = InstructorData[1].image
   const excerpt = `${data.description ? data.description.substring(0, 142) : CourseData[1].excerpt.substring(0, 142)}...`
   const trimTitle = `${data.title ? data.title.substring(0, 26) : 'Unknown title'}${data.title.length > 26 ? '...' : ''}`
+
+  const isActive = get(data, 'isActive', false)
+
+  const handleActivateClick = () => {
+    onModifyAccessClick()
+    setSelectedCourse(data.id)
+    setSelectedAction('activate')
+  }
+
+  const handleDeactivateClick = () => {
+    onModifyAccessClick()
+    setSelectedCourse(data.id)
+    setSelectedAction('deactivate')
+  }
 
   return (
     <div className={`edu-card card-type-3 radius-small ${classes || ''}`}>
@@ -188,13 +214,60 @@ function CourseTypeOne({ data, classes, handleEnrollClick }) {
             </ul>
           </div>
           <div className="read-more-btn">
-            <Link
-              className="edu-btn btn-medium btn-white"
-              to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}
-            >
-              {translation('courseDetails.seeDetails')}
-              <i className="icon-arrow-right-line-right" />
-            </Link>
+            {isAdmin ? (
+              <>
+                <BlueOnGreenTooltip title="See Detail">
+                  <Link
+                    className="edu-btn btn-medium btn-white"
+                    to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}
+                  >
+                    <div style={{ marginBottom: "20px" }}>
+                      <i className="fa fa-arrow-right" />
+                    </div>
+                  </Link>
+                </BlueOnGreenTooltip>
+                <BlueOnGreenTooltip title="Approve" style={{ marginLeft: '5px' }}>
+                  <Link className='edu-btn btn-medium btn-white' to=''>
+                    <div style={{ marginBottom: "20px" }}>
+                      <i className="fa fa-check" />
+                    </div>
+                  </Link>
+                  </BlueOnGreenTooltip>
+                {!isActive && (
+                  <BlueOnGreenTooltip title="Activate" style={{ marginLeft: '5px' }}>
+                    <Link className='edu-btn btn-medium btn-white' to='' onClick={handleActivateClick}>
+                      <div style={{ marginBottom: "20px" }}>
+                        <i className="fa fa-lock" />
+                      </div>
+                    </Link>
+                  </BlueOnGreenTooltip>
+                )}
+                {isActive && (
+                  <BlueOnGreenTooltip title="Deactivate" style={{ marginLeft: '5px' }}>
+                    <Link className='edu-btn btn-medium btn-white' to='' onClick={handleDeactivateClick}>
+                      <div style={{ marginBottom: "20px" }}>
+                        <i className="fa fa-unlock" />
+                      </div>
+                    </Link>
+                  </BlueOnGreenTooltip>
+                )}
+                <BlueOnGreenTooltip title="Remove" style={{ marginLeft: '5px' }}>
+                  <Link className='edu-btn btn-medium btn-white' to=''>
+                    <div style={{ marginBottom: "20px" }}>
+                      <i className="fa fa-close" />
+                    </div>
+                  </Link>
+                </BlueOnGreenTooltip>
+              </>
+            ) : (
+              <Link
+                className="edu-btn btn-medium btn-white"
+                to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}
+              >
+                {translation('courseDetails.seeDetails')}
+                <i className="icon-arrow-right-line-right" />
+              </Link>
+            )}
           </div>
         </div>
       </div>

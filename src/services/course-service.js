@@ -1,8 +1,9 @@
 import request from '../utils/configs/http-config'
 
 const isUserVerified = () => {
-  const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
-  const userId = localStorage.getItem('currentUser')
+  const regexExp =
+    /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi
+  const userId = localStorage.getItem('currentUserId')
   return regexExp.test(userId)
 }
 
@@ -55,11 +56,23 @@ const courseService = {
   getCreatedCourses: (ownerId) => {
     return request.get(`/courses/created-courses/${ownerId}`)
   },
+  getCategoryOptions: () => {
+    return request.get('/courses/categories')
+  },
+  getSubjectOptions: () => {
+    return request.get('/courses/subjects')
+  },
   submitReview: (courseId, data) => {
     return request.post(`/reviews/${courseId}`, data)
   },
   getCourseReviews: (courseId) => {
     return request.get(`/reviews/${courseId}`)
+  },
+  activate: (courseId) => {
+    return request.post(`courses/${courseId}/active`)
+  },
+  deactivate: (courseId) => {
+    return request.post(`courses/${courseId}/deactive`)
   }
 }
 

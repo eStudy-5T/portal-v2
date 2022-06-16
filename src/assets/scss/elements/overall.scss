@@ -1,6 +1,11 @@
 /*-------------------------------
     Overall React Specific Styles
 ---------------------------------*/
+.main-wrapper {
+  min-height: calc(100vh - 159px);
+  z-index: 99999999999;
+}
+
 body.search-popup-active {
   overflow-y: hidden;
 }

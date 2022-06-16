@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 // Mui Components
 import { Rating } from '@mui/material'
@@ -12,11 +14,9 @@ import courseService from '../../services/course-service'
 
 // Validators
 import { getValidationHelperText } from '../../utils/helpers/validation-helper'
-import { Link, useNavigate } from 'react-router-dom'
 
 function ReviewForm(props) {
   const [isLoading, setIsLoading] = useState(false)
-
   const { t: translation } = useTranslation()
   const navigate = useNavigate()
 
@@ -46,26 +46,29 @@ function ReviewForm(props) {
       .submitReview(props.courseId, data)
       .then(() => {
         navigate('#')
+        toast.success(translation('courseDetails.thankYouForYourReview'))
       })
-      .catch(() => {
-        setIsLoading(false)
-      })
+      .catch(() => {})
+    setIsLoading(false)
   }
 
   return (
     <div className="login-form-box">
       <h5 className="mb-25 text-left fs-35" style={{ marginTop: 30 }}>
-        Leave a review
+        {translation('courseDetails.leaveAReview')}
       </h5>
 
       <form className="login-form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="edu-comment mb--30">
           <div className="thumbnail">
-            <img src={props.avatar || null} alt="Student Thumb" />
+            <img src={props.avatar} alt="Student Thumb" />
           </div>
-          <div className="comment-content" style={{display: 'flex', alignItems:'center'}}>
+          <div
+            className="comment-content"
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
             <div className="comment-top">
-              <h6 className='title' style={{marginBottom: 0}}>
+              <h6 className="title" style={{ marginBottom: 0 }}>
                 {props.firstName + ' ' + props.lastName}
               </h6>
               <div className="rating letmeet-course-rating-stars">
@@ -80,7 +83,7 @@ function ReviewForm(props) {
                         const numberValue = Number(event.target.value)
                         onChange(numberValue)
                       }}
-                      size="medium"
+                      size="small"
                       icon={
                         <i
                           className="icon-Star"
@@ -127,9 +130,9 @@ function ReviewForm(props) {
             {translation(getValidationHelperText(errors.description))}
           </small>
         </div>
-            
+
         <button
-          className="rn-btn edu-btn w-100"
+          className="rn-btn edu-btn btn-medium w-100"
           type="submit"
           disabled={isLoading}
         >

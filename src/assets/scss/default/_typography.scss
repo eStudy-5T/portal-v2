@@ -9,7 +9,6 @@
 html {
   margin: 0;
   padding: 0;
-  font-size: 10px;
 }
 
 body {
@@ -297,11 +296,11 @@ cite,
 }
 
 var {
-  font-family: "Courier 10 Pitch", Courier, monospace;
+  font-family: 'Courier 10 Pitch', Courier, monospace;
 }
 
 /*---------------------------
-	List Style 
+	List Style
 ---------------------------*/
 ul,
 ol {
@@ -328,7 +327,7 @@ ul {
 
         &::before {
           position: absolute;
-          content: "";
+          content: '';
           width: 6px;
           height: 6px;
           border-radius: 100%;
@@ -347,8 +346,6 @@ ul {
   li {
     font-size: var(--font-size-b2);
     line-height: var(--line-height-b2);
-    margin-top: 10px;
-    margin-bottom: 10px;
     color: var(--color-body);
     font-weight: 500;
     a {

@@ -14,7 +14,7 @@ const resources = {
   }
 }
 
-const fallbackLng = ['vi-VN']
+const fallbackLng = ['en-GB']
 const availableLanguages = ['en-GB', 'vi-VN']
 
 const options = {
@@ -34,6 +34,7 @@ i18n
   .init({
     resources,
     fallbackLng,
+    // lng: fallbackLng[0],
     whitelist: availableLanguages,
     detection: options,
     react: {

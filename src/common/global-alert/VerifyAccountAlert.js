@@ -15,8 +15,8 @@ import authService from '../../services/auth-service'
 
 const VerifyAccountAlert = (props) => {
   const [isLoading, setIsLoading] = useState(false)
-  const isAuthenticated = useAuthenticate()
-  const isVerified = useVerify()
+  const [isAuthenticated] = useAuthenticate()
+  const [isVerified] = useVerify()
 
   const { t: translation } = useTranslation()
 

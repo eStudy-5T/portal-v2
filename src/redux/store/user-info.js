@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   isAuthenticated: false,
-  id: null,
   email: null,
   avatar: null,
   firstName: null,
@@ -10,8 +9,9 @@ const initialState = {
   dateOfBirth: null,
   isDisabled: false,
   isVerified: false,
-  isVerifiedToTeach: false,
+  isVerifiedToTeach: true,
   createdAt: null,
+  isAdmin: null,
   teacherInfo: {
     // teacher info field
   }
@@ -38,6 +38,11 @@ const userInfoSlice = createSlice({
       state.isVerified = action.payload.isVerified
       state.isVerifiedToTeach = action.payload.isVerifiedToTeach
       state.createdAt = action.payload.createdAt
+      state.isAdmin = action.payload.isAdmin
+      state.mobilePhone = action.payload.mobilePhone
+      state.nationality = action.payload.nationality
+      state.identityNumber = action.payload.identityNumber
+      state.grade = action.payload.grade
     },
     addTeacherInfo(state, action) {
       // update teacher info to info if need

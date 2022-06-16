@@ -37,6 +37,9 @@ const userService = {
       }
     })
   },
+  getStudents: (userId) => {
+    return request.get(`/user/${userId}/get-students`)
+  },
 }
 
 export default userService

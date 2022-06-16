@@ -12,8 +12,8 @@ function ResponsiveMenu({ show, onClose, showSearch, onSearch }) {
   for (var i in elements) {
     if (elements.hasOwnProperty(i)) {
       elements[i].onclick = function () {
-        this.parentElement.querySelector('.submenu').classList.toggle('active')
-        this.classList.toggle('open')
+        // this.parentElement.querySelector('.submenu').classList.toggle('active')
+        // this.classList.toggle('open')
       }
     }
   }
