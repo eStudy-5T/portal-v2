@@ -151,10 +151,24 @@ const NewCourse = () => {
       ? [...courseScheduleData.schedules]
       : []
     schedules.push(scheduleTime)
-    setCourseScheduleData({
-      ...courseScheduleData,
+    setCourseScheduleData((prevCourseScheduleData) => ({
+      ...prevCourseScheduleData,
       schedules: schedules
-    })
+    }))
+  }
+
+  const handleEditScheduleTime = (data) => {
+    setIsBlocking(true)
+    if (courseScheduleData.schedules && !!courseScheduleData.schedules.length) {
+      const updatedData = courseScheduleData.schedules.map((schedule) => {
+        return Number(schedule.id) === Number(data.id) ? data : schedule
+      })
+
+      setCourseScheduleData((prevCourseScheduleData) => ({
+        ...prevCourseScheduleData,
+        schedules: updatedData
+      }))
+    }
   }
 
   const handleSubmit = () => {
@@ -187,6 +201,7 @@ const NewCourse = () => {
             handleChangeScheduleData={handleChangeScheduleData}
             handleChangeMultiSelect={handleChangeMultiSelect}
             handleAddScheduleTime={handleAddScheduleTime}
+            handleEditScheduleTime={handleEditScheduleTime}
           />
         )
       case 2:

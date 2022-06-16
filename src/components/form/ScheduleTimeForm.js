@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
@@ -20,8 +20,16 @@ import {
 
 import { WEEK_DAYS } from '../../utils/constants/misc'
 
-const CreateTimeForm = ({ setOpen, handleAddScheduleTime }) => {
+const ScheduleTimeForm = ({
+  successBtnText,
+  editData,
+  isEditing,
+  setOpen,
+  handleAddScheduleTime,
+  handleEditTime
+}) => {
   // const { t: translation } = useTranslation()
+  const [checked, setChecked] = useState(editData ? editData.dayOfWeek : '')
 
   const {
     register,
@@ -30,9 +38,9 @@ const CreateTimeForm = ({ setOpen, handleAddScheduleTime }) => {
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
-      startTime: '',
-      endTime: '',
-      dayOfWeek: ''
+      startTime: editData ? editData.startTime : '',
+      endTime: editData ? editData.endTime : '',
+      dayOfWeek: editData ? editData.dayOfWeek : ''
     }
   })
 
@@ -41,8 +49,17 @@ const CreateTimeForm = ({ setOpen, handleAddScheduleTime }) => {
       return
     }
 
-    handleAddScheduleTime(data)
+    if (isEditing) {
+      const editTimeData = { id: editData.id, ...data }
+      handleEditTime(editTimeData)
+    } else {
+      handleAddScheduleTime(data)
+    }
     setOpen(false)
+  }
+
+  const handleChangeTime = (event) => {
+    setChecked(event.target.value)
   }
 
   return (
@@ -103,6 +120,8 @@ const CreateTimeForm = ({ setOpen, handleAddScheduleTime }) => {
                   row
                   aria-labelledby="demo-radio-buttons-group-label"
                   sx={{ margin: '0 auto' }}
+                  onChange={handleChangeTime}
+                  value={checked}
                 >
                   {WEEK_DAYS.map((day) => (
                     <FormControlLabel
@@ -133,7 +152,7 @@ const CreateTimeForm = ({ setOpen, handleAddScheduleTime }) => {
             Cancel
           </Button>
           <Button type="submit" variant="contained" color="success">
-            Add
+            {successBtnText}
           </Button>
         </Stack>
       </form>
@@ -141,4 +160,4 @@ const CreateTimeForm = ({ setOpen, handleAddScheduleTime }) => {
   )
 }
 
-export default CreateTimeForm
+export default ScheduleTimeForm
