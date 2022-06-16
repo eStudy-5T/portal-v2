@@ -26,7 +26,7 @@ import {
   calculateFlexibleLessonNumber
 } from '../../utils/helpers/date-helper'
 import CustomDialog from '../dialog/CustomDialog'
-import CreateTimeForm from '../../components/form/CreateTimeForm'
+import ScheduleTimeForm from '../form/ScheduleTimeForm'
 
 import Select from 'react-select'
 
@@ -39,8 +39,11 @@ const CourseSchedule = ({
   courseScheduleData,
   handleChangeScheduleData,
   handleChangeMultiSelect,
-  handleAddScheduleTime
+  handleAddScheduleTime,
+  handleEditScheduleTime
 }) => {
+  const [timeEditing, setTimeEditing] = useState(null)
+  const [isEditing, setIsEditing] = useState(false)
   const [totalDuration, setTotalDuration] = useState(0)
   const [totalLesson, setTotalLesson] = useState(0)
   const [lessonDuration, setLessonDuration] = useState(0)
@@ -122,7 +125,14 @@ const CourseSchedule = ({
     }
   }, [totalLesson, lessonDuration])
 
-  const handleDialogAddTimeItem = (status) => setAddTimeItem(status)
+  const handleToggleDialogTimeItem = (status) => {
+    if (isEditing) {
+      setTimeEditing(null)
+      setIsEditing(status)
+    } else {
+      setAddTimeItem(status)
+    }
+  }
 
   const handleChangeWeekDays = (newValue, actionMeta) => {
     setDaysOfWeek(newValue)
@@ -211,7 +221,21 @@ const CourseSchedule = ({
   const convertTimeFormat = (time) => moment(time, 'hh:mm').format(FORMAT_TIME)
 
   const getLongTextDay = (valueKey) =>
-    WEEK_DAYS.find((day) => day.value === valueKey).label
+    WEEK_DAYS.find((day) => day.value === valueKey)?.label
+
+  const toggleEditTimePopup = (id) => {
+    const data = courseScheduleData.schedules.find((schedule) => {
+      return schedule.id === id
+    })
+    setTimeEditing(data)
+    setIsEditing(true)
+  }
+
+  const handleEditTime = (data) => {
+    setTimeEditing(null)
+    setIsEditing(false)
+    handleEditScheduleTime(data)
+  }
 
   const handleDeleteTimeItem = (id) => {
     if (!courseScheduleData.schedules.length) {
@@ -478,7 +502,7 @@ const CourseSchedule = ({
                   <button
                     className="rn-btn edu-btn add-btn"
                     type="button"
-                    onClick={() => handleDialogAddTimeItem(true)}
+                    onClick={() => handleToggleDialogTimeItem(true)}
                     disabled={!getLessonLeft()}
                   >
                     Add Time
@@ -499,6 +523,9 @@ const CourseSchedule = ({
                                     edge="end"
                                     aria-label="edit"
                                     sx={{ mr: '5px' }}
+                                    onClick={() =>
+                                      toggleEditTimePopup(schedule.id)
+                                    }
                                   >
                                     <EditIcon />
                                   </IconButton>
@@ -539,17 +566,34 @@ const CourseSchedule = ({
                     </Box>
                   </Grid>
                 </Box>
-                {/* Popup goes here */}
+                {/* Popup create here */}
                 <CustomDialog
                   fullWidth
                   maxWidth="md"
                   title="Create Block Time"
                   open={isAddTimeItem}
-                  setOpen={handleDialogAddTimeItem}
+                  setOpen={handleToggleDialogTimeItem}
                 >
-                  <CreateTimeForm
-                    setOpen={handleDialogAddTimeItem}
+                  <ScheduleTimeForm
+                    successBtnText="Add"
+                    setOpen={handleToggleDialogTimeItem}
                     handleAddScheduleTime={handleAddScheduleTime}
+                  />
+                </CustomDialog>
+                {/* Popup edit here */}
+                <CustomDialog
+                  fullWidth
+                  maxWidth="md"
+                  title="Edit Block Time"
+                  open={isEditing}
+                  setOpen={handleToggleDialogTimeItem}
+                >
+                  <ScheduleTimeForm
+                    successBtnText="Update"
+                    editData={timeEditing}
+                    isEditing={isEditing}
+                    setOpen={handleToggleDialogTimeItem}
+                    handleEditTime={handleEditTime}
                   />
                 </CustomDialog>
               </Fragment>
