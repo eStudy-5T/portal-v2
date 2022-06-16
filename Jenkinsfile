@@ -12,17 +12,23 @@ pipeline {
       }
     }
     stage('Stopping old version') {
-      // when {
-      //   branch 'main'
-      // }
+      when {
+        anyOf {
+          branch 'dev'
+          branch 'ops'
+        }
+      }
       steps {
         sh 'bash ./scripts/stop.sh'
       }
     }
     stage('Deploying portal') {
-      // when {
-      //   branch 'main'
-      // }
+      when {
+        anyOf {
+          branch 'dev'
+          branch 'ops'
+        }
+      }
       steps {
         sh 'bash ./scripts/deploy.sh'
       }
