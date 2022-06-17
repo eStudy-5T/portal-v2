@@ -19,6 +19,7 @@
     "unauthorized": "You are not authorized",
     "getCourseFail": "Get course fail",
     "createCourseFail": "Create course fail",
+    "generateMeetLinkFail": "Generate google meet link fail",
     "updateCourseFail": "Update course fail",
     "deleteCourseFail": "Delete course fail",
     "getClassFail": "Get class fail",
