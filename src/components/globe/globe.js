@@ -64,13 +64,14 @@ const Globe = ({ size }) => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         disableScrollLock={true}
+        sx={{ mt: 1.5 }}
       >
         {languages.map(({ code, name, countryCode }) => (
           <MenuItem
             selected={code === currentLanguageCode}
             key={code}
             onClick={() => handleLanguageClick(code)}
-            sx={{ fontSize: '14px' }}
+            sx={{ fontSize: '14px', padding: '10px' }}
           >
             <ReactCountryFlag
               countryCode={countryCode}
