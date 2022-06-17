@@ -9,7 +9,7 @@ import store from '../../redux'
 import ToastContent from '../../components/toast-content/ToastContent'
 
 const httpService = axios.create({
-  baseURL: `http://localhost:6789/api`,
+  baseURL: process.env.REACT_APP_API_HOST,
   timeout: 5000,
   withCredentials: true,
   headers: authHeader()
