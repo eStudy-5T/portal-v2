@@ -197,11 +197,19 @@
     "mobilePhone": "Số điện thoại",
     "nationality": "Quốc tịch",
     "saveDetails": "Lưu thông tin",
+    "notifications": "Thông báo",
+    "manageTheNotifications": "Quản lý thông báo",
+    "update": "Cập nhật",
+    "password": "mật khẩu",
     "currentPassword": "Mật khẩu hiện tại",
     "newPassword": "Mật khẩu mới",
     "confirmPassword": "Xác nhận lại mật khẩu",
     "showPassword": "Hiển thị mật khẩu",
-    "selectGrade": "Chọn khối lớp"
+    "save": "Lưu",
+    "descriptionPlaceholder": "Hãy cho chúng tôi biết thêm về bạn...",
+    "account": "Tài khoản",
+    "settings": "Cài đặt",
+    "referrals": "Giới thiệu"
   },
   "grades": {
     "first": "Lớp 1",

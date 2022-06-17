@@ -198,11 +198,19 @@
     "mobilePhone":"Mobile Phone",
     "nationality": "Nationality",
     "saveDetails": "Save Details",
+    "notifications": "Notifications",
+    "manageTheNotifications": "Manage the notifications",
+    "update": "Update",
+    "password": "password",
     "currentPassword": "Current Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
     "showPassword": "Show Password",
-    "selectGrade": "Select Grade"
+    "save": "Save",
+    "descriptionPlaceholder": "Tell us something more about you...",
+    "account": "Account",
+    "settings": "Settings",
+    "referrals": "Referrals"
   },
   "grades": {
     "first": "Grade 1",
