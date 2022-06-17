@@ -13,7 +13,7 @@ function Layout({ compactFooter, buttonStyle, disableSticky, children }) {
           disableSticky={disableSticky}
           buttonStyle={buttonStyle}
         />
-        <VerifyAccountAlert />
+        {!disableSticky && <VerifyAccountAlert />}
         {children}
       </main>
       {compactFooter ? <CompactFooter /> : <Footer />}
