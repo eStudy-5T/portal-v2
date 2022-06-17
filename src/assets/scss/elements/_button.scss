@@ -99,6 +99,10 @@ button {
       padding-left: 10px;
       position: relative;
       top: 2px;
+
+      @media #{$sm-layout} {
+        padding: 0;
+      }
     }
 
     &.btn-medium {
@@ -129,6 +133,10 @@ button {
       i {
         padding-left: 0;
         padding-right: 10px;
+
+        @media #{$sm-layout} {
+          padding: 0;
+        }
       }
     }
 
