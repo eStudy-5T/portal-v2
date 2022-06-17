@@ -1,5 +1,5 @@
 /*------------------------
-    Header Quote  
+    Header Quote
 -------------------------*/
 
 .header-quote {
@@ -24,13 +24,13 @@
       display: flex;
       align-items: center;
       i {
-        color: var(--color-heading);
-        font-size: 16px;
+        color: var(--color-primary);
+        font-size: 20px;
         transition: 0.3s;
       }
       &:hover {
         i {
-          color: var(--color-primary);
+          color: var(--color-secondary);
         }
       }
     }

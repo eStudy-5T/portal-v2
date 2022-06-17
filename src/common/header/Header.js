@@ -14,7 +14,6 @@ import useAuthenticate from '../../hooks/use-authenticate'
 function Header({
   styles,
   disableSticky,
-  searchDisable,
   buttonStyle,
   isDashboard,
   isSidebarOpen,
@@ -87,21 +86,29 @@ function Header({
 
           <div className="col-xl-9 col-lg-8 col-md-6 col-6">
             <div className="header-right d-flex justify-content-end">
-              <div className="header-menu-bar">
-                {!searchDisable && (
-                  <div className="quote-icon quote-search">
-                    <button
-                      className="white-box-icon search-trigger header-search"
-                      onClick={onSearchHandler}
-                    >
+              <div className="header-menu-bar header-quote">
+                <div className="quote-icon">
+                  <button onClick={onCanvasHandler}>
+                    <i className="ri-menu-line" />
+                  </button>
+                </div>
+
+                {isAuthenticated && (
+                  <div className="quote-icon">
+                    <button>
                       <i className="ri-notification-line" />
                     </button>
                   </div>
                 )}
-                <div className="quote-icon quote-user d-none d-md-block ml--15 ml_sm--5">
-                  {isAuthenticated ? (
+
+                <Globe size="2em" />
+
+                {isAuthenticated ? (
+                  <div className="quote-icon">
                     <ProfileSection></ProfileSection>
-                  ) : (
+                  </div>
+                ) : (
+                  <div className="mx-2 mx-sm-3">
                     <Link
                       className={`edu-btn btn-medium left-icon header-button ${
                         buttonStyle || ''
@@ -109,21 +116,12 @@ function Header({
                       to={`${process.env.PUBLIC_URL}/login`}
                     >
                       <i className="ri-user-line" />
-                      {translation('auth.login')}
+                      <div className="d-none d-sm-inline">
+                        {translation('auth.login')}
+                      </div>
                     </Link>
-                  )}
-                </div>
-                <Globe size="1.8em" />
-              </div>
-              <div className="mobile-menu-bar ml--15 ml_sm--5 d-block">
-                <div className="hamberger">
-                  <button
-                    className="white-box-icon hamberger-button header-menu"
-                    onClick={onCanvasHandler}
-                  >
-                    <i className="ri-menu-line" />
-                  </button>
-                </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -94,9 +94,10 @@ const CourseSchedule = ({
         (courseScheduleData.schedules && !!courseScheduleData.schedules.length))
     ) {
       if (
-        courseScheduleData.schedules &&
-        courseScheduleData.schedules.length ===
-          Number(courseScheduleData.lessonNumberPerWeek)
+        (courseScheduleData.schedules &&
+          courseScheduleData.schedules.length ===
+            Number(courseScheduleData.lessonNumberPerWeek)) ||
+        courseScheduleData.scheduleType === COURSE_SCHEDULE_TYPE.PERMANENT
       ) {
         const lessons = calculateTotalLessonInCourse(
           courseScheduleData.startDate,
