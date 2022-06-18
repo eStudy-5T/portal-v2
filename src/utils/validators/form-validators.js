@@ -1,7 +1,9 @@
 import {
   validateEmail,
   validatePassword,
-  validateName
+  validateName,
+  validateDateOfBirth,
+  validatePhoneNumber
 } from './field-validators'
 
 export const signInFormValidator = (formData) => {
@@ -48,7 +50,7 @@ export const signUpFormValidator = (formData) => {
 }
 
 export const updateUserInfoFormValidator = (formData) => {
-  if (!formData.firstName || !formData.lastName) {
+  if (!formData.firstName || !formData.lastName || !formData.mobilePhone || !formData.nationality) {
     return { error: 'error.emptyField' }
   }
 
@@ -58,6 +60,15 @@ export const updateUserInfoFormValidator = (formData) => {
 
   if (!validateName(formData.lastName)) {
     return { error: 'error.invalidLastName' }
+  }
+
+  const birthdayError = validateDateOfBirth(formData.dateOfBirth)
+  if (birthdayError !== true) {
+    return {error: birthdayError}
+  }
+
+  if (!validatePhoneNumber(formData.mobilePhone)) {
+    return { error: 'error.invalidMobilePhone' }
   }
 
   return { error: null }

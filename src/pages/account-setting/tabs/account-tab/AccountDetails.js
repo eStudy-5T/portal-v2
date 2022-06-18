@@ -19,6 +19,7 @@ import { userActions } from '../../../../redux/store/user-info'
 import userService from '../../../../../src/services/user-service'
 import { updateUserInfoFormValidator } from '../../../../utils/validators/form-validators'
 import { NATIONALITIES } from '../../../../utils/constants/misc'
+import { toast } from 'react-toastify'
 
 const AccountDetails = (props) => {
   const { t: translation } = useTranslation()
@@ -26,6 +27,7 @@ const AccountDetails = (props) => {
   const [userInfoValues, setUserInfoValues] = useState(props.info)
   const [errorMsg, setErrorMsg] = useState(null)
   const [isAppLoading, setIsAppLoading] = useState(false)
+  const [isSaveable, setIsSaveable] = useState(false)
 
   const currentUserId = localStorage.getItem('currentUserId')
 
@@ -42,10 +44,18 @@ const AccountDetails = (props) => {
   }
 
   const handleChange = (event) => {
+    setIsSaveable(true)
     setUserInfoValues({
       ...userInfoValues,
       [event.target.name]: event.target.value
     })
+  }
+
+  const handleChangeUserInfo = (name) => {
+    return ({ target: { value } }) => {
+      setIsSaveable(true)
+      setUserInfoValues((oldValues) => ({ ...oldValues, [name]: value }))
+    }
   }
 
   const handleSubmit = async (event) => {
@@ -53,8 +63,13 @@ const AccountDetails = (props) => {
     const data = new FormData(event.currentTarget)
     const userData = {
       firstName: data.get('firstName'),
-      lastName: data.get('lastName')
+      lastName: data.get('lastName'),
+      dateOfBirth: data.get('dateOfBirth'),
+      mobilePhone: data.get('mobilePhone'),
+      nationality: data.get('nationality')
     }
+
+    console.log(userData)
 
     // Check form data
     const formErrorMsg = updateUserInfoFormValidator(userData).error
@@ -71,6 +86,7 @@ const AccountDetails = (props) => {
       }
     } else {
       setErrorMsg(formErrorMsg)
+      toast.error(formErrorMsg)
     }
   }
 
@@ -127,7 +143,11 @@ const AccountDetails = (props) => {
                 onChange={handleChange}
                 type="date"
                 required
-                defaultValue={userInfoValues.dateOfBirth ? formatDate(userInfoValues.dateOfBirth) : formatDate(Date.now())}
+                value={
+                  userInfoValues.dateOfBirth
+                    ? formatDate(userInfoValues.dateOfBirth)
+                    : formatDate(Date.now())
+                }
                 variant="outlined"
               />
             </Grid>
@@ -136,9 +156,9 @@ const AccountDetails = (props) => {
                 fullWidth
                 label={translation('accountSetting.mobilePhone')}
                 name="mobilePhone"
-                onChange={handleChange}
+                onChange={handleChangeUserInfo('mobilePhone')}
                 type="number"
-                defaultValue={userInfoValues.mobilePhone}
+                value={userInfoValues.mobilePhone || ''}
                 variant="outlined"
                 required
               />
@@ -208,7 +228,12 @@ const AccountDetails = (props) => {
             p: 2
           }}
         >
-          <Button className="edu-btn btn-small" variant="contained">
+          <Button
+            className="edu-btn btn-small"
+            type="submit"
+            variant="contained"
+            disabled={!isSaveable}
+          >
             {translation('accountSetting.saveDetails')}
           </Button>
         </Box>

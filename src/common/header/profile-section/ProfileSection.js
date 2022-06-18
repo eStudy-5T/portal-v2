@@ -67,14 +67,20 @@ const ProfileSection = () => {
     setOpen(false)
   }
 
-  const handleListItemClick = (event, index, route = '') => {
+  const handleListItemClick = (
+    event,
+    index,
+    route = '',
+    navigateOptions = {}
+  ) => {
     setSelectedIndex(index)
     handleClose(event)
 
     if (route && route !== '') {
-      navigate(route)
+      navigate(route, navigateOptions)
     }
   }
+
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
   }
@@ -223,7 +229,9 @@ const ProfileSection = () => {
                         sx={{ borderRadius: '12px' }}
                         selected={selectedIndex === 2}
                         onClick={(event) =>
-                          handleListItemClick(event, 2, `/account-setting`)
+                          handleListItemClick(event, 2, `/account-setting`, {
+                            state: { tabValue: '1' }
+                          })
                         }
                       >
                         <ListItemIcon>
