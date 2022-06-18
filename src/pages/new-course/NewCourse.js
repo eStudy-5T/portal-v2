@@ -217,7 +217,7 @@ const NewCourse = () => {
       <Layout disableSticky compactFooter>
         <Box sx={{ mt: 6, mb: 6 }}>
           <Box sx={{ width: '100%', height: '100%' }}>
-            <Container maxWidth="lg" className="wizard-form ">
+            <Container maxWidth="lg" className="wizard-form">
               <Stepper activeStep={activeStep} alternativeLabel>
                 {steps.map((label, index) => {
                   const stepProps = {}

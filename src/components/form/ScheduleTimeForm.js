@@ -20,6 +20,15 @@ import {
 
 import { WEEK_DAYS } from '../../utils/constants/misc'
 
+const styles = {
+  radio: {
+    color: '#3d47b4',
+    '&.Mui-checked': {
+      color: '#525fe1'
+    }
+  }
+}
+
 const ScheduleTimeForm = ({
   successBtnText,
   editData,
@@ -130,7 +139,7 @@ const ScheduleTimeForm = ({
                       })}
                       key={day.value}
                       value={day.value}
-                      control={<Radio />}
+                      control={<Radio sx={styles.radio} />}
                       label={day.label}
                     />
                   ))}
@@ -145,13 +154,20 @@ const ScheduleTimeForm = ({
           sx={{ mt: 4, justifyContent: 'right' }}
         >
           <Button
-            variant="contained"
+            variant="text"
             color="error"
             onClick={() => setOpen(false)}
+            sx={{ textTransform: 'capitalize' }}
           >
             Cancel
           </Button>
-          <Button type="submit" variant="contained" color="success">
+
+          <Button
+            type="submit"
+            variant="contained"
+            color="success"
+            sx={{ textTransform: 'capitalize' }}
+          >
             {successBtnText}
           </Button>
         </Stack>

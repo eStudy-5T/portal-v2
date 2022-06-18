@@ -71,7 +71,7 @@ const Globe = ({ size }) => {
             selected={code === currentLanguageCode}
             key={code}
             onClick={() => handleLanguageClick(code)}
-            sx={{ fontSize: '14px', padding: '10px' }}
+            sx={{ fontSize: '14px', padding: '10px 15px' }}
           >
             <ReactCountryFlag
               countryCode={countryCode}

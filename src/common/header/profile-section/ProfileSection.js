@@ -96,7 +96,7 @@ const ProfileSection = () => {
         color="primary"
       />
       <Popper
-        placement="bottom"
+        placement="bottom-start"
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
@@ -183,7 +183,10 @@ const ProfileSection = () => {
                         </ListItemIcon>
                         <ListItemText
                           primary={
-                            <Typography variant="button">
+                            <Typography
+                              variant="button"
+                              sx={{ textTransform: 'capitalize' }}
+                            >
                               {translation('dropdown.myCourses')}
                             </Typography>
                           }
@@ -206,7 +209,10 @@ const ProfileSection = () => {
                           </ListItemIcon>
                           <ListItemText
                             primary={
-                              <Typography variant="button">
+                              <Typography
+                                variant="button"
+                                sx={{ textTransform: 'capitalize' }}
+                              >
                                 {translation('dropdown.teacherDashboard')}
                               </Typography>
                             }
@@ -229,7 +235,10 @@ const ProfileSection = () => {
                         </ListItemIcon>
                         <ListItemText
                           primary={
-                            <Typography variant="button">
+                            <Typography
+                              variant="button"
+                              sx={{ textTransform: 'capitalize' }}
+                            >
                               {translation('dropdown.accountSettings')}
                             </Typography>
                           }
@@ -252,7 +261,10 @@ const ProfileSection = () => {
                           </ListItemIcon>
                           <ListItemText
                             primary={
-                              <Typography variant="button">
+                              <Typography
+                                variant="button"
+                                sx={{ textTransform: 'capitalize' }}
+                              >
                                 {translation('dropdown.manageUsers')}
                               </Typography>
                             }
@@ -273,7 +285,10 @@ const ProfileSection = () => {
                         </ListItemIcon>
                         <ListItemText
                           primary={
-                            <Typography variant="button">
+                            <Typography
+                              variant="button"
+                              sx={{ textTransform: 'capitalize' }}
+                            >
                               {translation('auth.logOut')}
                             </Typography>
                           }

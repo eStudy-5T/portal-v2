@@ -451,8 +451,9 @@ input[type='submit'] {
 
 .wizard-form {
   border: 2px solid var(--color-border);
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 40px 30px;
+  background-color: white;
 }
 
 .input_time {

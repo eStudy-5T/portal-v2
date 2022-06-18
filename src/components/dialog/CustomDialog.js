@@ -1,5 +1,11 @@
 import React from 'react'
-import { Dialog, DialogTitle, DialogContent, Typography } from '@mui/material'
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Typography,
+  Divider
+} from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 
 const CustomDialog = ({
@@ -23,7 +29,12 @@ const CustomDialog = ({
         <div style={{ display: 'flex' }}>
           <Typography
             variant="title"
-            style={{ flexGrow: 1, fontWeight: 'bold', fontSize: '18px' }}
+            style={{
+              flexGrow: 1,
+              fontWeight: 'bold',
+              fontSize: '18px',
+              color: '#4a4a4a'
+            }}
           >
             {title}
           </Typography>
@@ -35,6 +46,7 @@ const CustomDialog = ({
           />
         </div>
       </DialogTitle>
+      <Divider sx={{ background: '#e0e0e0' }} />
       <DialogContent>{children}</DialogContent>
     </Dialog>
   )

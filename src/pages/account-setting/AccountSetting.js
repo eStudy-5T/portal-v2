@@ -43,7 +43,13 @@ const AccountSetting = () => {
       <Layout>
         <Box component="main" sx={{ py: 1, width: '100%' }}>
           <TabContext value={value}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Box
+              sx={{
+                borderBottom: 1,
+                borderColor: 'divider',
+                background: 'white'
+              }}
+            >
               <TabList
                 onChange={handleChange}
                 indicatorColor="secondary"
