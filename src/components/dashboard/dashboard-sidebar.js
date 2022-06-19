@@ -6,21 +6,8 @@ import NavItem from './nav-item'
 
 import { useTranslation } from 'react-i18next'
 
-const items = [
-  {
-    href: '/teacher-dashboard',
-    icon: <i className="ri-file-chart-fill"></i>,
-    title: 'dashboard.dashboard'
-  },
-  {
-    href: '/teacher-courses',
-    icon: <i className="ri-list-unordered"></i>,
-    title: 'dashboard.courses'
-  }
-]
-
 const DashboardSidebar = (props) => {
-  const { isOpen, close } = props
+  const { isOpen, close, items = [] } = props
   const { t: translation } = useTranslation()
   const lgUp = useMediaQuery('(min-width:1200px)', {
     defaultMatches: true

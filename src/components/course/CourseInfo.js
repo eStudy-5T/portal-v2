@@ -2,11 +2,12 @@
 import React, { useState, useEffect } from 'react'
 import FsLightbox from 'fslightbox-react'
 import EnrollConfirmDialog from '../../components/enroll-confirm-dialog/EnrollConfirmDialog'
+import { format } from 'date-fns'
 
 // i18
 import { useTranslation } from 'react-i18next'
 import get from 'lodash/get'
-import userService from '../../services/user-service'
+import courseService from '../../services/course-service'
 import { useNavigate } from 'react-router-dom'
 
 const data = {
@@ -78,16 +79,27 @@ function CourseInfo({ courseData, currentUserId }) {
   }, [courseData, isEnrolled])
 
   const confirmEnrollCourse = () => {
-    try {
-      const courseId = courseData.id
-      const ownerId = courseData.ownerId
-      userService.enrollCourse(courseId, ownerId).then((res) => {
+    const courseId = courseData.id
+
+    if (courseData?.price) {
+      courseService
+        .checkout(
+          courseId,
+          format(new Date(), 'yyyyMMddHHmmss'),
+          localStorage.getItem('language')
+        )
+        .then(({ data: { checkoutUrl } }) => {
+          window.location.replace(checkoutUrl)
+        })
+    } else {
+      courseService.enroll(courseId).then((res) => {
         if (res.status === 200) {
           setIsEnrolled(true)
+          setEnrollVisible(false)
         }
       })
       closeEnrollConfirmDialog()
-    } catch (err) {}
+    }
   }
 
   return (
@@ -154,22 +166,28 @@ function CourseInfo({ courseData, currentUserId }) {
                   )}
                   <li>
                     <span>
-                      <i className="icon-calendar-2-line" />{' '}
+                      <i className="icon-calendar-2-line" />
                       {translation('courseDetails.startDate')}
                     </span>
-                    <span>09/04/2022</span>
+                    <span>
+                      {courseData?.startDate &&
+                        format(new Date(courseData.startDate), 'dd/MM/yyyy')}
+                    </span>
                   </li>
                   <li>
                     <span>
-                      <i className="icon-calendar-2-line" />{' '}
+                      <i className="icon-calendar-2-line" />
                       {translation('courseDetails.endDate')}
                     </span>
-                    <span>09/04/2023</span>
+                    <span>
+                      {courseData?.endDate &&
+                        format(new Date(courseData.endDate), 'dd/MM/yyyy')}
+                    </span>
                   </li>
                 </ul>
                 {isEnrollVisible && (
                   <div className="read-more-btn mt--45">
-                    <button className="edu-btn btn-bg-alt w-100 text-center">
+                    <button className="edu-btn btn-bg-alt btn-for-show w-100 text-center">
                       {translation('courseDetails.price')}:{' '}
                       {get(courseData, 'price') > 0
                         ? courseData.price + ' VND'

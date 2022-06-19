@@ -39,9 +39,6 @@ const VerifyAccountAlert = (props) => {
     !isVerified &&
     isAuthenticated && (
       <AlertWrapper>
-        {/* <div className="verify-account-alert">
-
-        </div> */}
         <Grid
           className="verify-account-alert"
           container

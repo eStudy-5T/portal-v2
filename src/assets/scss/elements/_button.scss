@@ -245,6 +245,10 @@ button {
       }
     }
 
+    &.btn-for-show {
+      pointer-events: none;
+    }
+
     &:disabled {
       opacity: 0.7;
     }

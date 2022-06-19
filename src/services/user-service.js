@@ -13,9 +13,6 @@ const userService = {
   update: (userId, userInfo) => {
     return request.put(`/user/${userId}`, userInfo)
   },
-  enrollCourse: (courseId, ownerId) => {
-    return request.post('/courses/enroll', {courseId, ownerId})
-  },
   getEnrolledCourses: (userId, searchText, paginationOptions, queryOptions) => {
     const { offset = 1, limit = 8 } = paginationOptions
     const {
@@ -39,7 +36,7 @@ const userService = {
   },
   getStudents: (userId) => {
     return request.get(`/user/${userId}/get-students`)
-  },
+  }
 }
 
 export default userService

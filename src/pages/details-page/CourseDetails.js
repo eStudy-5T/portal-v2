@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import ScrollAnimation from 'react-animate-on-scroll'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useSearchParams } from 'react-router-dom'
 import { Accordion } from 'react-bootstrap'
 import { useAccordionButton } from 'react-bootstrap/AccordionButton'
 import AccordionContext from 'react-bootstrap/AccordionContext'
@@ -59,93 +59,6 @@ function formatDate(date) {
   if (day.length < 2) day = '0' + day
 
   return [day, month, year].join('/')
-}
-
-function ClassesTabContent(data) {
-  const [classesData, setClassesData] = useState([])
-  const [isMounted, setIsMounted] = useState(false)
-
-  const { t: translation } = useTranslation()
-
-  const [activeId, setActiveId] = useState('0')
-
-  function toggleActive(id) {
-    if (activeId === id) {
-      setActiveId(null)
-    } else {
-      setActiveId(id)
-    }
-  }
-
-  useEffect(() => {
-    setIsMounted(true)
-    const courseId = data.courseId
-    courseService.getClasses(courseId).then(({ data: ClassesData }) => {
-      if (isMounted) {
-        setClassesData(ClassesData)
-      }
-    })
-  }, [data.courseId, isMounted])
-
-  return (
-    <Accordion bsPrefix="edu-accordion-02" defaultActiveKey={activeId} flush>
-      {classesData?.map((accordion, i) => (
-        <Accordion.Item
-          eventKey={i.toString()}
-          key={i}
-          onClick={() => toggleActive(i.toString())}
-          bsPrefix={`edu-accordion-item ${
-            activeId === i.toString() ? 'bg-active' : ''
-          }`}
-        >
-          <div className="edu-accordion-header">
-            <CustomToggle eventKey={i.toString()}>
-              Lớp học {i + 1}
-              {/* {accordion.title} */}
-            </CustomToggle>
-          </div>
-          <Accordion.Body bsPrefix="edu-accordion-body">
-            <ul>
-              <li>
-                <div className="text">
-                  <i className="icon-time-line" />
-                  {translation('classDetails.duration')}
-                </div>
-                <div className="icon">
-                  {accordion.duration} {translation('classDetails.hours')}
-                </div>
-              </li>
-              <li>
-                <div className="text">
-                  <i className="icon-user-2" />
-                  {translation('classDetails.enrolled')}/
-                  {translation('classDetails.maxSlot')}
-                </div>
-                <div className="icon">
-                  {accordion.maxSlots - accordion.remainingSlots}/
-                  {accordion.maxSlots}
-                </div>
-              </li>
-              <li>
-                <div className="text">
-                  <i className="icon-calendar-2-line" />
-                  {translation('classDetails.startDate')}
-                </div>
-                <div className="icon">{formatDate(accordion.startDate)}</div>
-              </li>
-              <li>
-                <div className="text">
-                  <i className="icon-calendar-2-line" />
-                  {translation('classDetails.endDate')}
-                </div>
-                <div className="icon">{formatDate(accordion.endDate)}</div>
-              </li>
-            </ul>
-          </Accordion.Body>
-        </Accordion.Item>
-      ))}
-    </Accordion>
-  )
 }
 
 const EnrolledTabContent = (props) => {
@@ -330,7 +243,8 @@ function ReviewsTabContent(data) {
         .then(({ data: StudentsData }) => {
           if (isMounted) {
             StudentsData.map((student) => {
-              if (student.user.id === currentUserId) setIsReviewable(data.isActive)
+              if (student.user.id === currentUserId)
+                setIsReviewable(data.isActive)
               return null
             })
           }
@@ -362,9 +276,7 @@ function ReviewsTabContent(data) {
                   readOnly
                   value={averageRating || 0}
                   precision={0.5}
-                  icon={
-                    <Star sx={{ color: '#ffa41b' }}></Star>
-                  }
+                  icon={<Star sx={{ color: '#ffa41b' }}></Star>}
                   emptyIcon={
                     <StarBorder sx={{ color: '#ffa41b' }}></StarBorder>
                   }
@@ -548,6 +460,7 @@ function CourseDetails() {
   const [courseData, setCourseData] = useState(null)
   const [ownerId, setOwnerId] = useState(null)
   const [isMounted, setIsMounted] = useState(false)
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const { id } = useParams()
   const courseId = 1
@@ -555,10 +468,14 @@ function CourseDetails() {
   const data = CourseData.filter((course) => course.id === courseId)
   const courseItem = data[0]
 
-  const fakeId = 'e1fbda3d-59d0-48b1-ba40-c5213396d1ce'
-
   useEffect(() => {
     setIsMounted(true)
+
+    searchParams.forEach((value, key) => {
+      searchParams.delete(key)
+    })
+    setSearchParams(searchParams)
+
     async function fetchData() {
       const { data } = await courseService.getSpecificCourse(id)
       const { ownerId } = data
@@ -568,7 +485,7 @@ function CourseDetails() {
     if (isMounted) {
       fetchData()
     }
-  }, [id, isMounted])
+  }, [id, isMounted, searchParams, setSearchParams])
 
   const indexOfInstructor = InstructorData.findIndex(
     (instructor) => slugify(instructor.name) === slugify(courseItem.instructor)
@@ -684,20 +601,6 @@ function CourseDetails() {
                         {translation('courseDetails.overview')}
                       </button>
                     </li>
-                    <li className="nav-item">
-                      <button
-                        className={
-                          contentTab === 'sessions'
-                            ? 'nav-link active'
-                            : 'nav-link'
-                        }
-                        type="button"
-                        aria-label="Sessions"
-                        onClick={() => handleTab('sessions')}
-                      >
-                        {translation('courseDetails.sessions')}
-                      </button>
-                    </li>
                     {userId === ownerId ? (
                       <li className="nav-item">
                         <button
@@ -769,21 +672,6 @@ function CourseDetails() {
                             )
                           }}
                         />
-                      </ScrollAnimation>
-                    )}
-
-                    {contentTab === 'sessions' && (
-                      <ScrollAnimation
-                        animateIn="fadeIn"
-                        animateOut="fadeInOut"
-                        className={`tab-pane fade show ${
-                          contentTab === 'sessions' ? 'active' : ''
-                        } `}
-                        animateOnce
-                      >
-                        <div className="course-tab-content">
-                          <ClassesTabContent courseId={fakeId} />
-                        </div>
                       </ScrollAnimation>
                     )}
 

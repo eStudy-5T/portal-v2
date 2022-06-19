@@ -14,7 +14,7 @@ const DashboardLayoutRoot = styled('div')(({ theme, issidebaropen }) => ({
 }))
 
 const DashboardLayout = (props) => {
-  const { children } = props
+  const { children, items } = props
   const lgUp = useMediaQuery('(min-width:1200px)', {
     defaultMatches: true
   })
@@ -49,6 +49,7 @@ const DashboardLayout = (props) => {
       <DashboardSidebar
         close={() => setSidebarOpen(false)}
         isOpen={isSidebarOpen}
+        items={items}
       />
     </>
   )
