@@ -17,12 +17,6 @@ const courseService = {
   updateCourse: (courseId, data) => {
     return request.put(`/courses/${courseId}`, data)
   },
-  getClasses: (courseId) => {
-    return request.get(`/courses/${courseId}/classes`)
-  },
-  createClass: (courseId, data) => {
-    return request.post(`/courses/${courseId}/classes`, data)
-  },
   getCourses: (userId, searchText, paginationOptions, queryOptions) => {
     const { offset = 1, limit = 8 } = paginationOptions
     const {
@@ -76,6 +70,16 @@ const courseService = {
   },
   generateMeetLink: (courseId) => {
     return request.post(`/courses/${courseId}/generate-meet-link`, {})
+  },
+  enroll: (courseId) => {
+    return request.post(`/course/${courseId}/enroll`, {})
+  },
+  checkout: (courseId, createDate, locale) => {
+    return request.post(
+      `/courses/${courseId}/checkout`,
+      {},
+      { params: { createDate, locale } }
+    )
   }
 }
 

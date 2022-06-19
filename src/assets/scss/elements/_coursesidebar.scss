@@ -1,5 +1,5 @@
 /*----------------------------
-    Course Sidebar Styles 
+    Course Sidebar Styles
 -----------------------------*/
 .edu-course-widget {
   background: var(--color-shade);
@@ -70,8 +70,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background-color: rgba(0, 0 , 0 , 0.5);
+  text-shadow: 2px 2px black;
+  background-color: rgba(0, 0, 0, 0.5);
 
   .container {
     width: 40%;
@@ -89,7 +89,7 @@
         rgba(45, 40, 78, 0) 70.5%
       );
       position: absolute;
-      content: "";
+      content: '';
       top: 0;
       left: 0;
       width: 100%;
@@ -105,8 +105,13 @@
     }
     img {
       border-radius: 5px;
+      // filter: brightness(85%);
     }
     .content-overlay {
+      height: 100%;
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
       position: absolute;
       bottom: 0;
       left: 0;
@@ -137,7 +142,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    bottom: -20px;
+    gap: 1rem;
   }
 }
