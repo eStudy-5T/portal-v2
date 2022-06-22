@@ -25,6 +25,7 @@ const AccountDetails = (props) => {
   const { t: translation } = useTranslation()
   const dispatch = useDispatch()
   const [userInfoValues, setUserInfoValues] = useState(props.info)
+
   const [errorMsg, setErrorMsg] = useState(null)
   const [isAppLoading, setIsAppLoading] = useState(false)
   const [isSaveable, setIsSaveable] = useState(false)
@@ -49,13 +50,6 @@ const AccountDetails = (props) => {
       ...userInfoValues,
       [event.target.name]: event.target.value
     })
-  }
-
-  const handleChangeUserInfo = (name) => {
-    return ({ target: { value } }) => {
-      setIsSaveable(true)
-      setUserInfoValues((oldValues) => ({ ...oldValues, [name]: value }))
-    }
   }
 
   const handleSubmit = async (event) => {
@@ -139,14 +133,13 @@ const AccountDetails = (props) => {
               <TextField
                 fullWidth
                 label={translation('accountSetting.dateOfBirth')}
+                InputLabelProps={{ shrink: true }}
                 name="dateOfBirth"
                 onChange={handleChange}
                 type="date"
                 required
-                value={
-                  userInfoValues.dateOfBirth
-                    ? formatDate(userInfoValues.dateOfBirth)
-                    : formatDate(Date.now())
+                defaultValue={
+                  userInfoValues.dateOfBirth ? formatDate(userInfoValues.dateOfBirth) : ''
                 }
                 variant="outlined"
               />
@@ -155,8 +148,9 @@ const AccountDetails = (props) => {
               <TextField
                 fullWidth
                 label={translation('accountSetting.mobilePhone')}
+                InputLabelProps={{ shrink: true }}
                 name="mobilePhone"
-                onChange={handleChangeUserInfo('mobilePhone')}
+                onChange={handleChange}
                 type="number"
                 value={userInfoValues.mobilePhone || ''}
                 variant="outlined"

@@ -185,7 +185,9 @@
   },
   "admin": {
     "studentList": "Danh sách học sinh",
-    "instructorList": "Danh sách giáo viên"
+    "instructorList": "Danh sách giáo viên",
+    "manageUsers": "Quản lý người dùng",
+    "manageCourses": "Quản lý khóa học"
   },
   "accountSetting": {
     "profile": "Hồ Sơ",

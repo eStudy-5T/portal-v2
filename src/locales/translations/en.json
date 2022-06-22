@@ -186,7 +186,9 @@
   },
   "admin": {
     "studentList": "Student List",
-    "instructorList": "Instructor List"
+    "instructorList": "Instructor List",
+    "manageUsers": "Manage Users",
+    "manageCourses": "Manage Courses"
   },
   "accountSetting": {
     "profile": "Profile",

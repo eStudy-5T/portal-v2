@@ -768,6 +768,7 @@ function CourseDetails() {
                         courseId={id}
                         ownerId={ownerId}
                         currentUserId={userId}
+                        isActive={courseData.isActive}
                       />
                     )}
                   </div>
