@@ -36,7 +36,17 @@ const authService = {
   resetPassword: (email, resetPasswordToken, newPassword) => {
     return request
       .get('/auth/get-csrf')
-      .then(() => request.put('/auth/reset-password', {email, resetPasswordToken, newPassword}))
+      .then(() =>
+        request.put('/auth/reset-password', {
+          email,
+          resetPasswordToken,
+          newPassword
+        })
+      )
+  },
+
+  generateGoogleRefreshToken: (code) => {
+    return request.post('/auth/google/generate-refresh-token', { code })
   }
 }
 
