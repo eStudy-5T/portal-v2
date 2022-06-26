@@ -3,16 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import usePrompt from '../../hooks/user-prompt'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
-import {
-  Grid,
-  Box,
-  Stepper,
-  Step,
-  StepLabel,
-  Container,
-  Divider,
-  Typography
-} from '@mui/material'
+import { Grid, Box, Container, Divider, Typography } from '@mui/material'
 
 const CreateTeacherProfile = () => {
   return (

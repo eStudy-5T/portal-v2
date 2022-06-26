@@ -46,7 +46,7 @@ const AccountSetting = () => {
             <Box
               sx={{
                 borderBottom: 1,
-                borderColor: 'divider',
+                borderColor: '#f1f2f4;',
                 background: 'white'
               }}
             >
@@ -59,7 +59,8 @@ const AccountSetting = () => {
                   },
                   '& .MuiTabs-flexContainer': {
                     justifyContent: 'center'
-                  }
+                  },
+                  background: '#f1f2f4'
                 }}
               >
                 <Tab
