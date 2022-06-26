@@ -15,7 +15,7 @@ const CreateTeacherProfile = () => {
           <Box className="profile-box">
             <Box className="profile-box__header">
               <Typography variant="h5" fontSize="22px">
-                Fill out your profile
+                Fill out your profile and become LetMeet teacher
               </Typography>
             </Box>
             <Divider sx={{ backgroundColor: '#E0E0E0' }} />
@@ -29,8 +29,7 @@ const CreateTeacherProfile = () => {
                 >
                   <Box>
                     <Typography className="profile-title" variant="h5">
-                      Welcome Tri Bui, let complete profile and become our
-                      LetMeet Teacher
+                      Welcome Tri Bui, glad you here with us
                     </Typography>
                     <Typography className="profile-subtitle">
                       Make any edits you want, then submit your profile. You can
