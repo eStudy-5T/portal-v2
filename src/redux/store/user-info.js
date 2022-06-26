@@ -14,7 +14,8 @@ const initialState = {
   isAdmin: null,
   teacherInfo: {
     // teacher info field
-  }
+  },
+  doesGoogleGrantAccess: false
 }
 
 const userInfoSlice = createSlice({
@@ -43,6 +44,7 @@ const userInfoSlice = createSlice({
       state.nationality = action.payload.nationality
       state.identityNumber = action.payload.identityNumber
       state.grade = action.payload.grade
+      state.doesGoogleGrantAccess = action.payload.doesGoogleGrantAccess
     },
     addTeacherInfo(state, action) {
       // update teacher info to info if need
@@ -53,6 +55,9 @@ const userInfoSlice = createSlice({
     logOutUser(state) {
       state.isAuthenticated = false
       state = initialState
+    },
+    setGoogleGrantAccess(state, action) {
+      state.doesGoogleGrantAccess = action.payload
     }
   }
 })
