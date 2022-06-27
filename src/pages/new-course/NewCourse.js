@@ -61,6 +61,7 @@ const NewCourse = () => {
     } else if (activeStep === 1) {
       isAllowNextStep = validateScheduleForm(courseScheduleData)
     } else if (activeStep === 2) {
+      setIsBlocking(false)
       isAllowNextStep = true
     }
 

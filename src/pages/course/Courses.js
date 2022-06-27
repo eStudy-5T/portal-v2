@@ -231,8 +231,8 @@ function CourseOne() {
                           onChange={handleChangePageSize}
                         />
                         <span>
-                          {' '}
-                          {translation('courses.of')} {CourseCount}{' '}
+                          &nbsp;{translation('courses.of')}
+                          &nbsp;{CourseCount}&nbsp;
                           {translation('courses.results')}
                         </span>
                       </p>

@@ -1,0 +1,74 @@
+.profile {
+  &-form {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    @media only screen and (min-width: 1000px) {
+      max-width: 960px !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+
+  &-box {
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    box-shadow: 0 1px 6px rgb(57 73 76 / 35%);
+    background-color: #fff;
+    border-radius: 5px;
+
+    &__header,
+    &__content {
+      padding: 25px 40px;
+    }
+
+    &__header {
+      background-color: #f9f9f9;
+
+      &-title {
+        font-size: 24px;
+        font-weight: 600;
+      }
+    }
+
+    &__content {
+      &-left {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @media only screen and (min-width: 900px) {
+          justify-content: flex-start;
+        }
+      }
+
+      &-right {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+
+        @media only screen and (min-width: 900px) {
+          justify-content: flex-end;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  &-title,
+  &-subtitle {
+    text-align: center;
+
+    @media only screen and (min-width: 900px) {
+      text-align: left;
+    }
+  }
+
+  &-title {
+    font-size: 16px !important;
+    margin-bottom: 24px !important;
+  }
+
+  &-subtitle {
+    font-size: 14px !important;
+  }
+}

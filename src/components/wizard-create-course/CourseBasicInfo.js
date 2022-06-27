@@ -136,7 +136,7 @@ const CourseBasicInfo = ({
               <FormControlLabel
                 value={COURSE_TYPE.MARKETING}
                 control={<Radio sx={styles.radio} />}
-                label=" Marketing Page. I do not want student to enroll my course yet. At this moment in time, I only want to create a marketing course for promotional purposes"
+                label=" Marketing Page. I do not want student to enroll my course yet. At this moment in time, I only want to create a marketing page for promotional purposes"
               />
             </RadioGroup>
           </FormControl>
