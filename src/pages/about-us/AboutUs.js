@@ -1,32 +1,22 @@
 import React from 'react'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
-import AboutNine from '../../components/about/AboutNine'
-import AboutUsTwoService from '../../components/about-us-two/AboutUsTwoService'
-import AwardOne from '../../components/award/AwardOne'
-import AboutUsTwoInstructor from '../../components/about-us-two/AboutUsTwoInstructor'
-import AboutOne from '../../components/about/AboutOne'
-import AboutUsTwoCountDown from '../../components/about-us-two/AboutUsTwoCountDown'
-import TestimonialSectionOne from '../../components/testimonial-section/TestimonialSectionOne'
+import AboutIntroSection from '../../components/about/AboutIntroSection'
+import AboutFeatures from '../../components/about/AboutFeatures'
+import AboutService from '../../components/about/AboutService'
+import AboutInstructor from '../../components/about/AboutInstructor'
+import AboutTestimonial from '../../components/about/AboutTestimonial'
 
 function AboutUsTwo() {
   return (
     <>
-      <SEO title="About Us 2" />
+      <SEO title="About Us" />
       <Layout>
-        <AboutNine />
-
-        <AboutUsTwoService />
-
-        <AwardOne />
-
-        <AboutUsTwoInstructor />
-
-        <AboutOne />
-
-        <AboutUsTwoCountDown />
-
-        <TestimonialSectionOne />
+        <AboutIntroSection />
+        <AboutInstructor />
+        <AboutFeatures />
+        <AboutService />
+        <AboutTestimonial />
       </Layout>
     </>
   )

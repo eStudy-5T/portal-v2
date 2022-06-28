@@ -10,7 +10,6 @@ import InstructorsPage from '../../pages/instructor-page/InstructorsPage'
 import Pricing from '../../pages/pricing-page/Pricing'
 import PrivacyPolicy from '../../pages/privacy-policy/PrivacyPolicy'
 import PurchaseGuide from '../../pages/purchase-guide/PurchaseGuide'
-import Testimonial from '../../pages/testimonial/Testimonial'
 import InstructorDetails from '../../pages/details-page/InstructorDetails'
 import Test from '../../pages/test/Test'
 
@@ -73,11 +72,6 @@ const publicRoutes = [
   {
     path: 'purchase-guide',
     component: () => <PurchaseGuide />,
-    exact: true
-  },
-  {
-    path: 'testimonial',
-    component: () => <Testimonial />,
     exact: true
   },
   {

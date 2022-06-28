@@ -3,7 +3,7 @@ import ScrollAnimation from 'react-animate-on-scroll'
 import Pagination from '@mui/material/Pagination'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
-import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
+import Breadcrumb from '../../common/breadcrumb/Breadcrumb'
 import CourseTypeOne from '../../components/course/CourseTypeOne'
 import SortBy from '../../components/widgets/course/SortBy'
 import PriceOne from '../../components/widgets/course/CategoryFilter'
@@ -206,7 +206,7 @@ function CourseOne() {
     <>
       <SEO title={translation('nav.courses')} />
       <Layout>
-        <BreadcrumbOne title={translation('nav.courses')} />
+        <Breadcrumb title={translation('nav.courses')} />
         {isModifyAccessPopupShown && (
           <ModifyCourseAccessDialog
             onClose={onClose}
@@ -217,7 +217,7 @@ function CourseOne() {
         <div className="edu-course-area edu-section-gap bg-color-white">
           <div className="container">
             <div className="row g-5">
-              <div className="col-lg-8">
+              <div className="col-lg-9">
                 <div className="row g-5 align-items-center">
                   <div className="col-lg-6 col-md-6 col-12">
                     <div className="short-by">
@@ -276,7 +276,7 @@ function CourseOne() {
                   ))}
                 </div>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3">
                 {userId ? (
                   <div className="edu-course-widget mb-5">
                     <div className="inner">

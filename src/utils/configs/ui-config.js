@@ -1,20 +1,11 @@
-export const TestimonialOneParams = {
-  dots: true,
-  infinite: true,
-  arrows: false,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1
-}
-
-export const TestimonialTwoParams = {
+export const AboutTestimonialSectionParams = {
   slidesToShow: 1,
   slidesToScroll: 1,
   arrows: false,
   fade: false
 }
 
-export const TestimonialTwoThumDots = {
+export const AboutTestimonialSectionThumDots = {
   slidesToShow: 3,
   slidesToScroll: 1,
   dots: false,
@@ -24,7 +15,7 @@ export const TestimonialTwoThumDots = {
   autoplaySpeed: 4000
 }
 
-export const TestimonialFourParams = {
+export const HomeTestimonialSectionParams = {
   dots: true,
   infinite: true,
   arrows: false,
@@ -51,32 +42,6 @@ export const TestimonialFourParams = {
       settings: {
         slidesToShow: 1,
         slidesToScroll: 2
-      }
-    }
-  ]
-}
-
-export const BlogCarouselParams = {
-  dots: true,
-  infinite: true,
-  arrows: false,
-  speed: 1000,
-  slidesToShow: 3,
-  slidesToScroll: 2,
-  autoplay: true,
-  autoplaySpeed: 3000,
-  responsive: [
-    {
-      breakpoint: 1199,
-      settings: {
-        slidesToShow: 2
-      }
-    },
-    {
-      breakpoint: 767,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
       }
     }
   ]

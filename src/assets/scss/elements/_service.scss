@@ -37,7 +37,7 @@
   transition: 0.4s;
   &::after {
     position: absolute;
-    content: "";
+    content: '';
     left: 0;
     width: 0;
     height: 2px;
@@ -515,6 +515,7 @@
     position: relative;
     transition: 0.4s;
     margin-bottom: 20px;
+    min-height: 245px;
     .icon {
       position: relative;
       width: 75px;
@@ -605,7 +606,7 @@
   &:first-child {
     &::after {
       background-image: url(../../images/shape/arrow-down.png);
-      content: "";
+      content: '';
       width: 155px;
       height: 43px;
       right: -19%;
@@ -624,7 +625,7 @@
   &:last-child {
     &::after {
       background-image: url(../../images/shape/arrow-top.png);
-      content: "";
+      content: '';
       width: 155px;
       height: 43px;
       left: -19%;
