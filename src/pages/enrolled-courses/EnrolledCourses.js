@@ -3,7 +3,7 @@ import ScrollAnimation from 'react-animate-on-scroll'
 import Pagination from '@mui/material/Pagination'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
-import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
+import Breadcrumb from '../../common/breadcrumb/Breadcrumb'
 import CourseTypeOne from '../../components/course/CourseTypeOne'
 import SortBy from '../../components/widgets/course/SortBy'
 import PriceOne from '../../components/widgets/course/CategoryFilter'
@@ -16,7 +16,6 @@ import userService from '../../services/user-service'
 // i18
 import { useTranslation } from 'react-i18next'
 import { isNumber } from 'lodash'
-
 
 function EnrolledCourses() {
   const [pageNumber, setPageNumber] = useState(1)
@@ -33,7 +32,7 @@ function EnrolledCourses() {
   const isFirstTimeSetPageSize = useRef(true)
   const { userId } = useParams()
   const { t: translation } = useTranslation()
-  
+
   useEffect(() => {
     const offset = (pageNumber - 1) * pageSize
     const debouncedFetchData = debounce(
@@ -102,13 +101,11 @@ function EnrolledCourses() {
     <>
       <SEO title={translation('dropdown.myCourses')} />
       <Layout>
-        <BreadcrumbOne
-          title={translation('dropdown.myCourses')}
-        />
+        <Breadcrumb title={translation('dropdown.myCourses')} />
         <div className="edu-course-area edu-section-gap bg-color-white">
           <div className="container">
             <div className="row g-5">
-              <div className="col-lg-8">
+              <div className="col-lg-9">
                 <div className="row g-5 align-items-center">
                   <div className="col-lg-6 col-md-6 col-12">
                     <div className="short-by">
@@ -163,7 +160,7 @@ function EnrolledCourses() {
                   ))}
                 </div>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3">
                 <SortBy onFilterChange={handleFilterChange} />
                 <PriceOne
                   extraClass="mt--40"

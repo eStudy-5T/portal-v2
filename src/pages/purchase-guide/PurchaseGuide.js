@@ -2,14 +2,14 @@ import React from 'react'
 import ScrollAnimation from 'react-animate-on-scroll'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
-import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
+import Breadcrumb from '../../common/breadcrumb/Breadcrumb'
 
 function PurchaseGuide() {
   return (
     <>
       <SEO title="Purchase Guide" />
       <Layout>
-        <BreadcrumbOne
+        <Breadcrumb
           title="Purchase Guide"
           rootUrl="/"
           parentUrl="Home"

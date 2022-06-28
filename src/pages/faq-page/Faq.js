@@ -5,7 +5,7 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton'
 import AccordionContext from 'react-bootstrap/AccordionContext'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
-import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
+import Breadcrumb from '../../common/breadcrumb/Breadcrumb'
 import SectionTitle from '../../components/section-title/SectionTitle'
 
 const faqCategories = [
@@ -239,7 +239,7 @@ function Faq({ wrapperClass }) {
     <>
       <SEO title="Frequently Asked Questions" />
       <Layout>
-        <BreadcrumbOne
+        <Breadcrumb
           title="Frequently Asked Questions"
           rootUrl="/"
           parentUrl="Home"

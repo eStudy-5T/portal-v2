@@ -1,23 +1,10 @@
 import React from 'react'
-import { alpha } from '@mui/system'
-import { CircularProgress, Box } from '@mui/material'
 
-const Loading = ({ isOverlay = false }) => {
+const Loading = () => {
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        width: '100%',
-        height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: isOverlay ? alpha('#000', 0.5) : 'transparent',
-        zIndex: 999999
-      }}
-    >
-      <CircularProgress size={100} />
-    </Box>
+    <div id="loading-wrapper">
+      <div id="loader"></div>
+    </div>
   )
 }
 

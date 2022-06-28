@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import SEO from '../../common/SEO'
 // import userService from '../../services/user-service'
 import { useTranslation } from 'react-i18next'
-// import StudentOne from '../../components/student/StudentOne'
+// import Student from '../../components/student/Student'
 
 import { Box, Container } from '@mui/material'
 import { UsersList } from './customer/users-list'
@@ -35,7 +35,7 @@ const ManageUserPage = () => {
   return (
     <>
       <SEO title={translation('nav.courses')} />
-      <DashboardLayout items={items} >
+      <DashboardLayout items={items}>
         <Box
           component="main"
           sx={{
@@ -44,7 +44,7 @@ const ManageUserPage = () => {
           }}
         >
           <Container maxWidth={false}>
-              <UsersList customers={customers} />
+            <UsersList customers={customers} />
           </Container>
         </Box>
       </DashboardLayout>

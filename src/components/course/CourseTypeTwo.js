@@ -6,7 +6,7 @@ import CourseData from '../../data/course/CourseData.json'
 // i18
 import { useTranslation } from 'react-i18next'
 
-function CourseTwo(data) {
+function CourseTypeTwo(data) {
   const { t: translation } = useTranslation()
 
   const instructor = data.data.instructor
@@ -14,17 +14,13 @@ function CourseTwo(data) {
   const indexOfInstructor = 0
   const instructorThumb = InstructorData[indexOfInstructor].image
   data = CourseData[0]
-  
+
   return (
     <div className={`edu-card card-type-2 radius-small`}>
       <div className="inner">
         <div className="thumbnail">
           <Link to={`${process.env.PUBLIC_URL}/course-details/${course?.id}`}>
-            <img
-              className="w-100"
-              src={`${data.image}`}
-              alt="Course Thumb"
-            />
+            <img className="w-100" src={`${data.image}`} alt="Course Thumb" />
           </Link>
           <div className="top-position status-group left-top">
             <span className="letmeet-status status-02">
@@ -48,7 +44,9 @@ function CourseTwo(data) {
                     src={`${process.env.PUBLIC_URL}/images/instructor/instructor-small/${instructorThumb}`}
                     alt="Author Thumb"
                   />
-                  <span className="author-title">{instructor?.lastName + " " + instructor?.firstName}</span>
+                  <span className="author-title">
+                    {instructor?.lastName + ' ' + instructor?.firstName}
+                  </span>
                 </Link>
               </div>
             </div>
@@ -91,4 +89,4 @@ function CourseTwo(data) {
     </div>
   )
 }
-export default CourseTwo
+export default CourseTypeTwo

@@ -383,9 +383,11 @@
 
   .banner-thumbnail {
     position: absolute;
-    bottom: 0;
-    right: 111px;
+    top: 240px;
+    right: 0;
     z-index: 1;
+    width: calc(45%);
+    height: 300px;
 
     @media #{$laptop-device} {
       right: 31px;

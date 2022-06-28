@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ScrollAnimation from 'react-animate-on-scroll'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
-import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
+import Breadcrumb from '../../common/breadcrumb/Breadcrumb'
 import SectionTitle from '../../components/section-title/SectionTitle'
 
 const plans = {
@@ -134,7 +134,7 @@ function Pricing() {
     <>
       <SEO title="Pricing Plan" />
       <Layout>
-        <BreadcrumbOne
+        <Breadcrumb
           title="Pricing Plan"
           rootUrl="/"
           parentUrl="Home"

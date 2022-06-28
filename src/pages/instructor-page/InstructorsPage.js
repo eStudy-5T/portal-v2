@@ -2,8 +2,8 @@ import React from 'react'
 import Slider from 'react-slick'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
-import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
-import InstructorOne from '../../components/instructor/InstructorOne'
+import Breadcrumb from '../../common/breadcrumb/Breadcrumb'
+import InstructorDetail from '../../components/instructor/InstructorDetail'
 import SectionTitle from '../../components/section-title/SectionTitle'
 import InstructorData from '../../data/instructor/InstructorData.json'
 
@@ -67,7 +67,7 @@ function InstructorsPage({ wrapperClass }) {
     <>
       <SEO title="Instructor 1" />
       <Layout>
-        <BreadcrumbOne
+        <Breadcrumb
           title="Instructor 1"
           rootUrl="/"
           parentUrl="Home"
@@ -86,7 +86,7 @@ function InstructorsPage({ wrapperClass }) {
             </div>
             <div className="row row--20">
               {TeamMembers.map((item) => (
-                <InstructorOne key={item.id} data={item} />
+                <InstructorDetail key={item.id} data={item} />
               ))}
             </div>
           </div>
@@ -117,7 +117,7 @@ function InstructorsPage({ wrapperClass }) {
                   {...sliderSettings}
                 >
                   {InstructorData.slice(0, 6).map((item) => (
-                    <InstructorOne
+                    <InstructorDetail
                       key={item.id}
                       data={item}
                       classes="instructor-one-each-slide"

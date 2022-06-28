@@ -10,10 +10,8 @@ import { useTranslation } from 'react-i18next'
 import { Rating } from '@mui/material'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 
-import {
-  withStyles
-} from "@material-ui/core/styles";
-import Tooltip from "@material-ui/core/Tooltip";
+import { withStyles } from '@material-ui/core/styles'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const BlueOnGreenTooltip = withStyles({
   tooltip: {
@@ -21,16 +19,29 @@ const BlueOnGreenTooltip = withStyles({
     color: 'var(--color-primary)',
     backgroundColor: 'var(--color-white)'
   }
-})(Tooltip);
+})(Tooltip)
 
-function CourseTypeOne({ data, classes, isAdmin, onModifyAccessClick, setSelectedCourse, setSelectedAction }) {
+function CourseTypeOne({
+  data,
+  classes,
+  isAdmin,
+  onModifyAccessClick,
+  setSelectedCourse,
+  setSelectedAction
+}) {
   const { t: translation } = useTranslation()
 
   const [avatar, setOwnerAvatar] = useState(null)
 
   const instructorThumb = InstructorData[1].image
-  const excerpt = `${data.description ? data.description.substring(0, 142) : CourseData[1].excerpt.substring(0, 142)}...`
-  const trimTitle = `${data.title ? data.title.substring(0, 26) : 'Unknown title'}${data.title.length > 26 ? '...' : ''}`
+  const excerpt = `${
+    data.description
+      ? data.description.substring(0, 142)
+      : CourseData[1].excerpt.substring(0, 142)
+  }...`
+  const trimTitle = `${
+    data.title ? data.title.substring(0, 26) : 'Unknown title'
+  }${data.title.length > 26 ? '...' : ''}`
 
   const isActive = get(data, 'isActive', false)
 
@@ -109,36 +120,38 @@ function CourseTypeOne({ data, classes, isAdmin, onModifyAccessClick, setSelecte
           <div className="card-bottom">
             <div className="price-list price-style-02">
               <div className="row align-items-center">
-                <div className='col-lg-6 col-md-6 col-sm-6'>
+                <div className="col-lg-6 col-md-6 col-sm-6">
                   {data.price && (
-                    <div className="price current-price">{data.price !== 0 ? `${data.price}VND` : 'Free'}</div>
+                    <div className="price current-price">
+                      {data.price !== 0 ? `${data.price}VND` : 'Free'}
+                    </div>
                   )}
                 </div>
-                <div className='col-lg-6 col-md-6 col-sm-6'>
+                <div className="col-lg-6 col-md-6 col-sm-6">
                   {data.oldPrice && (
                     <div className="price old-price">{data.oldPrice}VND</div>
                   )}
-              </div>
-              <div className="row align-items-center">
-                <div className="edu-rating rating-default">
-                  <div className="rating letmeet-course-rating-stars">
-                  <Rating
-                  readOnly
-                  value={data.rating}
-                  precision={0.5}
-                  size="medium"
-                  sx={{ color: '#ffa41b' }}
-                  emptyIcon={
-                    <StarBorderIcon
-                      fontSize="inherit"
-                      sx={{ color: '#ffa41b' }}
-                    ></StarBorderIcon>
-                  }
-                ></Rating>
-                  </div>
-                  <span className="rating-count">({data.rating})</span>
                 </div>
-              </div>
+                <div className="row align-items-center">
+                  <div className="edu-rating rating-default">
+                    <div className="rating letmeet-course-rating-stars">
+                      <Rating
+                        readOnly
+                        value={data.rating}
+                        precision={0.5}
+                        size="medium"
+                        sx={{ color: '#ffa41b' }}
+                        emptyIcon={
+                          <StarBorderIcon
+                            fontSize="inherit"
+                            sx={{ color: '#ffa41b' }}
+                          ></StarBorderIcon>
+                        }
+                      ></Rating>
+                    </div>
+                    <span className="rating-count">({data.rating})</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -221,39 +234,59 @@ function CourseTypeOne({ data, classes, isAdmin, onModifyAccessClick, setSelecte
                     className="edu-btn btn-medium btn-white"
                     to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}
                   >
-                    <div style={{ marginBottom: "20px" }}>
+                    <div style={{ marginBottom: '20px' }}>
                       <i className="fa fa-arrow-right" />
                     </div>
                   </Link>
                 </BlueOnGreenTooltip>
-                <BlueOnGreenTooltip title="Approve" style={{ marginLeft: '5px' }}>
-                  <Link className='edu-btn btn-medium btn-white' to=''>
-                    <div style={{ marginBottom: "20px" }}>
+                <BlueOnGreenTooltip
+                  title="Approve"
+                  style={{ marginLeft: '5px' }}
+                >
+                  <Link className="edu-btn btn-medium btn-white" to="">
+                    <div style={{ marginBottom: '20px' }}>
                       <i className="fa fa-check" />
                     </div>
                   </Link>
-                  </BlueOnGreenTooltip>
+                </BlueOnGreenTooltip>
                 {!isActive && (
-                  <BlueOnGreenTooltip title="Activate" style={{ marginLeft: '5px' }}>
-                    <Link className='edu-btn btn-medium btn-white' to='' onClick={handleActivateClick}>
-                      <div style={{ marginBottom: "20px" }}>
+                  <BlueOnGreenTooltip
+                    title="Activate"
+                    style={{ marginLeft: '5px' }}
+                  >
+                    <Link
+                      className="edu-btn btn-medium btn-white"
+                      to=""
+                      onClick={handleActivateClick}
+                    >
+                      <div style={{ marginBottom: '20px' }}>
                         <i className="fa fa-lock" />
                       </div>
                     </Link>
                   </BlueOnGreenTooltip>
                 )}
                 {isActive && (
-                  <BlueOnGreenTooltip title="Deactivate" style={{ marginLeft: '5px' }}>
-                    <Link className='edu-btn btn-medium btn-white' to='' onClick={handleDeactivateClick}>
-                      <div style={{ marginBottom: "20px" }}>
+                  <BlueOnGreenTooltip
+                    title="Deactivate"
+                    style={{ marginLeft: '5px' }}
+                  >
+                    <Link
+                      className="edu-btn btn-medium btn-white"
+                      to=""
+                      onClick={handleDeactivateClick}
+                    >
+                      <div style={{ marginBottom: '20px' }}>
                         <i className="fa fa-unlock" />
                       </div>
                     </Link>
                   </BlueOnGreenTooltip>
                 )}
-                <BlueOnGreenTooltip title="Remove" style={{ marginLeft: '5px' }}>
-                  <Link className='edu-btn btn-medium btn-white' to=''>
-                    <div style={{ marginBottom: "20px" }}>
+                <BlueOnGreenTooltip
+                  title="Remove"
+                  style={{ marginLeft: '5px' }}
+                >
+                  <Link className="edu-btn btn-medium btn-white" to="">
+                    <div style={{ marginBottom: '20px' }}>
                       <i className="fa fa-close" />
                     </div>
                   </Link>

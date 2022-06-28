@@ -1,7 +1,7 @@
 import React from 'react'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
-import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne'
+import Breadcrumb from '../../common/breadcrumb/Breadcrumb'
 import CourseTypeFilter from '../../components/course/CourseTypeFilter'
 
 function CourseFilterOne() {
@@ -9,7 +9,7 @@ function CourseFilterOne() {
     <>
       <SEO title="Course Filter 1" />
       <Layout>
-        <BreadcrumbOne
+        <Breadcrumb
           title="Course Filter 1"
           rootUrl="/"
           parentUrl="Home"

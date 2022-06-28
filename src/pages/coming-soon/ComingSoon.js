@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../../common/SEO'
-import ComingSoonOne from '../../components/coming-soon/ComingSoonOne'
+import ComingSoon from '../../components/coming-soon/ComingSoon'
 
-function ComingSoon() {
+function ComingSoonPage() {
   return (
     <>
       <SEO title="Coming Soon" />
@@ -22,7 +22,7 @@ function ComingSoon() {
                 </h1>
                 <div className="countdown-style-2">
                   <div className="countdown">
-                    <ComingSoonOne />
+                    <ComingSoon />
                   </div>
                 </div>
                 <p className="description">
@@ -70,4 +70,4 @@ function ComingSoon() {
     </>
   )
 }
-export default ComingSoon
+export default ComingSoonPage
