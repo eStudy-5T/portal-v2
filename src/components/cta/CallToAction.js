@@ -12,22 +12,23 @@ function CallToAction() {
               <SectionTitle
                 classes="text-white text-start"
                 slogan="Let Us Help"
-                title="Finding Your Right Courses"
+                title="Starting Your Plan"
               />
             </div>
           </div>
           <div className="col-lg-6">
             <div className="newsletter-right-content d-block d-sm-flex align-items-center justify-content-start justify-content-lg-end">
-              <div className="contact-btn">
-                <Link className="edu-btn btn-white" to="#">
+              <div className="contact-btn mr--20">
+                <Link className="edu-btn btn-white" to="/courses">
                   Get Started Now
                   <i className="icon-arrow-right-line-right" />
                 </Link>
               </div>
-              <div className="contact-info">
-                <a href="tel: +728-238-399-200">
-                  <i className="icon-phone-line" /> +728-238-399-200
-                </a>
+              <div className="contact-btn">
+                <Link className="edu-btn btn-white" to="/create-profile">
+                  Become Teacher
+                  <i className="icon-arrow-right-line-right" />
+                </Link>
               </div>
             </div>
           </div>

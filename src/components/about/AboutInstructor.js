@@ -12,8 +12,8 @@ function AboutInstructorPage() {
           <div className="col-lg-12">
             <SectionTitle
               classes="text-center"
-              slogan="Skilled Instructor"
-              title="Introduce Our Life Coaches"
+              slogan="LetMeet Team"
+              title="Introduce Our Team"
             />
           </div>
         </div>

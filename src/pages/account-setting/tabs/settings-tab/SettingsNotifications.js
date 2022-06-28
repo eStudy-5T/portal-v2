@@ -14,11 +14,11 @@ import {
 import { useTranslation } from 'react-i18next'
 
 const styles = {
-    checkBox: {
-        '&.Mui-checked': {
-            color:'var(--color-primary)',
-        },
+  checkBox: {
+    '&.Mui-checked': {
+      color: 'var(--color-primary)'
     }
+  }
 }
 
 export const SettingsNotifications = (props) => {
@@ -67,7 +67,10 @@ export const SettingsNotifications = (props) => {
                 control={<Checkbox sx={styles.checkBox} defaultChecked />}
                 label="Push Notifications"
               />
-              <FormControlLabel control={<Checkbox sx={styles.checkBox} />} label="Text Messages" />
+              <FormControlLabel
+                control={<Checkbox sx={styles.checkBox} />}
+                label="Text Messages"
+              />
               <FormControlLabel
                 control={<Checkbox sx={styles.checkBox} defaultChecked />}
                 label="Phone calls"
@@ -109,7 +112,11 @@ export const SettingsNotifications = (props) => {
             p: 2
           }}
         >
-          <Button className="edu-btn btn-small" variant="contained">
+          <Button
+            className="edu-btn btn-small"
+            variant="contained"
+            sx={{ textTransform: 'capitalize' }}
+          >
             {translation('accountSetting.save')}
           </Button>
         </Box>

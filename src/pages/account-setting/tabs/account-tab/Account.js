@@ -44,7 +44,11 @@ const Account = (props) => {
     <Card
       sx={{
         border: 'var(--border-width) solid var(--color-border)',
-        borderRadius: 'var(--radius)'
+        borderRadius: 'var(--radius)',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column'
       }}
       {...props}
     >
@@ -74,7 +78,11 @@ const Account = (props) => {
           <Typography color="var(--color-body)" gutterBottom variant="body1">
             {`${userInfoValues.email}`}
           </Typography>
-          <Typography color="var(--color-secondary)" variant="body2" fontStyle="italic">
+          <Typography
+            color="var(--color-secondary)"
+            variant="body2"
+            fontStyle="italic"
+          >
             {`${
               userInfoValues.isAdmin
                 ? 'Administrator'
@@ -86,7 +94,7 @@ const Account = (props) => {
         </Box>
       </CardContent>
       <Divider />
-      <CardActions sx={{ justifyContent: 'center' }}>
+      <CardActions sx={{ justifyContent: 'center', mt: 2 }}>
         <Button
           component="label"
           sx={{
@@ -103,7 +111,8 @@ const Account = (props) => {
               background: 'var(--color-secondary)',
               borderColor: 'var(--color-secondary)',
               color: 'var(--color-white)'
-            }
+            },
+            textTransform: 'capitalize'
           }}
         >
           <input

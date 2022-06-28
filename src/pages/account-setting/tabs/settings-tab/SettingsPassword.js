@@ -42,7 +42,11 @@ export const SettingsPassword = (props) => {
         }}
       >
         <CardHeader
-          subheader={translation('accountSetting.update') + ' ' + translation('accountSetting.password')}
+          subheader={
+            translation('accountSetting.update') +
+            ' ' +
+            translation('accountSetting.password')
+          }
           title={translation('auth.password')}
           sx={{
             '& .MuiCardHeader-title': {
@@ -91,27 +95,27 @@ export const SettingsPassword = (props) => {
             value={values.confirmPassword}
             variant="outlined"
           />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  disableRipple
-                  size="small"
-                  onClick={handleClickShowPassword}
-                  sx={{
-                    '&.Mui-checked': {
-                      color: 'var(--color-primary)'
-                    }
-                  }}
-                />
+          <FormControlLabel
+            control={
+              <Checkbox
+                disableRipple
+                size="small"
+                onClick={handleClickShowPassword}
+                sx={{
+                  '&.Mui-checked': {
+                    color: 'var(--color-primary)'
+                  }
+                }}
+              />
+            }
+            label={translation('accountSetting.showPassword')}
+            sx={{
+              '& .MuiFormControlLabel-label': {
+                fontSize: 'small',
+                color: 'var(--color-primary)'
               }
-              label={translation('accountSetting.showPassword')}
-              sx={{
-                '& .MuiFormControlLabel-label': {
-                  fontSize: 'small',
-                  color: 'var(--color-primary)'
-                }
-              }}
-            />
+            }}
+          />
         </CardContent>
         <Divider />
         <Box
@@ -121,7 +125,11 @@ export const SettingsPassword = (props) => {
             p: 2
           }}
         >
-          <Button className="edu-btn btn-small" variant="contained" >
+          <Button
+            className="edu-btn btn-small"
+            variant="contained"
+            sx={{ textTransform: 'capitalize' }}
+          >
             {translation('accountSetting.update')}
           </Button>
         </Box>

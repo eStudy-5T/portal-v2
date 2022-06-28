@@ -123,7 +123,7 @@ function ContactUs() {
                     <div className="content">
                       <h6 className="title">Address</h6>
                       <p>
-                        1800 Abbot Kinney Blvd. <br /> Unit D & E Venice
+                        227 Nguyễn Văn Cừ <br /> Q5 - HCM
                       </p>
                     </div>
                   </div>

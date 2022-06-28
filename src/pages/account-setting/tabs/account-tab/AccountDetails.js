@@ -139,7 +139,9 @@ const AccountDetails = (props) => {
                 type="date"
                 required
                 defaultValue={
-                  userInfoValues.dateOfBirth ? formatDate(userInfoValues.dateOfBirth) : ''
+                  userInfoValues.dateOfBirth
+                    ? formatDate(userInfoValues.dateOfBirth)
+                    : ''
                 }
                 variant="outlined"
               />
@@ -227,6 +229,7 @@ const AccountDetails = (props) => {
             type="submit"
             variant="contained"
             disabled={!isSaveable}
+            sx={{ textTransform: 'capitalize' }}
           >
             {translation('accountSetting.saveDetails')}
           </Button>
