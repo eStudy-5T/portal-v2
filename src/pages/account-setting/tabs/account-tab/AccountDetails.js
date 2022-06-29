@@ -7,6 +7,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  CircularProgress,
   Divider,
   Grid,
   MenuItem,
@@ -27,7 +28,7 @@ const AccountDetails = (props) => {
   const [userInfoValues, setUserInfoValues] = useState(props.info)
 
   const [errorMsg, setErrorMsg] = useState(null)
-  const [isAppLoading, setIsAppLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [isSaveable, setIsSaveable] = useState(false)
 
   const currentUserId = localStorage.getItem('currentUserId')
@@ -63,25 +64,23 @@ const AccountDetails = (props) => {
       nationality: data.get('nationality')
     }
 
-    console.log(userData)
-
     // Check form data
     const formErrorMsg = updateUserInfoFormValidator(userData).error
 
     if (!formErrorMsg) {
+      setIsLoading(true)
       try {
-        setIsAppLoading(true)
         await userService.update(currentUserId, userInfoValues)
         dispatch(userActions.setUserInfo(userInfoValues))
-        setIsAppLoading(false)
       } catch (error) {
-        setIsAppLoading(false)
         setErrorMsg(error)
       }
     } else {
       setErrorMsg(formErrorMsg)
-      toast.error(formErrorMsg)
     }
+    errorMsg ? toast.error(errorMsg) : toast.success(translation('accountSetting.updateSuccessfully'))
+    setIsLoading(false)
+    setIsSaveable(false)
   }
 
   return (
@@ -138,11 +137,7 @@ const AccountDetails = (props) => {
                 onChange={handleChange}
                 type="date"
                 required
-                defaultValue={
-                  userInfoValues.dateOfBirth
-                    ? formatDate(userInfoValues.dateOfBirth)
-                    : ''
-                }
+                defaultValue={userInfoValues.dateOfBirth ? formatDate(userInfoValues.dateOfBirth) : null}
                 variant="outlined"
               />
             </Grid>
@@ -163,6 +158,7 @@ const AccountDetails = (props) => {
               <TextField
                 fullWidth
                 label={translation('accountSetting.nationality')}
+                InputLabelProps={{shrink: true}}
                 name="nationality"
                 onChange={handleChange}
                 required
@@ -228,10 +224,25 @@ const AccountDetails = (props) => {
             className="edu-btn btn-small"
             type="submit"
             variant="contained"
-            disabled={!isSaveable}
+            disabled={!isSaveable || isLoading}
             sx={{ textTransform: 'capitalize' }}
           >
             {translation('accountSetting.saveDetails')}
+            {isLoading && (
+            <CircularProgress
+              thickness={5}
+              sx={{
+                color: 'var(--color-secondary)',
+                position: 'absolute',
+                margin: 'auto',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                padding: 1
+              }}
+            />
+          )}
           </Button>
         </Box>
       </Card>

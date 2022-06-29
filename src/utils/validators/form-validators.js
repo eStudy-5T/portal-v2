@@ -50,7 +50,13 @@ export const signUpFormValidator = (formData) => {
 }
 
 export const updateUserInfoFormValidator = (formData) => {
-  if (!formData.firstName || !formData.lastName || !formData.mobilePhone || !formData.nationality) {
+  if (
+    !formData.firstName ||
+    !formData.lastName ||
+    !formData.dateOfBirth ||
+    !formData.mobilePhone ||
+    !formData.nationality
+  ) {
     return { error: 'error.emptyField' }
   }
 
@@ -64,7 +70,7 @@ export const updateUserInfoFormValidator = (formData) => {
 
   const birthdayError = validateDateOfBirth(formData.dateOfBirth)
   if (birthdayError !== true) {
-    return {error: birthdayError}
+    return { error: birthdayError }
   }
 
   if (!validatePhoneNumber(formData.mobilePhone)) {

@@ -213,7 +213,8 @@
     "descriptionPlaceholder": "Tell us something more about you...",
     "account": "Account",
     "settings": "Settings",
-    "referrals": "Referrals"
+    "referrals": "Referrals",
+    "updateSuccessfully": "Updated Successfully!"
   },
   "grades": {
     "first": "Grade 1",

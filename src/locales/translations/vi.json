@@ -212,7 +212,8 @@
     "descriptionPlaceholder": "Hãy cho chúng tôi biết thêm về bạn...",
     "account": "Tài khoản",
     "settings": "Cài đặt",
-    "referrals": "Giới thiệu"
+    "referrals": "Giới thiệu",
+    "updateSuccessfully": "Cập nhật thành công!"
   },
   "grades": {
     "first": "Lớp 1",

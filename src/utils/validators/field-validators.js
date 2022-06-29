@@ -71,8 +71,9 @@ export const validateEndAfterStartDate = (startDate, endDate) => {
 export const validateDateOfBirth = (date) => {
   const currentDate = new Date()
   const d = new Date(date)
-  if (compareAsc(Date.now(), date) === 1) return 'error.invalidBirthday'
-  else if(currentDate.getFullYear() - d.getFullYear() < 4) return 'error.notOldEnough'
+  if (d >= Date.now()) return 'error.invalidBirthday'
+  else if (currentDate.getFullYear() - d.getFullYear() < 4)
+    return 'error.notOldEnough'
   else return true
 }
 
