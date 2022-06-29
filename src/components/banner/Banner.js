@@ -34,7 +34,7 @@ function Banner() {
               </div>
             </div>
           </div>
-          <div className="col-lg-5">
+          <div className="col-lg-5 d-lg-block d-none">
             <div className="banner-thumbnail">
               <img
                 className="girl-thumb"
