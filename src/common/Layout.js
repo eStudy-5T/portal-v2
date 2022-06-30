@@ -9,7 +9,7 @@ function Layout({ compactFooter, buttonStyle, disableSticky, children }) {
     <>
       <main className="main-wrapper">
         <Header
-          styles="header-style-2"
+          styles="header-style-2 header-shadow"
           disableSticky={disableSticky}
           buttonStyle={buttonStyle}
         />
