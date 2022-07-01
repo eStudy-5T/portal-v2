@@ -1,11 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import FsLightbox from 'fslightbox-react'
 import { FaPlay } from 'react-icons/fa'
-import { Grid, Box, Container, Divider, Typography } from '@mui/material'
+import { Grid, Box, Container, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import usePrompt from '../../hooks/user-prompt'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
+import GeneralInformation from '../../components/application-section/GeneralInformation'
+import ExperienceInfomation from '../../components/application-section/ExperienceInfomation'
 
 const CreateTeacherProfile = () => {
   const [togglerIntroVideo, setTogglerIntroVideo] = useState(false)
@@ -109,27 +111,9 @@ const CreateTeacherProfile = () => {
                 </Box>
               </Box>
               {/* General info section */}
-              <Box className="profile-box">
-                <Box className="profile-box__header">
-                  <Typography variant="h5" fontSize="22px" fontWeight={600}>
-                    General Information
-                  </Typography>
-                </Box>
-                <Divider sx={{ backgroundColor: '#E0E0E0' }} />
-                <Box className="profile-box__content">General info</Box>
-              </Box>
+              <GeneralInformation />
               {/* Teach experience section */}
-              <Box className="profile-box">
-                <Box className="profile-box__header">
-                  <Typography variant="h5" fontSize="22px" fontWeight={600}>
-                    Education and Teach Experience
-                  </Typography>
-                </Box>
-                <Divider sx={{ backgroundColor: '#E0E0E0' }} />
-                <Box className="profile-box__content">
-                  Teach Experience info
-                </Box>
-              </Box>
+              <ExperienceInfomation />
             </Container>
           </Box>
           <Box id="step-3" className="profile__section mt--40">
@@ -146,6 +130,11 @@ const CreateTeacherProfile = () => {
             <Typography variant="h4" className="profile__section-title">
               Step 4: Teach or explain us something!
             </Typography>
+            <Container maxWidth="lg">
+              <Box className="profile-box">
+                <Box className="profile-box__content">Hello again</Box>
+              </Box>
+            </Container>
           </Box>
         </Container>
       </Layout>
