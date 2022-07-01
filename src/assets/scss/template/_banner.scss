@@ -390,7 +390,8 @@
     height: 300px;
 
     @media #{$laptop-device} {
-      right: 31px;
+      top: 300px;
+      // right: 31px;
     }
     img {
       max-width: calc(100% - 60px);
@@ -403,9 +404,8 @@
     }
 
     @media #{$smlg-device} {
-      right: -138px;
       img.girl-thumb {
-        max-width: 80%;
+        max-width: 100%;
       }
     }
 
