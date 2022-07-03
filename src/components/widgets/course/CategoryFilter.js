@@ -1,17 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import courseService from '../../../services/course-service'
+import { useTranslation } from 'react-i18next'
 
 function CategoryFilter(props) {
   const { extraClass, onFilterChange } = props
+  const { t: translation } = useTranslation()
+  const [categories, setCategories] = useState([])
 
   const onChangeChecked = (event) => {
-    onFilterChange('category', event.target.value)
+    onFilterChange('category', `category-${event.target.value}`)
   }
+
+  useEffect(() => {
+    courseService.getCategoryOptions().then(({ data }) => {
+      setCategories(data)
+    })
+  }, [])
 
   return (
     <div className={`edu-course-widget widget-shortby ${extraClass || ''}`}>
       <div className="inner">
         <h5 className="widget-title">Categories</h5>
-        <div className="content">
+        <div className="content limited-height">
           <div className="edu-form-check">
             <input
               className="input-radio"
@@ -24,39 +34,19 @@ function CategoryFilter(props) {
             />
             <label htmlFor="category-all">All Categories</label>
           </div>
-          <div className="edu-form-check">
-            <input
-              className="input-radio"
-              type="radio"
-              id="category-programming"
-              name="filterbycategory"
-              value="category-programming"
-              onChange={onChangeChecked}
-            />
-            <label htmlFor="category-programming">Programming</label>
-          </div>
-          <div className="edu-form-check">
-            <input
-              className="input-radio"
-              type="radio"
-              id="category-math"
-              name="filterbycategory"
-              value="category-math"
-              onChange={onChangeChecked}
-            />
-            <label htmlFor="category-math">Math</label>
-          </div>
-          <div className="edu-form-check">
-            <input
-              className="input-radio"
-              type="radio"
-              id="category-english"
-              name="filterbycategory"
-              value="category-english"
-              onChange={onChangeChecked}
-            />
-            <label htmlFor="category-english">English</label>
-          </div>
+          {categories?.map((cat) => (
+            <div key={cat.code} className="edu-form-check">
+              <input
+                className="input-radio"
+                type="radio"
+                id={cat.code}
+                name="filterbycategory"
+                value={cat.code}
+                onChange={onChangeChecked}
+              />
+              <label htmlFor={cat.code}>{translation(cat.name)}</label>
+            </div>
+          ))}
         </div>
       </div>
     </div>

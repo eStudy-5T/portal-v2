@@ -43,7 +43,8 @@
     "externalChangePassword": "Đăng nhập bên thứ ba không hỗ trợ đổi mật khẩu",
     "teacherEnrollCourse": "Bạn không thể tham gia khóa học mà bạn tạo ra!",
     "userReEnroll": "Bạn đã tham gia khóa học này rồi!",
-    "alreadyReviewed": "Bạn đã thực hiện đánh giá rồi!"
+    "alreadyReviewed": "Bạn đã thực hiện đánh giá rồi!",
+    "passwordSocialLogin": "Bạn không thể đổi mật khẩu cho tài khoản xã hội"
   },
   "auth": {
     "login": "Đăng nhập",
@@ -243,6 +244,47 @@
   },
   "dashboard": {
     "dashboard": "Bảng điều khiển",
-    "courses": "Khoá học của giáo viên"
+    "courses": "Khoá học của giáo viên",
+    "teacherProfile": "Hồ sơ giáo viên"
+  },
+  "category": {
+    "language": "Ngôn ngữ",
+    "science": "Khoa học",
+    "programming": "Lập trình",
+    "art": "Mĩ thuật",
+    "socialScience": "Khoa học xã hội",
+    "humanResources": "Nhân sự",
+    "economyAndFinance": "Kinh tế và tài chính",
+    "law": "Luật",
+    "sports": "Thể thao",
+    "natureAndEnvironment": "Thiên nhiên và môi trường"
+  },
+  "subject": {
+    "english": "Ngôn ngữ Anh",
+    "japanese": "Ngôn ngữ Nhật",
+    "chinese": "Ngôn ngữ Trung",
+    "math": "Toán học",
+    "physics": "Vật lí",
+    "biology": "Sinh học",
+    "chemistry": "Hoá học",
+    "javascript": "Javascript",
+    "react": "React",
+    "angular": "Angular",
+    "java": "Java",
+    "dotNet": ".NET",
+    "music": "Âm nhạc",
+    "drawing": "Vẽ",
+    "literary": "Văn học",
+    "history": "Lịch sử",
+    "geography": "Địa lí",
+    "humanResources": "Nhân sự",
+    "microEconomic": "Kinh tế học vi mô",
+    "macroEconomic": "Kint tế học vĩ mô",
+    "tradingLaw": "Luật thương mại",
+    "soccer": "Bóng đá",
+    "chess": "Cờ vua",
+    "badminton": "Cầu lông",
+    "biologicalDiversity": "Đa dạng sinh học",
+    "evolution": "Tiến hoá"
   }
 }

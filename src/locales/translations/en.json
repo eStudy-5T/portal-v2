@@ -44,7 +44,8 @@
     "teacherEnrollCourse": "You can not enroll your own course!",
     "userReEnroll": "You have already enrolled this course!",
     "alreadyReviewed": "You have already left a review!",
-    "notAdmin": "You must have admin permissions to do this action"
+    "notAdmin": "You must have admin permissions to do this action",
+    "passwordSocialLogin": "You cannot change password for social account"
   },
   "auth": {
     "login": "Login",
@@ -244,6 +245,47 @@
   },
   "dashboard": {
     "dashboard": "Dashboard",
-    "courses": "Teacher Courses"
+    "courses": "Teacher Courses",
+    "teacherProfile": "Teacher Profile"
+  },
+  "category": {
+    "language": "Language",
+    "science": "Science",
+    "programming": "Programming",
+    "art": "Art",
+    "socialScience": "Social Science",
+    "humanResources": "Human Resources",
+    "economyAndFinance": "Economy and Finance",
+    "law": "Law",
+    "sports": "Sports",
+    "natureAndEnvironment": "Nature and Environment"
+  },
+  "subject": {
+    "english": "Englis",
+    "japanese": "Japansese",
+    "chinese": "Chinese",
+    "math": "Math",
+    "physics": "Physics",
+    "biology": "Biology",
+    "chemistry": "Chemistry",
+    "javascript": "Javascript",
+    "react": "React",
+    "angular": "Angular",
+    "java": "Java",
+    "dotNet": ".NET",
+    "music": "Music",
+    "drawing": "Drawing",
+    "literary": "Literary",
+    "history": "History",
+    "geography": "Geography",
+    "humanResources": "Human Resources",
+    "microEconomic": "Micro-economic",
+    "macroEconomic": "Macro-economic",
+    "tradingLaw": "Trading Law",
+    "soccer": "Soccer",
+    "chess": "Chess",
+    "badminton": "Badminton",
+    "biologicalDiversity": "Biological Diversity",
+    "evolution": "Evolution"
   }
 }

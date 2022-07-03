@@ -14,12 +14,18 @@
   }
   .content {
     margin-top: 30px;
+    padding-left: 10px;
 
     .edu-form-check {
       position: relative;
       & + .edu-form-check {
         margin-top: 25px;
       }
+    }
+
+    &.limited-height {
+      max-height: 350px;
+      overflow-y: auto;
     }
   }
   &.widget-category {
