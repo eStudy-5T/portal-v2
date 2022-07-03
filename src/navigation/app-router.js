@@ -23,6 +23,11 @@ import { userActions } from '../redux/store/user-info'
 import useAuthenticate from '../hooks/use-authenticate'
 import useVerify from '../hooks/use-verify'
 
+const PublicRoute = () => {
+  localStorage.setItem('currentUrl', window.location.pathname)
+  return <Outlet />
+}
+
 const AppRouter = () => {
   const [isAppLoading, setIsAppLoading] = useState(false)
   const [isAuthenticated] = useAuthenticate()
@@ -50,6 +55,13 @@ const AppRouter = () => {
       localStorage.setItem('currentUserId', userIdFromQuery)
       localStorage.setItem('loginTimestamp', Date.now() + 86400000) // 1 day
       searchParams.delete('userId')
+      setSearchParams(searchParams)
+    }
+
+    const messageFromQuery = searchParams.get('message')
+    if (messageFromQuery) {
+      toast.error(translation(messageFromQuery))
+      searchParams.delete('message')
       setSearchParams(searchParams)
     }
 
@@ -97,7 +109,7 @@ const AppRouter = () => {
     <ScrollToTop>
       <Routes>
         {publicRoutes.map(({ component: Component, path, exact }) => (
-          <Route path={`/${path}`} key={path} element={<Outlet />}>
+          <Route path={`/${path}`} key={path} element={<PublicRoute />}>
             <Route
               path={`/${path}`}
               key={path}
@@ -107,28 +119,43 @@ const AppRouter = () => {
           </Route>
         ))}
 
-        {privateRoutes
-          .concat(userInfo.isVerifiedToTeach ? teacherRoutes : [])
-          .map(({ component: Component, path, exact }) => (
+        {privateRoutes.map(({ component: Component, path, exact }) => (
+          <Route
+            path={`/${path}`}
+            key={path}
+            element={<PrivateRoute isAuthenticated={isAuthenticated} />}
+          >
             <Route
               path={`/${path}`}
               key={path}
-              element={<PrivateRoute isAuthenticated={isAuthenticated} />}
-            >
-              <Route
-                path={`/${path}`}
-                key={path}
-                exact={exact}
-                element={isAppLoading ? <Loading /> : <Component />}
-              />
-            </Route>
-          ))}
+              exact={exact}
+              element={isAppLoading ? <Loading /> : <Component />}
+            />
+          </Route>
+        ))}
 
+        {/* Allow anonymous users only */}
         {restrictedRoutes.map(({ component: Component, path, exact }) => (
           <Route
             path={`/${path}`}
             key={path}
-            element={<RestrictedRoute isAuthenticated={isAuthenticated} />}
+            element={<RestrictedRoute isAllow={!isAuthenticated} />}
+          >
+            <Route
+              path={`/${path}`}
+              key={path}
+              exact={exact}
+              element={isAppLoading ? <Loading /> : <Component />}
+            />
+          </Route>
+        ))}
+
+        {/* Allow teachers only */}
+        {teacherRoutes.map(({ component: Component, path, exact }) => (
+          <Route
+            path={`/${path}`}
+            key={path}
+            element={<RestrictedRoute isAllow={userInfo.isVerifiedToTeach} />}
           >
             <Route
               path={`/${path}`}

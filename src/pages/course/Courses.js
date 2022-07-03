@@ -6,8 +6,8 @@ import Layout from '../../common/Layout'
 import Breadcrumb from '../../common/breadcrumb/Breadcrumb'
 import CourseTypeOne from '../../components/course/CourseTypeOne'
 import SortBy from '../../components/widgets/course/SortBy'
-import PriceOne from '../../components/widgets/course/CategoryFilter'
-import LevelOne from '../../components/widgets/course/GradeFilter'
+import CategoryFilter from '../../components/widgets/course/CategoryFilter'
+import GradeFilter from '../../components/widgets/course/GradeFilter'
 import FilterByPrice from '../../components/widgets/course/FilterByPrice'
 import debounce from 'lodash/debounce'
 import ModifyCourseAccessDialog from '../../components/modify-course-access-dialog/ModifyCourseAccessDialog'
@@ -46,7 +46,6 @@ function CourseOne() {
   const [selectedCourse, setSelectedCourse] = useState(null)
   const [selectedAction, setSelectedAction] = useState(null)
   const [accessChanged, setAccessChanged] = useState(false)
-  const isFirstTimeSetPageSize = useRef(true)
   const userId = localStorage.getItem('currentUserId')
   const userRole = ROLE.TEACHER
   const isAdmin = get(
@@ -78,10 +77,6 @@ function CourseOne() {
 
       setCourseData(courses)
       setCourseCount(count)
-      if (isFirstTimeSetPageSize.current) {
-        isFirstTimeSetPageSize.current = false
-        setPageSize(count <= 8 ? count : 8)
-      }
     },
     750
   )
@@ -299,11 +294,11 @@ function CourseOne() {
                   </div>
                 ) : null}
                 <SortBy onFilterChange={handleFilterChange} />
-                <PriceOne
+                <CategoryFilter
                   extraClass="mt--40"
                   onFilterChange={handleFilterChange}
                 />
-                <LevelOne
+                <GradeFilter
                   extraClass="mt--40"
                   onFilterChange={handleFilterChange}
                 />

@@ -24,6 +24,7 @@ const NavItem = (props) => {
         startIcon={icon}
         disableRipple
         sx={{
+          height: '47px',
           backgroundColor: active && 'white',
           borderRadius: isOpen ? 1 : 0,
           color: active ? '#3d47b4' : '#fff6f4',
@@ -33,9 +34,7 @@ const NavItem = (props) => {
           textTransform: 'none',
           width: '100%',
           '& .MuiButton-startIcon': {
-            color: active ? '#3d47b4' : '#fff6f4',
-            marginLeft: isOpen ? '' : 0,
-            marginRight: isOpen ? '' : 0
+            color: active ? '#3d47b4' : '#fff6f4'
           },
           '&:hover': {
             color: active ? '#3d47b4' : '#fff6f4',

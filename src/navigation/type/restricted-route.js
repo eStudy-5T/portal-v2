@@ -1,11 +1,11 @@
 import React from 'react'
 import { Outlet, Navigate, useLocation } from 'react-router-dom'
 
-const RestrictedRoute = ({ isAuthenticated }) => {
+const RestrictedRoute = ({ isAllow }) => {
   const currentUrl = localStorage.getItem('currentUrl')
   const location = useLocation()
 
-  return !isAuthenticated ? (
+  return isAllow ? (
     <Outlet />
   ) : (
     <Navigate
