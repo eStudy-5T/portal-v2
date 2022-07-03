@@ -1,25 +1,9 @@
 .dashboard-drawer {
   &.MuiDrawer-root {
     .MuiDrawer-paper {
-      background-color: var(--color-dark) !important;
+      margin-top: 80px;
+      background-color: var(--color-primary-darker) !important;
       color: #ffffff !important;
-      width: 280px !important;
-    }
-  }
-
-  &.logo {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-
-    a {
-      display: block;
-      text-align: center;
-      height: 80px;
-      line-height: 80px;
-      img {
-        max-height: 35px;
-      }
     }
   }
 }
