@@ -12,8 +12,20 @@ import {
 } from '@mui/material'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import CloneAvatar from '../../assets/images/clone.png'
+import { resizeImage } from '../../utils/helpers/image-helper'
 
 const GeneralInformation = () => {
+  const onChangeAvatar = async (event) => {
+    event.preventDefault()
+    try {
+      const file = event.target.files[0]
+      const resizedImage = await resizeImage(file, 256, 256, file.type)
+      console.log('resizedImage', resizedImage)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Box className="profile-box">
       <Box className="profile-box__header">
@@ -23,20 +35,26 @@ const GeneralInformation = () => {
       </Box>
       <Divider sx={{ backgroundColor: '#E0E0E0' }} />
       <Box className="profile-box__content">
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ mt: 2 }}>
           <Grid container spacing={2}>
             <Grid item lg={4} md={6} xs={12}>
               <Box className="profile-box__avatar">
                 <Avatar
                   src={CloneAvatar}
                   sx={{
-                    height: 100,
-                    width: 100,
+                    height: 200,
+                    width: 200,
                     mb: 2
                   }}
                 />
-                <Button className="profile-box__avatar-btn">
-                  <input name="file" type="file" accept="image/*" hidden />
+                <Button component="label" className="profile-box__avatar-btn">
+                  <input
+                    name="file"
+                    type="file"
+                    accept="image/*"
+                    onChange={onChangeAvatar}
+                    hidden
+                  />
                   Change Avatar
                 </Button>
               </Box>
@@ -66,21 +84,21 @@ const GeneralInformation = () => {
                 <Grid item md={6} xs={12}>
                   <InputLabel
                     required
-                    htmlFor="full-name"
+                    htmlFor="email"
                     className="basic-info__input-label"
                   >
-                    Full Name
-                    <Tooltip title="This will only be visible to our team, and cannot be edited later">
+                    Email
+                    <Tooltip title="This cannot be edited later">
                       <HelpOutlineIcon
                         sx={{ ml: 0.5, fontSize: '20px', cursor: 'pointer' }}
                       />
                     </Tooltip>
                   </InputLabel>
                   <input
-                    id="full-name"
+                    id="email"
                     type="text"
-                    name="fullName"
-                    placeholder="Type here"
+                    name="email"
+                    placeholder="abc@domain-mail.com"
                   />
                 </Grid>
               </Grid>
@@ -125,7 +143,48 @@ const GeneralInformation = () => {
                     placeholder="Type here"
                   />
                 </Grid>
+                <Grid item xs={12} md={12}>
+                  <InputLabel
+                    htmlFor="online-profiles"
+                    className="basic-info__input-label"
+                  >
+                    (Optional) Online profile
+                    <Tooltip title="Professional website, Facebook page, or LinkedIn profile. This helps describe your experience and expertise">
+                      <HelpOutlineIcon
+                        sx={{ ml: 0.5, fontSize: '20px', cursor: 'pointer' }}
+                      />
+                    </Tooltip>
+                  </InputLabel>
+                  <input
+                    id="online-profiles"
+                    type="text"
+                    name="onlineProfile"
+                    placeholder="Type here"
+                  />
+                </Grid>
               </Grid>
+            </Grid>
+          </Grid>
+          <Grid container spacing={2} sx={{ mt: 1 }}>
+            <Grid item xs={12} md={12}>
+              <InputLabel
+                htmlFor="course-description"
+                className="basic-info__input-label"
+                required
+              >
+                Short description about yourself
+                <Tooltip title="This assist students in getting to know you better">
+                  <HelpOutlineIcon
+                    sx={{ ml: 0.5, fontSize: '20px', cursor: 'pointer' }}
+                  />
+                </Tooltip>
+              </InputLabel>
+              <textarea
+                id="course-description"
+                name="description"
+                rows="3"
+                required
+              ></textarea>
             </Grid>
           </Grid>
         </Container>

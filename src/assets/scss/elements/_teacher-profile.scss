@@ -22,6 +22,10 @@
       font-weight: 600;
     }
 
+    &-noitem {
+      text-align: center;
+    }
+
     &__thumbnail {
       width: 80%;
       margin: 20px auto 40px auto;
@@ -29,7 +33,7 @@
   }
 
   &-box {
-    margin-top: 30px;
+    margin-top: 25px;
     border-top: 1px solid #eee;
     box-shadow: 0 1px 6px rgb(57 73 76 / 35%);
     background-color: #fff;
@@ -41,6 +45,11 @@
     }
 
     &__header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
       &-title {
         font-size: 24px;
         font-weight: 600;
@@ -67,6 +76,56 @@
           justify-content: flex-end;
           margin-bottom: 0;
         }
+      }
+
+      &__wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+          rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+        text-align: left;
+        padding: 20px 30px;
+        margin-bottom: 20px;
+      }
+
+      &__experience {
+        &-title {
+          display: flex;
+          gap: 5px;
+          margin-bottom: 7px;
+
+          &-text {
+            font-size: 17px !important;
+            font-weight: 600 !important;
+          }
+        }
+
+        &-company {
+          display: flex;
+          gap: 5px;
+          margin-bottom: 7px;
+
+          &-text {
+            font-size: 16px !important;
+            font-weight: 600 !important;
+          }
+        }
+
+        &-history {
+          display: flex;
+          gap: 5px;
+          margin-bottom: 7px;
+
+          &-text {
+            font-size: 16px !important;
+            font-weight: 600 !important;
+          }
+        }
+      }
+
+      &__action {
       }
     }
 
