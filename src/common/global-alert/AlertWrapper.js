@@ -9,7 +9,7 @@ const AlertWrapper = (props) => {
   const classes = sticky ? 'sticky' : 'global-alert--none'
 
   return (
-    <Box className={`global-alert edu-header header-sticky ${classes}`}>
+    <Box className={`global-alert edu-header header-sticky animated ${classes}`}>
       <Alert className="global-alert__container" severity={severity}>
         {children}
       </Alert>

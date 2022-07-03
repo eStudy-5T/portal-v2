@@ -1,17 +1,52 @@
-import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import { Box, Drawer, IconButton, useMediaQuery } from '@mui/material'
+import { Box, Drawer, IconButton } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import NavItem from './nav-item'
 
 import { useTranslation } from 'react-i18next'
 
-const DashboardSidebar = (props) => {
-  const { isOpen, close, items = [] } = props
-  const { t: translation } = useTranslation()
-  const lgUp = useMediaQuery('(min-width:1200px)', {
-    defaultMatches: true
+const openedMixin = (theme) => ({
+  width: 280,
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen
+  }),
+  overflowX: 'hidden'
+})
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen
+  }),
+  overflowX: 'hidden',
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up('sm')]: {
+    width: `calc(${theme.spacing(8)} + 1px)`
+  }
+})
+
+const CustomDrawer = styled(Drawer, {
+  shouldForwardProp: (prop) => prop !== 'open'
+})(({ theme, open }) => ({
+  width: 280,
+  flexShrink: 0,
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
+  ...(open && {
+    ...openedMixin(theme),
+    '& .MuiDrawer-paper': openedMixin(theme)
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    '& .MuiDrawer-paper': closedMixin(theme)
   })
+}))
+
+const DashboardSidebar = (props) => {
+  const { lgUp, isOpen, open, close, items = [] } = props
+  const { t: translation } = useTranslation()
 
   const content = (
     <>
@@ -22,18 +57,19 @@ const DashboardSidebar = (props) => {
           height: '100%'
         }}
       >
-        <div className="dashboard-drawer logo">
-          <Link to={`${process.env.PUBLIC_URL}/`}>
-            <img
-              className="logo-light"
-              src="/images/logo/logo.png"
-              alt="Main Logo"
-            />
-          </Link>
-          <IconButton sx={{ ml: 3 }} onClick={close}>
-            <ChevronLeftIcon sx={{ color: 'white', fontSize: '30px' }} />
-          </IconButton>
-        </div>
+        <Box
+          sx={{ display: 'flex', justifyContent: isOpen ? 'end' : 'center' }}
+        >
+          {isOpen ? (
+            <IconButton onClick={close}>
+              <ChevronLeftIcon sx={{ color: 'white', fontSize: '30px' }} />
+            </IconButton>
+          ) : (
+            <IconButton onClick={open}>
+              <ChevronRightIcon sx={{ color: 'white', fontSize: '30px' }} />
+            </IconButton>
+          )}
+        </Box>
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item) => (
             <NavItem
@@ -41,6 +77,7 @@ const DashboardSidebar = (props) => {
               icon={item.icon}
               title={translation(item.title)}
               href={item.href}
+              isOpen={isOpen}
             />
           ))}
         </Box>
@@ -50,14 +87,14 @@ const DashboardSidebar = (props) => {
 
   if (lgUp) {
     return (
-      <Drawer
+      <CustomDrawer
         className="dashboard-drawer"
         anchor="left"
         open={isOpen}
-        variant="persistent"
+        variant="permanent"
       >
         {content}
-      </Drawer>
+      </CustomDrawer>
     )
   }
 
@@ -67,17 +104,12 @@ const DashboardSidebar = (props) => {
       anchor="left"
       onClose={close}
       open={isOpen}
-      sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
+      sx={{ zIndex: 9 }}
       variant="temporary"
     >
       {content}
     </Drawer>
   )
-}
-
-DashboardSidebar.propTypes = {
-  close: PropTypes.func,
-  isOpen: PropTypes.bool
 }
 
 export default DashboardSidebar
