@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import FsLightbox from 'fslightbox-react'
 import { FaPlay } from 'react-icons/fa'
-import { Grid, Box, Container, Typography } from '@mui/material'
+import { Grid, Box, Container, Typography, Divider } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import usePrompt from '../../hooks/user-prompt'
 import SEO from '../../common/SEO'
@@ -136,6 +136,18 @@ const CreateTeacherProfile = () => {
               Step 4: Teach or explain us something!
             </Typography>
             <SampleTeach />
+          </Box>
+          <Divider />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              mt: 4,
+              width: '100%'
+            }}
+          >
+            <button className="profile__submit">Submit Profile</button>
           </Box>
         </Container>
       </Layout>

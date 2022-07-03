@@ -88,7 +88,7 @@
     "yourEnrolledCourses": "Các khoá học đã đăng ký",
     "confirmDeactivate": "Vô hiệu hoá khoá học này?",
     "confirmActivate": "Kích hoạt khoá học này?",
-    "title":  "Tên",
+    "title": "Tên",
     "category": "Thể loại",
     "subject": "Môn",
     "status": "Trạng thái",
@@ -99,6 +99,7 @@
   "nav": {
     "home": "Trang chủ",
     "courses": "Các khóa học",
+    "applyToTeach": "Trở thành giáo viên",
     "aboutUs": "Giới thiệu đội ngũ",
     "contactUs": "Liên hệ"
   },

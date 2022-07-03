@@ -10,19 +10,23 @@ function Nav() {
   return (
     <ul className="mainmenu">
       <li className="has-droupdown">
-        <Link to="/">{translation("nav.home")}</Link>
+        <Link to="/">{translation('nav.home')}</Link>
       </li>
 
       <li className="has-droupdown">
-        <Link to="/courses">{translation("nav.courses")}</Link>
+        <Link to="/courses">{translation('nav.courses')}</Link>
       </li>
 
       <li className="has-droupdown">
-        <Link to="/about-us">{translation("nav.aboutUs")}</Link>
+        <Link to="/create-profile">{translation('nav.applyToTeach')}</Link>
       </li>
 
       <li className="has-droupdown">
-        <Link to="/contact-us">{translation("nav.contactUs")}</Link>
+        <Link to="/about-us">{translation('nav.aboutUs')}</Link>
+      </li>
+
+      <li className="has-droupdown">
+        <Link to="/contact-us">{translation('nav.contactUs')}</Link>
       </li>
     </ul>
   )

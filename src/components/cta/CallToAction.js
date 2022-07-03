@@ -17,7 +17,7 @@ function CallToAction() {
             </div>
           </div>
           <div className="col-lg-6">
-            <div className="newsletter-right-content d-block d-sm-flex align-items-center justify-content-start justify-content-lg-end">
+            <div className="newsletter-right-content d-flex d-sm-flex align-items-center justify-content-start justify-content-lg-end">
               <div className="contact-btn mr--20">
                 <Link className="edu-btn btn-white" to="/courses">
                   Get Started Now

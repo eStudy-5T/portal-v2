@@ -37,7 +37,7 @@ function AboutFeatures({ wrapperClass }) {
       <div className="container letmeet-animated-shape">
         <div className="row align-items-center gy-5">
           <div className="col-lg-6">
-            <div className="row g-5 pr--75">
+            <div className="row g-5 spacing-desktop">
               {FeatureItems.map((data, i) => (
                 <ScrollAnimation
                   animateIn="fadeInUp"

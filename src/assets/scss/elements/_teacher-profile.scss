@@ -1,7 +1,6 @@
 .profile {
   &-form {
-    margin-top: 40px;
-    margin-bottom: 80px;
+    margin: 40px 0;
   }
 
   &-page-title {
@@ -125,7 +124,41 @@
         }
       }
 
-      &__action {
+      &__sample-teach {
+        &_text {
+          font-size: 16px !important;
+          font-weight: 500 !important;
+        }
+
+        &_btn {
+          border-radius: 5px !important;
+          display: inline-block !important;
+          color: var(--color-primary) !important;
+          background: var(--color-white) !important;
+          padding: 10px 30px !important;
+          font-size: 14px !important;
+          font-weight: 600 !important;
+          font-family: var(--font-primary) !important;
+          border: var(--border-width) solid var(--color-primary) !important;
+          text-transform: capitalize !important;
+          &:hover {
+            background: var(--color-secondary) !important;
+            border-color: var(--color-secondary) !important;
+            color: var(--color-white) !important;
+          }
+
+          @media only screen and (max-width: 540px) {
+            margin-bottom: 10px !important;
+          }
+
+          &.disabled {
+            pointer-events: none !important;
+            cursor: no-drop !important;
+            background: transparent !important;
+            color: var(--color-extra01) !important;
+            border-color: var(--color-extra02) !important;
+          }
+        }
       }
     }
 
@@ -136,6 +169,7 @@
       flex-direction: column;
 
       &-btn {
+        cursor: pointer;
         border-radius: 5px !important;
         display: inline-block !important;
         color: var(--color-primary) !important;
@@ -176,6 +210,27 @@
 
     &-subtitle {
       font-size: 14px !important;
+    }
+  }
+
+  &__submit {
+    border-radius: 5px;
+    display: inline-block;
+    color: var(--color-white);
+    background: var(--color-primary);
+    padding: 20px 70px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    border: var(--border-width) solid var(--color-primary);
+    text-transform: capitalize;
+    &:hover {
+      background: var(--color-primary-darker);
+      border-color: var(--color-primary-darker);
+    }
+
+    @media only screen and (max-width: 540px) {
+      margin-bottom: 10px;
     }
   }
 }

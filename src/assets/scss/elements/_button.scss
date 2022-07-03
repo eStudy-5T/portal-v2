@@ -95,6 +95,10 @@ button {
     font-family: var(--font-primary);
     border: 0 none;
 
+    @media #{$smlg-device} {
+      font-size: 15px;
+    }
+
     i {
       padding-left: 10px;
       position: relative;
