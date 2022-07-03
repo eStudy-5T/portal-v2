@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState } from 'react'
 
-const HeaderSticky = (offset = 0) => {
-  const [sticky, setSticky] = useState(false)
+const HeaderSticky = (offset = 0, initSticky = false) => {
+  const [sticky, setSticky] = useState(initSticky)
 
   const handleScroll = () => {
     setSticky(window.scrollY > offset)
