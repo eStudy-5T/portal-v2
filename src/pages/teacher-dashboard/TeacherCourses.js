@@ -31,19 +31,7 @@ import { isNumber, debounce } from 'lodash'
 import courseService from '../../services/course-service'
 import COURSE_STATUS from '../../utils/constants/courses-status'
 import { format } from 'date-fns'
-
-const items = [
-  {
-    href: '/teacher-dashboard',
-    icon: <i className="ri-file-chart-fill"></i>,
-    title: 'dashboard.dashboard'
-  },
-  {
-    href: '/teacher-courses',
-    icon: <i className="ri-list-unordered"></i>,
-    title: 'dashboard.courses'
-  }
-]
+import { teacherTabs } from '../../utils/constants/dashboard-tab'
 
 const TeacherCourses = () => {
   const { t: translation } = useTranslation()
@@ -173,7 +161,7 @@ const TeacherCourses = () => {
   const handleAddNewCourse = () => navigate('/new-course')
 
   return (
-    <DashboardLayout items={items}>
+    <DashboardLayout items={teacherTabs}>
       <SEO title="Teacher Courses" />
 
       <div className="edu-course-area edu-section-gap bg-color-white">

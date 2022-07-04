@@ -7,6 +7,7 @@
   border-radius: 5px;
   text-align: center;
   padding: 50px 30px;
+  min-height: 260px;
 
   @media #{$lg-layout} {
     padding: 30px 15px;
@@ -54,7 +55,7 @@
     position: relative;
     &::after {
       position: absolute;
-      content: "";
+      content: '';
       height: 160px;
       background: rgba(255, 255, 255, 0.15);
       right: 0;

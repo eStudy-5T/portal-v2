@@ -2,6 +2,14 @@
     Section Separation
 ==========================*/
 
+.spacing-desktop {
+  padding: 0 30px;
+  @media only screen and (min-width: 991px) {
+    padding-right: 75px;
+    padding-left: 0;
+  }
+}
+
 .mt_dec--30 {
   margin-top: -30px;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 // import Slider from 'react-slick'
 import SEO from '../../common/SEO'
 // import userService from '../../services/user-service'
@@ -9,33 +9,15 @@ import { Box, Container } from '@mui/material'
 import { UsersList } from './customer/users-list'
 import DashboardLayout from '../../components/dashboard/dashboard-layout'
 import { customers } from './customer/customers'
-import { IconCertificate, IconDashboard, IconSchool } from '@tabler/icons'
+import { adminTabs } from '../../utils/constants/dashboard-tab'
 
 const ManageUserPage = () => {
   const { t: translation } = useTranslation()
 
-  const items = [
-    {
-      href: '/dashboard',
-      icon: <IconDashboard></IconDashboard>,
-      title: 'dashboard.dashboard'
-    },
-    {
-      href: '/manage-users',
-      icon: <IconSchool></IconSchool>,
-      title: 'admin.manageUsers'
-    },
-    {
-      href: '/manage-courses',
-      icon: <IconCertificate></IconCertificate>,
-      title: 'admin.manageCourses'
-    }
-  ]
-
   return (
     <>
       <SEO title={translation('nav.courses')} />
-      <DashboardLayout items={items}>
+      <DashboardLayout items={adminTabs}>
         <Box
           component="main"
           sx={{

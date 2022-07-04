@@ -23,7 +23,7 @@ function HomeBlog() {
               animateIn="fadeInUp"
               animateOut="fadeInOut"
               animateOnce
-              className="col-lg-4 col-md-6 col-12"
+              className="col-xl-4 col-lg-6 col-md-6 col-12"
               key={item.id}
             >
               <PostStandard data={item} bgWhite="enable" />

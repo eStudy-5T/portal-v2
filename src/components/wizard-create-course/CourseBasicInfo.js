@@ -16,6 +16,8 @@ import Select from 'react-select'
 import { COURSE_TYPE } from '../../utils/constants/misc'
 import { COURSE_GRADE } from '../../utils/constants/course-grade'
 import courseService from '../../services/course-service'
+import { useTranslation } from 'react-i18next'
+import _ from 'lodash'
 
 const styles = {
   radio: {
@@ -41,41 +43,47 @@ const CourseBasicInfo = ({
   const [categories, setCategories] = useState([])
   const [subjects, setSubjects] = useState([])
   const [subOptions, setSubOptions] = useState([])
+  const { t: translation } = useTranslation()
 
   useEffect(() => {
     const fetchCategoriesAndSubjects = async () => {
       const cats = await courseService.getCategoryOptions()
       const subs = await courseService.getSubjectOptions()
       setCategories(
-        cats.data.map((cat) => ({ value: cat.id, label: cat.name }))
+        cats.data.map((cat) => ({
+          value: cat.id,
+          label: translation(cat.name)
+        }))
       )
       setSubjects(subs.data)
     }
 
     fetchCategoriesAndSubjects()
-  }, [])
+  }, [translation])
 
   useEffect(() => {
     if (courseBasicData.tags && !!courseBasicData.tags.length) {
+      const tagOptionsGroupedByValue = _.groupBy(colourOptions, 'value')
       const tags = courseBasicData.tags.map((tag) => {
-        return colourOptions.find((option) => option.value === tag)
+        const hasPredefinedTag = tagOptionsGroupedByValue[tag]
+        return hasPredefinedTag
+          ? tagOptionsGroupedByValue[tag]?.[0]
+          : { value: tag, label: _.camelCase(tag) }
       })
+      console.log('lol', tags)
       setTagsData(tags)
     }
 
     if (courseBasicData.categoryId) {
       const subjectOptions = subjects
-        .map((subject) => {
-          if (subject.categoryId === courseBasicData.categoryId) {
-            return { value: subject.id, label: subject.name }
-          }
-          return null
-        })
-        .filter((e) => e)
-      console.log('subjectOptions', subjectOptions)
+        .filter((subject) => subject.categoryId === courseBasicData.categoryId)
+        .map((subject) => ({
+          value: subject.id,
+          label: translation(subject.name)
+        }))
       setSubOptions(subjectOptions)
     }
-  }, [subjects, courseBasicData.tags, courseBasicData.categoryId])
+  }, [subjects, courseBasicData.tags, courseBasicData.categoryId, translation])
 
   const handleSelectTags = (newValue, actionMeta) => {
     setTagsData(newValue)

@@ -78,7 +78,7 @@ function CourseTypeOne({
               className="letmeet-status status-03"
               to={`${process.env.PUBLIC_URL}/course-category/1}`}
             >
-              {get(data, 'category.name', 'General')}
+              {translation(get(data, 'category.name', 'category.general'))}
             </Link>
           </div>
         </div>
@@ -168,7 +168,7 @@ function CourseTypeOne({
                   'data.categories.slice(0, 1)'
                 )}`}
               >
-                {get(data, 'category.name', 'General')}
+                {translation(get(data, 'category.name', 'category.general'))}
               </Link>
             </div>
             <div className="top-wishlist-bar">

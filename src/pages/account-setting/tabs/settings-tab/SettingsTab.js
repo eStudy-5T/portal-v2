@@ -2,12 +2,14 @@ import { Box } from '@mui/material'
 import { SettingsNotifications } from './SettingsNotifications'
 import { SettingsPassword } from './SettingsPassword'
 
-const SettingsTab = () => (
+const SettingsTab = ({ disablePasswordChange }) => (
   <>
     <SettingsNotifications />
-    <Box sx={{ pt: 5 }}>
-      <SettingsPassword />
-    </Box>
+    {!disablePasswordChange && (
+      <Box sx={{ pt: 5 }}>
+        <SettingsPassword />
+      </Box>
+    )}
   </>
 )
 

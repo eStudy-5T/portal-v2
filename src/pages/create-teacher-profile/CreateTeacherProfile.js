@@ -1,13 +1,15 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import FsLightbox from 'fslightbox-react'
 import { FaPlay } from 'react-icons/fa'
-import { Grid, Box, Container, Typography } from '@mui/material'
+import { Grid, Box, Container, Typography, Divider } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import usePrompt from '../../hooks/user-prompt'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
 import GeneralInformation from '../../components/application-section/GeneralInformation'
 import ExperienceInfomation from '../../components/application-section/ExperienceInfomation'
+import ClassInformation from '../../components/application-section/ClassInformation'
+import SampleTeach from '../../components/application-section/SampleTeach'
 
 const CreateTeacherProfile = () => {
   const [togglerIntroVideo, setTogglerIntroVideo] = useState(false)
@@ -120,21 +122,32 @@ const CreateTeacherProfile = () => {
             <Typography variant="h4" className="profile__section-title">
               Step 3: Tell us about your classes
             </Typography>
-            <Container maxWidth="lg">
-              <Box className="profile-box">
-                <Box className="profile-box__content">Hello again</Box>
-              </Box>
-            </Container>
+            <Typography
+              variant="subtitle"
+              className="profile__section-subtitle"
+            >
+              We'd like to learn more about your class, please fill out the
+              fields below.
+            </Typography>
+            <ClassInformation />
           </Box>
           <Box id="step-4" className="profile__section mt--40">
             <Typography variant="h4" className="profile__section-title">
               Step 4: Teach or explain us something!
             </Typography>
-            <Container maxWidth="lg">
-              <Box className="profile-box">
-                <Box className="profile-box__content">Hello again</Box>
-              </Box>
-            </Container>
+            <SampleTeach />
+          </Box>
+          <Divider />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              mt: 4,
+              width: '100%'
+            }}
+          >
+            <button className="profile__submit">Submit Profile</button>
           </Box>
         </Container>
       </Layout>

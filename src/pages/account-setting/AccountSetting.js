@@ -85,7 +85,9 @@ const AccountSetting = () => {
                 <AccountTab info={userInfo}></AccountTab>
               </TabPanel>
               <TabPanel value="2" sx={{ marginY: 3 }}>
-                <SettingsTab />
+                <SettingsTab
+                  disablePasswordChange={userInfo?.isLoggedinWithSocialAccount}
+                />
               </TabPanel>
               <TabPanel value="3"></TabPanel>
             </Container>

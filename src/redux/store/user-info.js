@@ -9,13 +9,14 @@ const initialState = {
   dateOfBirth: null,
   isDisabled: false,
   isVerified: false,
-  isVerifiedToTeach: true,
+  isVerifiedToTeach: false,
   createdAt: null,
   isAdmin: null,
   teacherInfo: {
     // teacher info field
   },
-  doesGoogleGrantAccess: false
+  doesGoogleGrantAccess: false,
+  isLoggedinWithSocialAccount: false
 }
 
 const userInfoSlice = createSlice({
@@ -45,6 +46,8 @@ const userInfoSlice = createSlice({
       state.identityNumber = action.payload.identityNumber
       state.grade = action.payload.grade
       state.doesGoogleGrantAccess = action.payload.doesGoogleGrantAccess
+      state.isLoggedinWithSocialAccount =
+        action.payload.isLoggedinWithSocialAccount
     },
     addTeacherInfo(state, action) {
       // update teacher info to info if need
