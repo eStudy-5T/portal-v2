@@ -35,28 +35,32 @@ const SampleTeach = () => {
           >
             This is some advice for you:
           </Typography>
-          <ul style={{ marginBottom: '20px' }}>
-            <li>
+          <ul style={{ marginBottom: '15px' }}>
+            <li className="profile-box__content__sample-teach_list">
               Recommended video length: 3-5 minutes (make sure it is 100mb or
               less)
             </li>
-            <li>
+            <li className="profile-box__content__sample-teach_list">
               If uploading your video, check to make sure it is 100mb or less
             </li>
-            <li>Show us the space where you will teach</li>
-            <li>Demonstrate your ability to teach</li>
-            <li>
+            <li className="profile-box__content__sample-teach_list">
+              Show us the space where you will teach
+            </li>
+            <li className="profile-box__content__sample-teach_list">
+              Demonstrate your ability to teach
+            </li>
+            <li className="profile-box__content__sample-teach_list">
               Share your knowledge! Teach us something that you are excited to
               share with LetMeet students.
             </li>
           </ul>
-          <label className="profile-box__content__sample-teach_btn mb--15">
+          <label className="profile-box__content__sample-teach_btn mb--10">
             <input name="file" type="file" accept="image/*" hidden />
             Upload Video
           </label>
           <Typography
             variant="h6"
-            className="profile-box__content__sample-teach_text mb--15"
+            className="profile-box__content__sample-teach_text mb--10"
           >
             Or you can upload through Youtube:
           </Typography>

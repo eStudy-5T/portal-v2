@@ -7,7 +7,7 @@ import usePrompt from '../../hooks/user-prompt'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
 import GeneralInformation from '../../components/application-section/GeneralInformation'
-import ExperienceInfomation from '../../components/application-section/ExperienceInfomation'
+import ExperienceInformation from '../../components/application-section/ExperienceInformation'
 import ClassInformation from '../../components/application-section/ClassInformation'
 import SampleTeach from '../../components/application-section/SampleTeach'
 
@@ -115,7 +115,7 @@ const CreateTeacherProfile = () => {
               {/* General info section */}
               <GeneralInformation />
               {/* Teach experience section */}
-              <ExperienceInfomation />
+              <ExperienceInformation />
             </Container>
           </Box>
           <Box id="step-3" className="profile__section mt--40">

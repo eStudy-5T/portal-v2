@@ -7,20 +7,30 @@ import {
   Divider
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
+import { makeStyles } from '@mui/styles'
+
+const useStyles = makeStyles(() => ({
+  paper: { maxWidth: '750px' }
+}))
 
 const CustomDialog = ({
   title,
   maxWidth,
+  customStyle,
   fullWidth,
   children,
   open,
   setOpen
 }) => {
+  const classes = useStyles()
+
   return (
     <Dialog
+      className="pre-size"
       fullWidth={fullWidth}
       open={open}
       maxWidth={maxWidth}
+      classes={{ paper: customStyle ? classes.paper : '' }}
       onClose={() => {
         setOpen(false)
       }}
