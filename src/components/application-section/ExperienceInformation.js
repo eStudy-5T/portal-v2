@@ -98,7 +98,11 @@ const ExperienceInformation = () => {
         open={isAddExperience}
         setOpen={handleToggleAddExpPopup}
       >
-        <AddExperienceForm />
+        <AddExperienceForm
+          successBtnText="Add"
+          setOpen={handleToggleAddExpPopup}
+          handleAddExperience={handleToggleAddExpPopup}
+        />
       </CustomDialog>
     </Fragment>
   )

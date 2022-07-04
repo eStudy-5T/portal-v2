@@ -11,7 +11,23 @@ import ExperienceInformation from '../../components/application-section/Experien
 import ClassInformation from '../../components/application-section/ClassInformation'
 import SampleTeach from '../../components/application-section/SampleTeach'
 
+const initializeTeacherInfo = {
+  teacherAvatar: null,
+  publicTeacherName: '',
+  email: '',
+  phoneNumber: 0,
+  location: '',
+  onlineProfile: '',
+  teacherSelfDescription: '',
+  experiences: [],
+  classGeneralInformation: '',
+  classPlan: '',
+  sampleTeaching: ''
+}
+
 const CreateTeacherProfile = () => {
+  const [isValidToSubmit, setValidToSubmit] = useState(false)
+  const [teacherInfo, setTeacherInfo] = useState(initializeTeacherInfo)
   const [togglerIntroVideo, setTogglerIntroVideo] = useState(false)
   const videoLink = ['https://www.youtube.com/watch?v=pNje3bWz7V8']
 
@@ -147,7 +163,9 @@ const CreateTeacherProfile = () => {
               width: '100%'
             }}
           >
-            <button className="profile__submit">Submit Profile</button>
+            <button className="profile__submit" disabled={!isValidToSubmit}>
+              Submit Profile
+            </button>
           </Box>
         </Container>
       </Layout>

@@ -49,7 +49,7 @@ const GeneralInformation = () => {
                 />
                 <Button component="label" className="profile-box__avatar-btn">
                   <input
-                    name="file"
+                    name="teacherAvatar"
                     type="file"
                     accept="image/*"
                     onChange={onChangeAvatar}
@@ -119,7 +119,7 @@ const GeneralInformation = () => {
                   <input
                     id="phone-number"
                     type="number"
-                    name=" publicTeacherName"
+                    name="phoneNumber"
                     placeholder="+84"
                   />
                 </Grid>
@@ -139,7 +139,7 @@ const GeneralInformation = () => {
                   <input
                     id="location"
                     type="text"
-                    name="fullName"
+                    name="location"
                     placeholder="Type here"
                   />
                 </Grid>
@@ -168,7 +168,7 @@ const GeneralInformation = () => {
           <Grid container spacing={2} sx={{ mt: 1 }}>
             <Grid item xs={12} md={12}>
               <InputLabel
-                htmlFor="course-description"
+                htmlFor="self-description"
                 className="basic-info__input-label"
                 required
               >
@@ -180,8 +180,8 @@ const GeneralInformation = () => {
                 </Tooltip>
               </InputLabel>
               <textarea
-                id="course-description"
-                name="description"
+                id="self-description"
+                name="teacherSelfDescription"
                 rows="3"
                 required
               ></textarea>
