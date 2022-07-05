@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Container,
   Button,
@@ -26,7 +26,8 @@ const customStyles = {
   valueContainer: (base, state) => ({
     ...base,
     height: 45,
-    padding: '0 0 10px 0'
+    display: 'flex',
+    padding: 0
   }),
   input: (base, state) => ({
     ...base,
@@ -42,12 +43,15 @@ const customStyles = {
 }
 
 const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
+  const [teacherAvatar, setTeacherAvatar] = useState(null)
+
   const onChangeAvatar = async (event) => {
     event.preventDefault()
     try {
       const file = event.target.files[0]
       const resizedImage = await resizeImage(file, 256, 256, file.type)
-      console.log('resizedImage', resizedImage)
+      setTeacherAvatar(resizedImage)
+      handleChangeBasicInfo(resizedImage, 'teacherAvatar')
     } catch (error) {
       console.log(error)
     }
@@ -97,7 +101,10 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
             <Grid item lg={4} md={6} xs={12}>
               <Box className="profile-box__avatar">
                 <Avatar
-                  src={CloneAvatar || basicInfo.teacherAvatar}
+                  src={
+                    (teacherAvatar && URL.createObjectURL(teacherAvatar)) ||
+                    CloneAvatar
+                  }
                   sx={{
                     height: 200,
                     width: 200,

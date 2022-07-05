@@ -87,7 +87,7 @@ textarea {
   color: var(--color-body);
 
   &:hover {
-    border-color: var(--color-primary) !important;
+    border-color: var(--color-primary);
   }
 
   &:disabled {
@@ -177,6 +177,9 @@ textarea {
 
   input {
     @extend .p-holder__error;
+  }
+  &:hover {
+    border-color: #f4282d !important;
   }
 }
 

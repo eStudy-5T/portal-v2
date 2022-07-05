@@ -29,6 +29,7 @@ const initializeTeacherAdvancedInfo = {
 }
 
 const CreateTeacherProfile = () => {
+  const [isBlocking, setIsBlocking] = useState(false)
   const [isValidToSubmit, setValidToSubmit] = useState(false)
   const [teacherBasicInfo, setTeacherBasicInfo] = useState(
     initializeTeacherBasicInfo
@@ -39,16 +40,87 @@ const CreateTeacherProfile = () => {
   const [togglerIntroVideo, setTogglerIntroVideo] = useState(false)
   const videoLink = ['https://www.youtube.com/watch?v=pNje3bWz7V8']
 
+  usePrompt('Reload site? Changes you made may not be saved.', isBlocking)
+
   useEffect(() => {
     console.log('teacherBasicInfo', teacherBasicInfo)
     console.log('teacherAdvancedInfo', teacherAdvancedInfo)
   }, [teacherBasicInfo, teacherAdvancedInfo])
 
   const handleChangeBasicInfo = (value, field) => {
+    setIsBlocking(true)
     setTeacherBasicInfo((prevTeacherBasicInfo) => ({
       ...prevTeacherBasicInfo,
       [field]: value || ''
     }))
+  }
+
+  const handleChangeAdvancedInfo = (value, field) => {
+    setIsBlocking(true)
+    setTeacherAdvancedInfo((prevTeacherAdvancedInfo) => ({
+      ...prevTeacherAdvancedInfo,
+      [field]: value
+    }))
+  }
+
+  const handleAddExperiences = (data) => {
+    setIsBlocking(true)
+    const experience = {
+      id: (
+        (teacherAdvancedInfo.experiences
+          ? teacherAdvancedInfo.experiences.length
+          : 0) + 1
+      ).toString(),
+      ...data
+    }
+    let experiences = teacherAdvancedInfo.experiences
+      ? [...teacherAdvancedInfo.experiences]
+      : []
+    experiences.push(experience)
+    setTeacherAdvancedInfo((prevTeacherAdvancedInfo) => ({
+      ...prevTeacherAdvancedInfo,
+      experiences: experiences
+    }))
+  }
+
+  const handleEditExperience = (data) => {
+    setIsBlocking(true)
+    if (
+      teacherAdvancedInfo.experiences &&
+      !!teacherAdvancedInfo.experiences.length
+    ) {
+      const updatedData = teacherAdvancedInfo.experiences.map((exp) => {
+        return exp.id.toString() === data.id.toString() ? data : exp
+      })
+
+      setTeacherAdvancedInfo((prevTeacherAdvancedInfo) => ({
+        ...prevTeacherAdvancedInfo,
+        experiences: updatedData
+      }))
+    }
+  }
+
+  const handleDeleteExperience = (id) => {
+    if (!teacherAdvancedInfo.experiences?.length) {
+      return
+    }
+    const _experiences = [...teacherAdvancedInfo.experiences]
+    const experiencesAfterRemove = _experiences.filter(
+      (exp) => exp.id.toString() !== id.toString()
+    )
+
+    if (!experiencesAfterRemove.length) {
+      setIsBlocking(false)
+    }
+
+    setTeacherAdvancedInfo((prevTeacherAdvancedInfo) => ({
+      ...prevTeacherAdvancedInfo,
+      experiences: experiencesAfterRemove
+    }))
+  }
+
+  const handleSubmitProfile = () => {
+    setIsBlocking(false)
   }
 
   return (
@@ -154,7 +226,13 @@ const CreateTeacherProfile = () => {
                 handleChangeBasicInfo={handleChangeBasicInfo}
               />
               {/* Teach experience section */}
-              <ExperienceInformation />
+              <ExperienceInformation
+                experiences={teacherAdvancedInfo.experiences}
+                handleAddExperiences={handleAddExperiences}
+                handleDeleteExperience={handleDeleteExperience}
+                handleEditExperience={handleEditExperience}
+                handleChangeAdvancedInfo={handleChangeAdvancedInfo}
+              />
             </Container>
           </Box>
           <Box id="step-3" className="profile__section mt--40">
@@ -186,7 +264,11 @@ const CreateTeacherProfile = () => {
               width: '100%'
             }}
           >
-            <button className="profile__submit" disabled={!isValidToSubmit}>
+            <button
+              className="profile__submit"
+              disabled={!isValidToSubmit}
+              onClick={handleSubmitProfile}
+            >
               Submit Profile
             </button>
           </Box>

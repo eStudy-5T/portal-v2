@@ -3,40 +3,17 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { Box, Typography, Divider, IconButton } from '@mui/material'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
 import CustomDialog from '../dialog/CustomDialog'
-import AddExperienceForm from '../form/AddExperienceForm'
+import ExperienceForm from '../form/ExperienceForm'
 import Experience from '../experience/Experience'
 
-const Experiences = [
-  {
-    index: '1',
-    title: 'High School Teacher',
-    organization: 'Gia Định high school',
-    history: {
-      startDate: 'March 2022',
-      endDate: 'Present'
-    }
-  },
-  {
-    index: '2',
-    title: 'Student',
-    organization: 'Gia Định high school',
-    history: {
-      startDate: 'March 2022',
-      endDate: 'Present'
-    }
-  },
-  {
-    index: '3',
-    title: 'Teacher Assistant',
-    organization: 'Gia Định high school',
-    history: {
-      startDate: 'March 2022',
-      endDate: 'Present'
-    }
-  }
-]
-
-const ExperienceInformation = () => {
+const ExperienceInformation = ({
+  experiences,
+  handleAddExperiences,
+  handleDeleteExperience,
+  handleChangeAdvancedInfo,
+  handleEditExperience
+}) => {
+  const [expEditing, setExpEditing] = useState(null)
   const [isAddExperience, setAddExperience] = useState(false)
   const [isEditExperience, setEditExperience] = useState(false)
 
@@ -48,8 +25,40 @@ const ExperienceInformation = () => {
     setEditExperience(status)
   }
 
+  const toggleEditExpPopup = (id) => {
+    const data = experiences.find((exp) => {
+      return exp.id.toString() === id.toString()
+    })
+    setExpEditing(data)
+    setEditExperience(true)
+  }
+
+  const onEditExperience = (data) => {
+    setExpEditing(null)
+    setEditExperience(false)
+    handleEditExperience(data)
+  }
+
   const onDragEnd = (result) => {
-    console.log('result', result)
+    if (!result.destination) {
+      return
+    }
+
+    const reorder = (list, startIndex, endIndex) => {
+      const result = Array.from(list)
+      const [removed] = result.splice(startIndex, 1)
+      result.splice(endIndex, 0, removed)
+
+      return result
+    }
+
+    const newExperiences = reorder(
+      experiences,
+      result.source.index,
+      result.destination.index
+    )
+
+    handleChangeAdvancedInfo(newExperiences, 'experiences')
   }
 
   return (
@@ -68,26 +77,31 @@ const ExperienceInformation = () => {
         </Box>
         <Divider sx={{ backgroundColor: '#E0E0E0' }} />
         <Box className="profile-box__content" sx={{ textAlign: 'center' }}>
-          {/* <Typography variant="subtitle">
-          Click <AddCircleOutlineRoundedIcon /> to add new education or
-          experience
-        </Typography> */}
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="droppable">
-              {(provided, snapshot) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {Experiences.map((exp, index) => (
-                    <Experience
-                      key={exp.index}
-                      experience={exp}
-                      index={index}
-                    />
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+          {!!experiences?.length ? (
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable droppableId="droppable">
+                {(provided, snapshot) => (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    {experiences.map((exp, index) => (
+                      <Experience
+                        key={exp.id}
+                        experience={exp}
+                        index={index}
+                        deleteExperience={handleDeleteExperience}
+                        toggleEditExpPopup={toggleEditExpPopup}
+                      />
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          ) : (
+            <Typography variant="subtitle">
+              Click <AddCircleOutlineRoundedIcon /> to add new education or
+              experience
+            </Typography>
+          )}
         </Box>
       </Box>
       {/* Popup add experience here */}
@@ -98,10 +112,26 @@ const ExperienceInformation = () => {
         open={isAddExperience}
         setOpen={handleToggleAddExpPopup}
       >
-        <AddExperienceForm
+        <ExperienceForm
           successBtnText="Add"
           setOpen={handleToggleAddExpPopup}
-          handleAddExperience={handleToggleAddExpPopup}
+          handleAddExperience={handleAddExperiences}
+        />
+      </CustomDialog>
+      {/* Popup edit experience here */}
+      <CustomDialog
+        fullWidth
+        customStyle
+        title="Edit Education / Experience"
+        open={isEditExperience}
+        setOpen={handleToggleEditExpPopup}
+      >
+        <ExperienceForm
+          successBtnText="Edit"
+          setOpen={handleToggleEditExpPopup}
+          editData={expEditing}
+          isEditing={isEditExperience}
+          handleEditExperience={onEditExperience}
         />
       </CustomDialog>
     </Fragment>

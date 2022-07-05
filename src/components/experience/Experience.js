@@ -8,16 +8,18 @@ import WorkHistoryIcon from '@mui/icons-material/WorkHistory'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import DragHandleIcon from '@mui/icons-material/DragHandle'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
+import { VIETNAM_PROVINCE } from '../../utils/constants/province'
+import * as moment from 'moment'
 
 const Experience = ({
   experience,
   index,
-  saveExperience,
   deleteExperience,
-  isLoading
+  toggleEditExpPopup
 }) => {
   return (
-    <Draggable draggableId={experience.index} index={index}>
+    <Draggable draggableId={experience.id} index={index}>
       {(provided) => (
         <Box
           component={Card}
@@ -30,19 +32,32 @@ const Experience = ({
             <Box className="profile-box__content__experience-title">
               <AssignmentIndIcon />
               <Typography className="profile-box__content__experience-title-text">
-                High school teacher
+                {experience.title}
               </Typography>
             </Box>
             <Box className="profile-box__content__experience-company">
               <DomainIcon />
               <Typography className="profile-box__content__experience-company-text">
-                Gia Định High School
+                {experience.organization}
               </Typography>
             </Box>
             <Box className="profile-box__content__experience-history">
               <WorkHistoryIcon />
               <Typography className="profile-box__content__experience-history-text">
-                March 2019 - Present
+                {moment(experience.startTime, 'YYYY-MM').format('MM-YYYY')}
+                &nbsp;to&nbsp;
+                {experience.endTime
+                  ? moment(experience.endTime, 'YYYY-MM').format('MM-YYYY')
+                  : 'Present'}
+              </Typography>
+            </Box>
+            <Box className="profile-box__content__experience-history">
+              <LocationOnIcon />
+              <Typography className="profile-box__content__experience-history-text">
+                {
+                  VIETNAM_PROVINCE.find((p) => p.value === experience.location)
+                    .label
+                }
               </Typography>
             </Box>
           </Box>
@@ -51,6 +66,7 @@ const Experience = ({
               edge="end"
               aria-label="Edit experience"
               sx={{ mr: '5px' }}
+              onClick={() => toggleEditExpPopup(experience.id)}
             >
               <EditIcon />
             </IconButton>
@@ -58,6 +74,7 @@ const Experience = ({
               edge="end"
               aria-label="Delete experience"
               sx={{ mr: '5px' }}
+              onClick={() => deleteExperience(experience.id)}
             >
               <DeleteIcon />
             </IconButton>
