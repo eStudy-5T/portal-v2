@@ -89,3 +89,7 @@
     padding-top: 0 !important;
   }
 }
+
+.MuiCheckbox-root.Mui-checked {
+  color: var(--color-primary) !important;
+}

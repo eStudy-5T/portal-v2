@@ -12,4 +12,11 @@
       display: flex !important;
     }
   }
+
+  &__checkbox {
+    &:hover {
+      padding: 0 5px;
+      background-color: rgba(168, 167, 167, 0.3);
+    }
+  }
 }
