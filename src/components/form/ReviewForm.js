@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
@@ -46,6 +46,8 @@ function ReviewForm(props) {
       .submitReview(props.courseId, data)
       .then(() => {
         navigate('#')
+        props.setIsReviewable(false)
+        props.scrollToBottom()
         toast.success(translation('courseDetails.thankYouForYourReview'))
       })
       .catch(() => {})

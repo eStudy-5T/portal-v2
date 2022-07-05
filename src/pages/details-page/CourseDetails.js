@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import ScrollAnimation from 'react-animate-on-scroll'
 import { useParams, Link, useSearchParams } from 'react-router-dom'
@@ -19,7 +19,7 @@ import ReviewForm from '../../components/form/ReviewForm'
 
 // MUI component
 import { Rating } from '@mui/material'
-import { Star, StarBorder } from '@mui/icons-material'
+import { ConnectingAirportsOutlined, Star, StarBorder } from '@mui/icons-material'
 
 // Services
 import courseService from '../../services/course-service'
@@ -182,8 +182,15 @@ function ReviewsTabContent(data) {
 
   const { t: translation } = useTranslation()
 
+  const reviewsEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    reviewsEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
   useEffect(() => {
     setIsMounted(true)
+    scrollToBottom()
     courseService
       .getCourseReviews(data.courseId)
       .then(({ data: CourseReviewsData }) => {
@@ -227,6 +234,7 @@ function ReviewsTabContent(data) {
                   const newState = [...previousState, user.data.avatar]
                   return newState
                 })
+                review.userId === currentUserId && setIsReviewable(false)
               })
               .catch()
           })
@@ -237,6 +245,7 @@ function ReviewsTabContent(data) {
           setFiveStarRateCount(countFiveStar)
         }
       })
+    
     currentUserId &&
       courseService
         .getEnrolledStudents(data.courseId)
@@ -244,7 +253,7 @@ function ReviewsTabContent(data) {
           if (isMounted) {
             StudentsData.map((student) => {
               if (student.user.id === currentUserId)
-                setIsReviewable(data.isActive)
+                setIsReviewable(data.courseData.isActive)
               return null
             })
           }
@@ -257,7 +266,7 @@ function ReviewsTabContent(data) {
     threeStarRateCount * 3 +
     fourStarRateCount * 4 +
     fiveStarRateCount * 5
-  const averageRating = totalRateStar / totalRateCount
+  const averageRating = Number((totalRateStar / totalRateCount).toFixed(1))
 
   return (
     <ScrollAnimation
@@ -393,6 +402,8 @@ function ReviewsTabContent(data) {
             firstName={userInfo.firstName || 'Guest'}
             lastName={userInfo.lastName || 'User'}
             courseId={data.courseId}
+            setIsReviewable={setIsReviewable}
+            scrollToBottom={scrollToBottom}
           ></ReviewForm>
         )}
 
@@ -449,6 +460,7 @@ function ReviewsTabContent(data) {
             )
           })}
         </div>
+        <div ref={reviewsEndRef} />
       </div>
     </ScrollAnimation>
   )
@@ -768,7 +780,7 @@ function CourseDetails() {
                         courseId={id}
                         ownerId={ownerId}
                         currentUserId={userId}
-                        isActive={courseData.isActive}
+                        courseData={courseData}
                       />
                     )}
                   </div>

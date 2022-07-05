@@ -5,6 +5,7 @@ import InstructorData from '../../data/instructor/InstructorData.json'
 import CourseData from '../../data/course/CourseData.json'
 import get from 'lodash/get'
 import { useTranslation } from 'react-i18next'
+import courseService from '../../services/course-service'
 
 // MUI component
 import { Rating } from '@mui/material'
@@ -12,6 +13,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder'
 
 import { withStyles } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
+import CloneAvatar from '../../assets/images/clone.png'
 
 const BlueOnGreenTooltip = withStyles({
   tooltip: {
@@ -30,10 +32,9 @@ function CourseTypeOne({
   setSelectedAction
 }) {
   const { t: translation } = useTranslation()
+  const [isFavorite, setIsFavorite] = useState(false)
 
-  const [avatar, setOwnerAvatar] = useState(null)
-
-  const instructorThumb = InstructorData[1].image
+  // const instructorThumb = InstructorData[1].image
   const excerpt = `${
     data.description
       ? data.description.substring(0, 142)
@@ -44,6 +45,7 @@ function CourseTypeOne({
   }${data.title.length > 26 ? '...' : ''}`
 
   const isActive = get(data, 'isActive', false)
+  const avatar = get(data, 'owner.avatar', CloneAvatar)
 
   const handleActivateClick = () => {
     onModifyAccessClick()
@@ -55,6 +57,20 @@ function CourseTypeOne({
     onModifyAccessClick()
     setSelectedCourse(data.id)
     setSelectedAction('deactivate')
+  }
+
+  const favoriteStyle = {
+    isFavorite: {
+      color: 'red',
+    },
+    ':hover': {
+      color: 'red',
+    }
+  }
+
+  const handleAddToFavoriteClick = async () => {
+    setIsFavorite(!isFavorite)
+    // await courseService.toggleFavorite("c21439e2-2f78-4675-802a-1d59009b4543")
   }
 
   return (
@@ -69,8 +85,8 @@ function CourseTypeOne({
             />
           </Link>
           <div className="wishlist-top-right">
-            <button className="wishlist-btn">
-              <i className="icon-Heart" />
+            <button className="wishlist-btn" >
+              {(isFavorite && <i className="icon-Heart" style={{ color: 'red'}} />) || <i className="icon-Heart" /> }
             </button>
           </div>
           <div className="top-position status-group left-bottom">
@@ -90,11 +106,7 @@ function CourseTypeOne({
                   to={`${process.env.PUBLIC_URL}/instructor-details/${data.ownerId}`}
                 >
                   <img
-                    src={
-                      avatar
-                        ? avatar
-                        : `${process.env.PUBLIC_URL}/images/instructor/instructor-small/${instructorThumb}`
-                    }
+                    src={`${avatar || CloneAvatar}`}
                     alt="Author Thumb"
                   />
                   <span className="author-title">{`${
@@ -172,8 +184,11 @@ function CourseTypeOne({
               </Link>
             </div>
             <div className="top-wishlist-bar">
-              <button className="wishlist-btn">
-                <i className="icon-Heart" />
+              <button
+                className="wishlist-btn"
+                onClick={handleAddToFavoriteClick}
+              >
+                {(isFavorite && <i className="icon-Heart" style={{ color: 'red'}} />) || <i className="icon-Heart" /> }
               </button>
             </div>
           </div>
@@ -204,11 +219,7 @@ function CourseTypeOne({
                   to={`${process.env.PUBLIC_URL}/instructor-details/${data.ownerId}`}
                 >
                   <img
-                    src={
-                      avatar
-                        ? avatar
-                        : `${process.env.PUBLIC_URL}/images/instructor/instructor-small/${instructorThumb}`
-                    }
+                    src={`${avatar || CloneAvatar}`}
                     alt="Author Thumb"
                   />
                   <span className="author-title">{`${
