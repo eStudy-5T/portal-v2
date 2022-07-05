@@ -70,7 +70,6 @@ const CourseBasicInfo = ({
           ? tagOptionsGroupedByValue[tag]?.[0]
           : { value: tag, label: _.camelCase(tag) }
       })
-      console.log('lol', tags)
       setTagsData(tags)
     }
 
@@ -96,8 +95,6 @@ const CourseBasicInfo = ({
       handleChangeBasicData(event?.value, field)
 
       if (field === 'categoryId' && event?.value) {
-        console.log('subjects', subjects)
-        console.log('event.value', event.value)
         const subjectOptions = subjects
           .map((subject) => {
             if (subject.categoryId === event.value) {
@@ -106,7 +103,6 @@ const CourseBasicInfo = ({
             return null
           })
           .filter((e) => e)
-        console.log('subjectOptions', subjectOptions)
         setSubOptions(subjectOptions)
       }
     } else {

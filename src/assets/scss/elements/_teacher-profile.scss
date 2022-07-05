@@ -241,4 +241,20 @@
       border-color: #cccccc;
     }
   }
+
+  &__select {
+    &-option {
+      padding: 10px 15px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(162, 164, 166, 0.4);
+      }
+
+      &.active {
+        color: white;
+        background-color: var(--color-primary);
+      }
+    }
+  }
 }

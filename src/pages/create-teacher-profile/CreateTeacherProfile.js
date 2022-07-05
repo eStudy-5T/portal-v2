@@ -11,14 +11,17 @@ import ExperienceInformation from '../../components/application-section/Experien
 import ClassInformation from '../../components/application-section/ClassInformation'
 import SampleTeach from '../../components/application-section/SampleTeach'
 
-const initializeTeacherInfo = {
+const initializeTeacherBasicInfo = {
   teacherAvatar: null,
   publicTeacherName: '',
   email: '',
   phoneNumber: 0,
   location: '',
   onlineProfile: '',
-  teacherSelfDescription: '',
+  teacherSelfDescription: ''
+}
+
+const initializeTeacherAdvancedInfo = {
   experiences: [],
   classGeneralInformation: '',
   classPlan: '',
@@ -27,9 +30,26 @@ const initializeTeacherInfo = {
 
 const CreateTeacherProfile = () => {
   const [isValidToSubmit, setValidToSubmit] = useState(false)
-  const [teacherInfo, setTeacherInfo] = useState(initializeTeacherInfo)
+  const [teacherBasicInfo, setTeacherBasicInfo] = useState(
+    initializeTeacherBasicInfo
+  )
+  const [teacherAdvancedInfo, setTeacherAdvancedInfo] = useState(
+    initializeTeacherAdvancedInfo
+  )
   const [togglerIntroVideo, setTogglerIntroVideo] = useState(false)
   const videoLink = ['https://www.youtube.com/watch?v=pNje3bWz7V8']
+
+  useEffect(() => {
+    console.log('teacherBasicInfo', teacherBasicInfo)
+    console.log('teacherAdvancedInfo', teacherAdvancedInfo)
+  }, [teacherBasicInfo, teacherAdvancedInfo])
+
+  const handleChangeBasicInfo = (value, field) => {
+    setTeacherBasicInfo((prevTeacherBasicInfo) => ({
+      ...prevTeacherBasicInfo,
+      [field]: value || ''
+    }))
+  }
 
   return (
     <Fragment>
@@ -129,7 +149,10 @@ const CreateTeacherProfile = () => {
                 </Box>
               </Box>
               {/* General info section */}
-              <GeneralInformation />
+              <GeneralInformation
+                basicInfo={teacherBasicInfo}
+                handleChangeBasicInfo={handleChangeBasicInfo}
+              />
               {/* Teach experience section */}
               <ExperienceInformation />
             </Container>

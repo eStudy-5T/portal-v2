@@ -12,9 +12,36 @@ import {
 } from '@mui/material'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import CloneAvatar from '../../assets/images/clone.png'
+import Select from 'react-select'
+import { VIETNAM_PROVINCE } from '../../utils/constants/province'
 import { resizeImage } from '../../utils/helpers/image-helper'
 
-const GeneralInformation = () => {
+const customStyles = {
+  control: (base) => ({
+    ...base,
+    height: 45,
+    minHeight: 45,
+    boxShadow: 'none'
+  }),
+  valueContainer: (base, state) => ({
+    ...base,
+    height: 45,
+    padding: '0 0 10px 0'
+  }),
+  input: (base, state) => ({
+    ...base,
+    margin: '0px'
+  }),
+  indicatorSeparator: (base) => ({
+    display: 'none'
+  }),
+  indicatorsContainer: (base, state) => ({
+    ...base,
+    height: 45
+  })
+}
+
+const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
   const onChangeAvatar = async (event) => {
     event.preventDefault()
     try {
@@ -24,6 +51,36 @@ const GeneralInformation = () => {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const handleChangeFieldData = (event, field) => {
+    if (field === 'location') {
+      if (event?.value) {
+        handleChangeBasicInfo(event.value, field)
+      }
+      return
+    } else {
+      const inputFieldName = event.target.name
+      const value = event.target.value
+      handleChangeBasicInfo(value, inputFieldName)
+    }
+  }
+
+  const CustomSelectOption = ({
+    children,
+    innerProps,
+    isDisabled,
+    isFocused,
+    isSelected
+  }) => {
+    return !isDisabled ? (
+      <div
+        {...innerProps}
+        className={`profile__select-option ${isSelected ? 'active' : ''}`}
+      >
+        {children}
+      </div>
+    ) : null
   }
 
   return (
@@ -40,7 +97,7 @@ const GeneralInformation = () => {
             <Grid item lg={4} md={6} xs={12}>
               <Box className="profile-box__avatar">
                 <Avatar
-                  src={CloneAvatar}
+                  src={CloneAvatar || basicInfo.teacherAvatar}
                   sx={{
                     height: 200,
                     width: 200,
@@ -77,8 +134,10 @@ const GeneralInformation = () => {
                   <input
                     id="public-teacher-name"
                     type="text"
-                    name=" publicTeacherName"
+                    name="publicTeacherName"
                     placeholder="Type here"
+                    value={basicInfo.publicTeacherName || ''}
+                    onChange={handleChangeFieldData}
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
@@ -98,7 +157,9 @@ const GeneralInformation = () => {
                     id="email"
                     type="text"
                     name="email"
-                    placeholder="abc@domain-mail.com"
+                    placeholder="nguyenvana@gmail.com"
+                    value={basicInfo.email || ''}
+                    onChange={handleChangeFieldData}
                   />
                 </Grid>
               </Grid>
@@ -121,6 +182,8 @@ const GeneralInformation = () => {
                     type="number"
                     name="phoneNumber"
                     placeholder="+84"
+                    value={basicInfo.phoneNumber || ''}
+                    onChange={handleChangeFieldData}
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
@@ -136,11 +199,20 @@ const GeneralInformation = () => {
                       />
                     </Tooltip>
                   </InputLabel>
-                  <input
+                  <Select
                     id="location"
-                    type="text"
+                    className="basic-single"
+                    classNamePrefix="select"
+                    placeholder="Select here"
+                    isClearable={true}
+                    isSearchable={true}
                     name="location"
-                    placeholder="Type here"
+                    styles={customStyles}
+                    options={VIETNAM_PROVINCE}
+                    components={{ Option: CustomSelectOption }}
+                    onChange={(event) =>
+                      handleChangeFieldData(event, 'location')
+                    }
                   />
                 </Grid>
                 <Grid item xs={12} md={12}>
@@ -160,6 +232,8 @@ const GeneralInformation = () => {
                     type="text"
                     name="onlineProfile"
                     placeholder="Type here"
+                    value={basicInfo.onlineProfile || ''}
+                    onChange={handleChangeFieldData}
                   />
                 </Grid>
               </Grid>
@@ -184,6 +258,8 @@ const GeneralInformation = () => {
                 name="teacherSelfDescription"
                 rows="3"
                 required
+                value={basicInfo.teacherSelfDescription || ''}
+                onChange={handleChangeFieldData}
               ></textarea>
             </Grid>
           </Grid>
