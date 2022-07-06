@@ -6,9 +6,11 @@ import { format } from 'date-fns'
 
 // i18
 import { useTranslation } from 'react-i18next'
+
 import get from 'lodash/get'
 import courseService from '../../services/course-service'
 import { useNavigate } from 'react-router-dom'
+import { calculateCourseTotalDuration } from '../../utils/helpers/date-helper'
 
 const data = {
   id: 1,
@@ -133,16 +135,28 @@ function CourseInfo({ courseData, currentUserId }) {
             <div className="letmeet-widget-details mt--35">
               <div className="widget-content">
                 <ul>
-                  {data.duration && (
+                  {courseData.scheduleType && (
                     <li>
                       <span>
                         <i className="icon-time-line" />{' '}
                         {translation('courseDetails.duration')}
                       </span>
-                      <span>160 {translation('courseDetails.hours')}</span>
+                      <span>
+                        {calculateCourseTotalDuration(
+                          courseData.startDate,
+                          courseData.endDate,
+                          courseData.daysOfWeek,
+                          courseData.schedules,
+                          courseData.scheduleType,
+                          courseData.lessonNumberPerWeek,
+                          courseData.startTime,
+                          courseData.endTime
+                        )}{' '}
+                        {translation('courseDetails.hours')}
+                      </span>
                     </li>
                   )}
-                  {data.level && (
+                  {courseData.grade && (
                     <li>
                       <span>
                         <i className="icon-bar-chart-2-line" />
@@ -151,7 +165,7 @@ function CourseInfo({ courseData, currentUserId }) {
                       <span>{get(courseData, 'grade', '')}</span>
                     </li>
                   )}
-                  {data.instructor && (
+                  {courseData.firstName && courseData.lastName && (
                     <li>
                       <span>
                         <i className="icon-user-2-line_tie" />
