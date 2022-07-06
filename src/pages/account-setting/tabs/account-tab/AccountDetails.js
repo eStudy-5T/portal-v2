@@ -63,8 +63,6 @@ const AccountDetails = (props) => {
       nationality: data.get('nationality')
     }
 
-    console.log(userData)
-
     // Check form data
     const formErrorMsg = updateUserInfoFormValidator(userData).error
 
