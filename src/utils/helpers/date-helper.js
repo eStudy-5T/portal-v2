@@ -51,7 +51,10 @@ export const calculateFlexibleLessonNumber = (
     const rrule = new RRule({
       freq: RRule.WEEKLY,
       byweekday: [RRule[dayOfWeek.toUpperCase().substring(0, 2)]],
-      byhour: Array.from(Array(schedulesGroupedByDay[dayOfWeek].length).keys()),
+      byhour: Array.from(
+        Array(schedulesGroupedByDay[dayOfWeek].length),
+        () => 0
+      ),
       dtstart: new Date(
         Date.UTC(
           new Date(startDate).getUTCFullYear(),
@@ -100,6 +103,7 @@ export const calculateCourseTotalDuration = (startDate, endDate, daysOfWeek, sch
   if (scheduleType === COURSE_SCHEDULE_TYPE.PERMANENT) {
     return calculatePermanentLessonNumber(startDate, endDate, daysOfWeek) * Math.floor(calculateDuration(startTime, endTime) / 60)
   } else if (scheduleType === COURSE_SCHEDULE_TYPE.FLEXIBLE) {
+    // TODO
     return 9999
   }
   return 0

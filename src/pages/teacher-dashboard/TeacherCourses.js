@@ -149,11 +149,11 @@ const TeacherCourses = () => {
       return <Chip label={COURSE_STATUS.DRAFT} color="info" />
     }
 
-    if (isOpened && !isActive) {
+    if (!isActive) {
       return <Chip label={COURSE_STATUS.PENDING} color="warning" />
     }
 
-    if (isOpened && isActive) {
+    if (isActive) {
       return <Chip label={COURSE_STATUS.ACTIVE} color="success" />
     }
   }
@@ -307,8 +307,8 @@ const TeacherCourses = () => {
                                   </Typography>
                                 </Box>
                               </TableCell>
-                              <TableCell>{course.category.name}</TableCell>
-                              <TableCell>{course.subject.name}</TableCell>
+                              <TableCell>{translation(course.category.name)}</TableCell>
+                              <TableCell>{translation(course.subject.name)}</TableCell>
                               <TableCell>
                                 {getCourseStatus(
                                   course.isOpened,
