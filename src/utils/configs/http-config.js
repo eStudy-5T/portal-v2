@@ -10,7 +10,7 @@ import ToastContent from '../../components/toast-content/ToastContent'
 
 const httpService = axios.create({
   baseURL: `${process.env.REACT_APP_API_HOST}/api`,
-  timeout: 5000,
+  timeout: 20000,
   withCredentials: true,
   headers: authHeader()
 })
