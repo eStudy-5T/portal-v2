@@ -1,20 +1,28 @@
-import React from 'react'
-import {
-  Container,
-  Box,
-  Typography,
-  Grid,
-  InputLabel,
-  Tooltip,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Button
-} from '@mui/material'
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
+import React, { useState, Fragment } from 'react'
+import { Container, Box, Typography, IconButton, Tooltip } from '@mui/material'
+import VideoFileIcon from '@mui/icons-material/VideoFile'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
-const SampleTeach = () => {
+const SampleTeach = ({ teacherAdvancedInfo, handleChangeAdvancedInfo }) => {
+  const [uploadVideo, setUploadVideo] = useState(null)
+
+  const onUploadVideo = (event) => {
+    event.preventDefault()
+    try {
+      const file = event.target.files[0]
+      console.log('file', file)
+      setUploadVideo(file)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const onAddYoutubeLink = () => {}
+
+  const handleDeleteVideo = () => {
+    setUploadVideo(null)
+  }
+
   return (
     <Container maxWidth="lg">
       <Box className="profile-box">
@@ -54,10 +62,34 @@ const SampleTeach = () => {
               share with LetMeet students.
             </li>
           </ul>
-          <label className="profile-box__content__sample-teach_btn mb--10">
-            <input name="file" type="file" accept="image/*" hidden />
-            Upload Video
-          </label>
+          <Box>
+            <label className="profile-box__content__sample-teach_btn mb--10">
+              <input
+                name="sampleTeaching"
+                type="file"
+                accept="image/*"
+                onChange={onUploadVideo}
+                hidden
+              />
+              Upload Video
+            </label>
+            {uploadVideo && (
+              <Fragment>
+                <Typography
+                  variant="subtitle"
+                  sx={{ ml: 1.5, fontStyle: 'italic' }}
+                >
+                  <VideoFileIcon sx={{ mr: 0.5 }} />
+                  {uploadVideo.name}
+                </Typography>
+                <IconButton sx={{ ml: 2 }} onClick={handleDeleteVideo}>
+                  <Tooltip title="Remove video">
+                    <DeleteForeverIcon />
+                  </Tooltip>
+                </IconButton>
+              </Fragment>
+            )}
+          </Box>
           <Typography
             variant="h6"
             className="profile-box__content__sample-teach_text mb--10"
@@ -65,10 +97,13 @@ const SampleTeach = () => {
             Or you can upload through Youtube:
           </Typography>
           <input
+            className="profile-box__content__sample-teach_input"
             id="sample-teach-youtube"
             type="text"
-            name="sampleTeachYoutube"
+            name="sampleTeaching"
             placeholder="Enter your Youtube link here"
+            onChange={onAddYoutubeLink}
+            disabled={uploadVideo}
           />
         </Box>
       </Box>
