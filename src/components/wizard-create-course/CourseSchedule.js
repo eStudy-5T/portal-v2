@@ -20,10 +20,10 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import * as moment from 'moment'
-import * as fns from 'date-fns'
 import {
-  calculatePermanentLessonNumber,
-  calculateFlexibleLessonNumber
+  calculateDuration,
+  calculateTotalLessonInCourse,
+  calculateTotalWeek
 } from '../../utils/helpers/date-helper'
 import CustomDialog from '../dialog/CustomDialog'
 import ScheduleTimeForm from '../form/ScheduleTimeForm'
@@ -31,6 +31,9 @@ import ScheduleTimeForm from '../form/ScheduleTimeForm'
 import Select from 'react-select'
 
 import { COURSE_SCHEDULE_TYPE, WEEK_DAYS } from '../../utils/constants/misc'
+
+import { RRule } from 'rrule'
+import groupBy from 'lodash/groupBy'
 
 const FORMAT_DATE = 'YYYY-MM-DD'
 const FORMAT_TIME = 'h:mma'
@@ -64,9 +67,9 @@ const CourseSchedule = ({
 
   useEffect(() => {
     if (courseScheduleData.startTime && courseScheduleData.endTime) {
-      const duration = calculateLessonDuration(
+      const duration = calculateDuration(
         courseScheduleData.startTime,
-        courseScheduleData.endTime
+        courseScheduleData.endTime || 0
       )
       setLessonDuration(duration)
     }
@@ -174,41 +177,6 @@ const CourseSchedule = ({
       setDaysOfWeek([])
       setTotalLesson(0)
       setTotalDuration(0)
-    }
-  }
-
-  const calculateLessonDuration = (startTime, endTime) => {
-    const m_start = moment(startTime, FORMAT_TIME)
-    const m_end = moment(endTime, FORMAT_TIME)
-    const duration = moment.duration(m_end.diff(m_start)).asMinutes()
-    return duration
-  }
-
-  const calculateTotalWeek = (startDate, endDate) => {
-    const start = new Date(startDate)
-    const end = new Date(endDate)
-    return fns.differenceInWeeks(end, start)
-  }
-
-  const calculateTotalLessonInCourse = (
-    startDate,
-    endDate,
-    daysOfWeek = [],
-    schedules = [],
-    scheduleType
-  ) => {
-    if (scheduleType === COURSE_SCHEDULE_TYPE.PERMANENT) {
-      return calculatePermanentLessonNumber(
-        new Date(startDate),
-        new Date(endDate),
-        daysOfWeek
-      )
-    } else if (scheduleType === COURSE_SCHEDULE_TYPE.FLEXIBLE) {
-      return calculateFlexibleLessonNumber(
-        new Date(startDate),
-        new Date(endDate),
-        schedules
-      )
     }
   }
 

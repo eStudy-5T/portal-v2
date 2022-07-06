@@ -4,6 +4,10 @@ import CountUp from 'react-countup'
 import Slider from 'react-slick'
 import { useParams, Link } from 'react-router-dom'
 import { InstructorCourseSliderParams } from '../../utils/configs/ui-config'
+import {
+  calculateCourseTotalDuration,
+  calculateTotalLessonInCourse
+} from '../../utils/helpers/date-helper'
 import Layout from '../../common/Layout'
 import Skill from '../../components/progressbar/ProgressbarItem'
 import CourseTypeTwo from '../../components/course/CourseTypeTwo'
@@ -226,6 +230,8 @@ function InstructorDetails() {
                             {...InstructorCourseSliderParams}
                           >
                             {courses.map((course) => {
+                              course.totalLessons = calculateTotalLessonInCourse(course.startDate, course.endDate, course.daysOfWeek, course.schedules, course.scheduleType)
+                              course.totalDuration = calculateCourseTotalDuration(course.startDate, course.endDate, course.daysOfWeek, course.schedules, course.scheduleType, course.lessonNumberPerWeek, course.startTime, course.endTime)
                               return (
                                 <div
                                   key={course.id}

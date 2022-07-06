@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import InstructorData from '../../data/instructor/InstructorData.json'
 import CourseData from '../../data/course/CourseData.json'
+import get from 'lodash/get'
 
 // i18
 import { useTranslation } from 'react-i18next'
@@ -24,7 +25,7 @@ function CourseTypeTwo(data) {
           </Link>
           <div className="top-position status-group left-top">
             <span className="letmeet-status status-02">
-              <i className="icon-time-line" /> {data.durationInHour}
+              <i className="icon-time-line" /> {`${get(course, 'totalDuration', 0)} hour(s)`}
             </span>
           </div>
           <div className="wishlist-top-right">
@@ -59,27 +60,27 @@ function CourseTypeTwo(data) {
           </div>
           <h6 className="title">
             <Link to={`${process.env.PUBLIC_URL}/course-details/${course?.id}`}>
-              {course.title}
+              {course?.title}
             </Link>
           </h6>
           <ul className="edu-meta meta-01">
             <li>
               <i className="icon-group-line" />
-              {data.student} {translation('instructorDetails.students')}
+              {get(course, 'students', 0)} {translation('instructorDetails.students')}
             </li>
             <li>
               <i className="icon-file-list-4-line" />
-              {data.lesson} {translation('instructorDetails.lessons')}
+              {get(course, 'totalLessons', 0)} {translation('instructorDetails.lessons')}
             </li>
           </ul>
           <div className="card-bottom">
             <div className="price-list price-style-01">
-              {data.price === '0' ? (
+              {course?.price === '0' ? (
                 <div className="price current-price">0</div>
               ) : (
                 <div className="price current-price">{course?.price} VND</div>
               )}
-              {data.oldPrice && (
+              {course?.oldPrice && (
                 <div className="price old-price">{course?.oldPrice} VND</div>
               )}
             </div>
