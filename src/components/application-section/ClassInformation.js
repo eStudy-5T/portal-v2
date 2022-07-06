@@ -2,7 +2,16 @@ import React from 'react'
 import { Container, Box, Grid, InputLabel, Tooltip } from '@mui/material'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 
-const ClassInformation = () => {
+const ClassInformation = ({
+  teacherAdvancedInfo,
+  handleChangeAdvancedInfo
+}) => {
+  const onChangeClassInfo = (event) => {
+    const inputFieldName = event.target.name
+    const value = event.target.value
+    handleChangeAdvancedInfo(value, inputFieldName)
+  }
+
   return (
     <Container maxWidth="lg">
       <Box className="profile-box">
@@ -27,6 +36,8 @@ const ClassInformation = () => {
               <textarea
                 id="class-general-infomation"
                 name="classGeneralInformation"
+                value={teacherAdvancedInfo?.classGeneralInformation || ''}
+                onChange={onChangeClassInfo}
                 rows="5"
                 required
               ></textarea>
@@ -48,6 +59,8 @@ const ClassInformation = () => {
               <textarea
                 id="class-plan"
                 name="classPlan"
+                value={teacherAdvancedInfo?.classPlan || ''}
+                onChange={onChangeClassInfo}
                 rows="5"
                 required
               ></textarea>

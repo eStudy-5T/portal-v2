@@ -47,7 +47,9 @@ const ExperienceForm = ({
   handleAddExperience,
   handleEditExperience
 }) => {
-  const [currentWork, setCurrentWork] = useState(!editData?.endTime)
+  const [currentWork, setCurrentWork] = useState(
+    editData ? !editData?.endTime : false
+  )
   const {
     control,
     register,

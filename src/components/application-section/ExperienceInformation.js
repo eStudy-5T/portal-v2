@@ -1,10 +1,11 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useCallback } from 'react'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { Box, Typography, Divider, IconButton } from '@mui/material'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
 import CustomDialog from '../dialog/CustomDialog'
 import ExperienceForm from '../form/ExperienceForm'
 import Experience from '../experience/Experience'
+import debounce from 'lodash/debounce'
 
 const ExperienceInformation = ({
   experiences,
@@ -16,6 +17,16 @@ const ExperienceInformation = ({
   const [expEditing, setExpEditing] = useState(null)
   const [isAddExperience, setAddExperience] = useState(false)
   const [isEditExperience, setEditExperience] = useState(false)
+
+  // eslint-disable-next-line
+  const debounceSaveDnD = useCallback(
+    debounce(
+      (newExperiences, field) =>
+        handleChangeAdvancedInfo(newExperiences, field),
+      300
+    ),
+    []
+  )
 
   const handleToggleAddExpPopup = (status) => {
     setAddExperience(status)
@@ -58,7 +69,7 @@ const ExperienceInformation = ({
       result.destination.index
     )
 
-    handleChangeAdvancedInfo(newExperiences, 'experiences')
+    debounceSaveDnD(newExperiences, 'experiences')
   }
 
   return (

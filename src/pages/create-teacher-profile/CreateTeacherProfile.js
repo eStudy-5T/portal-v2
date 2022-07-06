@@ -246,13 +246,19 @@ const CreateTeacherProfile = () => {
               We'd like to learn more about your class, please fill out the
               fields below.
             </Typography>
-            <ClassInformation />
+            <ClassInformation
+              teacherAdvancedInfo={teacherAdvancedInfo}
+              handleChangeAdvancedInfo={handleChangeAdvancedInfo}
+            />
           </Box>
           <Box id="step-4" className="profile__section mt--40">
             <Typography variant="h4" className="profile__section-title">
               Step 4: Teach or explain us something!
             </Typography>
-            <SampleTeach />
+            <SampleTeach
+              teacherAdvancedInfo={teacherAdvancedInfo}
+              handleChangeAdvancedInfo={handleChangeAdvancedInfo}
+            />
           </Box>
           <Divider />
           <Box
