@@ -10,6 +10,10 @@ import GeneralInformation from '../../components/application-section/GeneralInfo
 import ExperienceInformation from '../../components/application-section/ExperienceInformation'
 import ClassInformation from '../../components/application-section/ClassInformation'
 import SampleTeach from '../../components/application-section/SampleTeach'
+import {
+  validateBasicForm,
+  validateAdvancedForm
+} from '../../utils/validators/create-profile-validate'
 
 const initializeTeacherBasicInfo = {
   teacherAvatar: null,
@@ -43,8 +47,9 @@ const CreateTeacherProfile = () => {
   usePrompt('Reload site? Changes you made may not be saved.', isBlocking)
 
   useEffect(() => {
-    console.log('teacherBasicInfo', teacherBasicInfo)
-    console.log('teacherAdvancedInfo', teacherAdvancedInfo)
+    const basicInfoValid = validateBasicForm(teacherBasicInfo)
+    const advancedInfoValid = validateAdvancedForm(teacherAdvancedInfo)
+    setValidToSubmit(basicInfoValid && advancedInfoValid)
   }, [teacherBasicInfo, teacherAdvancedInfo])
 
   const handleChangeBasicInfo = (value, field) => {
@@ -255,10 +260,7 @@ const CreateTeacherProfile = () => {
             <Typography variant="h4" className="profile__section-title">
               Step 4: Teach or explain us something!
             </Typography>
-            <SampleTeach
-              teacherAdvancedInfo={teacherAdvancedInfo}
-              handleChangeAdvancedInfo={handleChangeAdvancedInfo}
-            />
+            <SampleTeach handleChangeAdvancedInfo={handleChangeAdvancedInfo} />
           </Box>
           <Divider />
           <Box

@@ -72,11 +72,27 @@ export const validateDateOfBirth = (date) => {
   const currentDate = new Date()
   const d = new Date(date)
   if (compareAsc(Date.now(), date) === 1) return 'error.invalidBirthday'
-  else if(currentDate.getFullYear() - d.getFullYear() < 4) return 'error.notOldEnough'
+  else if (currentDate.getFullYear() - d.getFullYear() < 4)
+    return 'error.notOldEnough'
   else return true
 }
 
 export const validatePhoneNumber = (mobilePhone) => {
   const regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
   return regex.test(mobilePhone)
+}
+
+export const validateYoutubeLink = (link) => {
+  const regex =
+    /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
+  if (link.match(regex)) {
+    return link.match(regex)[1]
+  }
+  return false
+}
+
+export const validateVideoType = (file) => {
+  const fileType = file.type
+  const regex = /mp4|webm|ogg/
+  return regex.test(fileType)
 }
