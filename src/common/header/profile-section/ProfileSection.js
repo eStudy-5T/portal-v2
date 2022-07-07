@@ -198,7 +198,7 @@ const ProfileSection = () => {
                           }
                         />
                       </ListItemButton>
-                      {role !== 'Student' && (
+                      {role === 'Teacher' && (
                         <ListItemButton
                           sx={{ borderRadius: '12px' }}
                           selected={selectedIndex === 1}

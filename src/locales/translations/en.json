@@ -88,6 +88,7 @@
     "allCourses": "All courses",
     "yourCreatedCourses": "Your created courses",
     "yourEnrolledCourses": "Your enrolled courses",
+    "favoriteCourses": "Show favorites",
     "confirmDeactivate": "Deactivate this course?",
     "confirmActivate": "Activate this course?",
     "title": "Title",
@@ -215,7 +216,8 @@
     "descriptionPlaceholder": "Tell us something more about you...",
     "account": "Account",
     "settings": "Settings",
-    "referrals": "Referrals"
+    "referrals": "Referrals",
+    "updateSuccessfully": "Updated Successfully!"
   },
   "grades": {
     "first": "Grade 1",

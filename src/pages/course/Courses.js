@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import ScrollAnimation from 'react-animate-on-scroll'
-import Pagination from '@mui/material/Pagination'
 import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
 import Breadcrumb from '../../common/breadcrumb/Breadcrumb'
@@ -13,7 +12,6 @@ import debounce from 'lodash/debounce'
 import ModifyCourseAccessDialog from '../../components/modify-course-access-dialog/ModifyCourseAccessDialog'
 
 import courseService from '../../services/course-service'
-import userService from '../../services/user-service'
 
 import {calculateTotalLessonInCourse, calculateCourseTotalDuration} from '../../utils/helpers/date-helper'
 
@@ -21,7 +19,8 @@ import {calculateTotalLessonInCourse, calculateCourseTotalDuration} from '../../
 import { useTranslation } from 'react-i18next'
 import get from 'lodash/get'
 import isNumber from 'lodash/isNumber'
-import { t } from 'i18next'
+import { Checkbox, FormControlLabel, Pagination } from '@mui/material'
+import { Favorite, FavoriteBorder } from '@mui/icons-material'
 
 const ROLE = {
   GUEST: 'guest',
@@ -30,7 +29,7 @@ const ROLE = {
 }
 
 function CourseOne() {
-  const [isShowMyCourse, setIsShowMyCourse] = useState(false)
+  const [isShowMyFavorite, setIsShowFavorite] = useState(false)
   const [pageNumber, setPageNumber] = useState(1)
   const [pageSize, setPageSize] = useState(8)
   const [searchText, setSearchText] = useState('')
@@ -41,7 +40,7 @@ function CourseOne() {
     categoryFilter: 'category-all',
     gradeFilter: 'grade-all',
     rangePrice: -1,
-    type: undefined
+    isFavorite: false
   })
   const [isModifyAccessPopupShown, setPopupModifyAccessConfirm] =
     useState(false)
@@ -63,14 +62,7 @@ function CourseOne() {
       const {
         data: { courses, count }
       } =
-        isShowMyCourse && userRole === ROLE.STUDENT
-          ? await userService.getEnrolledCourses(
-              userId,
-              String(pSearchText).trim().toLowerCase(),
-              paginationOptions,
-              queryOptions
-            )
-          : await courseService.getCourses(
+        await courseService.getCourses(
               userId,
               String(pSearchText).trim().toLowerCase(),
               paginationOptions,
@@ -100,7 +92,7 @@ function CourseOne() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    isShowMyCourse,
+    isShowMyFavorite,
     pageNumber,
     pageSize,
     queryOptions,
@@ -129,11 +121,14 @@ function CourseOne() {
     }
   }
 
-  const handleChangeIsShowMyCourse = (event) => {
-    const value = !isShowMyCourse ? userRole : undefined
-
-    setQueryOptions({ ...queryOptions, type: value })
-    setIsShowMyCourse(!isShowMyCourse)
+  const handleChangeIsShowFavoriteCourse = async (event) => {
+    setQueryOptions({ ...queryOptions, isFavorite: !isShowMyFavorite} )
+    setPageNumber(1)
+    const offset = (pageNumber - 1) * pageSize
+    if (pageSize) {
+      debouncedFetchData(searchText, { offset, limit: pageSize }, queryOptions)
+    }
+    setIsShowFavorite(!isShowMyFavorite)
   }
 
   const handleFilterChange = (filter, value) => {
@@ -158,11 +153,6 @@ function CourseOne() {
   const handleChangeSearchText = (event) => {
     setSearchText(event.target.value)
   }
-
-  const myCoursesTitle =
-    userRole === ROLE.STUDENT
-      ? 'courses.yourEnrolledCourses'
-      : 'courses.yourCreatedCourses'
 
   const onCancel = () => {
     setPopupModifyAccessConfirm(false)
@@ -279,23 +269,32 @@ function CourseOne() {
               <div className="col-lg-3">
                 {userId ? (
                   <div className="edu-course-widget mb-5">
-                    <div className="inner">
-                      <h5 className="widget-title">
-                        {t(
-                          isShowMyCourse ? myCoursesTitle : 'courses.allCourses'
-                        )}
-                      </h5>
-                      <div className="d-grid gap-2">
-                        <button
-                          className="rn-btn edu-btn-show-my-courses"
-                          onClick={handleChangeIsShowMyCourse}
-                        >{`${t(
-                          !isShowMyCourse
-                            ? myCoursesTitle
-                            : 'courses.allCourses'
-                        )}`}</button>
-                      </div>
-                    </div>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          disableRipple
+                          size="large"
+                          onClick={handleChangeIsShowFavoriteCourse}
+                          icon={<FavoriteBorder />}
+                          checkedIcon={
+                            <Favorite sx={{ color: 'var(--color-primary)' }} />
+                          }
+                          checked={isShowMyFavorite}
+                        />
+                      }
+                      label={translation('courses.favoriteCourses')}
+                      sx={{
+                        '& .MuiFormControlLabel-label': {
+                          fontSize: '16px',
+                          fontWeight: 500
+                        },
+                        ':hover': {
+                          '& .MuiCheckbox-root': {
+                            color: 'var(--color-primary)'
+                          }
+                        },
+                      }}
+                    />
                   </div>
                 ) : null}
                 <SortBy onFilterChange={handleFilterChange} />

@@ -7,6 +7,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  CircularProgress,
   Divider,
   Grid,
   MenuItem,
@@ -26,6 +27,8 @@ const AccountDetails = (props) => {
   const dispatch = useDispatch()
   const [userInfoValues, setUserInfoValues] = useState(props.info)
 
+  const [errorMsg, setErrorMsg] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
   const [isSaveable, setIsSaveable] = useState(false)
 
   const currentUserId = localStorage.getItem('currentUserId')
@@ -65,16 +68,21 @@ const AccountDetails = (props) => {
     const formErrorMsg = updateUserInfoFormValidator(userData).error
 
     if (!formErrorMsg) {
+      setIsLoading(true)
       try {
-        await userService.update(currentUserId, userInfoValues)
-        dispatch(userActions.setUserInfo(userInfoValues))
+        const updateStatus = (await userService.update(currentUserId, userInfoValues)).status
+        if (updateStatus === 200) {
+          dispatch(userActions.setUserInfo(userInfoValues))
+          toast.success(translation('accountSetting.updateSuccessfully'))
+          setIsSaveable(false)
+        }
       } catch (error) {
-        console.log(error)
+        toast.error(error)
       }
     } else {
-      console.log(formErrorMsg)
       toast.error(formErrorMsg)
     }
+    setIsLoading(false)
   }
 
   return (
@@ -103,6 +111,7 @@ const AccountDetails = (props) => {
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
+                className='textField'
                 label={translation('accountSetting.firstName')}
                 name="firstName"
                 onChange={handleChange}
@@ -114,6 +123,7 @@ const AccountDetails = (props) => {
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
+                className='textField'
                 label={translation('accountSetting.lastName')}
                 name="lastName"
                 onChange={handleChange}
@@ -125,23 +135,21 @@ const AccountDetails = (props) => {
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
+                className='textField'
                 label={translation('accountSetting.dateOfBirth')}
                 InputLabelProps={{ shrink: true }}
                 name="dateOfBirth"
                 onChange={handleChange}
                 type="date"
                 required
-                defaultValue={
-                  userInfoValues.dateOfBirth
-                    ? formatDate(userInfoValues.dateOfBirth)
-                    : ''
-                }
+                defaultValue={userInfoValues.dateOfBirth ? formatDate(userInfoValues.dateOfBirth) : null}
                 variant="outlined"
               />
             </Grid>
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
+                className='textField'
                 label={translation('accountSetting.mobilePhone')}
                 InputLabelProps={{ shrink: true }}
                 name="mobilePhone"
@@ -155,7 +163,9 @@ const AccountDetails = (props) => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
+                className='textField'
                 label={translation('accountSetting.nationality')}
+                InputLabelProps={{shrink: true}}
                 name="nationality"
                 onChange={handleChange}
                 required
@@ -221,10 +231,25 @@ const AccountDetails = (props) => {
             className="edu-btn btn-small"
             type="submit"
             variant="contained"
-            disabled={!isSaveable}
+            disabled={!isSaveable || isLoading}
             sx={{ textTransform: 'capitalize' }}
           >
             {translation('accountSetting.saveDetails')}
+            {isLoading && (
+            <CircularProgress
+              thickness={5}
+              sx={{
+                color: 'var(--color-secondary)',
+                position: 'absolute',
+                margin: 'auto',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                padding: 1
+              }}
+            />
+          )}
           </Button>
         </Box>
       </Card>

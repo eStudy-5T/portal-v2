@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import ScrollAnimation from 'react-animate-on-scroll'
 import { useParams, Link, useSearchParams } from 'react-router-dom'
@@ -181,8 +181,15 @@ function ReviewsTabContent(data) {
 
   const { t: translation } = useTranslation()
 
+  const reviewsEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    reviewsEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
   useEffect(() => {
     setIsMounted(true)
+    scrollToBottom()
     courseService
       .getCourseReviews(data.courseId)
       .then(({ data: CourseReviewsData }) => {
@@ -227,6 +234,7 @@ function ReviewsTabContent(data) {
           setFiveStarRateCount(countFiveStar)
         }
       })
+    
     currentUserId &&
       courseService
         .getEnrolledStudents(data.courseId)
@@ -234,7 +242,7 @@ function ReviewsTabContent(data) {
           if (isMounted) {
             StudentsData.map((student) => {
               if (student.user.id === currentUserId)
-                setIsReviewable(data.isActive)
+                setIsReviewable(data.courseData.isActive)
               return null
             })
           }
@@ -247,7 +255,7 @@ function ReviewsTabContent(data) {
     threeStarRateCount * 3 +
     fourStarRateCount * 4 +
     fiveStarRateCount * 5
-  const averageRating = totalRateStar / totalRateCount
+  const averageRating = Number((totalRateStar / totalRateCount).toFixed(1))
 
   return (
     <ScrollAnimation
@@ -383,6 +391,8 @@ function ReviewsTabContent(data) {
             firstName={userInfo.firstName || 'Guest'}
             lastName={userInfo.lastName || 'User'}
             courseId={data.courseId}
+            setIsReviewable={setIsReviewable}
+            scrollToBottom={scrollToBottom}
           ></ReviewForm>
         )}
 
@@ -398,12 +408,13 @@ function ReviewsTabContent(data) {
                 <div className="thumbnail">
                   <img
                     src={avatars[index] || CloneAvatar}
+                    style={{width: '70px', height: '70px'}}
                     alt="Student Thumb"
                   />
                 </div>
                 <div className="comment-content">
                   <div className="comment-top">
-                    <h6 className="title mb--0">{`${get(review, 'user.lastName')} ${get(review, 'user.firstName')}`}</h6>
+                    <h6 className="title mb--0">{`${get(review, 'username')}`}</h6>
                     <div className="rating letmeet-course-rating-stars">
                       <i
                         className={
@@ -439,6 +450,7 @@ function ReviewsTabContent(data) {
             )
           })}
         </div>
+        <div ref={reviewsEndRef} />
       </div>
     </ScrollAnimation>
   )
@@ -758,7 +770,7 @@ function CourseDetails() {
                         courseId={id}
                         ownerId={ownerId}
                         currentUserId={userId}
-                        isActive={courseData.isActive}
+                        courseData={courseData}
                       />
                     )}
                   </div>

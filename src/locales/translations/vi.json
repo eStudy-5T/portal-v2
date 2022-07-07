@@ -87,6 +87,7 @@
     "allCourses": "Tất cả khoá học",
     "yourCreatedCourses": "Các khoá học của bạn",
     "yourEnrolledCourses": "Các khoá học đã đăng ký",
+    "favoriteCourses": "Các khóa học yêu thích",
     "confirmDeactivate": "Vô hiệu hoá khoá học này?",
     "confirmActivate": "Kích hoạt khoá học này?",
     "title": "Tên",
@@ -214,7 +215,8 @@
     "descriptionPlaceholder": "Hãy cho chúng tôi biết thêm về bạn...",
     "account": "Tài khoản",
     "settings": "Cài đặt",
-    "referrals": "Giới thiệu"
+    "referrals": "Giới thiệu",
+    "updateSuccessfully": "Cập nhật thành công!"
   },
   "grades": {
     "first": "Lớp 1",
@@ -232,7 +234,7 @@
     "others": "Khác"
   },
   "nationalities": {
-    "vn": "Viet Nam",
+    "vn": "Việt Nam",
     "us": "Hoa Kỳ",
     "gb": "Vương Quốc Anh",
     "fr": "Pháp",
