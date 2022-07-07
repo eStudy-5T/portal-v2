@@ -13,6 +13,9 @@ const userService = {
   update: (userId, userInfo) => {
     return request.put(`/user/${userId}`, userInfo)
   },
+  changePassword: (userId, data) => {
+    return request.put(`/user/${userId}/change-password`, data)
+  },
   getEnrolledCourses: (userId, searchText, paginationOptions, queryOptions) => {
     const { offset = 1, limit = 8 } = paginationOptions
     const {

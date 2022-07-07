@@ -11,8 +11,8 @@ import styles from '../../assets/styles/globe.styled'
 import { languages } from '../../utils/constants/language'
 
 const Globe = ({ size }) => {
-  const currentLanguageCode = localStorage.getItem('language') || 'vi-VN'
-  const [currentLanguage, setCurrentLanguage] = useState('en')
+  const currentLanguageCode = (localStorage.getItem('language') !== 'en-US' && localStorage.getItem('language')) || 'en-GB'
+  const [currentLanguage, setCurrentLanguage] = useState('VN')
   const [anchorEl, setAnchorEl] = useState(null)
 
   useLayoutEffect(() => {

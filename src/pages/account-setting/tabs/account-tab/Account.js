@@ -8,6 +8,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  CircularProgress,
   Divider,
   Typography
 } from '@mui/material'
@@ -22,8 +23,10 @@ const Account = (props) => {
   const { t: translation } = useTranslation()
   const dispatch = useDispatch()
   const [userInfoValues, setUserInfoValues] = useState(props.info)
+  const [isLoading, setIsLoading] = useState(false)
 
   const onChangeAvatar = async (event) => {
+    setIsLoading(true)
     event.preventDefault()
     try {
       const file = event.target.files[0]
@@ -36,8 +39,9 @@ const Account = (props) => {
       setUserInfoValues(userInfoWithNewAvatar)
       dispatch(userActions.setUserInfo(userInfoWithNewAvatar))
     } catch (error) {
-      console.log(error)
+      error(error)
     }
+    setIsLoading(false)
   }
 
   return (
@@ -112,8 +116,12 @@ const Account = (props) => {
               borderColor: 'var(--color-secondary)',
               color: 'var(--color-white)'
             },
-            textTransform: 'capitalize'
+            textTransform: 'capitalize',
+            '&.Mui-disabled': {
+              borderColor: 'var(--border-color)'
+            }
           }}
+          disabled={isLoading}
         >
           <input
             name="file"
@@ -121,7 +129,23 @@ const Account = (props) => {
             accept="image/*"
             onChange={onChangeAvatar}
             hidden
+            disabled={isLoading}
           />
+          {isLoading && (
+            <CircularProgress
+              thickness={5}
+              sx={{
+                color: 'var(--color-secondary)',
+                position: 'absolute',
+                margin: 'auto',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                padding: 1
+              }}
+            />
+          )}
           {translation('accountSetting.changeAvatar')}
         </Button>
       </CardActions>

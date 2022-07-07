@@ -46,6 +46,8 @@ function ReviewForm(props) {
       .submitReview(props.courseId, data)
       .then(() => {
         navigate('#')
+        props.setIsReviewable(false)
+        props.scrollToBottom()
         toast.success(translation('courseDetails.thankYouForYourReview'))
       })
       .catch(() => {})

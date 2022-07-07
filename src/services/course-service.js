@@ -24,7 +24,7 @@ const courseService = {
       categoryFilter = 'category-all',
       gradeFilter = 'grade-all',
       rangePrice = -1,
-      type = undefined
+      isFavorite = false
     } = queryOptions
 
     return request.get('/courses', {
@@ -37,7 +37,7 @@ const courseService = {
         categoryFilter,
         gradeFilter,
         rangePrice,
-        type
+        isFavorite
       }
     })
   },
@@ -80,6 +80,9 @@ const courseService = {
       {},
       { params: { createDate, locale } }
     )
+  },
+  toggleFavorite: (courseId) => {
+    return request.post(`/courses/${courseId}/toggle-favorite`, {})
   }
 }
 
