@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import ScrollAnimation from 'react-animate-on-scroll'
 import Pagination from '@mui/material/Pagination'
 import SEO from '../../common/SEO'
@@ -14,6 +14,8 @@ import ModifyCourseAccessDialog from '../../components/modify-course-access-dial
 
 import courseService from '../../services/course-service'
 import userService from '../../services/user-service'
+
+import {calculateTotalLessonInCourse, calculateCourseTotalDuration} from '../../utils/helpers/date-helper'
 
 // i18
 import { useTranslation } from 'react-i18next'
@@ -252,7 +254,10 @@ function CourseOne() {
                   </div>
                 </div>
                 <div className="row g-5 mt--10">
-                  {CourseData.map((item) => (
+                  {CourseData.map((item) => {
+                    item.totalLessons = calculateTotalLessonInCourse(item.startDate, item.endDate, item.daysOfWeek, item.schedules, item.scheduleType)
+                    item.totalDuration = calculateCourseTotalDuration(item.startDate, item.endDate, item.daysOfWeek, item.schedules, item.scheduleType, item.lessonNumberPerWeek, item.startTime, item.endTime)
+                    return (
                     <ScrollAnimation
                       animateIn="fadeInUp"
                       animateOut="fadeInOut"
@@ -268,7 +273,7 @@ function CourseOne() {
                         setSelectedAction={setSelectedAction}
                       />
                     </ScrollAnimation>
-                  ))}
+                  )})}
                 </div>
               </div>
               <div className="col-lg-3">

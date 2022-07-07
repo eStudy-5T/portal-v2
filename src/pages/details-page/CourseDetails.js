@@ -220,15 +220,6 @@ function ReviewsTabContent(data) {
                 break
               }
             }
-            userService
-              .fetchUserInfo(review.userId)
-              .then((user) => {
-                setAvatars((previousState) => {
-                  const newState = [...previousState, user.data.avatar]
-                  return newState
-                })
-              })
-              .catch()
           })
           setOneStarRateCount(countOneStar)
           setTwoStarRateCount(countTwoStar)
@@ -413,7 +404,7 @@ function ReviewsTabContent(data) {
                 </div>
                 <div className="comment-content">
                   <div className="comment-top">
-                    <h6 className="title mb--0">{review.username}</h6>
+                    <h6 className="title mb--0">{`${get(review, 'user.lastName')} ${get(review, 'user.firstName')}`}</h6>
                     <div className="rating letmeet-course-rating-stars">
                       <i
                         className={
