@@ -775,7 +775,9 @@ function CourseDetails() {
                 </div>
               </div>
               <div className="col-xl-4 col-lg-5">
-                <CourseInfo courseData={courseData} currentUserId={userId} />
+                {courseData && (
+                  <CourseInfo courseData={courseData} currentUserId={userId} />
+                )}
               </div>
             </div>
             {/* <div className="row">

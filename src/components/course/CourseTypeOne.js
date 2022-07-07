@@ -12,6 +12,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder'
 
 import { withStyles } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
+import { calculateTotalLessonInCourse } from '../../utils/helpers/date-helper'
 
 const BlueOnGreenTooltip = withStyles({
   tooltip: {
@@ -56,6 +57,14 @@ function CourseTypeOne({
     setSelectedCourse(data.id)
     setSelectedAction('deactivate')
   }
+
+  const totalLessons = calculateTotalLessonInCourse(
+    data.startDate,
+    data.endDate,
+    data.daysOfWeek,
+    data.schedules,
+    data.scheduleType
+  )
 
   return (
     <div className={`edu-card card-type-3 radius-small ${classes || ''}`}>
@@ -108,7 +117,7 @@ function CourseTypeOne({
             <ul className="edu-meta meta-02">
               <li>
                 <i className="icon-file-list-3-line" />
-                {data.lesson || 0} Lessons
+                {totalLessons || 0} Lessons
               </li>
             </ul>
           </div>
@@ -222,7 +231,7 @@ function CourseTypeOne({
             <ul className="edu-meta meta-02">
               <li>
                 <i className="icon-file-list-3-line" />
-                {data.lesson || 0} {translation('courseDetails.sessions')}
+                {totalLessons || 0} {translation('courseDetails.sessions')}
               </li>
             </ul>
           </div>

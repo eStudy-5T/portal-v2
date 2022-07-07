@@ -52,7 +52,6 @@ const TeacherCourses = () => {
   const [categoryFilterEl, setCategoryFilterEl] = useState(null)
   const [gradeFilterEl, setGradeFilterEl] = useState(null)
   const [filterByPriceEl, setFilterByPriceEl] = useState(null)
-  const isFirstTimeSetPageSize = useRef(true)
   const navigate = useNavigate()
   const tableRef = useRef()
   const userId = localStorage.getItem('currentUserId')
@@ -73,10 +72,6 @@ const TeacherCourses = () => {
 
       setCourseData(courses)
       setCourseCount(count)
-      if (isFirstTimeSetPageSize.current) {
-        isFirstTimeSetPageSize.current = false
-        setPageSize(count <= 8 ? count : 8)
-      }
     },
     750
   )
