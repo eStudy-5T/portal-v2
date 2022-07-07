@@ -119,7 +119,7 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
                     onChange={onChangeAvatar}
                     hidden
                   />
-                  Change Avatar
+                  Upload Avatar
                 </Button>
               </Box>
             </Grid>

@@ -8,7 +8,8 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
-  Box
+  Box,
+  Divider
 } from '@mui/material'
 import { VIETNAM_PROVINCE } from '../../utils/constants/province'
 import Select from 'react-select'
