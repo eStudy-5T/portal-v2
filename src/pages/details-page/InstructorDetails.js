@@ -230,8 +230,6 @@ function InstructorDetails() {
                             {...InstructorCourseSliderParams}
                           >
                             {courses.map((course) => {
-                              course.totalLessons = calculateTotalLessonInCourse(course.startDate, course.endDate, course.daysOfWeek, course.schedules, course.scheduleType)
-                              course.totalDuration = calculateCourseTotalDuration(course.startDate, course.endDate, course.daysOfWeek, course.schedules, course.scheduleType, course.lessonNumberPerWeek, course.startTime, course.endTime)
                               return (
                                 <div
                                   key={course.id}

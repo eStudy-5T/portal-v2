@@ -39,13 +39,9 @@ export const calculatePermanentLessonNumber = (
   return rrule.all().length
 }
 
-export const calculateFlexibleLessonNumber = (
-  startDate,
-  endDate,
-  schedules
-) => {
+export const calculateFlexibleCourse = (startDate, endDate, schedules) => {
   const schedulesGroupedByDay = _.groupBy(schedules, 'dayOfWeek')
-  let lessonNumber = 0
+  const result = []
 
   Object.keys(schedulesGroupedByDay).forEach((dayOfWeek) => {
     const rrule = new RRule({
@@ -71,10 +67,17 @@ export const calculateFlexibleLessonNumber = (
       )
     })
 
-    lessonNumber += rrule.all().length
+    schedulesGroupedByDay[dayOfWeek].forEach((s, idx, arr) => {
+      result.push({
+        lessonNumber:
+          arr.length > 1 ? rrule.all().length / 2 : rrule.all().length,
+        startTime: s.startTime,
+        endTime: s.endTime
+      })
+    })
   })
 
-  return lessonNumber
+  return result
 }
 
 export const calculateTotalLessonInCourse = (
@@ -91,20 +94,45 @@ export const calculateTotalLessonInCourse = (
       daysOfWeek
     )
   } else if (scheduleType === COURSE_SCHEDULE_TYPE.FLEXIBLE) {
-    return calculateFlexibleLessonNumber(
+    const result = calculateFlexibleCourse(
       new Date(startDate),
       new Date(endDate),
       schedules
     )
+    return result.reduce((totalLessonNumber, cur) => {
+      return totalLessonNumber + cur.lessonNumber
+    }, 0)
   }
 }
 
-export const calculateCourseTotalDuration = (startDate, endDate, daysOfWeek, schedules, scheduleType, lessonNumberPerWeek, startTime, endTime) => {
+export const calculateCourseTotalDuration = (
+  startDate,
+  endDate,
+  daysOfWeek,
+  schedules,
+  scheduleType,
+  lessonNumberPerWeek,
+  startTime,
+  endTime
+) => {
   if (scheduleType === COURSE_SCHEDULE_TYPE.PERMANENT) {
-    return calculatePermanentLessonNumber(startDate, endDate, daysOfWeek) * Math.floor(calculateDuration(startTime, endTime) / 60)
+    return (
+      calculatePermanentLessonNumber(startDate, endDate, daysOfWeek) *
+      Math.floor(calculateDuration(startTime, endTime) / 60)
+    )
   } else if (scheduleType === COURSE_SCHEDULE_TYPE.FLEXIBLE) {
-    // TODO
-    return 9999
+    const result = calculateFlexibleCourse(
+      new Date(startDate),
+      new Date(endDate),
+      schedules
+    )
+    return result.reduce((totalDuration, cur) => {
+      return (
+        totalDuration +
+        cur.lessonNumber *
+          Math.floor(calculateDuration(cur.startTime, cur.endTime) / 60)
+      )
+    }, 0)
   }
   return 0
 }
