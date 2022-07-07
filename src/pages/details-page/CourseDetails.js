@@ -31,7 +31,6 @@ import InstructorData from '../../data/instructor/InstructorData.json'
 import { useTranslation } from 'react-i18next'
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
-import userService from '../../services/user-service'
 
 function CustomToggle({ children, eventKey }) {
   const { activeEventKey } = useContext(AccordionContext)
@@ -178,7 +177,7 @@ function ReviewsTabContent(data) {
   const [fiveStarRateCount, setFiveStarRateCount] = useState(0)
   const [totalRateCount, setTotalRateCount] = useState(0)
   const [isReviewable, setIsReviewable] = useState(false)
-  const [avatars, setAvatars] = useState([])
+  const avatars = []
 
   const { t: translation } = useTranslation()
 

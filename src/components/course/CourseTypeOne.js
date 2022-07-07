@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { slugify } from '../../utils'
 import InstructorData from '../../data/instructor/InstructorData.json'
@@ -32,7 +32,7 @@ function CourseTypeOne({
 }) {
   const { t: translation } = useTranslation()
 
-  const [avatar, setOwnerAvatar] = useState(null)
+  const avatar = null
 
   const instructorThumb = InstructorData[1].image
   const excerpt = `${

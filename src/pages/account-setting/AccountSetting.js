@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 // MUI
-import { Box, Container, Tab, Tabs } from '@mui/material'
+import { Box, Container, Tab } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 
 import { useTranslation } from 'react-i18next'

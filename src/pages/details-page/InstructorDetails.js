@@ -4,10 +4,6 @@ import CountUp from 'react-countup'
 import Slider from 'react-slick'
 import { useParams, Link } from 'react-router-dom'
 import { InstructorCourseSliderParams } from '../../utils/configs/ui-config'
-import {
-  calculateCourseTotalDuration,
-  calculateTotalLessonInCourse
-} from '../../utils/helpers/date-helper'
 import Layout from '../../common/Layout'
 import Skill from '../../components/progressbar/ProgressbarItem'
 import CourseTypeTwo from '../../components/course/CourseTypeTwo'

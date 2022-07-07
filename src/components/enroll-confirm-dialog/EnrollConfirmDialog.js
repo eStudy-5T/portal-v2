@@ -13,10 +13,6 @@ function EnrollConfirmDialog(props) {
     props.onCancel()
   }
 
-  const close = () => {
-    props.onClose()
-  }
-
   return (
     <div className="edu-meeting-link w-100 h-100 modal">
       <div className="row my-5 p-0 container">

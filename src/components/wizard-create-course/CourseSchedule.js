@@ -32,9 +32,6 @@ import Select from 'react-select'
 
 import { COURSE_SCHEDULE_TYPE, WEEK_DAYS } from '../../utils/constants/misc'
 
-import { RRule } from 'rrule'
-import groupBy from 'lodash/groupBy'
-
 const FORMAT_DATE = 'YYYY-MM-DD'
 const FORMAT_TIME = 'h:mma'
 

@@ -26,8 +26,6 @@ const AccountDetails = (props) => {
   const dispatch = useDispatch()
   const [userInfoValues, setUserInfoValues] = useState(props.info)
 
-  const [errorMsg, setErrorMsg] = useState(null)
-  const [isAppLoading, setIsAppLoading] = useState(false)
   const [isSaveable, setIsSaveable] = useState(false)
 
   const currentUserId = localStorage.getItem('currentUserId')
@@ -68,16 +66,13 @@ const AccountDetails = (props) => {
 
     if (!formErrorMsg) {
       try {
-        setIsAppLoading(true)
         await userService.update(currentUserId, userInfoValues)
         dispatch(userActions.setUserInfo(userInfoValues))
-        setIsAppLoading(false)
       } catch (error) {
-        setIsAppLoading(false)
-        setErrorMsg(error)
+        console.log(error)
       }
     } else {
-      setErrorMsg(formErrorMsg)
+      console.log(formErrorMsg)
       toast.error(formErrorMsg)
     }
   }
