@@ -4,6 +4,7 @@ import SEO from '../../common/SEO'
 import Layout from '../../common/Layout'
 import Breadcrumb from '../../common/breadcrumb/Breadcrumb'
 import SectionTitle from '../../components/section-title/SectionTitle'
+import {numberWithCommas} from '../../utils/helpers/number-helper'
 
 const plans = {
   monthly: [
@@ -209,7 +210,7 @@ function Pricing() {
                         <h3 className="title">{data.name}</h3>
                         <div className="price-wrap">
                           <div className="yearly-pricing">
-                            <span className="amount">{data.price}</span>
+                            <span className="amount">{numberWithCommas(data.price)}</span>
                             <span className="duration">/{data.priceType}</span>
                           </div>
                         </div>
@@ -263,7 +264,7 @@ function Pricing() {
                         <h3 className="title">{data.name}</h3>
                         <div className="price-wrap">
                           <div className="yearly-pricing">
-                            <span className="amount">{data.price}</span>
+                            <span className="amount">{numberWithCommas(data.price)}</span>
                             <span className="duration">/{data.priceType}</span>
                           </div>
                         </div>

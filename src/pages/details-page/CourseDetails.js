@@ -167,7 +167,7 @@ const EnrolledTabContent = (props) => {
 
 function ReviewsTabContent(data) {
   const userInfo = useSelector((state) => state.userInfo)
-  const currentUserId = data.currentUserId
+  const currentUserId = localStorage.getItem('currentUserId')
   const [courseReviews, setCourseReviews] = useState([])
   const [isMounted, setIsMounted] = useState(false)
   const [oneStarRateCount, setOneStarRateCount] = useState(0)

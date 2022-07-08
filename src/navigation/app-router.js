@@ -78,6 +78,7 @@ const AppRouter = () => {
 
       if (isLoginExpired) {
         localStorage.removeItem('currentUserId')
+        localStorage.removeItem('currentUser')
       }
 
       const currentUserId = localStorage.getItem('currentUserId')

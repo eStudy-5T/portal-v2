@@ -5,7 +5,7 @@ import InstructorData from '../../data/instructor/InstructorData.json'
 import CourseData from '../../data/course/CourseData.json'
 import get from 'lodash/get'
 import { useTranslation } from 'react-i18next'
-import courseService from '../../services/course-service'
+import {numberWithCommas} from '../../utils/helpers/number-helper'
 
 // MUI component
 import { Rating } from '@mui/material'
@@ -146,13 +146,13 @@ function CourseTypeOne({
                 <div className="col-lg-6 col-md-6 col-sm-6">
                   {data.price && (
                     <div className="price current-price">
-                      {data.price !== 0 ? `${data.price}VND` : 'Free'}
+                      {Number(data.price) !== 0 ? `${numberWithCommas(data.price)} VND` : 'Free'}
                     </div>
                   )}
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6">
                   {data.oldPrice && (
-                    <div className="price old-price">{data.oldPrice}VND</div>
+                    <div className="price old-price">{numberWithCommas(data.oldPrice)}VND</div>
                   )}
                 </div>
                 <div className="row align-items-center">
@@ -216,10 +216,10 @@ function CourseTypeOne({
             {data.price === '0' ? (
               <div className="price current-price">Free</div>
             ) : (
-              <div className="price current-price">{data.price} VND</div>
+              <div className="price current-price">{numberWithCommas(data.price)} VND</div>
             )}
             {data.oldPrice && (
-              <div className="price old-price">{data.oldPrice} VND</div>
+              <div className="price old-price">{numberWithCommas(data.oldPrice)} VND</div>
             )}
           </div>
 
