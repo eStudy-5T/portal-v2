@@ -185,7 +185,7 @@ const ExperienceForm = ({
               <FormControlLabel
                 control={
                   <Checkbox
-                    defaultChecked={currentWork}
+                    checked={currentWork}
                     sx={{ color: 'var(--color-primary)' }}
                   />
                 }

@@ -9,6 +9,8 @@ import GeneralInformation from '../../components/application-section/GeneralInfo
 import ExperienceInformation from '../../components/application-section/ExperienceInformation'
 import ClassInformation from '../../components/application-section/ClassInformation'
 import SampleTeach from '../../components/application-section/SampleTeach'
+import teacherProfileService from '../../services/teacher-profile'
+
 import {
   validateBasicForm,
   validateAdvancedForm
@@ -123,8 +125,21 @@ const CreateTeacherProfile = () => {
     }))
   }
 
-  const handleSubmitProfile = () => {
+  const handleSubmitProfile = async () => {
     setIsBlocking(false)
+    try {
+      const data = { ...teacherBasicInfo, ...teacherAdvancedInfo }
+      const formData = new FormData()
+      for (let field in data) {
+        formData.append(field, data[field])
+      }
+      const uploadResult = await teacherProfileService.uploadProfile(formData)
+      if (uploadResult) {
+        console.log('good time')
+      }
+    } catch (err) {
+      throw new Error(err)
+    }
   }
 
   return (
