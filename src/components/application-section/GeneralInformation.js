@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   Container,
   Button,
@@ -43,6 +44,7 @@ const customStyles = {
 }
 
 const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
+  const { t: translation } = useTranslation()
   const [teacherAvatar, setTeacherAvatar] = useState(null)
 
   const onChangeAvatar = async (event) => {
@@ -91,7 +93,7 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
     <Box className="profile-box">
       <Box className="profile-box__header">
         <Typography variant="h5" fontSize="22px" fontWeight={600}>
-          General Information
+          {translation('teacherProfile.generalInformation')}
         </Typography>
       </Box>
       <Divider sx={{ backgroundColor: '#E0E0E0' }} />
@@ -119,7 +121,7 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
                     onChange={onChangeAvatar}
                     hidden
                   />
-                  Upload Avatar
+                  {translation('teacherProfile.uploadAvatar')}
                 </Button>
               </Box>
             </Grid>
@@ -131,8 +133,12 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
                     htmlFor="public-teacher-name"
                     className="basic-info__input-label"
                   >
-                    Public Teacher Name
-                    <Tooltip title="This will be seen on your class listings and teacher profile. It can be edited later">
+                    {translation('teacherProfile.publicTeacherName')}
+                    <Tooltip
+                      title={translation(
+                        'teacherProfile.publicTeacherNameTooltip'
+                      )}
+                    >
                       <HelpOutlineIcon
                         sx={{ ml: 0.5, fontSize: '20px', cursor: 'pointer' }}
                       />
@@ -142,7 +148,7 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
                     id="public-teacher-name"
                     type="text"
                     name="publicTeacherName"
-                    placeholder="Type here"
+                    placeholder={translation('teacherProfile.typeHere')}
                     value={basicInfo.publicTeacherName || ''}
                     onChange={handleChangeFieldData}
                   />
@@ -154,7 +160,7 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
                     className="basic-info__input-label"
                   >
                     Email
-                    <Tooltip title="This cannot be edited later">
+                    <Tooltip title={translation('teacherProfile.emailTooltip')}>
                       <HelpOutlineIcon
                         sx={{ ml: 0.5, fontSize: '20px', cursor: 'pointer' }}
                       />
@@ -177,8 +183,10 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
                     htmlFor="phone-number"
                     className="basic-info__input-label"
                   >
-                    Phone number
-                    <Tooltip title="This is only used by LetMeet when we need to contact you">
+                    {translation('teacherProfile.phoneNumber')}
+                    <Tooltip
+                      title={translation('teacherProfile.phoneNumberTooltip')}
+                    >
                       <HelpOutlineIcon
                         sx={{ ml: 0.5, fontSize: '20px', cursor: 'pointer' }}
                       />
@@ -199,8 +207,10 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
                     htmlFor="location"
                     className="basic-info__input-label"
                   >
-                    Location
-                    <Tooltip title="City, state, and country">
+                    {translation('teacherProfile.location')}
+                    <Tooltip
+                      title={translation('teacherProfile.locationTooltip')}
+                    >
                       <HelpOutlineIcon
                         sx={{ ml: 0.5, fontSize: '20px', cursor: 'pointer' }}
                       />
@@ -210,7 +220,7 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
                     id="location"
                     className="basic-single"
                     classNamePrefix="select"
-                    placeholder="Select here"
+                    placeholder={translation('teacherProfile.selectHere')}
                     isClearable={true}
                     isSearchable={true}
                     name="location"
@@ -227,8 +237,10 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
                     htmlFor="online-profiles"
                     className="basic-info__input-label"
                   >
-                    (Optional) Online profile
-                    <Tooltip title="Professional website, Facebook page, or LinkedIn profile. This helps describe your experience and expertise">
+                    {translation('teacherProfile.onlineProfile')}
+                    <Tooltip
+                      title={translation('teacherProfile.onlineProfileTooltip')}
+                    >
                       <HelpOutlineIcon
                         sx={{ ml: 0.5, fontSize: '20px', cursor: 'pointer' }}
                       />
@@ -238,7 +250,7 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
                     id="online-profiles"
                     type="text"
                     name="onlineProfile"
-                    placeholder="Type here"
+                    placeholder={translation('teacherProfile.typeHere')}
                     value={basicInfo.onlineProfile || ''}
                     onChange={handleChangeFieldData}
                   />
@@ -253,7 +265,7 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
                 className="basic-info__input-label"
                 required
               >
-                Short description about yourself
+                {translation('teacherProfile.shortDescription')}
                 <Tooltip title="This assist students in getting to know you better">
                   <HelpOutlineIcon
                     sx={{ ml: 0.5, fontSize: '20px', cursor: 'pointer' }}
