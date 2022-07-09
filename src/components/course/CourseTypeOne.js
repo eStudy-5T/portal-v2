@@ -5,8 +5,8 @@ import InstructorData from '../../data/instructor/InstructorData.json'
 import CourseData from '../../data/course/CourseData.json'
 import get from 'lodash/get'
 import { useTranslation } from 'react-i18next'
-import {numberWithCommas} from '../../utils/helpers/number-helper'
-
+import { numberWithCommas } from '../../utils/helpers/number-helper'
+import courseService from '../../services/course-service'
 // MUI component
 import { Rating } from '@mui/material'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
@@ -86,7 +86,10 @@ function CourseTypeOne({
           <div className="wishlist-top-right">
             <button className="wishlist-btn">
               {(isFavorite && (
-                <i className="icon-Heart" style={{ color: 'var(--color-secondary)' }} />
+                <i
+                  className="icon-Heart"
+                  style={{ color: 'var(--color-secondary)' }}
+                />
               )) || <i className="icon-Heart" />}
             </button>
           </div>
@@ -106,7 +109,10 @@ function CourseTypeOne({
                 <Link
                   to={`${process.env.PUBLIC_URL}/instructor-details/${data.ownerId}`}
                 >
-                  <img src={`${data.owner.avatar || CloneAvatar}`} alt="Author Thumb" />
+                  <img
+                    src={`${data.owner.avatar || CloneAvatar}`}
+                    alt="Author Thumb"
+                  />
                   <span className="author-title">{`${
                     data.instructor
                       ? data.instructor
@@ -133,13 +139,17 @@ function CourseTypeOne({
                 <div className="col-lg-6 col-md-6 col-sm-6">
                   {data.price && (
                     <div className="price current-price">
-                      {Number(data.price) !== 0 ? `${numberWithCommas(data.price)} VND` : 'Free'}
+                      {Number(data.price) !== 0
+                        ? `${numberWithCommas(data.price)} VND`
+                        : 'Free'}
                     </div>
                   )}
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6">
                   {data.oldPrice && (
-                    <div className="price old-price">{numberWithCommas(data.oldPrice)}VND</div>
+                    <div className="price old-price">
+                      {numberWithCommas(data.oldPrice)}VND
+                    </div>
                   )}
                 </div>
                 <div className="row align-items-center">
@@ -187,7 +197,10 @@ function CourseTypeOne({
                 onClick={handleAddToFavoriteClick}
               >
                 {(isFavorite && (
-                  <i className="icon-Heart" style={{ color: 'var(--color-secondary)' }} />
+                  <i
+                    className="icon-Heart"
+                    style={{ color: 'var(--color-secondary)' }}
+                  />
                 )) || <i className="icon-Heart" />}
               </button>
             </div>
@@ -205,10 +218,14 @@ function CourseTypeOne({
             {data.price === '0' ? (
               <div className="price current-price">Free</div>
             ) : (
-              <div className="price current-price">{numberWithCommas(data.price)} VND</div>
+              <div className="price current-price">
+                {numberWithCommas(data.price)} VND
+              </div>
             )}
             {data.oldPrice && (
-              <div className="price old-price">{numberWithCommas(data.oldPrice)} VND</div>
+              <div className="price old-price">
+                {numberWithCommas(data.oldPrice)} VND
+              </div>
             )}
           </div>
 
@@ -218,7 +235,10 @@ function CourseTypeOne({
                 <Link
                   to={`${process.env.PUBLIC_URL}/instructor-details/${data.ownerId}`}
                 >
-                  <img src={`${data.owner.avatar || CloneAvatar}`} alt="Author Thumb" />
+                  <img
+                    src={`${data.owner.avatar || CloneAvatar}`}
+                    alt="Author Thumb"
+                  />
                   <span className="author-title">{`${
                     data.instructor
                       ? data.instructor
