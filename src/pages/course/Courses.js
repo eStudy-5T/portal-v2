@@ -13,7 +13,10 @@ import ModifyCourseAccessDialog from '../../components/modify-course-access-dial
 
 import courseService from '../../services/course-service'
 
-import {calculateTotalLessonInCourse, calculateCourseTotalDuration} from '../../utils/helpers/date-helper'
+import {
+  calculateTotalLessonInCourse,
+  calculateCourseTotalDuration
+} from '../../utils/helpers/date-helper'
 
 // i18
 import { useTranslation } from 'react-i18next'
@@ -35,7 +38,6 @@ function CourseOne() {
   const [searchText, setSearchText] = useState('')
   const [CourseData, setCourseData] = useState([])
   const [CourseCount, setCourseCount] = useState(0)
-  const [currentMaxPrice, setCurrentMaxPrice] = useState(0)
   const [queryOptions, setQueryOptions] = useState({
     sortBy: 'sortby-none',
     categoryFilter: 'category-all',
@@ -62,13 +64,12 @@ function CourseOne() {
     async (pSearchText, paginationOptions = {}, queryOptions = {}) => {
       const {
         data: { courses, count }
-      } =
-        await courseService.getCourses(
-              userId,
-              String(pSearchText).trim().toLowerCase(),
-              paginationOptions,
-              queryOptions
-            )
+      } = await courseService.getCourses(
+        userId,
+        String(pSearchText).trim().toLowerCase(),
+        paginationOptions,
+        queryOptions
+      )
 
       setCourseData(courses)
       setCourseCount(count)
@@ -123,7 +124,7 @@ function CourseOne() {
   }
 
   const handleChangeIsShowFavoriteCourse = async (event) => {
-    setQueryOptions({ ...queryOptions, showFavorite: !isShowMyFavorite})
+    setQueryOptions({ ...queryOptions, showFavorite: !isShowMyFavorite })
     setPageNumber(1)
     const offset = (pageNumber - 1) * pageSize
     if (pageSize) {
@@ -246,26 +247,24 @@ function CourseOne() {
                 </div>
                 <div className="row g-5 mt--10">
                   {CourseData.map((item) => {
-                    item.totalLessons = calculateTotalLessonInCourse(item.startDate, item.endDate, item.daysOfWeek, item.schedules, item.scheduleType)
-                    item.totalDuration = calculateCourseTotalDuration(item.startDate, item.endDate, item.daysOfWeek, item.schedules, item.scheduleType, item.lessonNumberPerWeek, item.startTime, item.endTime)
-                    if (item.price > currentMaxPrice) setCurrentMaxPrice(item.price)
                     return (
-                    <ScrollAnimation
-                      animateIn="fadeInUp"
-                      animateOut="fadeInOut"
-                      className="col-sm-6 col-lg-6"
-                      animateOnce
-                      key={item.id}
-                    >
-                      <CourseTypeOne
-                        data={item}
-                        isAdmin={isAdmin}
-                        onModifyAccessClick={onModifyAccessClick}
-                        setSelectedCourse={setSelectedCourse}
-                        setSelectedAction={setSelectedAction}
-                      />
-                    </ScrollAnimation>
-                  )})}
+                      <ScrollAnimation
+                        animateIn="fadeInUp"
+                        animateOut="fadeInOut"
+                        className="col-sm-6 col-lg-6"
+                        animateOnce
+                        key={item.id}
+                      >
+                        <CourseTypeOne
+                          data={item}
+                          isAdmin={isAdmin}
+                          onModifyAccessClick={onModifyAccessClick}
+                          setSelectedCourse={setSelectedCourse}
+                          setSelectedAction={setSelectedAction}
+                        />
+                      </ScrollAnimation>
+                    )
+                  })}
                 </div>
               </div>
               <div className="col-lg-3">
@@ -294,7 +293,7 @@ function CourseOne() {
                           '& .MuiCheckbox-root': {
                             color: 'var(--color-primary)'
                           }
-                        },
+                        }
                       }}
                     />
                   </div>
@@ -310,7 +309,6 @@ function CourseOne() {
                 />
                 <FilterByPrice
                   extraClass="mt--40"
-                  maxPrice={currentMaxPrice}
                   onFilterChange={handleFilterChange}
                 />
               </div>

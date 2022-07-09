@@ -9,7 +9,7 @@ const initialState = {
   dateOfBirth: null,
   isDisabled: false,
   isVerified: false,
-  isVerifiedToTeach: false,
+  isVerifiedToTeach: true,
   createdAt: null,
   isAdmin: null,
   teacherInfo: {

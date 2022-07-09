@@ -289,5 +289,19 @@
     "badminton": "Badminton",
     "biologicalDiversity": "Biological Diversity",
     "evolution": "Evolution"
+  },
+  "courseQuery": {
+    "sortBy": "Sort By",
+    "sortNone": "None",
+    "sortNameAZ": "Name (A-Z)",
+    "sortNameZA": "Name (Z-A)",
+    "sortPriceLoHi": "Price (Low-High)",
+    "sortPriceHiLo": "Price (High-Low)",
+    "categoryFilter": "Category",
+    "allCategories": "All Categories",
+    "gradeFilter": "Grade",
+    "allGrades": "All",
+    "otherGrades": "Others",
+    "priceFilter": "Price"
   }
 }

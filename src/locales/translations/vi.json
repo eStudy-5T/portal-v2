@@ -288,5 +288,19 @@
     "badminton": "Cầu lông",
     "biologicalDiversity": "Đa dạng sinh học",
     "evolution": "Tiến hoá"
+  },
+  "courseQuery": {
+    "sortBy": "Sắp xếp",
+    "sortNone": "Không",
+    "sortNameAZ": "Tên (A-Z)",
+    "sortNameZA": "Tên (Z-A)",
+    "sortPriceLoHi": "Giá (Thấp-Cao)",
+    "sortPriceHiLo": "Giá (Cao-Thấp)",
+    "categoryFilter": "Thể loại",
+    "allCategories": "Tất cả thể loại",
+    "gradeFilter": "Khối",
+    "allGrades": "Tất cả khối",
+    "otherGrades": "Khác",
+    "priceFilter": "Giá"
   }
 }
