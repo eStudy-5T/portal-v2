@@ -13,11 +13,6 @@ import ModifyCourseAccessDialog from '../../components/modify-course-access-dial
 
 import courseService from '../../services/course-service'
 
-import {
-  calculateTotalLessonInCourse,
-  calculateCourseTotalDuration
-} from '../../utils/helpers/date-helper'
-
 // i18
 import { useTranslation } from 'react-i18next'
 import get from 'lodash/get'

@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from 'react'
 import { useForm, Controller } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import {
   Stack,
   Button,
@@ -48,6 +49,7 @@ const ExperienceForm = ({
   handleAddExperience,
   handleEditExperience
 }) => {
+  const { t: translation } = useTranslation()
   const [currentWork, setCurrentWork] = useState(
     editData ? !editData?.endTime : false
   )
@@ -112,14 +114,14 @@ const ExperienceForm = ({
               htmlFor="exp-title"
               className="basic-info__input-label"
             >
-              Title
+              {translation('teacherProfile.title')}
             </InputLabel>
             <input
               className={errors.title ? 'input-error' : ''}
               id="exp-title"
               type="text"
               name="title"
-              placeholder="Ex: High School Teacher"
+              placeholder={translation('teacherProfile.titlePlaceholder')}
               {...register('title', {
                 required: 'error.emptyField'
               })}
@@ -131,14 +133,16 @@ const ExperienceForm = ({
               htmlFor="exp-organization"
               className="basic-info__input-label"
             >
-              Organization
+              {translation('teacherProfile.organization')}
             </InputLabel>
             <input
               className={errors.organization ? 'input-error' : ''}
               id="exp-organization"
               type="text"
               name="organization"
-              placeholder="Ex: Gia Dinh High School"
+              placeholder={translation(
+                'teacherProfile.organizationPlaceholder'
+              )}
               {...register('organization', {
                 required: 'error.emptyField'
               })}
@@ -150,7 +154,7 @@ const ExperienceForm = ({
               htmlFor="exp-location"
               className="basic-info__input-label"
             >
-              Location
+              {translation('teacherProfile.location')}
             </InputLabel>
             <Controller
               control={control}
@@ -161,7 +165,7 @@ const ExperienceForm = ({
                   id="exp-location"
                   className="basic-single"
                   classNamePrefix="select"
-                  placeholder="Select here"
+                  placeholder={translation('teacherProfile.selectHere')}
                   isClearable={true}
                   isSearchable={true}
                   name="location"
@@ -189,7 +193,7 @@ const ExperienceForm = ({
                     sx={{ color: 'var(--color-primary)' }}
                   />
                 }
-                label="I am currently working on this position"
+                label={translation('teacherProfile.currentlyWorking')}
               />
             </FormGroup>
           </Grid>
@@ -199,7 +203,7 @@ const ExperienceForm = ({
               htmlFor="exp-start-time"
               className="basic-info__input-label"
             >
-              Start Time
+              {translation('teacherProfile.startTime')}
             </InputLabel>
             <input
               className={errors.startTime ? 'input-error' : ''}
@@ -221,7 +225,7 @@ const ExperienceForm = ({
                   height: '100%'
                 }}
               >
-                Present
+                {translation('teacherProfile.present')}
               </Box>
             ) : (
               <Fragment>
@@ -230,7 +234,7 @@ const ExperienceForm = ({
                   htmlFor="exp-end-time"
                   className="basic-info__input-label"
                 >
-                  End Time
+                  {translation('teacherProfile.endTime')}
                 </InputLabel>
                 <input
                   className={errors.endTime ? 'input-error' : ''}
@@ -250,7 +254,7 @@ const ExperienceForm = ({
               htmlFor="exp-description"
               className="basic-info__input-label"
             >
-              Description
+              {translation('teacherProfile.description')}
             </InputLabel>
             <textarea
               className={errors.description ? 'input-error' : ''}
@@ -275,7 +279,7 @@ const ExperienceForm = ({
             onClick={() => setOpen(false)}
             sx={{ textTransform: 'capitalize' }}
           >
-            Cancel
+            {translation('teacherProfile.cancel')}
           </Button>
 
           <Button

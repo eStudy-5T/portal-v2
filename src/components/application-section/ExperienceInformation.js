@@ -1,4 +1,5 @@
 import React, { useState, Fragment, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { Box, Typography, Divider, IconButton } from '@mui/material'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
@@ -14,6 +15,7 @@ const ExperienceInformation = ({
   handleChangeAdvancedInfo,
   handleEditExperience
 }) => {
+  const { t: translation } = useTranslation()
   const [expEditing, setExpEditing] = useState(null)
   const [isAddExperience, setAddExperience] = useState(false)
   const [isEditExperience, setEditExperience] = useState(false)
@@ -77,7 +79,7 @@ const ExperienceInformation = ({
       <Box className="profile-box">
         <Box className="profile-box__header">
           <Typography variant="h5" fontSize="22px" fontWeight={600}>
-            Education and Teach Experience
+            {translation('teacherProfile.experience')}
           </Typography>
           <IconButton
             aria-label="Add jobs"
@@ -109,8 +111,9 @@ const ExperienceInformation = ({
             </DragDropContext>
           ) : (
             <Typography variant="subtitle">
-              Click <AddCircleOutlineRoundedIcon /> to add new education or
-              experience
+              {translation('teacherProfile.click')}{' '}
+              <AddCircleOutlineRoundedIcon />{' '}
+              {translation('teacherProfile.clickAdd')}
             </Typography>
           )}
         </Box>
@@ -119,12 +122,12 @@ const ExperienceInformation = ({
       <CustomDialog
         fullWidth
         customStyle
-        title="Add Education / Experience"
+        title={translation('teacherProfile.addExperienceTitle')}
         open={isAddExperience}
         setOpen={handleToggleAddExpPopup}
       >
         <ExperienceForm
-          successBtnText="Add"
+          successBtnText={translation('teacherProfile.add')}
           setOpen={handleToggleAddExpPopup}
           handleAddExperience={handleAddExperiences}
         />
@@ -133,12 +136,12 @@ const ExperienceInformation = ({
       <CustomDialog
         fullWidth
         customStyle
-        title="Edit Education / Experience"
+        title={translation('teacherProfile.editExperienceTitle')}
         open={isEditExperience}
         setOpen={handleToggleEditExpPopup}
       >
         <ExperienceForm
-          successBtnText="Edit"
+          successBtnText={translation('teacherProfile.edit')}
           setOpen={handleToggleEditExpPopup}
           editData={expEditing}
           isEditing={isEditExperience}

@@ -1,4 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import FsLightbox from 'fslightbox-react'
 import { FaPlay } from 'react-icons/fa'
 import { Grid, Box, Container, Typography, Divider } from '@mui/material'
@@ -34,6 +36,8 @@ const initializeTeacherAdvancedInfo = {
 }
 
 const CreateTeacherProfile = () => {
+  const { t: translation } = useTranslation()
+  const userInfo = useSelector((state) => state.userInfo)
   const [isBlocking, setIsBlocking] = useState(false)
   const [isValidToSubmit, setValidToSubmit] = useState(false)
   const [teacherBasicInfo, setTeacherBasicInfo] = useState(
@@ -148,20 +152,18 @@ const CreateTeacherProfile = () => {
       <Layout compactFooter>
         <Container maxWidth="lg" className="profile-form">
           <Typography variant="h4" className="profile-page-title">
-            Apply to Teach
+            {translation('teacherProfile.applyToTeach')}
           </Typography>
           <Box id="step-1" className="profile__section">
             <Typography variant="h4" className="profile__section-title">
-              Step 1: Learn about&nbsp;
+              {translation('teacherProfile.step1')}&nbsp;
               <span style={{ color: '#525fe1' }}>LetMeet</span>
             </Typography>
             <Typography
               variant="subtitle"
               className="profile__section-subtitle"
             >
-              This video explains the fundamentals of being a teacher on
-              LetMeet. You can also learn more about teaching with the Teacher
-              Guide
+              {translation('teacherProfile.step1Subtitle')}
             </Typography>
             <div className="profile__section__thumbnail">
               <div className="video-gallery-1">
@@ -185,17 +187,15 @@ const CreateTeacherProfile = () => {
           </Box>
           <Box id="step-2" className="profile__section">
             <Typography variant="h4" className="profile__section-title">
-              Step 2: Fill out your application
+              {translation('teacherProfile.step2')}
             </Typography>
             <Typography
               variant="subtitle"
               className="profile__section-subtitle"
             >
-              All fields are required. While we ask about professional teaching
-              experience, it's not a requirement to teach on LetMeet. At this
-              time, you must be based in the Viet Nam to teach on LetMeet.
+              {translation('teacherProfile.step2Subtitle')}
             </Typography>
-            <Container maxWidth="lg">
+            <Box>
               {/* Intro and tutorial section */}
               <Box className="profile-box">
                 <Box className="profile-box__content">
@@ -213,14 +213,14 @@ const CreateTeacherProfile = () => {
                           variant="h5"
                           sx={{ lineHeight: '30px' }}
                         >
-                          Hi <strong>Tri Bui</strong>, glad you here with us.
+                          {translation('teacherProfile.step2Extra1-1')}{' '}
+                          <strong>{userInfo?.firstName}</strong>
+                          {translation('teacherProfile.step2Extra1-2')}
                           <br />
-                          Please feel free at this step, your information will
-                          not be shared
+                          {translation('teacherProfile.step2Extra2')}
                         </Typography>
                         <Typography className="profile__block-subtitle">
-                          Make any edits you want. You can make more changes
-                          after it's live.
+                          {translation('teacherProfile.step2Extra3')}
                         </Typography>
                       </Box>
                     </Grid>
@@ -252,18 +252,17 @@ const CreateTeacherProfile = () => {
                 handleEditExperience={handleEditExperience}
                 handleChangeAdvancedInfo={handleChangeAdvancedInfo}
               />
-            </Container>
+            </Box>
           </Box>
           <Box id="step-3" className="profile__section mt--40">
             <Typography variant="h4" className="profile__section-title">
-              Step 3: Tell us about your classes
+              {translation('teacherProfile.step3')}
             </Typography>
             <Typography
               variant="subtitle"
               className="profile__section-subtitle"
             >
-              We'd like to learn more about your class, please fill out the
-              fields below.
+              {translation('teacherProfile.step3Subtitle')}
             </Typography>
             <ClassInformation
               teacherAdvancedInfo={teacherAdvancedInfo}
@@ -272,7 +271,7 @@ const CreateTeacherProfile = () => {
           </Box>
           <Box id="step-4" className="profile__section mt--40">
             <Typography variant="h4" className="profile__section-title">
-              Step 4: Teach or explain us something!
+              {translation('teacherProfile.step4')}
             </Typography>
             <SampleTeach handleChangeAdvancedInfo={handleChangeAdvancedInfo} />
           </Box>
@@ -291,7 +290,7 @@ const CreateTeacherProfile = () => {
               disabled={!isValidToSubmit}
               onClick={handleSubmitProfile}
             >
-              Submit Profile
+              {translation('teacherProfile.submitProfile')}
             </button>
           </Box>
         </Container>
