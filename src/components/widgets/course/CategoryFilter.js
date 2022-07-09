@@ -20,7 +20,9 @@ function CategoryFilter(props) {
   return (
     <div className={`edu-course-widget widget-shortby ${extraClass || ''}`}>
       <div className="inner">
-        <h5 className="widget-title">Categories</h5>
+        <h5 className="widget-title">
+          {translation('courseQuery.categoryFilter')}
+        </h5>
         <div className="content limited-height">
           <div className="edu-form-check">
             <input
@@ -32,7 +34,9 @@ function CategoryFilter(props) {
               onChange={onChangeChecked}
               defaultChecked
             />
-            <label htmlFor="category-all">All Categories</label>
+            <label htmlFor="category-all">
+              {translation('courseQuery.allCategories')}
+            </label>
           </div>
           {categories?.map((cat) => (
             <div key={cat.code} className="edu-form-check">

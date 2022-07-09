@@ -127,7 +127,7 @@ const TeacherCourses = () => {
       case 'grade':
         setQueryOptions({ ...queryOptions, gradeFilter: value })
         break
-      case 'fiterByPrice':
+      case 'filterByPrice':
         setQueryOptions({ ...queryOptions, rangePrice: value })
         break
       default:
@@ -261,7 +261,7 @@ const TeacherCourses = () => {
                     <TableContainer
                       sx={{ width: '100%', height: tableHeight + 'px' }}
                     >
-                      <Table className="dashboard-table">
+                      <Table stickyHeader className="dashboard-table">
                         <TableHead>
                           <TableRow>
                             <TableCell>
@@ -302,8 +302,12 @@ const TeacherCourses = () => {
                                   </Typography>
                                 </Box>
                               </TableCell>
-                              <TableCell>{translation(course.category.name)}</TableCell>
-                              <TableCell>{translation(course.subject.name)}</TableCell>
+                              <TableCell>
+                                {translation(course.category.name)}
+                              </TableCell>
+                              <TableCell>
+                                {translation(course.subject.name)}
+                              </TableCell>
                               <TableCell>
                                 {getCourseStatus(
                                   course.isOpened,

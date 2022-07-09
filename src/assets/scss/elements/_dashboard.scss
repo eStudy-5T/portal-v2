@@ -1,6 +1,7 @@
 .dashboard-drawer {
   &.MuiDrawer-root {
     .MuiDrawer-paper {
+      z-index: 9;
       margin-top: 80px;
       background-color: var(--color-primary-darker) !important;
       color: #ffffff !important;
@@ -13,7 +14,6 @@
     background-color: var(--color-shade);
     .MuiTableCell-root {
       color: var(--color-primary);
-      border-bottom: none;
       font-size: 14px;
       font-weight: 600;
       line-height: 1;
