@@ -35,12 +35,13 @@ function CourseOne() {
   const [searchText, setSearchText] = useState('')
   const [CourseData, setCourseData] = useState([])
   const [CourseCount, setCourseCount] = useState(0)
+  const [currentMaxPrice, setCurrentMaxPrice] = useState(0)
   const [queryOptions, setQueryOptions] = useState({
     sortBy: 'sortby-none',
     categoryFilter: 'category-all',
     gradeFilter: 'grade-all',
     rangePrice: -1,
-    isFavorite: false
+    showFavorite: false
   })
   const [isModifyAccessPopupShown, setPopupModifyAccessConfirm] =
     useState(false)
@@ -122,7 +123,7 @@ function CourseOne() {
   }
 
   const handleChangeIsShowFavoriteCourse = async (event) => {
-    setQueryOptions({ ...queryOptions, isFavorite: !isShowMyFavorite} )
+    setQueryOptions({ ...queryOptions, showFavorite: !isShowMyFavorite})
     setPageNumber(1)
     const offset = (pageNumber - 1) * pageSize
     if (pageSize) {
@@ -142,7 +143,7 @@ function CourseOne() {
       case 'grade':
         setQueryOptions({ ...queryOptions, gradeFilter: value })
         break
-      case 'fiterByPrice':
+      case 'filterByPrice':
         setQueryOptions({ ...queryOptions, rangePrice: value })
         break
       default:
@@ -247,6 +248,7 @@ function CourseOne() {
                   {CourseData.map((item) => {
                     item.totalLessons = calculateTotalLessonInCourse(item.startDate, item.endDate, item.daysOfWeek, item.schedules, item.scheduleType)
                     item.totalDuration = calculateCourseTotalDuration(item.startDate, item.endDate, item.daysOfWeek, item.schedules, item.scheduleType, item.lessonNumberPerWeek, item.startTime, item.endTime)
+                    if (item.price > currentMaxPrice) setCurrentMaxPrice(item.price)
                     return (
                     <ScrollAnimation
                       animateIn="fadeInUp"
@@ -308,6 +310,7 @@ function CourseOne() {
                 />
                 <FilterByPrice
                   extraClass="mt--40"
+                  maxPrice={currentMaxPrice}
                   onFilterChange={handleFilterChange}
                 />
               </div>
@@ -322,7 +325,7 @@ function CourseOne() {
                   }
                   page={pageNumber}
                   onChange={handleChangePageNumber}
-                  ariant="outlined"
+                  variant="text"
                   size="large"
                   siblingCount={2}
                   color="primary"

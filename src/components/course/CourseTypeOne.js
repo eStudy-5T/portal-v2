@@ -33,12 +33,8 @@ function CourseTypeOne({
   setSelectedAction
 }) {
   const { t: translation } = useTranslation()
-  const [isFavorite, setIsFavorite] = useState(false)
+  const [isFavorite, setIsFavorite] = useState(data.isFavorite || false)
 
-  const avatar = null
-
-  const instructorThumb = InstructorData[1].image
-  // const instructorThumb = InstructorData[1].image
   const excerpt = `${
     data.description
       ? data.description.substring(0, 142)
@@ -49,7 +45,6 @@ function CourseTypeOne({
   }${data.title.length > 26 ? '...' : ''}`
 
   const isActive = get(data, 'isActive', false)
-  // const avatar = get(data, 'owner.avatar', CloneAvatar)
 
   const handleActivateClick = () => {
     onModifyAccessClick()
@@ -62,7 +57,7 @@ function CourseTypeOne({
     setSelectedCourse(data.id)
     setSelectedAction('deactivate')
   }
-  
+
   const totalLessons = calculateTotalLessonInCourse(
     data.startDate,
     data.endDate,
@@ -70,18 +65,11 @@ function CourseTypeOne({
     data.schedules,
     data.scheduleType
   )
-  const favoriteStyle = {
-    isFavorite: {
-      color: 'red',
-    },
-    ':hover': {
-      color: 'red',
-    }
-  }
 
   const handleAddToFavoriteClick = async () => {
-    setIsFavorite(!isFavorite)
-    // await courseService.toggleFavorite("c21439e2-2f78-4675-802a-1d59009b4543")
+    const toggle = await courseService.toggleFavorite(data.id)
+    console.log(data)
+    toggle.status === 200 && setIsFavorite(!isFavorite)
   }
 
   return (
@@ -96,8 +84,10 @@ function CourseTypeOne({
             />
           </Link>
           <div className="wishlist-top-right">
-            <button className="wishlist-btn" >
-              {(isFavorite && <i className="icon-Heart" style={{ color: 'red'}} />) || <i className="icon-Heart" /> }
+            <button className="wishlist-btn">
+              {(isFavorite && (
+                <i className="icon-Heart" style={{ color: 'var(--color-secondary)' }} />
+              )) || <i className="icon-Heart" />}
             </button>
           </div>
           <div className="top-position status-group left-bottom">
@@ -116,10 +106,7 @@ function CourseTypeOne({
                 <Link
                   to={`${process.env.PUBLIC_URL}/instructor-details/${data.ownerId}`}
                 >
-                  <img
-                    src={`${avatar || CloneAvatar}`}
-                    alt="Author Thumb"
-                  />
+                  <img src={`${data.owner.avatar || CloneAvatar}`} alt="Author Thumb" />
                   <span className="author-title">{`${
                     data.instructor
                       ? data.instructor
@@ -199,7 +186,9 @@ function CourseTypeOne({
                 className="wishlist-btn"
                 onClick={handleAddToFavoriteClick}
               >
-                {(isFavorite && <i className="icon-Heart" style={{ color: 'red'}} />) || <i className="icon-Heart" /> }
+                {(isFavorite && (
+                  <i className="icon-Heart" style={{ color: 'var(--color-secondary)' }} />
+                )) || <i className="icon-Heart" />}
               </button>
             </div>
           </div>
@@ -229,10 +218,7 @@ function CourseTypeOne({
                 <Link
                   to={`${process.env.PUBLIC_URL}/instructor-details/${data.ownerId}`}
                 >
-                  <img
-                    src={`${avatar || CloneAvatar}`}
-                    alt="Author Thumb"
-                  />
+                  <img src={`${data.owner.avatar || CloneAvatar}`} alt="Author Thumb" />
                   <span className="author-title">{`${
                     data.instructor
                       ? data.instructor

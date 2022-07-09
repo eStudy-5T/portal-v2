@@ -7,7 +7,7 @@ function SortBy(props) {
   const { extraClass, onFilterChange } = props
 
   const onChangeChecked = (event) => {
-    onFilterChange('fiterByPrice', event.target.value)
+    onFilterChange('filterByPrice', event.target.value)
   }
   return (
     <div className={`edu-course-widget widget-shortby ${extraClass || ''}`}>
@@ -19,14 +19,13 @@ function SortBy(props) {
               type="range"
               id="range-price"
               name="price"
-              min="0"
-              max="100"
+              min={0}
+              max={Number(props.maxPrice / 1000)}
               onChange={onChangeChecked}
             />
             <div className="price__output--wrap">
               <div className="price--output">
-                <span>Price: </span>
-                <span>{value * 1000}VND</span>
+                <span>{value * 1000} VND</span>
               </div>
             </div>
           </div>

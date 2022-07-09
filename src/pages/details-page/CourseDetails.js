@@ -177,7 +177,6 @@ function ReviewsTabContent(data) {
   const [fiveStarRateCount, setFiveStarRateCount] = useState(0)
   const [totalRateCount, setTotalRateCount] = useState(0)
   const [isReviewable, setIsReviewable] = useState(false)
-  const avatars = []
 
   const { t: translation } = useTranslation()
 
@@ -202,6 +201,7 @@ function ReviewsTabContent(data) {
           setTotalRateCount(CourseReviewsData.count)
           setCourseReviews(CourseReviewsData.data)
           CourseReviewsData.data.forEach((review) => {
+            if(review.userId === currentUserId) setIsReviewable(false)
             switch (review.rate) {
               default:
                 break
@@ -402,12 +402,12 @@ function ReviewsTabContent(data) {
               <h5 className="mb--25">{translation('courseDetails.reviews')}</h5>
             </div>
           )}
-          {courseReviews.map((review, index) => {
+          {courseReviews.map((review) => {
             return (
               <div className="edu-comment" key={review.id}>
                 <div className="thumbnail">
                   <img
-                    src={avatars[index] || CloneAvatar}
+                    src={review.user.avatar || CloneAvatar}
                     style={{width: '70px', height: '70px'}}
                     alt="Student Thumb"
                   />
