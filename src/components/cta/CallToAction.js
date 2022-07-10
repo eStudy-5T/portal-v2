@@ -25,7 +25,7 @@ function CallToAction() {
                 </Link>
               </div>
               <div className="contact-btn">
-                <Link className="edu-btn btn-white" to="/create-profile">
+                <Link className="edu-btn btn-white" to="/submit-profile">
                   Become Teacher
                   <i className="icon-arrow-right-line-right" />
                 </Link>
