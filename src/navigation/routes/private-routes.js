@@ -30,7 +30,7 @@ const privateRoutes = [
     exact: true
   },
   {
-    path: 'create-profile',
+    path: 'submit-profile',
     component: () => <CreateTeacherProfile />,
     exact: true
   }

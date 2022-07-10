@@ -18,7 +18,7 @@ function Nav() {
       </li>
 
       <li className="has-droupdown">
-        <Link to="/create-profile">{translation('nav.applyToTeach')}</Link>
+        <Link to="/submit-profile">{translation('nav.applyToTeach')}</Link>
       </li>
 
       <li className="has-droupdown">
