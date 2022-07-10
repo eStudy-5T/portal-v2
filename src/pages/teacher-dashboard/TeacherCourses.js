@@ -19,7 +19,8 @@ import {
   Typography,
   Popover,
   Chip,
-  IconButton
+  IconButton,
+  CircularProgress
 } from '@mui/material'
 import SortIcon from '@mui/icons-material/Sort'
 import CategoryIcon from '@mui/icons-material/Category'
@@ -52,6 +53,7 @@ const TeacherCourses = () => {
   const [categoryFilterEl, setCategoryFilterEl] = useState(null)
   const [gradeFilterEl, setGradeFilterEl] = useState(null)
   const [filterByPriceEl, setFilterByPriceEl] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const tableRef = useRef()
   const userId = localStorage.getItem('currentUserId')
@@ -72,6 +74,7 @@ const TeacherCourses = () => {
 
       setCourseData(courses)
       setCourseCount(count)
+      setIsLoading(false)
     },
     750
   )
@@ -87,6 +90,7 @@ const TeacherCourses = () => {
     const offset = (pageNumber - 1) * pageSize
 
     if (pageSize) {
+      setIsLoading(true)
       debouncedFetchData(searchText, { offset, limit: pageSize }, queryOptions)
     }
 
@@ -100,6 +104,7 @@ const TeacherCourses = () => {
     const offset = (pageNumber - 1) * pageSize
 
     if (pageSize) {
+      setIsLoading(true)
       debouncedFetchData(searchText, { offset, limit: pageSize }, queryOptions)
     }
   }
@@ -260,8 +265,13 @@ const TeacherCourses = () => {
                   <Card ref={tableRef}>
                     <TableContainer
                       sx={{ width: '100%', height: tableHeight + 'px' }}
+                      className={`dashboard-table ${
+                        isLoading || !courseData?.length
+                          ? 'dashboard-table--is-loading'
+                          : ''
+                      }`}
                     >
-                      <Table stickyHeader className="dashboard-table">
+                      <Table stickyHeader>
                         <TableHead>
                           <TableRow>
                             <TableCell>
@@ -285,48 +295,70 @@ const TeacherCourses = () => {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {courseData.slice(0, pageSize).map((course) => (
-                            <TableRow key={course.id}>
-                              <TableCell>
-                                <Box
-                                  sx={{
-                                    alignItems: 'center',
-                                    display: 'flex'
-                                  }}
-                                >
-                                  <Typography
-                                    color="textPrimary"
-                                    variant="body1"
-                                  >
-                                    {course.title}
-                                  </Typography>
-                                </Box>
-                              </TableCell>
-                              <TableCell>
-                                {translation(course.category.name)}
-                              </TableCell>
-                              <TableCell>
-                                {translation(course.subject.name)}
-                              </TableCell>
-                              <TableCell>
-                                {getCourseStatus(
-                                  course.isOpened,
-                                  course.isActive
-                                )}
-                              </TableCell>
-                              <TableCell>
-                                {format(
-                                  new Date(course.updatedAt),
-                                  'dd/MM/yyyy'
-                                )}
-                              </TableCell>
-                              <TableCell>
-                                <IconButton component={Link} to="#">
-                                  <EditIcon />
-                                </IconButton>
+                          {isLoading ? (
+                            <TableRow>
+                              <TableCell
+                                colSpan={6}
+                                sx={{ textAlign: 'center' }}
+                              >
+                                <CircularProgress thickness={5} />
                               </TableCell>
                             </TableRow>
-                          ))}
+                          ) : !courseData?.length ? (
+                            <TableRow>
+                              <TableCell
+                                colSpan={6}
+                                sx={{ textAlign: 'center' }}
+                              >
+                                <Typography>
+                                  {translation('courses.noRecord')}
+                                </Typography>
+                              </TableCell>
+                            </TableRow>
+                          ) : (
+                            courseData.map((course) => (
+                              <TableRow key={course.id}>
+                                <TableCell>
+                                  <Box
+                                    sx={{
+                                      alignItems: 'center',
+                                      display: 'flex'
+                                    }}
+                                  >
+                                    <Typography
+                                      color="textPrimary"
+                                      variant="body1"
+                                    >
+                                      {course.title}
+                                    </Typography>
+                                  </Box>
+                                </TableCell>
+                                <TableCell>
+                                  {translation(course.category.name)}
+                                </TableCell>
+                                <TableCell>
+                                  {translation(course.subject.name)}
+                                </TableCell>
+                                <TableCell>
+                                  {getCourseStatus(
+                                    course.isOpened,
+                                    course.isActive
+                                  )}
+                                </TableCell>
+                                <TableCell>
+                                  {format(
+                                    new Date(course.updatedAt),
+                                    'dd/MM/yyyy'
+                                  )}
+                                </TableCell>
+                                <TableCell>
+                                  <IconButton component={Link} to="#">
+                                    <EditIcon />
+                                  </IconButton>
+                                </TableCell>
+                              </TableRow>
+                            ))
+                          )}
                         </TableBody>
                       </Table>
                     </TableContainer>

@@ -96,7 +96,8 @@
     "status": "Trạng thái",
     "updatedAt": "Thời gian cập nhật",
     "action": "Hành động",
-    "add": "Thêm"
+    "add": "Thêm",
+    "noRecord": "Không có khoá học nào"
   },
   "nav": {
     "home": "Trang chủ",

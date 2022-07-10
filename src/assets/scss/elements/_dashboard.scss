@@ -38,6 +38,30 @@
       border-right: none;
     }
   }
+
+  .MuiCircularProgress-root {
+    width: 60px !important;
+    height: 60px !important;
+    color: var(--color-primary);
+  }
+
+  &--is-loading {
+    &.MuiTableContainer-root {
+      overflow-y: hidden;
+    }
+
+    .MuiTable-root {
+      height: 100%;
+    }
+
+    .MuiTableBody-root {
+      .MuiTableRow-root {
+        &:hover {
+          box-shadow: none;
+        }
+      }
+    }
+  }
 }
 
 .dashboard-popover {
