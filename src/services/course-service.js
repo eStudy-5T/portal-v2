@@ -24,7 +24,8 @@ const courseService = {
       categoryFilter = 'category-all',
       gradeFilter = 'grade-all',
       rangePrice = -1,
-      showFavorite = false
+      showFavorite = false,
+      type = undefined
     } = queryOptions
 
     return request.get('/courses', {
@@ -37,7 +38,8 @@ const courseService = {
         categoryFilter,
         gradeFilter,
         rangePrice,
-        showFavorite
+        showFavorite,
+        type
       }
     })
   },

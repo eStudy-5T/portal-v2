@@ -97,7 +97,8 @@
     "status": "Status",
     "updatedAt": "Updated At",
     "action": "Action",
-    "add": "Add"
+    "add": "Add",
+    "noRecord": "No records found"
   },
   "nav": {
     "home": "Home",
