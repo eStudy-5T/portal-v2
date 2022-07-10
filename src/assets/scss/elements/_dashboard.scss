@@ -11,14 +11,13 @@
 
 .dashboard-table {
   .MuiTableHead-root {
-    background-color: var(--color-shade);
     .MuiTableCell-root {
+      background-color: var(--color-shade);
       color: var(--color-primary);
       font-size: 14px;
       font-weight: 600;
       line-height: 1;
       letter-spacing: 0.5;
-      text-transform: uppercase;
     }
     .MuiTableCell-paddingCheckbox {
       padding-top: 4;

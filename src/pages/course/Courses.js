@@ -10,6 +10,7 @@ import GradeFilter from '../../components/widgets/course/GradeFilter'
 import FilterByPrice from '../../components/widgets/course/FilterByPrice'
 import debounce from 'lodash/debounce'
 import ModifyCourseAccessDialog from '../../components/modify-course-access-dialog/ModifyCourseAccessDialog'
+import { Skeleton } from '@mui/material'
 
 import courseService from '../../services/course-service'
 
@@ -45,6 +46,7 @@ function CourseOne() {
   const [selectedCourse, setSelectedCourse] = useState(null)
   const [selectedAction, setSelectedAction] = useState(null)
   const [accessChanged, setAccessChanged] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const userId = localStorage.getItem('currentUserId')
   const userRole = ROLE.TEACHER
   const isAdmin = get(
@@ -68,6 +70,7 @@ function CourseOne() {
 
       setCourseData(courses)
       setCourseCount(count)
+      setIsLoading(false)
     },
     750
   )
@@ -76,6 +79,7 @@ function CourseOne() {
     const offset = (pageNumber - 1) * pageSize
 
     if (pageSize) {
+      setIsLoading(true)
       debouncedFetchData(searchText, { offset, limit: pageSize }, queryOptions)
     }
 
@@ -102,6 +106,7 @@ function CourseOne() {
     const offset = (pageNumber - 1) * pageSize
 
     if (pageSize) {
+      setIsLoading(true)
       debouncedFetchData(searchText, { offset, limit: pageSize }, queryOptions)
     }
   }
@@ -241,25 +246,46 @@ function CourseOne() {
                   </div>
                 </div>
                 <div className="row g-5 mt--10">
-                  {CourseData.map((item) => {
-                    return (
-                      <ScrollAnimation
-                        animateIn="fadeInUp"
-                        animateOut="fadeInOut"
-                        className="col-sm-6 col-lg-6"
-                        animateOnce
-                        key={item.id}
-                      >
-                        <CourseTypeOne
-                          data={item}
-                          isAdmin={isAdmin}
-                          onModifyAccessClick={onModifyAccessClick}
-                          setSelectedCourse={setSelectedCourse}
-                          setSelectedAction={setSelectedAction}
-                        />
-                      </ScrollAnimation>
-                    )
-                  })}
+                  {isLoading ? (
+                    <>
+                      <div className="col-sm-6 col-lg-6">
+                        <Skeleton
+                          variant="rectangular"
+                          sx={{ borderRadius: '5px' }}
+                        >
+                          <CourseTypeOne />
+                        </Skeleton>
+                      </div>
+                      <div className="col-sm-6 col-lg-6">
+                        <Skeleton
+                          variant="rectangular"
+                          sx={{ borderRadius: '5px' }}
+                        >
+                          <CourseTypeOne />
+                        </Skeleton>
+                      </div>
+                    </>
+                  ) : (
+                    CourseData.map((item) => {
+                      return (
+                        <ScrollAnimation
+                          animateIn="fadeInUp"
+                          animateOut="fadeInOut"
+                          className="col-sm-6 col-lg-6"
+                          animateOnce
+                          key={item.id}
+                        >
+                          <CourseTypeOne
+                            data={item}
+                            isAdmin={isAdmin}
+                            onModifyAccessClick={onModifyAccessClick}
+                            setSelectedCourse={setSelectedCourse}
+                            setSelectedAction={setSelectedAction}
+                          />
+                        </ScrollAnimation>
+                      )
+                    })
+                  )}
                 </div>
               </div>
               <div className="col-lg-3">
