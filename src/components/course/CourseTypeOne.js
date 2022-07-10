@@ -33,41 +33,41 @@ function CourseTypeOne({
   setSelectedAction
 }) {
   const { t: translation } = useTranslation()
-  const [isFavorite, setIsFavorite] = useState(data.isFavorite || false)
+  const [isFavorite, setIsFavorite] = useState(data?.isFavorite || false)
 
   const excerpt = `${
-    data.description
-      ? data.description.substring(0, 142)
+    data?.description
+      ? data?.description.substring(0, 142)
       : CourseData[1].excerpt.substring(0, 142)
   }...`
   const trimTitle = `${
-    data.title ? data.title.substring(0, 26) : 'Unknown title'
-  }${data.title.length > 26 ? '...' : ''}`
+    data?.title ? data?.title.substring(0, 26) : 'Unknown title'
+  }${data?.title.length > 26 ? '...' : ''}`
 
   const isActive = get(data, 'isActive', false)
 
   const handleActivateClick = () => {
     onModifyAccessClick()
-    setSelectedCourse(data.id)
+    setSelectedCourse(data?.id)
     setSelectedAction('activate')
   }
 
   const handleDeactivateClick = () => {
     onModifyAccessClick()
-    setSelectedCourse(data.id)
+    setSelectedCourse(data?.id)
     setSelectedAction('deactivate')
   }
 
   const totalLessons = calculateTotalLessonInCourse(
-    data.startDate,
-    data.endDate,
-    data.daysOfWeek,
-    data.schedules,
-    data.scheduleType
+    data?.startDate,
+    data?.endDate,
+    data?.daysOfWeek,
+    data?.schedules,
+    data?.scheduleType
   )
 
   const handleAddToFavoriteClick = async () => {
-    const toggle = await courseService.toggleFavorite(data.id)
+    const toggle = await courseService.toggleFavorite(data?.id)
     console.log(data)
     toggle.status === 200 && setIsFavorite(!isFavorite)
   }
@@ -76,7 +76,7 @@ function CourseTypeOne({
     <div className={`edu-card card-type-3 radius-small ${classes || ''}`}>
       <div className="inner">
         <div className="thumbnail">
-          <Link to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}>
+          <Link to={`${process.env.PUBLIC_URL}/course-details/${data?.id}`}>
             <img
               className="w-100"
               src={`${process.env.PUBLIC_URL}/images/course/course-01/course-01.jpg`}
@@ -107,16 +107,16 @@ function CourseTypeOne({
             <div className="author-meta">
               <div className="author-thumb">
                 <Link
-                  to={`${process.env.PUBLIC_URL}/instructor-details/${data.ownerId}`}
+                  to={`${process.env.PUBLIC_URL}/instructor-details/${data?.ownerId}`}
                 >
                   <img
-                    src={`${data.owner.avatar || CloneAvatar}`}
+                    src={`${data?.owner.avatar || CloneAvatar}`}
                     alt="Author Thumb"
                   />
                   <span className="author-title">{`${
-                    data.instructor
-                      ? data.instructor
-                      : data.owner.firstName + ' ' + data.owner.lastName
+                    data?.instructor
+                      ? data?.instructor
+                      : data?.owner.firstName + ' ' + data?.owner.lastName
                   }`}</span>
                 </Link>
               </div>
@@ -129,7 +129,7 @@ function CourseTypeOne({
             </ul>
           </div>
           <h6 className="title">
-            <Link to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}>
+            <Link to={`${process.env.PUBLIC_URL}/course-details/${data?.id}`}>
               {trimTitle}
             </Link>
           </h6>
@@ -137,18 +137,18 @@ function CourseTypeOne({
             <div className="price-list price-style-02">
               <div className="row align-items-center">
                 <div className="col-lg-6 col-md-6 col-sm-6">
-                  {data.price && (
+                  {data?.price && (
                     <div className="price current-price">
-                      {Number(data.price) !== 0
-                        ? `${numberWithCommas(data.price)} VND`
+                      {Number(data?.price) !== 0
+                        ? `${numberWithCommas(data?.price)} VND`
                         : 'Free'}
                     </div>
                   )}
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6">
-                  {data.oldPrice && (
+                  {data?.oldPrice && (
                     <div className="price old-price">
-                      {numberWithCommas(data.oldPrice)}VND
+                      {numberWithCommas(data?.oldPrice)}VND
                     </div>
                   )}
                 </div>
@@ -157,7 +157,7 @@ function CourseTypeOne({
                     <div className="rating letmeet-course-rating-stars">
                       <Rating
                         readOnly
-                        value={data.rating}
+                        value={data?.rating}
                         precision={0.5}
                         size="medium"
                         sx={{ color: '#ffa41b' }}
@@ -169,7 +169,7 @@ function CourseTypeOne({
                         }
                       ></Rating>
                     </div>
-                    <span className="rating-count">({data.rating})</span>
+                    <span className="rating-count">({data?.rating})</span>
                   </div>
                 </div>
               </div>
@@ -185,7 +185,7 @@ function CourseTypeOne({
               <Link
                 className="letmeet-status status-03"
                 to={`${process.env.PUBLIC_URL}/course-category/${slugify(
-                  'data.categories.slice(0, 1)'
+                  'data?.categories.slice(0, 1)'
                 )}`}
               >
                 {translation(get(data, 'category.name', 'category.general'))}
@@ -207,7 +207,7 @@ function CourseTypeOne({
           </div>
 
           <h6 className="title">
-            <Link to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}>
+            <Link to={`${process.env.PUBLIC_URL}/course-details/${data?.id}`}>
               {trimTitle}
             </Link>
           </h6>
@@ -215,16 +215,16 @@ function CourseTypeOne({
           <p className="description">{excerpt}</p>
 
           <div className="price-list price-style-02">
-            {data.price === '0' ? (
+            {data?.price === '0' ? (
               <div className="price current-price">Free</div>
             ) : (
               <div className="price current-price">
-                {numberWithCommas(data.price)} VND
+                {numberWithCommas(data?.price)} VND
               </div>
             )}
-            {data.oldPrice && (
+            {data?.oldPrice && (
               <div className="price old-price">
-                {numberWithCommas(data.oldPrice)} VND
+                {numberWithCommas(data?.oldPrice)} VND
               </div>
             )}
           </div>
@@ -233,16 +233,16 @@ function CourseTypeOne({
             <div className="author-meta">
               <div className="author-thumb">
                 <Link
-                  to={`${process.env.PUBLIC_URL}/instructor-details/${data.ownerId}`}
+                  to={`${process.env.PUBLIC_URL}/instructor-details/${data?.ownerId}`}
                 >
                   <img
-                    src={`${data.owner.avatar || CloneAvatar}`}
+                    src={`${data?.owner.avatar || CloneAvatar}`}
                     alt="Author Thumb"
                   />
                   <span className="author-title">{`${
-                    data.instructor
-                      ? data.instructor
-                      : data.owner.firstName + ' ' + data.owner.lastName
+                    data?.instructor
+                      ? data?.instructor
+                      : data?.owner.firstName + ' ' + data?.owner.lastName
                   }`}</span>
                 </Link>
               </div>
@@ -260,7 +260,7 @@ function CourseTypeOne({
                 <BlueOnGreenTooltip title="See Detail">
                   <Link
                     className="edu-btn btn-medium btn-white"
-                    to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}
+                    to={`${process.env.PUBLIC_URL}/course-details/${data?.id}`}
                   >
                     <div style={{ marginBottom: '20px' }}>
                       <i className="fa fa-arrow-right" />
@@ -323,7 +323,7 @@ function CourseTypeOne({
             ) : (
               <Link
                 className="edu-btn btn-medium btn-white"
-                to={`${process.env.PUBLIC_URL}/course-details/${data.id}`}
+                to={`${process.env.PUBLIC_URL}/course-details/${data?.id}`}
               >
                 {translation('courseDetails.seeDetails')}
                 <i className="icon-arrow-right-line-right" />
