@@ -3,12 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { Box, Typography, IconButton, Tooltip } from '@mui/material'
 import VideoFileIcon from '@mui/icons-material/VideoFile'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import FsLightbox from 'fslightbox-react'
+import { FaPlay } from 'react-icons/fa'
 import {
   validateYoutubeLink,
   validateVideoType
 } from '../../utils/validators/field-validators'
 
-const SampleTeach = ({ handleChangeAdvancedInfo }) => {
+const SampleTeach = ({ sampleTeachVideo, handleChangeAdvancedInfo }) => {
+  const [togglerSampleVideo, setTogglerSampleVideo] = useState(false)
   const { t: translation } = useTranslation()
   // 👇️ create a ref for the file input
   const uploadVideoRef = useRef(null)
@@ -157,6 +160,37 @@ const SampleTeach = ({ handleChangeAdvancedInfo }) => {
         <div>
           <small style={{ color: 'red' }}>{errorLink}</small>
         </div>
+        {sampleTeachVideo && (
+          <Fragment>
+            <Typography
+              variant="h6"
+              className="profile-box__content__sample-teach_text mb--10"
+              sx={{ mt: 2, textAlign: 'center' }}
+            >
+              Your latest sample teaching video
+            </Typography>
+            <div className="thumbnail video-popup-wrapper profile-box__content__sample-teach_video">
+              <img
+                className="radius-small"
+                src={`${process.env.PUBLIC_URL}./images/instructor/profile/preview-video.webp`}
+                alt="Sample Teaching Video"
+              />
+              <button
+                className="video-play-btn with-animation position-to-top video-popup-activation btn-secondary-color size-80"
+                onClick={() => setTogglerSampleVideo(!togglerSampleVideo)}
+              >
+                <span>
+                  <FaPlay className="play-icon" />
+                </span>
+              </button>
+            </div>
+            <FsLightbox
+              toggler={togglerSampleVideo}
+              sources={[sampleTeachVideo]}
+              maxYoutubeVideoDimensions={{ width: 900, height: 550 }}
+            />
+          </Fragment>
+        )}
       </Box>
     </Box>
   )

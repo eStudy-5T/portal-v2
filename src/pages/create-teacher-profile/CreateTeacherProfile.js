@@ -1,17 +1,18 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import FsLightbox from 'fslightbox-react'
 import { FaPlay } from 'react-icons/fa'
+import WarningIcon from '@mui/icons-material/Warning'
 import {
   Grid,
   Box,
   Container,
   Typography,
   Divider,
-  CircularProgress
+  CircularProgress,
+  Tooltip
 } from '@mui/material'
 import usePrompt from '../../hooks/user-prompt'
 import SEO from '../../common/SEO'
@@ -22,7 +23,8 @@ import ClassInformation from '../../components/application-section/ClassInformat
 import SampleTeach from '../../components/application-section/SampleTeach'
 import Loading from '../../common/loading/Loading'
 import teacherProfileService from '../../services/teacher-profile'
-
+import CustomDialog from '../../components/dialog/CustomDialog'
+import { PROFILE_STATUS } from '../../utils/constants/teacher-profile'
 import {
   validateBasicForm,
   validateAdvancedForm
@@ -46,10 +48,14 @@ const initializeTeacherAdvancedInfo = {
 }
 
 const CreateTeacherProfile = () => {
+  const navigate = useNavigate()
   const { t: translation } = useTranslation()
   const userInfo = useSelector((state) => state.userInfo)
+  const [commentFromAdmin, setCommentFromAdmin] = useState(null)
+  const [openDialog, setOpenDialog] = useState(false)
   const [isBlocking, setIsBlocking] = useState(false)
   const [isAppLoading, setIsAppLoading] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [isValidToSubmit, setValidToSubmit] = useState(false)
   const [isSubmittedProfile, setSubmittedProfile] = useState(false)
   const [teacherBasicInfo, setTeacherBasicInfo] = useState(
@@ -64,6 +70,12 @@ const CreateTeacherProfile = () => {
   usePrompt('Reload site? Changes you made may not be saved.', isBlocking)
 
   useEffect(() => {
+    if (userInfo.isVerifiedToTeach) {
+      navigate('/teacher-dashboard')
+    }
+  }, [userInfo.isVerifiedToTeach, navigate])
+
+  useEffect(() => {
     async function fetchExistProfile() {
       const currentUserId = localStorage.getItem('currentUserId')
       if (currentUserId) {
@@ -72,8 +84,31 @@ const CreateTeacherProfile = () => {
           const result = await teacherProfileService.getProfileById(
             currentUserId
           )
-          if (result.data) {
+          if (
+            result.data &&
+            result.data.profileStatus === PROFILE_STATUS.CHECKING
+          ) {
             setSubmittedProfile(true)
+          } else {
+            if (result.data.commentForAdmin) {
+              setCommentFromAdmin(result.data.commentForAdmin)
+            }
+            setTeacherBasicInfo({
+              teacherAvatar: result.data.teacherAvatar,
+              publicTeacherName: result.data.publicTeacherName,
+              email: result.data.email,
+              phoneNumber: result.data.phoneNumber,
+              location: result.data.location,
+              onlineProfile: result.data.onlineProfile,
+              teacherSelfDescription: result.data.teacherSelfDescription
+            })
+
+            setTeacherAdvancedInfo({
+              experiences: result.data.experiences,
+              classGeneralInformation: result.data.classGeneralInformation,
+              classPlan: result.data.classPlan,
+              sampleTeaching: result.data.sampleTeaching
+            })
           }
           setIsAppLoading(false)
         } catch (err) {
@@ -164,7 +199,7 @@ const CreateTeacherProfile = () => {
 
   const handleSubmitProfile = async () => {
     setIsBlocking(false)
-    setIsAppLoading(true)
+    setIsSubmitting(true)
     try {
       const data = { ...teacherBasicInfo, ...teacherAdvancedInfo }
       const formData = new FormData()
@@ -179,11 +214,15 @@ const CreateTeacherProfile = () => {
       if (uploadResult) {
         setSubmittedProfile(true)
       }
-      setIsAppLoading(false)
+      setIsSubmitting(false)
     } catch (err) {
-      setIsAppLoading(false)
+      setIsSubmitting(false)
       throw new Error(err)
     }
+  }
+
+  const handleToggleDialog = (status) => {
+    setOpenDialog(status)
   }
 
   return (
@@ -197,15 +236,24 @@ const CreateTeacherProfile = () => {
             {isSubmittedProfile ? (
               <Container maxWidth="md" className="profile-submitted">
                 <Box sx={{ p: 2 }} className="profile-submitted__box">
-                  <div className="profile-submitted__logo">
-                    <Link to={`${process.env.PUBLIC_URL}/`}>
-                      <img
-                        className="logo-light"
-                        src="/images/logo/logo.png"
-                        alt="Main Logo"
-                      />
-                    </Link>
+                  <div
+                    style={{
+                      width: '400px',
+                      height: '300px',
+                      margin: '0 auto 20px auto'
+                    }}
+                  >
+                    <img
+                      style={{ width: '100%', height: '100%' }}
+                      src="/images/instructor/profile/banner-submit.png"
+                      alt=""
+                    />
                   </div>
+                  <Box sx={{ textAlign: 'center', mb: 1 }}>
+                    <Typography variant="h6" className="profile__section-title">
+                      {translation('teacherProfile.submitSuccessfully')}
+                    </Typography>
+                  </Box>
                   <Box sx={{ textAlign: 'center' }}>
                     <Typography
                       variant="subtitle"
@@ -216,7 +264,7 @@ const CreateTeacherProfile = () => {
                   </Box>
                   <Box
                     sx={{
-                      mt: 5,
+                      mt: 4,
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center'
@@ -358,6 +406,7 @@ const CreateTeacherProfile = () => {
                     {translation('teacherProfile.step4')}
                   </Typography>
                   <SampleTeach
+                    sampleTeachVideo={teacherAdvancedInfo?.sampleTeaching}
                     handleChangeAdvancedInfo={handleChangeAdvancedInfo}
                   />
                 </Box>
@@ -373,10 +422,10 @@ const CreateTeacherProfile = () => {
                 >
                   <button
                     className="profile__submit"
-                    disabled={!isValidToSubmit || isAppLoading}
+                    disabled={!isValidToSubmit || isSubmitting}
                     onClick={handleSubmitProfile}
                   >
-                    {isAppLoading && (
+                    {isSubmitting && (
                       <CircularProgress
                         thickness={5}
                         sx={{
@@ -399,6 +448,40 @@ const CreateTeacherProfile = () => {
                   sources={videoLink}
                   maxYoutubeVideoDimensions={{ width: 900, height: 550 }}
                 />
+                {commentFromAdmin && (
+                  <Fragment>
+                    <Tooltip
+                      title={translation(
+                        'teacherProfile.fieldShouldBeImproved'
+                      )}
+                    >
+                      <WarningIcon
+                        sx={{
+                          color: 'yellow',
+                          fontSize: '40px',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          position: 'fixed',
+                          bottom: '80px',
+                          right: '30px',
+                          zIndex: 1000,
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => handleToggleDialog(true)}
+                      />
+                    </Tooltip>
+                    <CustomDialog
+                      fullWidth
+                      customStyle
+                      title={translation('teacherProfile.ourAdvice')}
+                      open={openDialog}
+                      setOpen={handleToggleDialog}
+                    >
+                      <Box>{commentFromAdmin}</Box>
+                    </CustomDialog>
+                  </Fragment>
+                )}
               </Container>
             )}
           </Fragment>
