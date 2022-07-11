@@ -366,6 +366,9 @@
     "submitProfile": "Đăng tải hồ sơ",
     "typeHere": "Nhập ở đây",
     "selectHere": "Chọn ở đây",
-    "thankYou": "Cảm ơn bạn đã gửi hồ sơ của bạn. Chúng tôi sẽ liên hệ với bạn trong vòng 4-5 ngày làm việc."
+    "thankYou": "Cảm ơn bạn đã gửi hồ sơ của bạn. Chúng tôi sẽ liên hệ với bạn trong vòng 4-5 ngày làm việc.",
+    "submitSuccessfully": "Đăng tải hồ sơ thành công",
+    "fieldShouldBeImproved": "Những điểm có thể cải thiện",
+    "ourAdvice": "Lời khuyên từ đội ngũ của chúng tôi"
   }
 }

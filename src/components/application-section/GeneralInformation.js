@@ -104,6 +104,7 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
               <Box className="profile-box__avatar">
                 <Avatar
                   src={
+                    basicInfo.teacherAvatar ||
                     (teacherAvatar && URL.createObjectURL(teacherAvatar)) ||
                     CloneAvatar
                   }
@@ -227,6 +228,11 @@ const GeneralInformation = ({ basicInfo, handleChangeBasicInfo }) => {
                     styles={customStyles}
                     options={VIETNAM_PROVINCE}
                     components={{ Option: CustomSelectOption }}
+                    value={
+                      VIETNAM_PROVINCE.find(
+                        (option) => option.value === basicInfo.location
+                      ) || ''
+                    }
                     onChange={(event) =>
                       handleChangeFieldData(event, 'location')
                     }

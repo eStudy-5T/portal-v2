@@ -367,6 +367,9 @@
     "submitProfile": "Submit Profile",
     "typeHere": "Type here",
     "selectHere": "Select here",
-    "thankYou": "Thank you for submitting your profile. We will get in touch with you within 4-5 working days."
+    "thankYou": "Thank you for submitting your profile. We will get in touch with you within 4-5 working days.",
+    "submitSuccessfully": "Submit Successfully",
+    "fieldShouldBeImproved": "Fields that can be improved",
+    "ourAdvice": "Advice from our experts"
   }
 }
