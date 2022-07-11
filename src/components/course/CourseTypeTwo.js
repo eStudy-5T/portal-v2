@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 import InstructorData from '../../data/instructor/InstructorData.json'
 import CourseData from '../../data/course/CourseData.json'
 
+// Images
+import CloneAvatar from '../../assets/images/clone.png'
+
 // i18
 import { useTranslation } from 'react-i18next'
 import {
@@ -63,7 +66,7 @@ function CourseTypeTwo({data}) {
                   to={`${process.env.PUBLIC_URL}/instructor-details/${instructor?.userId}`}
                 >
                   <img
-                    src={`${process.env.PUBLIC_URL}/images/instructor/instructor-small/${instructorThumb}`}
+                    src={`${instructor?.avatar || CloneAvatar}`}
                     alt="Author Thumb"
                   />
                   <span className="author-title">

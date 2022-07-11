@@ -11,6 +11,7 @@ import get from 'lodash/get'
 import courseService from '../../services/course-service'
 import { useNavigate } from 'react-router-dom'
 import { calculateCourseTotalDuration } from '../../utils/helpers/date-helper'
+import { numberWithCommas } from '../../utils/helpers/number-helper'
 
 const data = {
   id: 1,
@@ -59,6 +60,14 @@ function CourseInfo({ courseData, currentUserId }) {
   const [isEnrollVisible, setEnrollVisible] = useState(false)
 
   const [isCourseDisabled, setCourseDisabled] = useState(false)
+
+  const gradeDisplay = (grade) => {
+    switch (grade) {
+      default: return grade
+      case 13: return translation('grades.university')
+      case 14: return translation('grades.complementary')
+    }    
+  }
 
   const enrollCourse = () => {
     if (currentUserId !== null) setIsShown(true)
@@ -162,7 +171,7 @@ function CourseInfo({ courseData, currentUserId }) {
                         <i className="icon-bar-chart-2-line" />
                         {translation('courseDetails.grade')}
                       </span>
-                      <span>{get(courseData, 'grade', '')}</span>
+                      <span>{gradeDisplay(get(courseData, 'grade', ''))}</span>
                     </li>
                   )}
                   {courseData.firstName && courseData.lastName && (
@@ -204,7 +213,7 @@ function CourseInfo({ courseData, currentUserId }) {
                     <button className="edu-btn btn-bg-alt btn-for-show w-100 text-center">
                       {translation('courseDetails.price')}:{' '}
                       {get(courseData, 'price') > 0
-                        ? courseData.price + ' VND'
+                        ? numberWithCommas(courseData.price) + ' VND'
                         : 'Free'}
                     </button>
                   </div>

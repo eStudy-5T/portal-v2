@@ -13,6 +13,10 @@ import userService from '../../services/user-service'
 import { useState } from 'react'
 
 import InstructorData from '../../data/instructor/InstructorData.json'
+
+// Images
+import CloneAvatar from '../../assets/images/clone.png'
+
 // i18
 import { useTranslation } from 'react-i18next'
 
@@ -55,8 +59,8 @@ function InstructorDetails() {
                   <div className="inner">
                     <div className="thumbnail">
                       <img
-                        src={`${process.env.PUBLIC_URL}../images/instructor/instructor-01/${teamMember?.image}`}
-                        alt="Team Member"
+                        src={`${instructor?.avatar || CloneAvatar }`}
+                        alt="Teacher Avatar"
                       />
                     </div>
                     <div className="content">

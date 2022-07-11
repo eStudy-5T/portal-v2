@@ -116,9 +116,10 @@ export const calculateCourseTotalDuration = (
   endTime
 ) => {
   if (scheduleType === COURSE_SCHEDULE_TYPE.PERMANENT) {
-    return (
-      calculatePermanentLessonNumber(startDate, endDate, daysOfWeek) *
-      Math.floor(calculateDuration(startTime, endTime) / 60)
+    return Math.floor(
+      (calculatePermanentLessonNumber(startDate, endDate, daysOfWeek) *
+        calculateDuration(startTime, endTime)) /
+        60
     )
   } else if (scheduleType === COURSE_SCHEDULE_TYPE.FLEXIBLE) {
     const result = calculateFlexibleCourse(

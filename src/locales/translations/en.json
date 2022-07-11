@@ -233,6 +233,8 @@
     "tenth": "Grade 10",
     "eleventh": "Grade 11",
     "twelfth": "Grade 12",
+    "university": "University",
+    "complementary": "Complementary",
     "others": "Others"
   },
   "nationalities": {

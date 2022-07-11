@@ -20,7 +20,7 @@ function EnrollConfirmDialog(props) {
           <img
             className="edu-meeting-link__image"
             src={`${process.env.PUBLIC_URL}/images/feature/meet-photo.png`}
-          ></img>
+          />
           <div className="content-overlay">
             <h4 className="title">
               {translation('courseDetails.enrollConfirm')}

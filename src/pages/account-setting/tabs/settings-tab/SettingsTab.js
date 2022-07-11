@@ -4,12 +4,10 @@ import { SettingsPassword } from './SettingsPassword'
 
 const SettingsTab = ({ disablePasswordChange }) => (
   <>
-    <SettingsNotifications />
-    {!disablePasswordChange && (
-      <Box sx={{ pt: 5 }}>
-        <SettingsPassword />
-      </Box>
-    )}
+    {/* <Box sx={{ pb: 5 }}>
+      <SettingsNotifications />
+    </Box> */}
+    {!disablePasswordChange && <SettingsPassword />}
   </>
 )
 

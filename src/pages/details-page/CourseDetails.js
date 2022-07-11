@@ -715,7 +715,7 @@ function CourseDetails() {
                                   src={`${
                                     teacherInfo && teacherInfo.avatar
                                       ? teacherInfo.avatar
-                                      : '/images/instructor/instructor-02/instructor-1.jpg'
+                                      : CloneAvatar
                                   }`}
                                   alt="Author Thumb"
                                 />
