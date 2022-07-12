@@ -22,6 +22,7 @@ import userService from '../services/user-service'
 import { userActions } from '../redux/store/user-info'
 import useAuthenticate from '../hooks/use-authenticate'
 import useVerify from '../hooks/use-verify'
+import CreateTeacherProfile from '../pages/create-teacher-profile/CreateTeacherProfile'
 
 const PublicRoute = () => {
   localStorage.setItem('currentUrl', window.location.pathname)
@@ -157,6 +158,28 @@ const AppRouter = () => {
             path={`/${path}`}
             key={path}
             element={<RestrictedRoute isAllow={userInfo.isVerifiedToTeach} />}
+          >
+            <Route
+              path={`/${path}`}
+              key={path}
+              exact={exact}
+              element={isAppLoading ? <Loading /> : <Component />}
+            />
+          </Route>
+        ))}
+
+        {/* Allow users that have not submitted teacher profile */}
+        {[
+          {
+            path: 'submit-profile',
+            component: () => <CreateTeacherProfile />,
+            exact: true
+          }
+        ].map(({ component: Component, path, exact }) => (
+          <Route
+            path={`/${path}`}
+            key={path}
+            element={<RestrictedRoute isAllow={!userInfo.isSubmitted} />}
           >
             <Route
               path={`/${path}`}
