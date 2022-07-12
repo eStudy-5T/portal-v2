@@ -33,6 +33,7 @@ function CourseTypeOne({
   setSelectedAction
 }) {
   const { t: translation } = useTranslation()
+  console.log('data', data)
   const [isFavorite, setIsFavorite] = useState(data?.isFavorite || false)
 
   const excerpt = `${
@@ -78,8 +79,12 @@ function CourseTypeOne({
         <div className="thumbnail">
           <Link to={`${process.env.PUBLIC_URL}/course-details/${data?.id}`}>
             <img
-              className="w-100"
-              src={`${process.env.PUBLIC_URL}/images/course/course-01/course-01.jpg`}
+              // className="w-100"
+              style={{ maxHeight: '300px', width: '100%' }}
+              src={
+                data?.courseThumbnailImage ||
+                `${process.env.PUBLIC_URL}/images/course/course-01/course-01.jpg`
+              }
               alt="Course Thumb"
             />
           </Link>

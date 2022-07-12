@@ -48,6 +48,7 @@ const data = {
 }
 
 function CourseInfo({ courseData, currentUserId }) {
+  console.log('courseData', courseData)
   const { t: translation } = useTranslation()
   const navigate = useNavigate()
 
@@ -63,10 +64,13 @@ function CourseInfo({ courseData, currentUserId }) {
 
   const gradeDisplay = (grade) => {
     switch (grade) {
-      default: return grade
-      case 13: return translation('grades.university')
-      case 14: return translation('grades.complementary')
-    }    
+      default:
+        return grade
+      case 13:
+        return translation('grades.university')
+      case 14:
+        return translation('grades.complementary')
+    }
   }
 
   const enrollCourse = () => {
@@ -127,23 +131,35 @@ function CourseInfo({ courseData, currentUserId }) {
           <div className="letmeet-widget">
             <div className="video-area">
               <div className="thumbnail video-popup-wrapper">
-                <img
-                  className="radius-small w-100"
-                  src={`${data.image}`}
-                  alt="Course Video Thumb"
-                />
-                <button
-                  onClick={() => setToggler(!toggler)}
-                  className="video-play-btn position-to-top video-popup-activation"
-                >
-                  <span className="play-icon" />
-                </button>
-                <FsLightbox toggler={toggler} sources={data.videoLink} />
+                <video width="100%" controls>
+                  <source
+                    src={courseData?.courseThumbnailVideo}
+                    type="video/mp4"
+                  />
+                </video>
               </div>
             </div>
             <div className="letmeet-widget-details mt--35">
               <div className="widget-content">
                 <ul>
+                  {courseData.grade && (
+                    <li>
+                      <span>
+                        <i className="icon-bar-chart-2-line" />
+                        {translation('courseDetails.grade')}
+                      </span>
+                      <span>{gradeDisplay(get(courseData, 'grade', ''))}</span>
+                    </li>
+                  )}
+                  {!!courseData.lessonNumberPerWeek && (
+                    <li>
+                      <span>
+                        <i className="icon-reading-book" />
+                        {translation('courseDetails.lessonPerWeek')}
+                      </span>
+                      <span>{courseData?.lessonNumberPerWeek}</span>
+                    </li>
+                  )}
                   {courseData.scheduleType && (
                     <li>
                       <span>
@@ -163,15 +179,6 @@ function CourseInfo({ courseData, currentUserId }) {
                         )}{' '}
                         {translation('courseDetails.hours')}
                       </span>
-                    </li>
-                  )}
-                  {courseData.grade && (
-                    <li>
-                      <span>
-                        <i className="icon-bar-chart-2-line" />
-                        {translation('courseDetails.grade')}
-                      </span>
-                      <span>{gradeDisplay(get(courseData, 'grade', ''))}</span>
                     </li>
                   )}
                   {courseData.firstName && courseData.lastName && (
@@ -205,6 +212,19 @@ function CourseInfo({ courseData, currentUserId }) {
                     <span>
                       {courseData?.endDate &&
                         format(new Date(courseData.endDate), 'dd/MM/yyyy')}
+                    </span>
+                  </li>
+                  <li>
+                    <span>
+                      <i className="icon-calendar-2-line" />
+                      Enroll before
+                    </span>
+                    <span>
+                      {courseData?.enrollmentDeadline &&
+                        format(
+                          new Date(courseData.enrollmentDeadline),
+                          'dd/MM/yyyy'
+                        )}
                     </span>
                   </li>
                 </ul>

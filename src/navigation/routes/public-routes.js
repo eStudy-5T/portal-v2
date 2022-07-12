@@ -11,7 +11,6 @@ import Pricing from '../../pages/pricing-page/Pricing'
 import PrivacyPolicy from '../../pages/privacy-policy/PrivacyPolicy'
 import PurchaseGuide from '../../pages/purchase-guide/PurchaseGuide'
 import InstructorDetails from '../../pages/details-page/InstructorDetails'
-import Test from '../../pages/test/Test'
 
 const publicRoutes = [
   {
@@ -77,11 +76,6 @@ const publicRoutes = [
   {
     path: 'instructor-details/:id',
     component: () => <InstructorDetails />,
-    exact: true
-  },
-  {
-    path: 'test',
-    component: () => <Test />,
     exact: true
   }
 ]

@@ -31,6 +31,7 @@ import ScheduleTimeForm from '../form/ScheduleTimeForm'
 import Select from 'react-select'
 
 import { COURSE_SCHEDULE_TYPE, WEEK_DAYS } from '../../utils/constants/misc'
+import consoleLogger from 'js-console-logger'
 
 const FORMAT_DATE = 'YYYY-MM-DD'
 const FORMAT_TIME = 'h:mma'
@@ -52,15 +53,13 @@ const CourseSchedule = ({
   const [isAddTimeItem, setAddTimeItem] = useState(false)
 
   useEffect(() => {
-    if (courseScheduleData.daysOfWeek) {
+    if (courseScheduleData?.daysOfWeek) {
       const days = courseScheduleData.daysOfWeek.map((day) => {
         return WEEK_DAYS.find((wd) => wd.value === day)
       })
-
       setDaysOfWeek(days)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [courseScheduleData.daysOfWeek])
 
   useEffect(() => {
     if (courseScheduleData.startTime && courseScheduleData.endTime) {
@@ -233,7 +232,10 @@ const CourseSchedule = ({
                 type="date"
                 placeholder="Type here"
                 name="startDate"
-                value={courseScheduleData.startDate || ''}
+                value={
+                  moment(courseScheduleData.startDate).format('YYYY-MM-DD') ||
+                  ''
+                }
                 onChange={handleChangeFieldData}
                 required
               />
@@ -251,7 +253,9 @@ const CourseSchedule = ({
                 type="date"
                 placeholder="Type here"
                 name="endDate"
-                value={courseScheduleData.endDate || ''}
+                value={
+                  moment(courseScheduleData.endDate).format('YYYY-MM-DD') || ''
+                }
                 onChange={handleChangeFieldData}
                 required
               />
@@ -269,7 +273,11 @@ const CourseSchedule = ({
                 type="date"
                 placeholder="Type here"
                 name="enrollmentDeadline"
-                value={courseScheduleData.enrollmentDeadline || ''}
+                value={
+                  moment(courseScheduleData.enrollmentDeadline).format(
+                    'YYYY-MM-DD'
+                  ) || ''
+                }
                 onChange={handleChangeFieldData}
                 required
               />

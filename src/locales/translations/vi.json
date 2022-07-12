@@ -157,7 +157,9 @@
     "enrolledDate": "Ngày vào lớp",
     "nationalities": "Quốc tịch",
     "seeDetails": "Xem chi tiết",
-    "courseDisabled": "Khoá học không khả dụng"
+    "courseDisabled": "Khoá học không khả dụng",
+    "enrollBefore": "Tham gia trước",
+    "lessonPerWeek": "Số buổi trên tuần"
   },
   "classDetails": {
     "duration": "Thời lượng",
@@ -370,5 +372,17 @@
     "submitSuccessfully": "Đăng tải hồ sơ thành công",
     "fieldShouldBeImproved": "Những điểm có thể cải thiện",
     "ourAdvice": "Lời khuyên từ đội ngũ của chúng tôi"
+  },
+  "manageCourse": {
+    "basicInformation": "Thông tin cơ bản",
+    "advancedInformation": "Thông tin nâng cao",
+    "editCourse": "Chỉnh sửa khóa học",
+    "schedule": "Thông tin lịch học",
+    "advancedSchedule": "Thông tin lịch học nâng cao",
+    "uploadThumbnail": "Tải lên",
+    "courseThumbnailVideo": "Trình chiếu thu nhỏ",
+    "courseThumbnailImage": "Ảnh khóa học thu nhỏ",
+    "whatStudentsGet": "Học sinh của bạn sẽ học được gì thông qua khóa học này",
+    "hintWhatStudentsGet": "Hãy trình bày rõ ràng và nên trình bày dưới dạng danh sách mục"
   }
 }

@@ -158,7 +158,9 @@
     "enrolledDate": "Enrolled Date",
     "nationalities": "Nationalities",
     "seeDetails": "See details",
-    "courseDisabled": "Course is disabled"
+    "courseDisabled": "Course is disabled",
+    "enrollBefore": "Enroll before",
+    "lessonPerWeek": "Lesson per Week"
   },
   "classDetails": {
     "duration": "Duration",
@@ -371,5 +373,17 @@
     "submitSuccessfully": "Submit Successfully",
     "fieldShouldBeImproved": "Fields that can be improved",
     "ourAdvice": "Advice from our experts"
+  },
+  "manageCourse": {
+    "basicInformation": "Basic Information",
+    "advancedInformation": "Advanced Information",
+    "editCourse": "Edit course",
+    "schedule": "Schedule",
+    "advancedSchedule": "Advanced Schedule Inforamtion",
+    "uploadThumbnail": "Upload thumbnail",
+    "courseThumbnailVideo": "Course thumbnail video",
+    "courseThumbnailImage": "Course thumbnail image",
+    "whatStudentsGet": "What will your students learn from this course",
+    "hintWhatStudentsGet": "Please be specific, and it should be presented as a list of things."
   }
 }

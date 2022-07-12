@@ -160,6 +160,8 @@ const TeacherCourses = () => {
 
   const handleAddNewCourse = () => navigate('/new-course')
 
+  const handleEditCourse = (courseId) => navigate(`/edit-course/${courseId}`)
+
   return (
     <DashboardLayout items={teacherTabs}>
       <SEO title="Teacher Courses" />
@@ -352,7 +354,9 @@ const TeacherCourses = () => {
                                   )}
                                 </TableCell>
                                 <TableCell>
-                                  <IconButton component={Link} to="#">
+                                  <IconButton
+                                    onClick={() => handleEditCourse(course.id)}
+                                  >
                                     <EditIcon />
                                   </IconButton>
                                 </TableCell>
