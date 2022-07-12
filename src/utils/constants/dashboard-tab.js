@@ -2,8 +2,7 @@ import {
   IconCertificate,
   IconDashboard,
   IconSchool,
-  IconList,
-  IconUser
+  IconList
 } from '@tabler/icons'
 
 export const teacherTabs = [
@@ -16,11 +15,6 @@ export const teacherTabs = [
     href: '/teacher-courses',
     icon: <IconList />,
     title: 'dashboard.courses'
-  },
-  {
-    href: '/edit-teacher-profile',
-    icon: <IconUser />,
-    title: 'dashboard.teacherProfile'
   }
 ]
 

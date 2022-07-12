@@ -248,18 +248,18 @@ function CourseOne() {
                 <div className="row g-5 mt--10">
                   {isLoading ? (
                     <>
-                      <div className="col-sm-6 col-lg-6">
+                      <div className="col-sm-12 col-md-6 col-lg-6">
                         <Skeleton
                           variant="rectangular"
-                          sx={{ borderRadius: '5px' }}
+                          sx={{ borderRadius: '5px', maxWidth: '100%' }}
                         >
                           <CourseTypeOne />
                         </Skeleton>
                       </div>
-                      <div className="col-sm-6 col-lg-6">
+                      <div className="col-sm-12 col-md-6 col-lg-6">
                         <Skeleton
                           variant="rectangular"
-                          sx={{ borderRadius: '5px' }}
+                          sx={{ borderRadius: '5px', maxWidth: '100%' }}
                         >
                           <CourseTypeOne />
                         </Skeleton>
@@ -271,7 +271,7 @@ function CourseOne() {
                         <ScrollAnimation
                           animateIn="fadeInUp"
                           animateOut="fadeInOut"
-                          className="col-sm-6 col-lg-6"
+                          className="col-sm-12 col-md-6 col-lg-6"
                           animateOnce
                           key={item.id}
                         >
@@ -290,7 +290,14 @@ function CourseOne() {
               </div>
               <div className="col-lg-4">
                 {userId ? (
-                  <div className="edu-course-widget mb-5">
+                  <div
+                    className="edu-course-widget mb-5"
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center'
+                    }}
+                  >
                     <FormControlLabel
                       control={
                         <Checkbox

@@ -183,7 +183,7 @@ function ReviewsTabContent(data) {
   const reviewsEndRef = useRef(null)
 
   const scrollToBottom = () => {
-    reviewsEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    reviewsEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   useEffect(() => {
@@ -201,7 +201,7 @@ function ReviewsTabContent(data) {
           setTotalRateCount(CourseReviewsData.count)
           setCourseReviews(CourseReviewsData.data)
           CourseReviewsData.data.forEach((review) => {
-            if(review.userId === currentUserId) setIsReviewable(false)
+            if (review.userId === currentUserId) setIsReviewable(false)
             switch (review.rate) {
               default:
                 break
@@ -234,7 +234,7 @@ function ReviewsTabContent(data) {
           setFiveStarRateCount(countFiveStar)
         }
       })
-    
+
     currentUserId &&
       courseService
         .getEnrolledStudents(data.courseId)
@@ -408,13 +408,16 @@ function ReviewsTabContent(data) {
                 <div className="thumbnail">
                   <img
                     src={review.user.avatar || CloneAvatar}
-                    style={{width: '70px', height: '70px'}}
+                    style={{ width: '70px', height: '70px' }}
                     alt="Student Thumb"
                   />
                 </div>
                 <div className="comment-content">
                   <div className="comment-top">
-                    <h6 className="title mb--0">{`${get(review, 'username')}`}</h6>
+                    <h6 className="title mb--0">{`${get(
+                      review,
+                      'username'
+                    )}`}</h6>
                     <div className="rating letmeet-course-rating-stars">
                       <i
                         className={
@@ -531,7 +534,7 @@ function CourseDetails() {
                 <div className="main-image thumbnail">
                   <img
                     className="radius-small"
-                    src={`${courseItem.imageDetails}`}
+                    src={`${courseData?.courseThumbnailImage}`}
                     alt="Course Thumb"
                   />
                 </div>
@@ -541,50 +544,7 @@ function CourseDetails() {
             <div className="row g-5">
               <div className="col-xl-8 col-lg-7">
                 <div className="course-details-content">
-                  <div className="content-top">
-                    {/* <div className="author-meta">
-                      <div className="author-thumb">
-                        <Link
-                          to={`${
-                            process.env.PUBLIC_URL
-                          }/instructor-details/${slugify(
-                            courseItem.instructor
-                          )}`}
-                        >
-                          <img
-                            src={`${teacherInfo.avatar ? teacherInfo.avatar : '/images/course/student-review/student-1.png'}`}
-                            alt="Author Thumb"
-                          />
-                          <span className="author-title">
-                            {' '}{teacherFullName}
-                          </span>
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="edu-rating rating-default letmeet-course-rating-stars">
-                      <div className="rating letmeet-course-rating-stars">
-                        {courseData && (
-                          <Rating
-                            readOnly
-                            value={courseData.rating}
-                            precision={0.5}
-                            size="medium"
-                            sx={{ color: '#ffa41b' }}
-                            emptyIcon={
-                              <StarBorderIcon
-                                fontSize="inherit"
-                                sx={{ color: '#ffa41b' }}
-                              ></StarBorderIcon>
-                            }
-                          ></Rating>
-                        )}
-                      </div>
-                      <span className="rating-count">
-                        ({courseItem.review} {translation("courseDetails.reviews")})
-                      </span>
-                    </div> */}
-                  </div>
-
+                  <div className="content-top"></div>
                   <h3 className="title">
                     {courseData ? courseData.title : null}
                   </h3>
@@ -670,7 +630,9 @@ function CourseDetails() {
                                 : null,
                               `<h5>${translation(
                                 'courseDetails.whatWillYouLearn'
-                              )}</h5>`
+                              )}</h5>`.concat(
+                                courseData ? courseData.whatStudentsGets : null
+                              )
                             )
                           }}
                         />
