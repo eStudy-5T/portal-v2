@@ -81,7 +81,7 @@ const TeacherCourses = () => {
 
   const calculateTableHeight = useCallback(() => {
     const { top } = tableRef.current?.getBoundingClientRect() || {}
-    const calculatedHeight = window.innerHeight - top - 90
+    const calculatedHeight = window.innerHeight - top - window.innerHeight * 0.1
     setTableHeight(Math.max(calculatedHeight, 300))
   }, [])
 

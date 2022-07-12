@@ -12,9 +12,16 @@ function CategoryFilter(props) {
   }
 
   useEffect(() => {
+    let isMounted = true
     courseService.getCategoryOptions().then(({ data }) => {
-      setCategories(data)
+      if (isMounted) {
+        setCategories(data)
+      }
     })
+
+    return () => {
+      isMounted = false
+    }
   }, [])
 
   return (

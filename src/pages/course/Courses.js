@@ -206,7 +206,7 @@ function CourseOne() {
         <div className="edu-course-area edu-section-gap bg-color-white">
           <div className="container">
             <div className="row g-5">
-              <div className="col-lg-9">
+              <div className="col-lg-8">
                 <div className="row g-5 align-items-center">
                   <div className="col-lg-6 col-md-6 col-12">
                     <div className="short-by">
@@ -288,7 +288,7 @@ function CourseOne() {
                   )}
                 </div>
               </div>
-              <div className="col-lg-3">
+              <div className="col-lg-4">
                 {userId ? (
                   <div className="edu-course-widget mb-5">
                     <FormControlLabel

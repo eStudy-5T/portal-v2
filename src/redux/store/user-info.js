@@ -16,7 +16,8 @@ const initialState = {
     // teacher info field
   },
   doesGoogleGrantAccess: false,
-  isLoggedinWithSocialAccount: false
+  isLoggedinWithSocialAccount: false,
+  isSubmitted: false
 }
 
 const userInfoSlice = createSlice({
@@ -48,6 +49,7 @@ const userInfoSlice = createSlice({
       state.doesGoogleGrantAccess = action.payload.doesGoogleGrantAccess
       state.isLoggedinWithSocialAccount =
         action.payload.isLoggedinWithSocialAccount
+      state.isSubmitted = action.payload.isSubmitted
     },
     addTeacherInfo(state, action) {
       // update teacher info to info if need
