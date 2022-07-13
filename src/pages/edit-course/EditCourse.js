@@ -15,10 +15,12 @@ import {
   Container,
   Accordion,
   AccordionSummary,
-  AccordionDetails
+  AccordionDetails,
+  CircularProgress
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import courseService from '../../services/course-service'
+import { toast } from 'react-toastify'
 
 const initializeCourseBasic = {
   type: COURSE_TYPE.RUNNING,
@@ -59,6 +61,8 @@ const initializeAdvancedSchedule = {
 const EditCourse = () => {
   const { t: translation } = useTranslation()
   const { courseId } = useParams()
+  const [isLoading, setLoading] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
   const [courseBasicData, setCourseBasicData] = useState(initializeCourseBasic)
   const [courseScheduleData, setCourseScheduleData] = useState(
     initializeCourseSchedule
@@ -89,6 +93,7 @@ const EditCourse = () => {
     let isMounted = true
 
     async function fetchData() {
+      setIsFetching(true)
       const { data } = await courseService.getSpecificCourse(courseId)
       if (isMounted) {
         setCourseBasicData({
@@ -124,6 +129,8 @@ const EditCourse = () => {
         setCourseAdvancedSchedule({
           link: data.link
         })
+
+        setIsFetching(false)
       }
     }
 
@@ -231,20 +238,23 @@ const EditCourse = () => {
 
   const handleEditCourse = () => {
     setIsBlocking(false)
+    setLoading(true)
     const courseData = {
       ...courseBasicData,
       ...courseScheduleData,
       ...courseAdvancedData,
       ...courseAdvancedSchedule
     }
+
+    console.log(courseData)
     const formData = new FormData()
     for (let field in courseData) {
-      if (/daysOfWeek|tags|schedules/.test(field)) {
-        if (courseData[field]) {
+      if (courseData[field]) {
+        if (/daysOfWeek|tags|schedules/.test(field)) {
           formData.append(field, JSON.stringify(courseData[field]))
+        } else {
+          formData.append(field, courseData[field])
         }
-      } else {
-        formData.append(field, courseData[field])
       }
     }
 
@@ -252,10 +262,14 @@ const EditCourse = () => {
       .updateCourse(courseId, formData)
       .then((res) => {
         if (res) {
-          console.log('hello hehe')
+          setLoading(false)
+          toast.success(translation('manageCourse.updateSuccessfully'))
         }
       })
-      .catch(console.log)
+      .catch((err) => {
+        setLoading(false)
+        throw new Error(err)
+      })
   }
 
   return (
@@ -305,6 +319,7 @@ const EditCourse = () => {
                 className="wizard-form-2"
               >
                 <AdvancedInformation
+                  isFetching={isFetching}
                   courseAdvancedData={courseAdvancedData}
                   handleChangeAdvancedData={handleChangeAdvancedData}
                 />
@@ -369,9 +384,27 @@ const EditCourse = () => {
               mt: 4,
               width: '100%'
             }}
-            onClick={handleEditCourse}
           >
-            <button className="profile__submit">
+            <button
+              className="profile__submit"
+              onClick={handleEditCourse}
+              disabled={isLoading}
+            >
+              {isLoading && (
+                <CircularProgress
+                  thickness={5}
+                  sx={{
+                    color: 'red',
+                    position: 'absolute',
+                    margin: 'auto',
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    padding: 1
+                  }}
+                />
+              )}
               {translation('manageCourse.editCourse')}
             </button>
           </Box>

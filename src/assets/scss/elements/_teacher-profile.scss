@@ -247,6 +247,7 @@
   }
 
   &__submit {
+    position: relative;
     border-radius: 5px;
     display: inline-block;
     color: var(--color-white);
