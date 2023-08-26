@@ -7,7 +7,6 @@ import AppRouter from './navigation/app-router'
 import { createTheme } from '@mui/material/styles'
 import { ThemeProvider } from '@mui/material'
 
-// Import Css Here
 import './assets/scss/style.scss'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
